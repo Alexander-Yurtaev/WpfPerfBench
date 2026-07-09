@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Bogus" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WpfPrefBench.Data\WpfPrefBench.Data.csproj" />
+  </ItemGroup>
+
 </Project>

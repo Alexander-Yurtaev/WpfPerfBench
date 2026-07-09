@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
+using WpfPrefBench.Data;
+using WpfPrefBench.Data.DataContexts;
+using WpfPrefBench.Data.Repositories;
 
 namespace WpfPrefBench;
 
@@ -48,7 +51,11 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         // 
-        services.AddAutoMapper(_ => { }, typeof(App).Assembly);
+        services.AddSingleton<IUserSession>(new UserSession());
+        services.AddSingleton<IDataContextFactory, DataContextFactory>();
+        services.AddAutoMapper(cfg => cfg.AddMaps(typeof(App).Assembly));
+
+        services.AddTransient<ICategoryRepository, CategoryRepository>();
 
         ServiceProvider = services.BuildServiceProvider();
     }

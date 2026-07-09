@@ -3,8 +3,15 @@ using WpfPrefBench.Data.Entities;
 
 namespace WpfPrefBench.Data.DataContexts;
 
-public abstract class BaseDbContext(DbContextOptions options) : DbContext(options)
+public abstract class BaseDbContext(DbContextOptions options) : DbContext(options), IWpfPrefBenchContext
 {
+    #region Implementation of IWpfPrefBenchContext
+
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Item> Items { get; set; }
+
+    #endregion
+
     #region Overrides of DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
