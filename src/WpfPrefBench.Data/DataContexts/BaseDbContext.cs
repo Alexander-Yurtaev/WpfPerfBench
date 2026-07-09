@@ -61,6 +61,11 @@ public abstract class BaseDbContext(DbContextOptions options) : DbContext(option
             i.Property(x => x.DeliveryLatitude).IsRequired(true).HasComment("Широта (доставки)");
             i.Property(x => x.DeliveryLongitude).IsRequired(true).HasComment("Долгота (доставки)");
             i.Property(x => x.IsDeleted).IsRequired(true).HasDefaultValue(false).HasComment("Удалено");
+
+            i.HasOne(a => a.Category)
+                .WithMany(b => b.Items)
+                .HasForeignKey(c => c.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
         });
     }
 
