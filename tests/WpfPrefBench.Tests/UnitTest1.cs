@@ -1,4 +1,4 @@
-﻿namespace WpfPrefBrench.Tests;
+﻿namespace WpfPrefBench.Tests;
 
 public class UnitTest1
 {
