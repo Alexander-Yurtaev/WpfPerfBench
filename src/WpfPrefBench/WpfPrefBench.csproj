@@ -8,4 +8,13 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WpfPrefBench.Core\WpfPrefBench.Core.csproj" />
+    <ProjectReference Include="..\WpfPrefBench.Data\WpfPrefBench.Data.csproj" />
+  </ItemGroup>
+
 </Project>

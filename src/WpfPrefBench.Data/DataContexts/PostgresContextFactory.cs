@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using WpfPrefBench.Data.DataContexts;
 
-namespace WpfPrefBench.Data;
+namespace WpfPrefBench.Data.DataContexts;
 
 public class PostgresContextFactory : IDesignTimeDbContextFactory<PostgresDataContext>
 {
