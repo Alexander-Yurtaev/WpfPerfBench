@@ -3,7 +3,7 @@
     public class Category : BaseEntity
     {
         public string Name { get; set; } = string.Empty;
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
         public virtual Category? Parent { get; set; }
         public bool IsActive { get; set; }
         public int SortOrder { get; set; }
