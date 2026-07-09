@@ -42,6 +42,26 @@ public abstract class BaseDbContext(DbContextOptions options) : DbContext(option
                 new Category{Id=12, Name = "Восток", ParentId = 7, IsActive = true, Color = "#FF5722"},
             ]);
         });
+
+        modelBuilder.Entity<Item>(i =>
+        {
+            i.HasKey(x => x.Id).HasName("Уникальный ID");
+            i.Property(x => x.CategoryId).HasComment("Привязка к категории");
+            i.Property(x => x.Name).HasMaxLength(200).IsRequired(true).HasComment("Название элемента");
+            i.Property(x => x.Status).HasMaxLength(50).IsRequired(true).HasComment("Статус");
+            i.Property(x => x.Priority).HasMaxLength(50).IsRequired(true).HasComment("Приоритет");
+            i.Property(x => x.CreatedAt).IsRequired(true).HasComment("Дата создания");
+            i.Property(x => x.Price).IsRequired(true).HasComment("Цена");
+            i.Property(x => x.Weight).IsRequired(true).HasComment("Вес");
+            i.Property(x => x.IsFragile).IsRequired(true).HasDefaultValue(false).HasComment("Хрупкий");
+            i.Property(x => x.IsUrgent).IsRequired(true).HasDefaultValue(false).HasComment("Срочный");
+            i.Property(x => x.Comments).IsRequired(false).HasComment("Комментарий");
+            i.Property(x => x.Latitude).IsRequired(true).HasComment("Широта (отправление)");
+            i.Property(x => x.Longitude).IsRequired(true).HasComment("Долгота (отправление)");
+            i.Property(x => x.DeliveryLatitude).IsRequired(true).HasComment("Широта (доставки)");
+            i.Property(x => x.DeliveryLongitude).IsRequired(true).HasComment("Долгота (доставки)");
+            i.Property(x => x.IsDeleted).IsRequired(true).HasDefaultValue(false).HasComment("Удалено");
+        });
     }
 
     #endregion
