@@ -4,7 +4,7 @@ services:
     container_name: mssql-server
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "YourStrong!Passw0rd"
+      SA_PASSWORD: "Wpf_Pref_Bench_26"
     ports:
       - "1433:1433"
     volumes:

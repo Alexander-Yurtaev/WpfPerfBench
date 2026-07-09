@@ -1,11 +1,11 @@
 services:
   postgres:
     image: postgres:16
-    container_name: postgres-server
+    container_name: pgdb-server
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydatabase
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Wpf_Pref_Bench_26
+      POSTGRES_DB: wpf_pref_bench
     ports:
       - "5432:5432"
     volumes:
