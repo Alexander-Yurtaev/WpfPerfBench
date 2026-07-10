@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
+﻿using Microsoft.EntityFrameworkCore.Design;
 
 namespace WpfPrefBench.Data.DataContexts;
 
@@ -9,13 +8,9 @@ public class PostgresContextFactory : IDesignTimeDbContextFactory<PostgresDataCo
 
     public PostgresDataContext CreateDbContext(string[] args)
     {
-        var optionsBuilder = new DbContextOptionsBuilder<PostgresDataContext>();
-
-        if (args.Length == 0) throw new ArgumentNullException(nameof(args));
-
-        optionsBuilder.UseNpgsql(args[0]);
-
-        return new PostgresDataContext(optionsBuilder.Options);
+        return args.Length == 0 
+            ? throw new ArgumentNullException(nameof(args)) 
+            : new PostgresDataContext(args[0]);
     }
 
     #endregion
