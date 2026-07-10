@@ -5,7 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfPerfBench.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="350">
+             d:DesignHeight="450" d:DesignWidth="500">
+
+    <UserControl.Resources>
+        <Style TargetType="Border"
+               x:Key="BorderContentStyle">
+            <Setter Property="Background" Value="#ffffff"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="25"/>
+            <Setter Property="BorderBrush" Value="#d0d0d8"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,6 +25,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <local:HeaderControl Grid.Row="0"/>
-
+        <Border Grid.Row="1"
+                Style="{StaticResource BorderContentStyle}">
+            <ContentControl Background="Aqua"/>
+        </Border>
+        <local:FooterControl Grid.Row="2"/>
     </Grid>
 </UserControl>

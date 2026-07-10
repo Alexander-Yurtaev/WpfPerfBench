@@ -11,13 +11,13 @@
         Title="WPF Performance Demo" 
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        Height="450" Width="800">
+        Height="916" Width="612">
 
     <b:Interaction.Behaviors>
         <behaviors:DragMoveBehavior/>
     </b:Interaction.Behaviors>
 
     <Grid>
-        <controls:MainControl IsHitTestVisible="True"/>
+        <controls:MainControl />
     </Grid>
 </Window>
