@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="WpfPerfBench.Controls.HeaderControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfPerfBench.Controls"
+             mc:Ignorable="d" 
+             d:DesignWidth="350">
+
+    <UserControl.Resources>
+        <Style x:Key="IconHeaderStyle"
+               TargetType="TextBlock">
+
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="BorderThickness" Value="0 0 0 1"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+        </Style>
+        <Style x:Key="ContentHeaderStyle"
+               TargetType="TextBlock">
+
+        </Style>
+    </UserControl.Resources>
+
+    <Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" 
+                       Style="{StaticResource IconHeaderStyle}"
+                       Text="🚀"/>
+            <TextBlock Grid.Column="1"
+                       Style="{StaticResource ContentHeaderStyle}"
+                       Text="Окно инициализации"/>
+            <local:PagerControl Grid.Column="2"/>
+        </Grid>
+    </Border>
+</UserControl>

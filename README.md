@@ -1,4 +1,4 @@
-# WpfPrefBench
+# WpfPerfBench
 
 ```bash
 # Äëÿ Postgres
@@ -9,7 +9,7 @@ docker compose -f docker-compose-mssql.yml up -d
 ```
 
 ```bash
-cd src\WpfPrefBench.Data
+cd src\WpfPerfBench.Data
 ```
 
 ```bash
