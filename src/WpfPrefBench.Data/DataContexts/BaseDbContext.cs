@@ -74,7 +74,7 @@ public abstract class BaseDbContext : DbContext, IWpfPrefBenchContext
 
     #endregion
 
-    protected void CategorySeed(DbContext context, bool flag)
+    protected async Task CategorySeed(DbContext context, bool flag, CancellationToken ct)
     {
         if (!context.Set<Category>().Any())
         {
@@ -92,8 +92,9 @@ public abstract class BaseDbContext : DbContext, IWpfPrefBenchContext
                 new Category { Id = 10, Name = "Юг", ParentId = 7, IsActive = true, Color = "#88C34A" },
                 new Category { Id = 11, Name = "Запад", ParentId = 7, IsActive = true, Color = "#9C27B0" },
                 new Category { Id = 12, Name = "Восток", ParentId = 7, IsActive = true, Color = "#FF5722" },
-
             };
+            await context.Set<Category>().AddRangeAsync(categories, ct);
+            await context.SaveChangesAsync(ct);
         }
     }
 }

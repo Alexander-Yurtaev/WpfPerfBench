@@ -19,7 +19,7 @@ public class PostgresDataContext : BaseDbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql(ConnectionString)
-            .UseSeeding(CategorySeed);
+            .UseAsyncSeeding(CategorySeed);
     }
 
     #endregion

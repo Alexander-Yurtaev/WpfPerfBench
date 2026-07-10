@@ -19,7 +19,7 @@ public class MsSqlDataContext : BaseDbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(ConnectionString)
-            .UseSeeding(CategorySeed);
+            .UseAsyncSeeding(CategorySeed);
     }
 
     #endregion
