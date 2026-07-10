@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WpfPrefBench.Data.DataContexts;
@@ -11,9 +12,11 @@ using WpfPrefBench.Data.DataContexts;
 namespace WpfPrefBench.Data.Migrations.Postgres
 {
     [DbContext(typeof(PostgresDataContext))]
-    partial class PostgresDataContextModelSnapshot : ModelSnapshot
+    [Migration("20260710112345_ChangeSeeding")]
+    partial class ChangeSeeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
