@@ -74,27 +74,39 @@ public abstract class BaseDbContext : DbContext, IWpfPrefBenchContext
 
     #endregion
 
-    protected async Task CategorySeed(DbContext context, bool flag, CancellationToken ct)
+    protected void CategorySeed(DbContext context, bool flag)
     {
-        if (!context.Set<Category>().Any())
-        {
-            var categories = new Category[]
-            {
-                new Category { Id = 1, Name = "Все заказы", ParentId = null, IsActive = true, Color = "#000000" },
-                new Category { Id = 2, Name = "По статусам", ParentId = 1, IsActive = true, Color = "#333333" },
-                new Category { Id = 3, Name = "Новые", ParentId = 2, IsActive = true, Color = "#4CAF50" },
-                new Category { Id = 4, Name = "В пути", ParentId = 2, IsActive = true, Color = "#FF9800" },
-                new Category { Id = 5, Name = "Доставлены", ParentId = 2, IsActive = true, Color = "#2196F3" },
-                new Category { Id = 6, Name = "Отменены", ParentId = 2, IsActive = true, Color = "#F44336" },
-                new Category { Id = 7, Name = "По зонам", ParentId = 1, IsActive = true, Color = "#333333" },
-                new Category { Id = 8, Name = "Центр", ParentId = 7, IsActive = true, Color = "#E91E63" },
-                new Category { Id = 9, Name = "Север", ParentId = 7, IsActive = true, Color = "#00BCD4" },
-                new Category { Id = 10, Name = "Юг", ParentId = 7, IsActive = true, Color = "#88C34A" },
-                new Category { Id = 11, Name = "Запад", ParentId = 7, IsActive = true, Color = "#9C27B0" },
-                new Category { Id = 12, Name = "Восток", ParentId = 7, IsActive = true, Color = "#FF5722" },
-            };
-            await context.Set<Category>().AddRangeAsync(categories, ct);
-            await context.SaveChangesAsync(ct);
-        }
+        if (context.Set<Category>().Any()) return;
+        var categories = GetCategories();
+        context.Set<Category>().AddRange(categories);
+        context.SaveChanges();
+    }
+
+    protected async Task CategorySeedAsync(DbContext context, bool flag, CancellationToken ct)
+    {
+        if (context.Set<Category>().Any()) return;
+
+        var categories = GetCategories();
+        await context.Set<Category>().AddRangeAsync(categories, ct);
+        await context.SaveChangesAsync(ct);
+    }
+
+    private Category[] GetCategories()
+    {
+        return
+        [
+            new Category { Id = 1, Name = "Все заказы", ParentId = null, IsActive = true, Color = "#000000" },
+            new Category { Id = 2, Name = "По статусам", ParentId = 1, IsActive = true, Color = "#333333" },
+            new Category { Id = 3, Name = "Новые", ParentId = 2, IsActive = true, Color = "#4CAF50" },
+            new Category { Id = 4, Name = "В пути", ParentId = 2, IsActive = true, Color = "#FF9800" },
+            new Category { Id = 5, Name = "Доставлены", ParentId = 2, IsActive = true, Color = "#2196F3" },
+            new Category { Id = 6, Name = "Отменены", ParentId = 2, IsActive = true, Color = "#F44336" },
+            new Category { Id = 7, Name = "По зонам", ParentId = 1, IsActive = true, Color = "#333333" },
+            new Category { Id = 8, Name = "Центр", ParentId = 7, IsActive = true, Color = "#E91E63" },
+            new Category { Id = 9, Name = "Север", ParentId = 7, IsActive = true, Color = "#00BCD4" },
+            new Category { Id = 10, Name = "Юг", ParentId = 7, IsActive = true, Color = "#88C34A" },
+            new Category { Id = 11, Name = "Запад", ParentId = 7, IsActive = true, Color = "#9C27B0" },
+            new Category { Id = 12, Name = "Восток", ParentId = 7, IsActive = true, Color = "#FF5722" }
+        ];
     }
 }

@@ -19,7 +19,8 @@ public class MsSqlDataContext : BaseDbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(ConnectionString)
-            .UseAsyncSeeding(CategorySeed);
+            .UseSeeding(CategorySeed)
+            .UseAsyncSeeding(CategorySeedAsync);
     }
 
     #endregion
