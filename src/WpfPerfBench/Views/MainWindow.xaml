@@ -19,6 +19,11 @@
         <behaviors:DragMoveBehavior/>
     </b:Interaction.Behaviors>
 
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close"
+                        Executed="CloseCommandHandler" />
+    </Window.CommandBindings>
+
     <Window.Resources>
         <Style TargetType="Border"
                x:Key="BorderContentStyle">
@@ -36,11 +41,18 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <controls:Header Grid.Row="0" 
-                                Icon="{Binding CurrentViewModel.Icon}"
-                                Title="{Binding CurrentViewModel.Title}"
-                                CurrentStep="{Binding CurrentStep}"
-                                TotalSteps="{Binding TotalSteps}"/>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <controls:Header Grid.Column="0" 
+                             Icon="{Binding CurrentViewModel.Icon}"
+                             Title="{Binding CurrentViewModel.Title}"
+                             CurrentStep="{Binding CurrentStep}"
+                             TotalSteps="{Binding TotalSteps}"/>
+            <Button Grid.Column="1" Content="X" Command="ApplicationCommands.Close"/>
+        </Grid>
         <Border Grid.Row="1"
                 Style="{StaticResource BorderContentStyle}">
             <ContentControl Content="{Binding CurrentViewModel}">

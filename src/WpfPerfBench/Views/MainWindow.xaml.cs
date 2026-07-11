@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using WpfPerfBench.ViewModels;
 
 namespace WpfPerfBench.Views;
@@ -12,5 +13,10 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = viewModel;
+    }
+
+    private void CloseCommandHandler(object sender, ExecutedRoutedEventArgs e)
+    {
+        this.Close();
     }
 }
