@@ -4,7 +4,9 @@
              xmlns:local="clr-namespace:WpfPerfBench">
     <Application.Resources>
         <SolidColorBrush x:Key="BgCard" Color="#ffffff"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#1a1a2e"/>
         <SolidColorBrush x:Key="TextSecondary" Color="#3a3a52"/>
+        <SolidColorBrush x:Key="Accent" Color="#4a7abf"/>
         <SolidColorBrush x:Key="BorderColor" Color="#d0d0d8"/>
         <SolidColorBrush x:Key="BgSecondary" Color="#e8e8ee"/>
     </Application.Resources>
