@@ -51,7 +51,10 @@
                              Title="{Binding CurrentViewModel.Title}"
                              CurrentStep="{Binding CurrentStep}"
                              TotalSteps="{Binding TotalSteps}"/>
-            <Button Grid.Column="1" Content="X" Command="ApplicationCommands.Close"/>
+            <Button Grid.Column="1" 
+                    VerticalAlignment="Center"
+                    Content="X" 
+                    Command="ApplicationCommands.Close"/>
         </Grid>
         <Border Grid.Row="1"
                 Style="{StaticResource BorderContentStyle}">

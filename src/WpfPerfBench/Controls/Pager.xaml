@@ -9,12 +9,13 @@
 
     <UserControl.Resources>
         <Style TargetType="Border">
-            <Setter Property="Background" Value="#e8e8ee"/>
+            <Setter Property="Background" Value="{StaticResource BgSecondary}"/>
+            <Setter Property="Padding" Value="8 2"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="12 2"/>
-            <Setter Property="CornerRadius" Value="30"/>
+            <Setter Property="CornerRadius" Value="15"/>
         </Style>
         <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Margin" Value="0 0 2 0"/>
         </Style>
