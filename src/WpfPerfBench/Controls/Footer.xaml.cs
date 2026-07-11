@@ -4,18 +4,18 @@ using System.Windows.Controls;
 namespace WpfPerfBench.Controls
 {
     /// <summary>
-    /// Interaction logic for FooterControl.xaml
+    /// Interaction logic for Footer.xaml
     /// </summary>
-    public partial class FooterControl : UserControl
+    public partial class Footer : UserControl
     {
-        public FooterControl()
+        public Footer()
         {
             InitializeComponent();
         }
 
         // Title
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
-            nameof(Title), typeof(string), typeof(FooterControl), new PropertyMetadata("Пояснение"));
+            nameof(Title), typeof(string), typeof(Footer), new PropertyMetadata("Пояснение"));
 
         public string Title
         {

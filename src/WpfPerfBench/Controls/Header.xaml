@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WpfPerfBench.Controls.HeaderControl"
+﻿<UserControl x:Class="WpfPerfBench.Controls.Header"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -31,13 +31,13 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Style="{StaticResource IconHeaderStyle}"
-                       Text="{Binding RelativeSource={RelativeSource AncestorType=local:HeaderControl, Mode=FindAncestor}, Path=Icon}"/>
+                       Text="{Binding RelativeSource={RelativeSource AncestorType=local:Header, Mode=FindAncestor}, Path=Icon}"/>
             <TextBlock Grid.Column="1"
                        Style="{StaticResource ContentHeaderStyle}"
-                       Text="{Binding RelativeSource={RelativeSource AncestorType=local:HeaderControl, Mode=FindAncestor}, Path=Title}"/>
-            <local:PagerControl Grid.Column="2"
-                                CurrentStep="{Binding RelativeSource={RelativeSource AncestorType=local:HeaderControl, Mode=FindAncestor}, Path=CurrentStep}"
-                                TotalSteps="{Binding RelativeSource={RelativeSource AncestorType=local:HeaderControl, Mode=FindAncestor}, Path=TotalSteps}"/>
+                       Text="{Binding RelativeSource={RelativeSource AncestorType=local:Header, Mode=FindAncestor}, Path=Title}"/>
+            <local:Pager Grid.Column="2"
+                                CurrentStep="{Binding RelativeSource={RelativeSource AncestorType=local:Header, Mode=FindAncestor}, Path=CurrentStep}"
+                                TotalSteps="{Binding RelativeSource={RelativeSource AncestorType=local:Header, Mode=FindAncestor}, Path=TotalSteps}"/>
         </Grid>
     </Border>
 </UserControl>

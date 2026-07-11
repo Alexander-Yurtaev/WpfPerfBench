@@ -4,18 +4,18 @@ using System.Windows.Controls;
 namespace WpfPerfBench.Controls
 {
     /// <summary>
-    /// Interaction logic for PagerControl.xaml
+    /// Interaction logic for Pager.xaml
     /// </summary>
-    public partial class PagerControl : UserControl
+    public partial class Pager : UserControl
     {
-        public PagerControl()
+        public Pager()
         {
             InitializeComponent();
         }
 
         // CurrentStep
         public static readonly DependencyProperty CurrentStepProperty = DependencyProperty.Register(
-            nameof(CurrentStep), typeof(int), typeof(PagerControl), new PropertyMetadata(0));
+            nameof(CurrentStep), typeof(int), typeof(Pager), new PropertyMetadata(0));
 
         public int CurrentStep
         {
@@ -25,7 +25,7 @@ namespace WpfPerfBench.Controls
 
         // TotalSteps
         public static readonly DependencyProperty TotalStepsProperty = DependencyProperty.Register(
-            nameof(TotalSteps), typeof(int), typeof(PagerControl), new PropertyMetadata(0));
+            nameof(TotalSteps), typeof(int), typeof(Pager), new PropertyMetadata(0));
 
         public int TotalSteps
         {

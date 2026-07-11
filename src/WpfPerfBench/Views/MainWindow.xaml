@@ -35,7 +35,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <controls:HeaderControl Grid.Row="0" 
+        <controls:Header Grid.Row="0" 
                                 Icon="{Binding CurrentViewModel.Icon}"
                                 Title="{Binding CurrentViewModel.Title}"
                                 CurrentStep="{Binding CurrentStep}"
@@ -53,7 +53,7 @@
                 </ContentControl.Resources>
             </ContentControl>
         </Border>
-        <controls:FooterControl Grid.Row="2"
+        <controls:Footer Grid.Row="2"
                                 Title="{Binding CurrentViewModel.FooterTitle}"/>
     </Grid>
 </Window>

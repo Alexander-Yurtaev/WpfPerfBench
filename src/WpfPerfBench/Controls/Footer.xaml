@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WpfPerfBench.Controls.FooterControl"
+﻿<UserControl x:Class="WpfPerfBench.Controls.Footer"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -18,6 +18,6 @@
     </UserControl.Resources>
 
     <Border>
-        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=local:FooterControl, Mode=FindAncestor}, Path=Title}"/>
+        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=local:Footer, Mode=FindAncestor}, Path=Title}"/>
     </Border>
 </UserControl>

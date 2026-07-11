@@ -1,0 +1,132 @@
+﻿<UserControl x:Class="WpfPerfBench.Views.InitView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfPerfBench.Views"
+             xmlns:controls="clr-namespace:WpfPerfBench.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       Text="⚙️"/>
+            <TextBlock Grid.Column="1"
+                       Text="Настройка подключения"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="👤 ФИО *"/>
+                <TextBox Grid.Row="1"/>
+                <TextBlock Grid.Row="2" Text="✅ Поле заполнено"/>
+                <TextBlock Grid.Row="2" Text="❌ ФИО обязательно для заполнения"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="📧 Email *"/>
+                <TextBox Grid.Row="1"/>
+                <TextBlock Grid.Row="2" Text="✅ Корректный формат"/>
+                <TextBlock Grid.Row="2" Text="❌ Введите корректный email"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="🔒 Пароль *"/>
+                    <TextBox Grid.Row="1"/>
+                    <TextBlock Grid.Row="2" Text="✅ 12 символов, есть цифры"/>
+                    <TextBlock Grid.Row="2" Text="❌ Пароль должен содержать минимум 8 символов, цифру и заглавную букву"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="🔐 Подтверждение пароля *"/>
+                    <TextBox Grid.Row="1"/>
+                    <TextBlock Grid.Row="2" Text="✅ Пароли совпадают"/>
+                    <TextBlock Grid.Row="2" Text="❌ Пароли не совпадают"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="🗄️ Тип базы данных"/>
+                    <ComboBox Grid.Row="1"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="🔗 Connection String"/>
+                    <TextBox Grid.Row="1"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="4">
+                <controls:InitProgressStand/>
+            </Grid>
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" 
+                        Content="Тест"/>
+                <Button Grid.Column="2" 
+                        Content="Миграция"/>
+                <Button Grid.Column="3" 
+                        Content="Далее"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Border BorderBrush="Black" BorderThickness="0 1 0 0"/>
+            <TextBlock Text="✅ Все поля валидны"/>
+        </Grid>
+    </Grid>
+</UserControl>

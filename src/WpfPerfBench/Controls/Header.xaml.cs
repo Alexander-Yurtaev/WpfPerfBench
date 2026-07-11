@@ -4,18 +4,18 @@ using System.Windows.Controls;
 namespace WpfPerfBench.Controls
 {
     /// <summary>
-    /// Interaction logic for HeaderControl.xaml
+    /// Interaction logic for Header.xaml
     /// </summary>
-    public partial class HeaderControl : UserControl
+    public partial class Header : UserControl
     {
-        public HeaderControl()
+        public Header()
         {
             InitializeComponent();
         }
 
         // Icon
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
-            nameof(Icon), typeof(string), typeof(HeaderControl), new PropertyMetadata("🔘"));
+            nameof(Icon), typeof(string), typeof(Header), new PropertyMetadata("🔘"));
 
         public string Icon
         {
@@ -25,7 +25,7 @@ namespace WpfPerfBench.Controls
 
         // Title
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
-            nameof(Title), typeof(string), typeof(HeaderControl), new PropertyMetadata("Заголовок"));
+            nameof(Title), typeof(string), typeof(Header), new PropertyMetadata("Заголовок"));
 
         public string Title
         {
@@ -35,7 +35,7 @@ namespace WpfPerfBench.Controls
 
         // CurrentStep
         public static readonly DependencyProperty CurrentStepProperty = DependencyProperty.Register(
-            nameof(CurrentStep), typeof(int), typeof(HeaderControl), new PropertyMetadata(0));
+            nameof(CurrentStep), typeof(int), typeof(Header), new PropertyMetadata(0));
 
         public int CurrentStep
         {
@@ -45,7 +45,7 @@ namespace WpfPerfBench.Controls
 
         // TotalSteps
         public static readonly DependencyProperty TotalStepsProperty = DependencyProperty.Register(
-            nameof(TotalSteps), typeof(int), typeof(HeaderControl), new PropertyMetadata(0));
+            nameof(TotalSteps), typeof(int), typeof(Header), new PropertyMetadata(0));
 
         public int TotalSteps
         {

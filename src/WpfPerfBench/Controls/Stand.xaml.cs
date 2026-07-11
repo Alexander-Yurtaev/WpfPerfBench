@@ -3,11 +3,11 @@
 namespace WpfPerfBench.Controls
 {
     /// <summary>
-    /// Interaction logic for StandControl.xaml
+    /// Interaction logic for Stand.xaml
     /// </summary>
-    public partial class StandControl : UserControl
+    public partial class Stand : UserControl
     {
-        public StandControl()
+        public Stand()
         {
             InitializeComponent();
         }
