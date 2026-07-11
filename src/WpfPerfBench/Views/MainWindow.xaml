@@ -8,6 +8,7 @@
         xmlns:controls="clr-namespace:WpfPerfBench.Controls"
         xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
         xmlns:viewModels="clr-namespace:WpfPerfBench.ViewModels"
+        xmlns:views="clr-namespace:WpfPerfBench.Views"
         mc:Ignorable="d"
         Title="WPF Performance Demo" 
         WindowStartupLocation="CenterScreen"
@@ -45,7 +46,7 @@
             <ContentControl Content="{Binding CurrentViewModel}">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type viewModels:InitViewModel}">
-                        <TextBlock Text="InitViewModel"/>
+                        <views:InitView/>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewModels:StandViewModel}">
                         <TextBlock Text="StandViewModel"/>
