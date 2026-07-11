@@ -25,6 +25,9 @@
     </Window.CommandBindings>
 
     <Window.Resources>
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="{StaticResource BgWindow}"/>
+        </Style>
         <Style TargetType="Border"
                x:Key="CardBorderStyle">
             <Setter Property="Background" Value="{StaticResource BgCard}"/>

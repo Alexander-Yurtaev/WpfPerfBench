@@ -6,9 +6,12 @@
              xmlns:local="clr-namespace:WpfPerfBench.Views"
              xmlns:controls="clr-namespace:WpfPerfBench.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="700" d:DesignWidth="800">
 
     <UserControl.Resources>
+        <Style TargetType="UserControl">
+            <Setter Property="Background" Value="{StaticResource BgWindow}"/>
+        </Style>
         <Style x:Key="HeaderGridStyle"
                TargetType="Grid">
             <Setter Property="Margin" Value="0 0 0 25"/>
@@ -24,6 +27,54 @@
             <Setter Property="Foreground" Value="{StaticResource Accent}"/>
             <Setter Property="FontSize" Value="22"/>
             <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="FormGroupStyle"
+               TargetType="Grid">
+            <Setter Property="Margin" Value="0 0 0 18"/>
+        </Style>
+        <Style x:Key="FormLabelStyle"
+               TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="500"/>
+            <Setter Property="Margin" Value="0 0 0 5"/>
+        </Style>
+        <Style x:Key="FormTextBoxStyle"
+               TargetType="TextBox"
+               BasedOn="{StaticResource ShadowTextBoxStyle}">
+            <Setter Property="Background" Value="{StaticResource BgInput}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Success}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+        </Style>
+        <Style x:Key="SuccessValidationStyle"
+               TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource Success}"/>
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError),
+                                        RelativeSource={RelativeSource Self}}" Value="True">
+                    <Setter Property="Visibility" Value="Hidden"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="FailValidationStyle"
+               TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError),
+                                        RelativeSource={RelativeSource Self}}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Padding" Value="14 10"/>
+            <Setter Property="Background" Value="{StaticResource BgInput}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
     </UserControl.Resources>
 
@@ -55,84 +106,126 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0"
+                  Style="{StaticResource FormGroupStyle}">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="👤 ФИО *"/>
-                <TextBox Grid.Row="1"/>
-                <TextBlock Grid.Row="2" Text="✅ Поле заполнено"/>
-                <TextBlock Grid.Row="2" Text="❌ ФИО обязательно для заполнения"/>
+                <Label Grid.Row="0" 
+                       Content="👤 ФИО *"
+                       Style="{StaticResource FormLabelStyle}"/>
+                <TextBox Grid.Row="1"
+                         Style="{StaticResource FormTextBoxStyle}"/>
+                <Label Grid.Row="2" 
+                           Content="✅ Поле заполнено"
+                           Style="{StaticResource SuccessValidationStyle}"/>
+                <Label Grid.Row="2" 
+                       Content="❌ ФИО обязательно для заполнения"
+                       Style="{StaticResource FailValidationStyle}"/>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1"
+                  Style="{StaticResource FormGroupStyle}">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="📧 Email *"/>
-                <TextBox Grid.Row="1"/>
-                <TextBlock Grid.Row="2" Text="✅ Корректный формат"/>
-                <TextBlock Grid.Row="2" Text="❌ Введите корректный email"/>
+                <Label Grid.Row="0" 
+                       Content="📧 Email *"
+                       Style="{StaticResource FormLabelStyle}"/>
+                <TextBox Grid.Row="1"
+                         Style="{StaticResource FormTextBoxStyle}"/>
+                <Label Grid.Row="2" Content="✅ Корректный формат"
+                       Style="{StaticResource SuccessValidationStyle}"/>
+                <Label Grid.Row="2" 
+                       Content="❌ Введите корректный email"
+                       Style="{StaticResource FailValidationStyle}"/>
             </Grid>
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="2"
+                  Style="{StaticResource FormGroupStyle}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
+                <Grid Grid.Column="0"
+                      Margin="0 0 7.5 0">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="🔒 Пароль *"/>
-                    <TextBox Grid.Row="1"/>
-                    <TextBlock Grid.Row="2" Text="✅ 12 символов, есть цифры"/>
-                    <TextBlock Grid.Row="2" Text="❌ Пароль должен содержать минимум 8 символов, цифру и заглавную букву"/>
+                    <Label Grid.Row="0" 
+                           Content="🔒 Пароль *"
+                           Style="{StaticResource FormLabelStyle}"/>
+                    <TextBox Grid.Row="1"
+                             Style="{StaticResource FormTextBoxStyle}"/>
+                    <Label Grid.Row="2" 
+                           Content="✅ Пароль корректный"
+                           Style="{StaticResource SuccessValidationStyle}"/>
+                    <Label Grid.Row="2" 
+                           Content="❌ Пароль должен содержать минимум 8 символов, цифру и заглавную букву"
+                           Style="{StaticResource FailValidationStyle}"/>
                 </Grid>
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="1"
+                      Margin="7.5 0 0 0">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="🔐 Подтверждение пароля *"/>
-                    <TextBox Grid.Row="1"/>
-                    <TextBlock Grid.Row="2" Text="✅ Пароли совпадают"/>
-                    <TextBlock Grid.Row="2" Text="❌ Пароли не совпадают"/>
+                    <Label Grid.Row="0" 
+                           Content="🔐 Подтверждение пароля *"
+                           Style="{StaticResource FormLabelStyle}"/>
+                    <TextBox Grid.Row="1"
+                             Style="{StaticResource FormTextBoxStyle}"/>
+                    <Label Grid.Row="2" 
+                           Content="✅ Пароли совпадают"
+                           Style="{StaticResource SuccessValidationStyle}"/>
+                    <Label Grid.Row="2" 
+                           Content="❌ Пароли не совпадают"
+                           Style="{StaticResource FailValidationStyle}"/>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="3">
+            <Grid Grid.Row="3"
+                  Style="{StaticResource FormGroupStyle}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
+                <Grid Grid.Column="0"
+                      Margin="0 0 7.5 0">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="🗄️ Тип базы данных"/>
-                    <ComboBox Grid.Row="1"/>
+                    <Label Grid.Row="0" 
+                           Content="🗄️ Тип базы данных"
+                           Style="{StaticResource FormLabelStyle}"/>
+                    <ComboBox Grid.Row="1"
+                              Style="{StaticResource RoundedComboBoxStyle}"/>
                 </Grid>
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="1"
+                      Margin="7.5 0 0 0">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="🔗 Connection String"/>
-                    <TextBox Grid.Row="1"/>
+                    <Label Grid.Row="0" 
+                           Content="🔗 Connection String"
+                           Style="{StaticResource FormLabelStyle}"/>
+                    <TextBox Grid.Row="1"
+                             BorderBrush="{StaticResource BorderLight}"
+                             Style="{StaticResource FormTextBoxStyle}"/>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="4">
+            <Grid Grid.Row="4"
+                  Style="{StaticResource FormGroupStyle}">
                 <controls:InitProgressStand/>
             </Grid>
-            <Grid Grid.Row="5">
+            <Grid Grid.Row="5"
+                  Style="{StaticResource FormGroupStyle}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
@@ -140,11 +233,15 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="1" 
-                        Content="Тест"/>
+                        Content="Тест"
+                        Style="{StaticResource SecondaryBtn}"/>
                 <Button Grid.Column="2" 
-                        Content="Миграция"/>
+                        Content="Миграция"
+                        Style="{StaticResource SecondaryBtn}"/>
                 <Button Grid.Column="3" 
-                        Content="Далее"/>
+                        Content="Далее"
+                        IsDefault="True"
+                        Style="{StaticResource PrimaryBtn}"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="2">

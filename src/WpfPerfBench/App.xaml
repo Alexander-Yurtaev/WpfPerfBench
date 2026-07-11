@@ -3,11 +3,317 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WpfPerfBench">
     <Application.Resources>
+        <Color x:Key="DangerColor">#f38ba8</Color>
+
+        <SolidColorBrush x:Key="BgWindow" Color="#ffffff"/>
         <SolidColorBrush x:Key="BgCard" Color="#ffffff"/>
+        <SolidColorBrush x:Key="BgSecondary" Color="#e8e8ee"/>
+        <SolidColorBrush x:Key="BgInput" Color="#f5f5fa"/>
+        <SolidColorBrush x:Key="BgHover" Color="#2a2a4a"/>
+
         <SolidColorBrush x:Key="TextPrimary" Color="#1a1a2e"/>
         <SolidColorBrush x:Key="TextSecondary" Color="#3a3a52"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#6a6a8a"/>
+        <SolidColorBrush x:Key="TextInverse" Color="#ffffff"/>
+
         <SolidColorBrush x:Key="Accent" Color="#4a7abf"/>
+        <SolidColorBrush x:Key="AccentHover" Color="#74c7ec"/>
+
+        <SolidColorBrush x:Key="BorderLight" Color="#c0c0cc"/>
         <SolidColorBrush x:Key="BorderColor" Color="#d0d0d8"/>
-        <SolidColorBrush x:Key="BgSecondary" Color="#e8e8ee"/>
+        
+        <SolidColorBrush x:Key="Success" Color="#a6e3a1"/>
+        <SolidColorBrush x:Key="Danger" Color="{StaticResource DangerColor}"/>
+
+        <Style x:Key="Btn" TargetType="Button">
+            <Setter Property="Margin" Value="12 0 0 0"/>
+            <Setter Property="Padding" Value="30,10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="600"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <!-- Основной Border с закруглёнными углами -->
+                        <Border x:Name="Bd"
+                        CornerRadius="8"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+
+                            <!-- Тень (опционально) -->
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="4" 
+                                          ShadowDepth="2" 
+                                          Color="Black" 
+                                          Opacity="0.15"/>
+                            </Border.Effect>
+
+                            <!-- Контент кнопки -->
+                            <ContentPresenter x:Name="Content"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Margin="{TemplateBinding Padding}"/>
+                        </Border>
+
+                        <!-- Триггеры для состояний -->
+                        <ControlTemplate.Triggers>
+                            <!-- При наведении -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentHover}"/>
+                            </Trigger>
+
+                            <!-- При нажатии -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <!--<Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentPressed}"/>-->
+                                <Setter TargetName="Bd" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="2" 
+                                                  ShadowDepth="1" 
+                                                  Color="Black" 
+                                                  Opacity="0.1"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <!-- При отключении -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource BgSecondary}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextMuted}"/>
+                                <Setter TargetName="Bd" Property="Effect" Value="{x:Null}"/>
+                            </Trigger>
+
+                            <!-- При фокусе -->
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Accent}"/>
+                                <Setter TargetName="Bd" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryBtn"
+               BasedOn="{StaticResource Btn}"
+               TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource Accent}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextInverse}"/>
+        </Style>
+
+        <Style x:Key="SecondaryBtn"
+               BasedOn="{StaticResource Btn}"
+               TargetType="Button">
+
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="ShadowTextBoxStyle">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5 7"/>
+
+            <!-- Отключаем стандартную рамку -->
+            <Setter Property="BorderThickness" Value="0"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+
+                        <!-- Основной Border с радиусом и тенью -->
+                        <Border x:Name="Bd"
+                                CornerRadius="8"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="2">
+
+                            <!-- Тень применяем именно сюда -->
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="6" 
+                                                  ShadowDepth="0"
+                                                  Color="{TemplateBinding BorderBrush}" 
+                                                  Opacity="0.3"/>
+                            </Border.Effect>
+
+                            <!-- ScrollViewer нужен для длинного текста -->
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <!-- Триггеры для состояния ошибки и фокуса -->
+                        <ControlTemplate.Triggers>
+                            <!--<Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#89B4FA"/>
+                                <Setter TargetName="Bd" Property="BorderThickness" Value="3"/>
+                            </Trigger>-->
+
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Danger}"/>
+                                <Setter TargetName="Bd" Property="BorderThickness" Value="3"/>
+                                <Setter TargetName="Bd" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="6" 
+                                                          ShadowDepth="0" 
+                                                          Color="{StaticResource DangerColor}" 
+                                                          Opacity="0.3"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <!--<Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="#A6ADB8"/>
+                            </Trigger>-->
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RoundedComboBoxStyle" TargetType="ComboBox">
+            <!-- Базовые настройки -->
+            <Setter Property="FontSize" Value="14"/>
+            <!--<Setter Property="Padding" Value="10,8"/>-->
+            <Setter Property="Padding" Value="5 7"/>
+            <Setter Property="Background" Value="{StaticResource BgInput}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <!-- Основной Border с закруглёнными углами -->
+                            <Border x:Name="MainBorder"
+                                    CornerRadius="8"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    SnapsToDevicePixels="True">
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Текст/выбранный элемент -->
+                                    <ContentPresenter x:Name="ContentPresenter"
+                                                      Grid.Column="0"
+                                                      Content="{TemplateBinding SelectionBoxItem}"
+                                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                      ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+                                                      IsHitTestVisible="False"
+                                                      Margin="{TemplateBinding Padding}"
+                                                      VerticalAlignment="Center"
+                                                      SnapsToDevicePixels="True"/>
+
+                                    <!-- Кнопка раскрытия (стрелка) -->
+                                    <ToggleButton x:Name="DropDownToggle"
+                                          Grid.Column="1"
+                                          Focusable="False"
+                                          IsChecked="{Binding IsDropDownOpen, 
+                                                             RelativeSource={RelativeSource TemplatedParent}}"
+                                          ClickMode="Press"
+                                          Width="30"
+                                          Height="30"
+                                          Margin="0,0,5,0"
+                                          VerticalAlignment="Center">
+                                        <ToggleButton.Template>
+                                            <ControlTemplate TargetType="ToggleButton">
+                                                <Border x:Name="ArrowBorder"
+                                                        Background="Transparent"
+                                                        CornerRadius="6">
+                                                    <Path x:Name="Arrow"
+                                                          Fill="{TemplateBinding Foreground}"
+                                                          HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center"
+                                                          Data="M 0 0 L 5 5 L 10 0 Z"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsChecked" Value="True">
+                                                        <Setter TargetName="Arrow" Property="Data" Value="M 0 5 L 5 0 L 10 5 Z"/>
+                                                    </Trigger>
+                                                    <!--<Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="ArrowBorder" Property="Background" Value="{StaticResource BgHover}"/>
+                                                    </Trigger>-->
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </ToggleButton.Template>
+                                    </ToggleButton>
+                                </Grid>
+                            </Border>
+
+                            <!-- Выпадающий список (Popup) -->
+                            <Popup x:Name="Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{Binding IsDropDownOpen, 
+                                                    RelativeSource={RelativeSource TemplatedParent}}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                      MinWidth="{Binding ActualWidth, 
+                                             RelativeSource={RelativeSource TemplatedParent}}">
+                                    <Border x:Name="DropDownBorder"
+                                            Background="{StaticResource BgSecondary}"
+                                            BorderBrush="{StaticResource BorderColor}"
+                                            BorderThickness="1"
+                                            CornerRadius="8"
+                                            Margin="0,5,0,0"
+                                            Padding="4">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="10" 
+                                                              ShadowDepth="3" 
+                                                              Color="Black" 
+                                                              Opacity="0.15"/>
+                                        </Border.Effect>
+
+                                        <ScrollViewer x:Name="ScrollViewer"
+                                                      CanContentScroll="True"
+                                                      VerticalScrollBarVisibility="Auto">
+                                            <ItemsPresenter x:Name="ItemsPresenter" 
+                                                            KeyboardNavigation.DirectionalNavigation="Contained"
+                                                            SnapsToDevicePixels="True"/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+
+                        <!-- Триггеры для состояний -->
+                        <ControlTemplate.Triggers>
+                            <!-- Состояние "При наведении" -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource Accent}"/>
+                            </Trigger>
+
+                            <!-- Состояние "В фокусе" -->
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource Accent}"/>
+                                <Setter TargetName="MainBorder" Property="BorderThickness" Value="3"/>
+                            </Trigger>
+
+                            <!-- Состояние "Открыт" -->
+                            <Trigger Property="IsDropDownOpen" Value="True">
+                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource Accent}"/>
+                                <Setter TargetName="MainBorder" Property="BorderThickness" Value="3"/>
+                            </Trigger>
+
+                            <!-- Состояние "Валидация ошибка" -->
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource Danger}"/>
+                                <Setter TargetName="MainBorder" Property="BorderThickness" Value="3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>
