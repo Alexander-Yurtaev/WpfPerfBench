@@ -26,6 +26,16 @@
 
     <Window.Resources>
         <Style TargetType="Border"
+               x:Key="CardBorderStyle">
+            <Setter Property="Background" Value="{StaticResource BgCard}"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="20 20 20 25"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="MinWidth" Value="400"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+        </Style>
+        <Style TargetType="Border"
                x:Key="BorderContentStyle">
             <Setter Property="Background" Value="#ffffff"/>
             <Setter Property="CornerRadius" Value="12"/>
@@ -35,37 +45,39 @@
         </Style>
     </Window.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <controls:Header Grid.Column="0" 
-                             Icon="{Binding CurrentViewModel.Icon}"
-                             Title="{Binding CurrentViewModel.Title}"
-                             CurrentStep="{Binding CurrentStep}"
-                             TotalSteps="{Binding TotalSteps}"/>
+    <Border Style="{StaticResource CardBorderStyle}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <controls:Header Grid.Column="0" 
+                                 Icon="{Binding CurrentViewModel.Icon}"
+                                 Title="{Binding CurrentViewModel.Title}"
+                                 CurrentStep="{Binding CurrentStep}"
+                                 TotalSteps="{Binding TotalSteps}"/>
+            </Grid>
+            <Border Grid.Row="1"
+                    Style="{StaticResource BorderContentStyle}">
+                <ContentControl Content="{Binding CurrentViewModel}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type viewModels:InitViewModel}">
+                            <views:InitView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:StandViewModel}">
+                            <TextBlock Text="StandViewModel"/>
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+            </Border>
+            <controls:Footer Grid.Row="2"
+                             Title="{Binding CurrentViewModel.FooterTitle}"/>
         </Grid>
-        <Border Grid.Row="1"
-                Style="{StaticResource BorderContentStyle}">
-            <ContentControl Content="{Binding CurrentViewModel}">
-                <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type viewModels:InitViewModel}">
-                        <views:InitView/>
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewModels:StandViewModel}">
-                        <TextBlock Text="StandViewModel"/>
-                    </DataTemplate>
-                </ContentControl.Resources>
-            </ContentControl>
-        </Border>
-        <controls:Footer Grid.Row="2"
-                         Title="{Binding CurrentViewModel.FooterTitle}"/>
-    </Grid>
+    </Border>
 </Window>
