@@ -51,10 +51,6 @@
                              Title="{Binding CurrentViewModel.Title}"
                              CurrentStep="{Binding CurrentStep}"
                              TotalSteps="{Binding TotalSteps}"/>
-            <Button Grid.Column="1" 
-                    VerticalAlignment="Center"
-                    Content="X" 
-                    Command="ApplicationCommands.Close"/>
         </Grid>
         <Border Grid.Row="1"
                 Style="{StaticResource BorderContentStyle}">
@@ -70,6 +66,6 @@
             </ContentControl>
         </Border>
         <controls:Footer Grid.Row="2"
-                                Title="{Binding CurrentViewModel.FooterTitle}"/>
+                         Title="{Binding CurrentViewModel.FooterTitle}"/>
     </Grid>
 </Window>
