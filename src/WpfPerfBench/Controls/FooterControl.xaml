@@ -18,6 +18,6 @@
     </UserControl.Resources>
 
     <Border>
-        <TextBlock Text="Окно инициализации: валидация в реальном времени, выбор БД, прогресс-бар"/>
+        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=local:FooterControl, Mode=FindAncestor}, Path=Title}"/>
     </Border>
 </UserControl>

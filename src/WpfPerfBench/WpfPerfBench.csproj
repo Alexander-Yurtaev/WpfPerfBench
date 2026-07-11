@@ -10,17 +10,13 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WpfPerfBench.Core\WpfPerfBench.Core.csproj" />
     <ProjectReference Include="..\WpfPerfBench.Data\WpfPerfBench.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 
 </Project>

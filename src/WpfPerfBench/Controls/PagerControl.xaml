@@ -29,9 +29,9 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Шаг"/>
-            <TextBlock Grid.Column="1" Text="1"/>
+            <TextBlock Grid.Column="1" Text="{Binding RelativeSource={RelativeSource AncestorType=local:PagerControl, Mode=FindAncestor}, Path=CurrentStep}"/>
             <TextBlock Grid.Column="2" Text="из"/>
-            <TextBlock Grid.Column="3" Text="2"/>
+            <TextBlock Grid.Column="3" Text="{Binding RelativeSource={RelativeSource AncestorType=local:PagerControl, Mode=FindAncestor}, Path=TotalSteps}"/>
         </Grid>
     </Border>
 </UserControl>

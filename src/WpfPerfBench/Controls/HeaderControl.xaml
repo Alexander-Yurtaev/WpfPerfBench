@@ -29,13 +29,15 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" 
+            <TextBlock Grid.Column="0"
                        Style="{StaticResource IconHeaderStyle}"
-                       Text="🚀"/>
+                       Text="{Binding RelativeSource={RelativeSource AncestorType=local:HeaderControl, Mode=FindAncestor}, Path=Icon}"/>
             <TextBlock Grid.Column="1"
                        Style="{StaticResource ContentHeaderStyle}"
-                       Text="Окно инициализации"/>
-            <local:PagerControl Grid.Column="2"/>
+                       Text="{Binding RelativeSource={RelativeSource AncestorType=local:HeaderControl, Mode=FindAncestor}, Path=Title}"/>
+            <local:PagerControl Grid.Column="2"
+                                CurrentStep="{Binding RelativeSource={RelativeSource AncestorType=local:HeaderControl, Mode=FindAncestor}, Path=CurrentStep}"
+                                TotalSteps="{Binding RelativeSource={RelativeSource AncestorType=local:HeaderControl, Mode=FindAncestor}, Path=TotalSteps}"/>
         </Grid>
     </Border>
 </UserControl>

@@ -1,8 +1,10 @@
-﻿using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Windows;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Repositories;
+using WpfPerfBench.ViewModels;
+using WpfPerfBench.Views;
 
 namespace WpfPerfBench;
 
@@ -57,7 +59,15 @@ public partial class App : Application
 
         services.AddTransient<ICategoryRepository, CategoryRepository>();
 
+        services.AddTransient<InitViewModel>();
+        services.AddTransient<StandViewModel>();
+        services.AddTransient<MainWindowViewModel>();
+        services.AddTransient<MainWindow>();
+
         ServiceProvider = services.BuildServiceProvider();
+
+        var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+        mainWindow.Show();
     }
 
     #endregion
