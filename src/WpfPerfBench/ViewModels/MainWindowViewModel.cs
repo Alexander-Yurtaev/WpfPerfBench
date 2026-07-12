@@ -15,10 +15,10 @@ public partial class MainWindowViewModel : ObservableObject
     [ObservableProperty]
     private int _totalSteps;
 
-    public MainWindowViewModel(InitViewModel initViewModel, StandViewModel standViewModel)
+    public MainWindowViewModel(InitViewModel initViewModel, Stand stand)
     {
         _viewModels.Add(initViewModel);
-        _viewModels.Add(standViewModel);
+        _viewModels.Add(stand);
         CurrentViewModel = _viewModels.FirstOrDefault();
 
         TotalSteps = _viewModels.Count();

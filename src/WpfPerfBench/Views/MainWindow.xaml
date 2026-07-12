@@ -27,6 +27,7 @@
     <Window.Resources>
         <Style TargetType="Window">
             <Setter Property="Background" Value="{StaticResource BgWindow}"/>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style TargetType="Border"
                x:Key="CardBorderStyle">
@@ -73,8 +74,8 @@
                         <DataTemplate DataType="{x:Type viewModels:InitViewModel}">
                             <views:InitView/>
                         </DataTemplate>
-                        <DataTemplate DataType="{x:Type viewModels:StandViewModel}">
-                            <TextBlock Text="StandViewModel"/>
+                        <DataTemplate DataType="{x:Type viewModels:Stand}">
+                            <TextBlock Text="Stand"/>
                         </DataTemplate>
                     </ContentControl.Resources>
                 </ContentControl>

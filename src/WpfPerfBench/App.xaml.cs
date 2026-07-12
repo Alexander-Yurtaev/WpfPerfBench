@@ -60,7 +60,7 @@ public partial class App : Application
         services.AddTransient<ICategoryRepository, CategoryRepository>();
 
         services.AddTransient<InitViewModel>();
-        services.AddTransient<StandViewModel>();
+        services.AddTransient<Stand>();
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<MainWindow>();
 

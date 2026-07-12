@@ -2,7 +2,7 @@
 
 namespace WpfPerfBench.ViewModels;
 
-public abstract partial class BaseViewModel : ObservableObject
+public abstract partial class ViewModelBase : ObservableObject
 {
     [ObservableProperty]
     private string _title = string.Empty;

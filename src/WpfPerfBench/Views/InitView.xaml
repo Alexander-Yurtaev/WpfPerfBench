@@ -20,7 +20,7 @@
                TargetType="TextBlock">
             <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
             <Setter Property="FontSize" Value="22"/>
-            <Setter Property="FontWeight" Value="300"/>
+            <Setter Property="FontWeight" Value="Light"/>
         </Style>
         <Style x:Key="HeaderTextStyle"
                TargetType="TextBlock">
@@ -36,7 +36,7 @@
                TargetType="Label">
             <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
             <Setter Property="FontSize" Value="13"/>
-            <Setter Property="FontWeight" Value="500"/>
+            <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="Margin" Value="0 0 0 5"/>
         </Style>
         <Style x:Key="FormTextBoxStyle"
@@ -46,28 +46,87 @@
             <Setter Property="BorderBrush" Value="{StaticResource Success}"/>
             <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
         </Style>
-        <Style x:Key="SuccessValidationStyle"
+        <Style x:Key="FioValidationStyle"
                TargetType="Label">
-            <Setter Property="Foreground" Value="{StaticResource Success}"/>
-            <Setter Property="Visibility" Value="Visible"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=(Validation.HasError),
-                                        RelativeSource={RelativeSource Self}}" Value="True">
-                    <Setter Property="Visibility" Value="Hidden"/>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=FioTextBox}" 
+                             Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource Success}"/>
+                    <Setter Property="Content" Value="✅ Поле заполнено"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=FioTextBox}" 
+                             Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+                    <Setter Property="Content" Value="{Binding ElementName=FioTextBox,
+                                                               Path=(Validation.Errors)[0].ErrorContent}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="FailValidationStyle"
+        <Style x:Key="EmailValidationStyle"
                TargetType="Label">
-            <Setter Property="Foreground" Value="{StaticResource Danger}"/>
-            <Setter Property="Visibility" Value="Hidden"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=(Validation.HasError),
-                                        RelativeSource={RelativeSource Self}}" Value="True">
-                    <Setter Property="Visibility" Value="Visible"/>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=EmailTextBox}" 
+                             Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource Success}"/>
+                    <Setter Property="Content" Value="✅ Корректный формат"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=EmailTextBox}" 
+                             Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+                    <Setter Property="Content" Value="{Binding ElementName=EmailTextBox,
+                                                               Path=(Validation.Errors)[0].ErrorContent}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="PasswordValidationStyle"
+               TargetType="Label">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=PasswordTextBox}" 
+                             Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource Success}"/>
+                    <Setter Property="Content" Value="✅ Пароль корректный"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=PasswordTextBox}" 
+                             Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+                    <Setter Property="Content" Value="{Binding ElementName=PasswordTextBox,
+                                                               Path=(Validation.Errors)[0].ErrorContent}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ConfirmPasswordValidationStyle"
+               TargetType="Label">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConfirmPasswordTextBox}" 
+                             Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource Success}"/>
+                    <Setter Property="Content" Value="✅ Пароли совпадают"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConfirmPasswordTextBox}" 
+                             Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+                    <Setter Property="Content" Value="{Binding ElementName=ConfirmPasswordTextBox,
+                                                               Path=(Validation.Errors)[0].ErrorContent}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ConnectionStringValidationStyle"
+               TargetType="Label">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConnectionStringTextBox}" 
+                             Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource Success}"/>
+                    <Setter Property="Content" Value="✅ Поле заполнено"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConnectionStringTextBox}" 
+                             Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+                    <Setter Property="Content" Value="{Binding ElementName=ConnectionStringTextBox,
+                                                               Path=(Validation.Errors)[0].ErrorContent}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
         <Style TargetType="ComboBox">
             <Setter Property="Padding" Value="14 10"/>
             <Setter Property="Background" Value="{StaticResource BgInput}"/>
@@ -75,6 +134,23 @@
             <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
             <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
             <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style x:Key="BorderValidationStatusStyle"
+               TargetType="Border">
+            <Setter Property="Margin" Value="0 12 0 0"/>
+            <Setter Property="Padding" Value="0 12 0 0"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="0 1 0 0"/>
+        </Style>
+        <Style x:Key="ValidationStatusStyle"
+               TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource Success}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=HasErrors}" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
@@ -109,21 +185,19 @@
             <Grid Grid.Row="0"
                   Style="{StaticResource FormGroupStyle}">
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" 
                        Content="👤 ФИО *"
                        Style="{StaticResource FormLabelStyle}"/>
                 <TextBox Grid.Row="1"
+                         x:Name="FioTextBox"
+                         Text="{Binding Fio, UpdateSourceTrigger=PropertyChanged}"
                          Style="{StaticResource FormTextBoxStyle}"/>
                 <Label Grid.Row="2" 
-                           Content="✅ Поле заполнено"
-                           Style="{StaticResource SuccessValidationStyle}"/>
-                <Label Grid.Row="2" 
-                       Content="❌ ФИО обязательно для заполнения"
-                       Style="{StaticResource FailValidationStyle}"/>
+                           Style="{StaticResource FioValidationStyle}"/>
             </Grid>
             <Grid Grid.Row="1"
                   Style="{StaticResource FormGroupStyle}">
@@ -136,12 +210,11 @@
                        Content="📧 Email *"
                        Style="{StaticResource FormLabelStyle}"/>
                 <TextBox Grid.Row="1"
+                         x:Name="EmailTextBox"
+                         Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
                          Style="{StaticResource FormTextBoxStyle}"/>
-                <Label Grid.Row="2" Content="✅ Корректный формат"
-                       Style="{StaticResource SuccessValidationStyle}"/>
-                <Label Grid.Row="2" 
-                       Content="❌ Введите корректный email"
-                       Style="{StaticResource FailValidationStyle}"/>
+                <Label Grid.Row="2"
+                       Style="{StaticResource EmailValidationStyle}"/>
             </Grid>
             <Grid Grid.Row="2"
                   Style="{StaticResource FormGroupStyle}">
@@ -160,13 +233,11 @@
                            Content="🔒 Пароль *"
                            Style="{StaticResource FormLabelStyle}"/>
                     <TextBox Grid.Row="1"
+                             x:Name="PasswordTextBox"
+                             Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource FormTextBoxStyle}"/>
                     <Label Grid.Row="2" 
-                           Content="✅ Пароль корректный"
-                           Style="{StaticResource SuccessValidationStyle}"/>
-                    <Label Grid.Row="2" 
-                           Content="❌ Пароль должен содержать минимум 8 символов, цифру и заглавную букву"
-                           Style="{StaticResource FailValidationStyle}"/>
+                           Style="{StaticResource PasswordValidationStyle}"/>
                 </Grid>
                 <Grid Grid.Column="1"
                       Margin="7.5 0 0 0">
@@ -179,13 +250,11 @@
                            Content="🔐 Подтверждение пароля *"
                            Style="{StaticResource FormLabelStyle}"/>
                     <TextBox Grid.Row="1"
+                             x:Name="ConfirmPasswordTextBox"
+                             Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource FormTextBoxStyle}"/>
                     <Label Grid.Row="2" 
-                           Content="✅ Пароли совпадают"
-                           Style="{StaticResource SuccessValidationStyle}"/>
-                    <Label Grid.Row="2" 
-                           Content="❌ Пароли не совпадают"
-                           Style="{StaticResource FailValidationStyle}"/>
+                           Style="{StaticResource ConfirmPasswordValidationStyle}"/>
                 </Grid>
             </Grid>
             <Grid Grid.Row="3"
@@ -199,25 +268,32 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" 
                            Content="🗄️ Тип базы данных"
                            Style="{StaticResource FormLabelStyle}"/>
                     <ComboBox Grid.Row="1"
+                              SelectedValue="{Binding DbType, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource RoundedComboBoxStyle}"/>
+                    <Label Grid.Row="2" Content="🗄️ Тип базы данных" Visibility="Hidden"/>
                 </Grid>
                 <Grid Grid.Column="1"
                       Margin="7.5 0 0 0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" 
                            Content="🔗 Connection String"
                            Style="{StaticResource FormLabelStyle}"/>
                     <TextBox Grid.Row="1"
-                             BorderBrush="{StaticResource BorderLight}"
+                             x:Name="ConnectionStringTextBox"
+                             Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource FormTextBoxStyle}"/>
+                    <Label Grid.Row="2" 
+                           Style="{StaticResource ConnectionStringValidationStyle}"/>
                 </Grid>
             </Grid>
             <Grid Grid.Row="4"
@@ -234,19 +310,20 @@
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="1" 
                         Content="Тест"
-                        Style="{StaticResource SecondaryBtn}"/>
+                        Style="{StaticResource SecondaryBtnStyle}"/>
                 <Button Grid.Column="2" 
                         Content="Миграция"
-                        Style="{StaticResource SecondaryBtn}"/>
+                        Style="{StaticResource SecondaryBtnStyle}"/>
                 <Button Grid.Column="3" 
                         Content="Далее"
                         IsDefault="True"
-                        Style="{StaticResource PrimaryBtn}"/>
+                        Style="{StaticResource PrimaryBtnStyle}"/>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2">
-            <Border BorderBrush="Black" BorderThickness="0 1 0 0"/>
-            <TextBlock Text="✅ Все поля валидны"/>
-        </Grid>
+        <Border Grid.Row="2"
+                Style="{StaticResource BorderValidationStatusStyle}">
+            <Label Content="✅ Все поля валидны"
+                   Style="{StaticResource ValidationStatusStyle}"/>
+        </Border>
     </Grid>
 </UserControl>

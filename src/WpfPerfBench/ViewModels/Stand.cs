@@ -1,8 +1,8 @@
 ﻿namespace WpfPerfBench.ViewModels;
 
-public partial class StandViewModel : BaseViewModel
+public partial class Stand : ViewModelBase
 {
-    public StandViewModel()
+    public Stand()
     {
         Title = "Рабочий стенд";
         Icon = "🧪";
