@@ -76,8 +76,8 @@
                             <views:InitView NextCommand="{Binding RelativeSource={RelativeSource AncestorType=views:MainWindow},
                                                                         Path=DataContext.NextCommand}"/>
                         </DataTemplate>
-                        <DataTemplate DataType="{x:Type viewModels:Stand}">
-                            <TextBlock Text="Stand"/>
+                        <DataTemplate DataType="{x:Type viewModels:StandViewModel}">
+                            <views:StandView />
                         </DataTemplate>
                     </ContentControl.Resources>
                 </ContentControl>

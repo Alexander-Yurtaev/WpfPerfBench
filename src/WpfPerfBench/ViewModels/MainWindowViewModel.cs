@@ -2,12 +2,14 @@
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using WpfPerfBench.Data;
 
 namespace WpfPerfBench.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject
 {
-    private readonly List<ObservableObject> _viewModels = [];
+    private readonly IUserSession _userSession;
+    private readonly List<Func<ObservableObject>> _viewModels = [];
 
     [ObservableProperty]
     private ObservableObject? _currentViewModel;
@@ -21,22 +23,18 @@ public partial class MainWindowViewModel : ObservableObject
     [ObservableProperty] 
     private ICommand _nextCommand;
 
-    public MainWindowViewModel(InitViewModel initViewModel, Stand stand)
+    public MainWindowViewModel(Func<InitViewModel> initViewModel, Func<StandViewModel> standViewModel, IUserSession userSession)
     {
+        _userSession = userSession;
         NextCommand = new RelayCommand(OnNext, CanNext);
 
         _viewModels.Add(initViewModel);
-        _viewModels.Add(stand);
+        _viewModels.Add(standViewModel);
+
+        CurrentStep = 0;
         TotalSteps = _viewModels.Count();
 
         NextCommand.Execute(null);
-    }
-
-    private void InitCurrentStep()
-    {
-        CurrentStep = CurrentViewModel is null
-            ? 0
-            : _viewModels.IndexOf(CurrentViewModel) + 1;
     }
 
     public void RefreshCommand()
@@ -53,11 +51,16 @@ public partial class MainWindowViewModel : ObservableObject
             RefreshCommand();
             if (!NextCommand.CanExecute(null)) return;
             vm.ErrorsChanged -= VmOnErrorsChanged;
+
+            if (vm is InitViewModel initViewModel)
+            {
+                _userSession.Fio = initViewModel.Fio;
+                _userSession.DataProvider = initViewModel.DbType;
+                _userSession.ConnectionString = initViewModel.ConnectionString;
+            }
         }
 
-        var index = CurrentViewModel is null ? -1 : _viewModels.IndexOf(CurrentViewModel);
-        index++;
-        CurrentViewModel = _viewModels[index];
+        CurrentStep++;
         vm = ConvertToValidationViewModelBase(CurrentViewModel);
         if (vm is null) return;
         vm.ErrorsChanged += VmOnErrorsChanged;
@@ -73,9 +76,9 @@ public partial class MainWindowViewModel : ObservableObject
         RefreshCommand();
     }
 
-    partial void OnCurrentViewModelChanged(ObservableObject? value)
+    partial void OnCurrentStepChanged(int value)
     {
-        InitCurrentStep();
+        CurrentViewModel = _viewModels[CurrentStep - 1]();
     }
 
     private bool CanNext()
