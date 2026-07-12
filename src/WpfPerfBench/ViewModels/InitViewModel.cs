@@ -26,6 +26,9 @@ public partial class InitViewModel : ValidationViewModelBase
     private string _confirmPassword = string.Empty;
 
     [ObservableProperty]
+    private DataProvider[] _dbTypes = [DataProvider.Postgres, DataProvider.MsSql];
+
+    [ObservableProperty]
     private DataProvider _dbType = DataProvider.Postgres;
 
     [ObservableProperty]

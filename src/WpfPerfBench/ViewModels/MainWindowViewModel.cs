@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.ComponentModel;
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -26,10 +27,9 @@ public partial class MainWindowViewModel : ObservableObject
 
         _viewModels.Add(initViewModel);
         _viewModels.Add(stand);
-        CurrentViewModel = _viewModels.FirstOrDefault();
-
         TotalSteps = _viewModels.Count();
-        InitCurrentStep();
+
+        NextCommand.Execute(null);
     }
 
     private void InitCurrentStep()
@@ -46,11 +46,31 @@ public partial class MainWindowViewModel : ObservableObject
 
     private void OnNext()
     {
-        if (CurrentViewModel is not InitViewModel initViewModel) return;
-        initViewModel.Validate();
+        var vm = ConvertToValidationViewModelBase(CurrentViewModel);
+        if (vm is not null)
+        {
+            vm.Validate();
+            RefreshCommand();
+            if (!NextCommand.CanExecute(null)) return;
+            vm.ErrorsChanged -= VmOnErrorsChanged;
+        }
+
+        var index = CurrentViewModel is null ? -1 : _viewModels.IndexOf(CurrentViewModel);
+        index++;
+        CurrentViewModel = _viewModels[index];
+        vm = ConvertToValidationViewModelBase(CurrentViewModel);
+        if (vm is null) return;
+        vm.ErrorsChanged += VmOnErrorsChanged;
+    }
+
+    private ValidationViewModelBase? ConvertToValidationViewModelBase(ObservableObject? currentViewModel)
+    {
+        return currentViewModel as ValidationViewModelBase;
+    }
+
+    private void VmOnErrorsChanged(object? sender, DataErrorsChangedEventArgs e)
+    {
         RefreshCommand();
-        if (!NextCommand.CanExecute(null)) return;
-        CurrentViewModel = _viewModels.LastOrDefault();
     }
 
     partial void OnCurrentViewModelChanged(ObservableObject? value)

@@ -43,5 +43,6 @@ public abstract class ValidationViewModelBase : ViewModelBase, INotifyDataErrorI
     {
         ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         OnPropertyChanged(nameof(HasErrors));
+        OnPropertyChanged(nameof(IsValid));
     }
 }

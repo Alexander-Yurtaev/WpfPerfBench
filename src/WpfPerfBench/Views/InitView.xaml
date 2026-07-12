@@ -279,6 +279,7 @@
                            Content="🗄️ Тип базы данных"
                            Style="{StaticResource FormLabelStyle}"/>
                     <ComboBox Grid.Row="1"
+                              ItemsSource="{Binding DbTypes}"
                               SelectedValue="{Binding DbType, UpdateSourceTrigger=PropertyChanged}"
                               Style="{StaticResource RoundedComboBoxStyle}"/>
                     <Label Grid.Row="2" Content="🗄️ Тип базы данных" Visibility="Hidden"/>
