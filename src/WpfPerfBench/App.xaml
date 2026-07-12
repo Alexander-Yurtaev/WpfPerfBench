@@ -112,6 +112,11 @@
                TargetType="Button">
             <Setter Property="Background" Value="{StaticResource Accent}"/>
             <Setter Property="Foreground" Value="{StaticResource TextInverse}"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.4"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style x:Key="SecondaryBtnStyle"
@@ -119,6 +124,11 @@
                TargetType="Button">
             <Setter Property="Background" Value="{StaticResource BgSecondary}"/>
             <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.4"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style x:Key="ShadowTextBoxStyle"

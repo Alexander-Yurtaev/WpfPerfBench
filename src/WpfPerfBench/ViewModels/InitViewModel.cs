@@ -41,7 +41,7 @@ public partial class InitViewModel : ValidationViewModelBase
 
     #endregion
 
-    private void ValidateProperty(string? propertyName)
+    protected override void ValidateProperty(string? propertyName)
     {
         if (string.IsNullOrEmpty(propertyName)) return;
 

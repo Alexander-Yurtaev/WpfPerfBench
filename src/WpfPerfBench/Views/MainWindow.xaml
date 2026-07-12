@@ -69,10 +69,12 @@
             </Grid>
             <Border Grid.Row="1"
                     Style="{StaticResource BorderContentStyle}">
-                <ContentControl Content="{Binding CurrentViewModel}">
+                <ContentControl Content="{Binding CurrentViewModel}"
+                                Validation.ErrorTemplate="{x:Null}">
                     <ContentControl.Resources>
                         <DataTemplate DataType="{x:Type viewModels:InitViewModel}">
-                            <views:InitView/>
+                            <views:InitView NextCommand="{Binding RelativeSource={RelativeSource AncestorType=views:MainWindow},
+                                                                        Path=DataContext.NextCommand}"/>
                         </DataTemplate>
                         <DataTemplate DataType="{x:Type viewModels:Stand}">
                             <TextBlock Text="Stand"/>

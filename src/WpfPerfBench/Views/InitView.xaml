@@ -58,7 +58,7 @@
                              Value="True">
                     <Setter Property="Foreground" Value="{StaticResource Danger}"/>
                     <Setter Property="Content" Value="{Binding ElementName=FioTextBox,
-                                                               Path=(Validation.Errors)[0].ErrorContent}"/>
+                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -74,7 +74,7 @@
                              Value="True">
                     <Setter Property="Foreground" Value="{StaticResource Danger}"/>
                     <Setter Property="Content" Value="{Binding ElementName=EmailTextBox,
-                                                               Path=(Validation.Errors)[0].ErrorContent}"/>
+                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -90,7 +90,7 @@
                              Value="True">
                     <Setter Property="Foreground" Value="{StaticResource Danger}"/>
                     <Setter Property="Content" Value="{Binding ElementName=PasswordTextBox,
-                                                               Path=(Validation.Errors)[0].ErrorContent}"/>
+                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -106,7 +106,7 @@
                              Value="True">
                     <Setter Property="Foreground" Value="{StaticResource Danger}"/>
                     <Setter Property="Content" Value="{Binding ElementName=ConfirmPasswordTextBox,
-                                                               Path=(Validation.Errors)[0].ErrorContent}"/>
+                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -122,7 +122,7 @@
                              Value="True">
                     <Setter Property="Foreground" Value="{StaticResource Danger}"/>
                     <Setter Property="Content" Value="{Binding ElementName=ConnectionStringTextBox,
-                                                               Path=(Validation.Errors)[0].ErrorContent}"/>
+                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -147,7 +147,12 @@
             <Setter Property="Foreground" Value="{StaticResource Success}"/>
             <Setter Property="FontSize" Value="12"/>
             <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=HasErrors}" Value="False">
+                    <Setter Property="Content" Value="✅ Все поля валидны"/>
+                    <Setter Property="Foreground" Value="{StaticResource Success}"/>
+                </DataTrigger>
                 <DataTrigger Binding="{Binding Path=HasErrors}" Value="True">
+                    <Setter Property="Content" Value="❌ Некоторые поля заполнены некорректно • Исправьте ошибки"/>
                     <Setter Property="Foreground" Value="{StaticResource Danger}"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -317,13 +322,14 @@
                 <Button Grid.Column="3" 
                         Content="Далее"
                         IsDefault="True"
+                        Command="{Binding RelativeSource={RelativeSource AncestorType=local:InitView},
+                                                Path=NextCommand}"
                         Style="{StaticResource PrimaryBtnStyle}"/>
             </Grid>
         </Grid>
         <Border Grid.Row="2"
                 Style="{StaticResource BorderValidationStatusStyle}">
-            <Label Content="✅ Все поля валидны"
-                   Style="{StaticResource ValidationStatusStyle}"/>
+            <Label Style="{StaticResource ValidationStatusStyle}"/>
         </Border>
     </Grid>
 </UserControl>
