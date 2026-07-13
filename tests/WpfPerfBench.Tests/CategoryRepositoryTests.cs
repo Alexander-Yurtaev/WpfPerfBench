@@ -18,25 +18,28 @@ public class CategoryRepositoryTests
     {
         // Arrange
         IWpfPerfBenchContext context = null!;
-        if (provider == DataProvider.MsSql)
+        switch (provider)
         {
-            var options = new DbContextOptionsBuilder<MsSqlDataContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
+            case DataProvider.MsSql:
+            {
+                var options = new DbContextOptionsBuilder<MsSqlDataContext>()
+                    .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                    .Options;
 
-            context = new MsSqlDataContext(options);
-        }
-        else if (provider == DataProvider.Postgres)
-        {
-            var options = new DbContextOptionsBuilder<PostgresDataContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
+                context = new MsSqlDataContext(options);
+                break;
+            }
+            case DataProvider.Postgres:
+            {
+                var options = new DbContextOptionsBuilder<PostgresDataContext>()
+                    .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                    .Options;
 
-            context = new PostgresDataContext(options);
-        }
-        else
-        {
-            throw new ArgumentException($"Unknown provider: {provider}");
+                context = new PostgresDataContext(options);
+                break;
+            }
+            default:
+                throw new ArgumentException($"Unknown provider: {provider}");
         }
 
         var mapperMock = new Mock<IMapper>();

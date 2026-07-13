@@ -7,4 +7,5 @@ public interface IWpfPerfBenchContext
 {
     DbSet<Category> Categories { get; set; }
     DbSet<Item> Items { get; set; }
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
