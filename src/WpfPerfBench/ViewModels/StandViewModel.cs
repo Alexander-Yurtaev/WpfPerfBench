@@ -1,19 +1,21 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using WpfPerfBench.Data;
-using WpfPerfBench.Data.Enums;
 
 namespace WpfPerfBench.ViewModels;
 
 public partial class StandViewModel : ViewModelBase
 {
     [ObservableProperty]
-    private string _fio;
+    private string _icon;
 
     [ObservableProperty]
-    private DataProvider _dataProvider;
+    private string _header;
 
     [ObservableProperty]
-    private string? _connectionString;
+    private string _themeIcon;
+
+    [ObservableProperty]
+    private StatItem[] _statItems;
 
     public StandViewModel(IUserSession userSession)
     {
@@ -21,8 +23,9 @@ public partial class StandViewModel : ViewModelBase
         Icon = "🧪";
         FooterTitle = "Рабочий стенд: дерево, детали с контролами, виртуализированный список, карта с маршрутом";
 
-        Fio = userSession.Fio;
-        DataProvider = userSession.DataProvider;
-        ConnectionString = userSession.ConnectionString;
+        Icon = "👋";
+        Header = $"{userSession.Fio}|{userSession.DataProvider}";
+        ThemeIcon = "☀️";
+        StatItems = [];
     }
 }
