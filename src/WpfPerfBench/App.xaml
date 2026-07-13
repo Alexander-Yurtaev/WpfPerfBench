@@ -205,7 +205,7 @@
             <Setter Property="Padding" Value="5 7"/>
             <Setter Property="Background" Value="{StaticResource BgInput}"/>
             <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Success}"/>
             <Setter Property="BorderThickness" Value="2"/>
 
             <Setter Property="Template">
@@ -219,6 +219,13 @@
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     SnapsToDevicePixels="True">
+
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="6" 
+                                                      ShadowDepth="0"
+                                                      Color="{TemplateBinding BorderBrush}" 
+                                                      Opacity="0.3"/>
+                                </Border.Effect>
 
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -314,18 +321,18 @@
                         <ControlTemplate.Triggers>
                             <!-- Состояние "При наведении" -->
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource Accent}"/>
+                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource Success}"/>
                             </Trigger>
 
                             <!-- Состояние "В фокусе" -->
                             <Trigger Property="IsFocused" Value="True">
-                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource Accent}"/>
+                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource Success}"/>
                                 <Setter TargetName="MainBorder" Property="BorderThickness" Value="3"/>
                             </Trigger>
 
                             <!-- Состояние "Открыт" -->
                             <Trigger Property="IsDropDownOpen" Value="True">
-                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource Accent}"/>
+                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{StaticResource Success}"/>
                                 <Setter TargetName="MainBorder" Property="BorderThickness" Value="3"/>
                             </Trigger>
 
