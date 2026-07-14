@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Data;
@@ -20,14 +19,10 @@ public partial class MainWindowViewModel : ObservableObject
     [ObservableProperty]
     private int _totalSteps;
 
-    [ObservableProperty] 
-    private ICommand _nextCommand;
-
     public MainWindowViewModel(Func<InitViewModel> initViewModel, Func<StandViewModel> standViewModel, IUserSession userSession)
     {
         _userSession = userSession;
-        NextCommand = new RelayCommand(OnNext, CanNext);
-
+        
         _viewModels.Add(initViewModel);
         _viewModels.Add(standViewModel);
 
@@ -37,17 +32,14 @@ public partial class MainWindowViewModel : ObservableObject
         NextCommand.Execute(null);
     }
 
-    public void RefreshCommand()
-    {
-        ((RelayCommand)NextCommand).NotifyCanExecuteChanged();
-    }
-
+    [RelayCommand(CanExecute = nameof(CanNext))]
     private void OnNext()
     {
         var vm = ConvertToValidationViewModelBase(CurrentViewModel);
         if (vm is not null)
         {
             vm.Validate();
+            OnPropertyChanged(nameof(CanNext));
             RefreshCommand();
             if (!NextCommand.CanExecute(null)) return;
             vm.ErrorsChanged -= VmOnErrorsChanged;
@@ -66,6 +58,11 @@ public partial class MainWindowViewModel : ObservableObject
         vm.ErrorsChanged += VmOnErrorsChanged;
     }
 
+    public void RefreshCommand()
+    {
+        NextCommand.NotifyCanExecuteChanged();
+    }
+
     private ValidationViewModelBase? ConvertToValidationViewModelBase(ObservableObject? currentViewModel)
     {
         return currentViewModel as ValidationViewModelBase;
@@ -73,7 +70,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     private void VmOnErrorsChanged(object? sender, DataErrorsChangedEventArgs e)
     {
-        RefreshCommand();
+        OnPropertyChanged(nameof(CanNext));
     }
 
     partial void OnCurrentStepChanged(int value)
@@ -81,8 +78,5 @@ public partial class MainWindowViewModel : ObservableObject
         CurrentViewModel = _viewModels[CurrentStep - 1]();
     }
 
-    private bool CanNext()
-    {
-        return CurrentViewModel is InitViewModel { IsValid: true };
-    }
+    private bool CanNext => CurrentViewModel is InitViewModel { IsValid: true };
 }
