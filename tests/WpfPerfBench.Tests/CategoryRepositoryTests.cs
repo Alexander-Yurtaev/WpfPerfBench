@@ -63,7 +63,24 @@ public class CategoryRepositoryTests
         // Assert
         result.Should().NotBeNull();
         result.Should().HaveCount(1);
+
+        var parent = result[0];
+        parent.Should().NotBeNull();
+        parent.Children.Should().NotBeEmpty();
+        parent.Children.Should().HaveCount(2);
+
+        var child2 = parent.Children.FirstOrDefault(c => c.Id == 2);
+        child2.Should().NotBeNull();
+        child2.Children.Should().NotBeEmpty();
+        child2.Children.Should().HaveCount(4);
+
+        var child7 = parent.Children.FirstOrDefault(c => c.Id == 7);
+        child7.Should().NotBeNull();
+        child7.Children.Should().NotBeEmpty();
+        child7.Children.Should().HaveCount(5);
     }
+
+    #region Private Methods
 
     private IWpfPerfBenchContext CreateDataContext(DataProvider provider)
     {
@@ -92,15 +109,10 @@ public class CategoryRepositoryTests
 
     private async Task SeedHierarchyCategories(IWpfPerfBenchContext context)
     {
-        var parent = context.Categories.Add(new Data.Entities.Category { Id = 1, Name = "Category 1" });
-        var child = new Data.Entities.Category
-        {
-            Id = 11, 
-            Name = "Category 11", 
-            ParentId = parent.Entity.Id, 
-            Parent = parent.Entity
-        };
-        context.Categories.Add(child);
+        var categories = DbContextBase.GetCategories();
+        context.Categories.AddRange(categories);
         await context.SaveChangesAsync(CancellationToken.None);
     }
+
+    #endregion Private Methods
 }

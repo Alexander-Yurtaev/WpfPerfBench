@@ -3,16 +3,16 @@ using WpfPerfBench.Data.Entities;
 
 namespace WpfPerfBench.Data.DataContexts;
 
-public abstract class BaseDbContext : DbContext, IWpfPerfBenchContext
+public abstract class DbContextBase : DbContext, IWpfPerfBenchContext
 {
     protected string ConnectionString = "";
 
-    protected BaseDbContext(string connectionString)
+    protected DbContextBase(string connectionString)
     {
         ConnectionString = connectionString;
     }
 
-    protected BaseDbContext(DbContextOptions options) : base(options)
+    protected DbContextBase(DbContextOptions options) : base(options)
     {
     }
 
@@ -91,7 +91,7 @@ public abstract class BaseDbContext : DbContext, IWpfPerfBenchContext
         await context.SaveChangesAsync(ct);
     }
 
-    private Category[] GetCategories()
+    public static Category[] GetCategories()
     {
         return
         [

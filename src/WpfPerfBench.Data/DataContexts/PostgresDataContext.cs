@@ -2,7 +2,7 @@
 
 namespace WpfPerfBench.Data.DataContexts;
 
-public class PostgresDataContext : BaseDbContext
+public class PostgresDataContext : DbContextBase
 {
     public PostgresDataContext(string connectionString) : base(connectionString)
     {
