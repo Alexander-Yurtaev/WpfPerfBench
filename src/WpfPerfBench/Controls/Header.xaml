@@ -35,9 +35,9 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
-                       Text="{Binding RelativeSource={RelativeSource AncestorType=local:Header, Mode=FindAncestor}, Path=Icon}"/>
+                       Text="{Binding RelativeSource={RelativeSource AncestorType=local:Header, Mode=FindAncestor}, Path=HeaderIcon}"/>
             <TextBlock Grid.Column="1"
-                       Text="{Binding RelativeSource={RelativeSource AncestorType=local:Header, Mode=FindAncestor}, Path=Title}"/>
+                       Text="{Binding RelativeSource={RelativeSource AncestorType=local:Header, Mode=FindAncestor}, Path=HeaderTitle}"/>
             <local:Pager Grid.Column="2"
                          CurrentStep="{Binding RelativeSource={RelativeSource AncestorType=local:Header, Mode=FindAncestor}, Path=CurrentStep}"
                          TotalSteps="{Binding RelativeSource={RelativeSource AncestorType=local:Header, Mode=FindAncestor}, Path=TotalSteps}"/>

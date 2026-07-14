@@ -62,8 +62,8 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <controls:Header Grid.Column="0" 
-                                 Icon="{Binding CurrentViewModel.Icon}"
-                                 Title="{Binding CurrentViewModel.Title}"
+                                 HeaderIcon="{Binding CurrentViewModel.HeaderIcon}"
+                                 HeaderTitle="{Binding CurrentViewModel.HeaderTitle}"
                                  CurrentStep="{Binding CurrentStep}"
                                  TotalSteps="{Binding TotalSteps}"/>
             </Grid>
