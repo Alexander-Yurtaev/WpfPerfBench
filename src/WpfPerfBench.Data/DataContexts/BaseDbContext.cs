@@ -39,7 +39,7 @@ public abstract class BaseDbContext : DbContext, IWpfPerfBenchContext
                 .IsRequired(true);
 
             c.HasOne(x => x.Parent)
-                .WithMany(a => a.Child)
+                .WithMany(a => a.Children)
                 .HasForeignKey(x => x.ParentId)
                 .OnDelete(DeleteBehavior.Restrict);
 

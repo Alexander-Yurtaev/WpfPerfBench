@@ -153,7 +153,7 @@ namespace WpfPerfBench.Data.Migrations.Postgres
             modelBuilder.Entity("WpfPerfBench.Data.Entities.Category", b =>
                 {
                     b.HasOne("WpfPerfBench.Data.Entities.Category", "Parent")
-                        .WithMany("Child")
+                        .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -173,7 +173,7 @@ namespace WpfPerfBench.Data.Migrations.Postgres
 
             modelBuilder.Entity("WpfPerfBench.Data.Entities.Category", b =>
                 {
-                    b.Navigation("Child");
+                    b.Navigation("Children");
 
                     b.Navigation("Items");
                 });

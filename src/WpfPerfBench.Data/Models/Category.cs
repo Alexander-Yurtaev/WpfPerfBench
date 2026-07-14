@@ -8,7 +8,7 @@
         public bool IsActive { get; set; }
         public int SortOrder { get; set; }
         public string Color { get; set; } = "#000000";
-        public virtual List<Category> Child { get; set; } = [];
+        public virtual List<Category> Children { get; set; } = [];
         public virtual List<Item> Items { get; set; } = [];
     }
 }

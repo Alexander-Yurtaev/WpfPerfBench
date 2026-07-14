@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Enums;
 using WpfPerfBench.Data.Repositories;
+using WpfPerfBench.Tests.Factories;
 
 namespace WpfPerfBench.Tests;
 
@@ -17,7 +17,56 @@ public class CategoryRepositoryTests
     public async Task Call_CategoryRepository_Success(DataProvider provider)
     {
         // Arrange
-        IWpfPerfBenchContext context = null!;
+        var context = CreateDataContext(provider);
+        await SeedHierarchyCategories(context);
+
+        var mapper = TestMapperFactory.CreateMapper();
+
+        var factoryMock = new Mock<IDataContextFactory>();
+        factoryMock.Setup(f => f.CreateContext(It.IsAny<DataProvider>(), It.IsAny<string>()))
+            .Returns(context);
+
+        var userSessionMock = new Mock<UserSession>();
+        var repository = new CategoryRepository(mapper,
+            factoryMock.Object, userSessionMock.Object);
+
+        // Act
+        var result = await repository.Categories(CancellationToken.None);
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Should().HaveCount(2);
+    }
+
+    [Theory]
+    [InlineData(DataProvider.MsSql)]
+    [InlineData(DataProvider.Postgres)]
+    public async Task Call_HierarchyCategories_Success(DataProvider provider)
+    {
+        // Arrange
+        var context = CreateDataContext(provider);
+        await SeedHierarchyCategories(context);
+
+        var mapper = TestMapperFactory.CreateMapper();
+
+        var factoryMock = new Mock<IDataContextFactory>();
+        factoryMock.Setup(f => f.CreateContext(It.IsAny<DataProvider>(), It.IsAny<string>()))
+            .Returns(context);
+
+        var userSessionMock = new Mock<UserSession>();
+        var repository = new CategoryRepository(mapper,
+            factoryMock.Object, userSessionMock.Object);
+
+        // Act
+        var result = await repository.HierarchyCategories(CancellationToken.None);
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Should().HaveCount(1);
+    }
+
+    private IWpfPerfBenchContext CreateDataContext(DataProvider provider)
+    {
         switch (provider)
         {
             case DataProvider.MsSql:
@@ -26,8 +75,7 @@ public class CategoryRepositoryTests
                     .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                     .Options;
 
-                context = new MsSqlDataContext(options);
-                break;
+                return new MsSqlDataContext(options);
             }
             case DataProvider.Postgres:
             {
@@ -35,29 +83,24 @@ public class CategoryRepositoryTests
                     .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                     .Options;
 
-                context = new PostgresDataContext(options);
-                break;
+                return new PostgresDataContext(options);
             }
             default:
                 throw new ArgumentException($"Unknown provider: {provider}");
         }
+    }
 
-        var mapperMock = new Mock<IMapper>();
-        mapperMock.Setup(m => m.Map<List<Data.Models.Category>>(It.IsAny<List<Data.Entities.Category>>()))
-            .Returns(new List<Data.Models.Category>());
-
-        var factoryMock = new Mock<IDataContextFactory>();
-        factoryMock.Setup(f => f.CreateContext(It.IsAny<DataProvider>(), It.IsAny<string>()))
-            .Returns(context);
-
-        var userSessionMock = new Mock<UserSession>();
-        var repository = new CategoryRepository(mapperMock.Object,
-            factoryMock.Object, userSessionMock.Object);
-
-        // Act
-        var result = await repository.Categories();
-
-        // Assert
-        result.Should().NotBeNull();
+    private async Task SeedHierarchyCategories(IWpfPerfBenchContext context)
+    {
+        var parent = context.Categories.Add(new Data.Entities.Category { Id = 1, Name = "Category 1" });
+        var child = new Data.Entities.Category
+        {
+            Id = 11, 
+            Name = "Category 11", 
+            ParentId = parent.Entity.Id, 
+            Parent = parent.Entity
+        };
+        context.Categories.Add(child);
+        await context.SaveChangesAsync(CancellationToken.None);
     }
 }

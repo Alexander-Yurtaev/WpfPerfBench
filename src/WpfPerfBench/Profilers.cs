@@ -7,7 +7,12 @@ public class Profilers : Profile
 {
     public Profilers()
     {
-        CreateMap<WpfPerfBench.Data.Models.Category, WpfPerfBench.Data.Entities.Category>().ReverseMap();
-        CreateMap<WpfPerfBench.Data.Models.Item, WpfPerfBench.Data.Entities.Item>().ReverseMap();
+        CreateMap<WpfPerfBench.Data.Models.Category, WpfPerfBench.Data.Entities.Category>()
+            .MaxDepth(2)
+            .ReverseMap();
+
+        CreateMap<WpfPerfBench.Data.Models.Item, WpfPerfBench.Data.Entities.Item>()
+            .MaxDepth(2)
+            .ReverseMap();
     }
 }

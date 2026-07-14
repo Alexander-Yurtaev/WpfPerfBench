@@ -17,6 +17,9 @@ public partial class StandViewModel : ViewModelBase
     [ObservableProperty]
     private StatItem[] _statItems;
 
+    [ObservableProperty]
+    private StatItem[] _treeItems;
+
     public StandViewModel(IUserSession userSession)
     {
         Title = "Рабочий стенд";

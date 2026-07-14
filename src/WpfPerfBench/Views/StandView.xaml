@@ -34,6 +34,14 @@
                TargetType="Label">
             <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
         </Style>
+        <Style x:Key="TreeViewStyle"
+               TargetType="TreeView">
+            <Setter Property="MinWidth" Value="200"/>
+            <Setter Property="Background" Value="{StaticResource BgTree}"/>
+            <Setter Property="Padding" Value="10 15"/>
+            <Setter Property="BorderThickness" Value="0 0 1 0"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+        </Style>
     </UserControl.Resources>
 
     <Grid>
@@ -78,6 +86,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <TreeView Grid.Column="0"
+                      Style="{StaticResource TreeViewStyle}">
+
+            </TreeView>
+            <Border Grid.Column="1"
+                    Background="{StaticResource BgSecondary}">
+
+            </Border>
         </Grid>
         <Grid Grid.Row="2">
             <ItemsControl ItemsSource="{Binding StatItems}"/>

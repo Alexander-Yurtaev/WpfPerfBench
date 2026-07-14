@@ -2,6 +2,6 @@
 
 public interface ICategoryRepository
 {
-    Task<List<Models.Category>> Categories();
-    Task<List<Models.Category>> HierarchyCategories();
+    Task<List<Models.Category>> Categories(CancellationToken ct = default);
+    Task<List<Models.Category>> HierarchyCategories(CancellationToken ct = default);
 }

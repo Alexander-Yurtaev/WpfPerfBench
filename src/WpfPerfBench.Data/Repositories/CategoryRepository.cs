@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Models;
 
@@ -22,25 +21,33 @@ public class CategoryRepository : ICategoryRepository
         _userSession = userSession;
     }
 
-    public async Task<List<Models.Category>> Categories()
+    public async Task<List<Models.Category>> Categories(CancellationToken ct = default)
     {
         var db = _factory.CreateContext(_userSession.DataProvider, _userSession.ConnectionString!);
         var categories = await db.Categories
-            .ToListAsync();
+            .AsNoTracking()
+            .ToListAsync(ct);
 
         var result = _mapper.Map<List<Models.Category>>(categories);
         return result;
     }
 
-    public async Task<List<Category>> HierarchyCategories()
+    public async Task<List<Category>> HierarchyCategories(CancellationToken ct = default)
     {
-        var db = _factory.CreateContext(_userSession.DataProvider, _userSession.ConnectionString!);
-        var categories = await db.Categories
-            .Include(c => c.Parent)
-            .Where(c => c.ParentId != null)
-            .ToListAsync();
+        var categories = await Categories(ct);
+        var lookup = categories.ToLookup(c => c.ParentId);
 
-        var result = _mapper.Map<List<Models.Category>>(categories);
-        return result;
+        Category BuildTree(int parentId)
+        {
+            var parent = categories.First(c => c.Id == parentId);
+            var children = lookup[parentId];
+            foreach (var child in children)
+            {
+                parent.Children.Add(BuildTree(child.Id));
+            }
+            return parent;
+        }
+
+        return lookup[null].Select(c => BuildTree(c.Id)).ToList();
     }
 }
