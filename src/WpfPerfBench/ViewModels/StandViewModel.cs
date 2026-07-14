@@ -1,18 +1,28 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using WpfPerfBench.Data;
+//using WpfPerfBench.Data.Repositories;
+using WpfPerfBench.Interfaces;
 
 namespace WpfPerfBench.ViewModels;
 
-public partial class StandViewModel : ViewModelBase
+public partial class StandViewModel : ViewModelBase, ILoadable
 {
+    //private readonly ICategoryRepository _categoryRepository;
+
     [ObservableProperty]
     private string _icon;
 
     [ObservableProperty]
-    private string _header;
+    private string _fio;
+
+    [ObservableProperty]
+    private string _dataProvider;
 
     [ObservableProperty]
     private string _themeIcon;
+
+    [ObservableProperty]
+    private int _totalRecordCount;
 
     [ObservableProperty]
     private StatItem[] _statItems;
@@ -20,15 +30,29 @@ public partial class StandViewModel : ViewModelBase
     [ObservableProperty]
     private StatItem[] _treeItems;
 
-    public StandViewModel(IUserSession userSession)
+    public StandViewModel(IUserSession userSession/*, ICategoryRepository categoryRepository*/)
     {
-        Title = "Рабочий стенд";
-        Icon = "🧪";
+        //_categoryRepository = categoryRepository;
+        
+        Header = new Header("🧪", "Рабочий стенд");
         FooterTitle = "Рабочий стенд: дерево, детали с контролами, виртуализированный список, карта с маршрутом";
 
         Icon = "👋";
-        Header = $"{userSession.Fio}|{userSession.DataProvider}";
+        Fio = userSession.Fio;
+        this.DataProvider = userSession.DataProvider.ToString();
         ThemeIcon = "☀️";
         StatItems = [];
     }
+
+    #region Implementation of ILoadable
+
+    public async Task LoadAsync(CancellationToken ct)
+    {
+        await Task.CompletedTask;
+        //var categoryTree = await _categoryRepository.HierarchyCategories(ct);
+
+        //TotalRecordCount = categoryTree.Count;
+    }
+
+    #endregion
 }

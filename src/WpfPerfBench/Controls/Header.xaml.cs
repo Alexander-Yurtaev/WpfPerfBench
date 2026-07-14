@@ -13,24 +13,24 @@ namespace WpfPerfBench.Controls
             InitializeComponent();
         }
 
-        // HeaderIcon
-        public static readonly DependencyProperty HeaderIconProperty = DependencyProperty.Register(
-            nameof(HeaderIcon), typeof(string), typeof(Header), new PropertyMetadata("🔘"));
+        // Icon
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
+            nameof(Icon), typeof(string), typeof(Header), new PropertyMetadata("🔘"));
 
-        public string HeaderIcon
+        public string Icon
         {
-            get => (string)GetValue(HeaderIconProperty);
-            set => SetValue(HeaderIconProperty, value);
+            get => (string)GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
         }
 
         // Title
-        public static readonly DependencyProperty HeaderTitleProperty = DependencyProperty.Register(
-            nameof(HeaderTitle), typeof(string), typeof(Header), new PropertyMetadata("Заголовок"));
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
+            nameof(Title), typeof(string), typeof(Header), new PropertyMetadata("Заголовок"));
 
-        public string HeaderTitle
+        public string Title
         {
-            get => (string)GetValue(HeaderTitleProperty);
-            set => SetValue(HeaderTitleProperty, value);
+            get => (string)GetValue(TitleProperty);
+            set => SetValue(TitleProperty, value);
         }
 
         // CurrentStep

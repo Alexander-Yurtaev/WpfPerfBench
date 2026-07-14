@@ -8,8 +8,7 @@ public partial class InitViewModel : ValidationViewModelBase
 {
     public InitViewModel()
     {
-        Title = "Окно инициализации";
-        Icon = "🚀";
+        Header = new Header("🚀", "Окно инициализации");
         FooterTitle = "Окно инициализации: валидация в реальном времени, выбор БД, прогресс-бар";
     }
 
