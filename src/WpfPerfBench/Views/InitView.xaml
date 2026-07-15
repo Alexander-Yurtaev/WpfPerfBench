@@ -139,13 +139,12 @@
             <Setter Property="Padding" Value="14 10"/>
             <Setter Property="Background" Value="{StaticResource BgInput}"/>
             <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
             <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="IsEnabled" Value="False"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding CurrentState}" Value="Init">
-                    <Setter Property="IsReadOnly" Value="False"/>
+                    <Setter Property="IsEnabled" Value="True"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -162,11 +161,9 @@
             <Setter Property="FontSize" Value="12"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=HasErrors}" Value="False">
-                    <Setter Property="Content" Value="✅ Все поля валидны"/>
                     <Setter Property="Foreground" Value="{StaticResource Success}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=HasErrors}" Value="True">
-                    <Setter Property="Content" Value="❌ Некоторые поля заполнены некорректно • Исправьте ошибки"/>
                     <Setter Property="Foreground" Value="{StaticResource Danger}"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -295,7 +292,7 @@
                     <ComboBox Grid.Row="1"
                               ItemsSource="{Binding DbTypes}"
                               SelectedValue="{Binding DbType, UpdateSourceTrigger=PropertyChanged}"
-                              Style="{StaticResource RoundedComboBoxStyle}"/>
+                              Style="{StaticResource FormComboBoxStyle}"/>
                     <Label Grid.Row="2" Content="🗄️ Тип базы данных" Visibility="Hidden"/>
                 </Grid>
                 <Grid Grid.Column="1"
@@ -345,7 +342,8 @@
         </Grid>
         <Border Grid.Row="2"
                 Style="{StaticResource BorderValidationStatusStyle}">
-            <Label Style="{StaticResource ValidationStatusStyle}"/>
+            <Label Content="{Binding ValidationStatus}"
+                   Style="{StaticResource ValidationStatusStyle}"/>
         </Border>
     </Grid>
 </UserControl>

@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.ComponentModel;
 using WpfPerfBench.Core.Services;
+using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
+using WpfPerfBench.Data.Services;
 
 namespace WpfPerfBench.ViewModels;
 
@@ -15,11 +17,20 @@ public enum InitState
 
 public partial class InitViewModel : ValidationViewModelBase
 {
-    private readonly INavigationService _navigationService;
+    private const string TestConnectionKey = "<TestConnection>";
 
-    public InitViewModel(INavigationService navigationService)
+    private readonly INavigationService _navigationService;
+    private readonly IUserSession _userSession;
+    private readonly IDataService _dataService;
+
+    public InitViewModel(
+        INavigationService navigationService, 
+        IUserSession userSession,
+        IDataService dataService)
     {
         _navigationService = navigationService;
+        _userSession = userSession;
+        _dataService = dataService;
         Header = new Header("🚀", "Окно инициализации");
         FooterTitle = "Окно инициализации: валидация в реальном времени, выбор БД, прогресс-бар";
     }
@@ -48,18 +59,43 @@ public partial class InitViewModel : ValidationViewModelBase
     [ObservableProperty]
     private InitState _currentState;
 
+    [ObservableProperty] 
+    private string _validationStatus;
+
+    #region Overrides of ValidationViewModelBase
+
+    public override void Validate()
+    {
+        ClearError(TestConnectionKey);
+        base.Validate();
+    }
+
+    #endregion
+
     #region Test
 
     private bool CanTest() => CurrentState == InitState.Init;
 
     [RelayCommand(CanExecute = nameof(CanTest))]
-    private void Test()
+    private async Task Test()
     {
         Validate();
-        if (IsValid)
+        if (!IsValid) return;
+
+        _userSession.Fio = Fio;
+        _userSession.DataProvider = DbType;
+        _userSession.ConnectionString = ConnectionString;
+
+        var isChecked = await _dataService.TestConnection(CancellationToken.None);
+
+        if (!isChecked)
         {
-            CurrentState = InitState.Migration;
+            AddError(TestConnectionKey, "Ошибка при подключении к БД");
+            OnErrorsChanged(TestConnectionKey);
+            return;
         }
+
+        CurrentState = InitState.Migration;
     }
 
     #endregion Test
@@ -68,40 +104,36 @@ public partial class InitViewModel : ValidationViewModelBase
     {
         if (string.IsNullOrEmpty(propertyName)) return;
 
-        Errors.Remove(propertyName);
-        var errors = new List<string>();
+        this.ClearError(propertyName);
 
         switch (propertyName)
         {
             case nameof(Fio):
-                ValidateFio(errors);
+                ValidateFio();
                 break;
             case nameof(Email):
-                ValidateEmail(errors);
+                ValidateEmail();
                 break;
             case nameof(Password):
-                ValidatePassword(errors);
+                ValidatePassword();
                 break;
             case nameof(ConfirmPassword):
-                ValidateConfirmPassword(errors);
+                ValidateConfirmPassword();
                 break;
             case nameof(DbType):
-                ValidateDbType(errors);
+                ValidateDbType();
                 break;
             case nameof(ConnectionString):
-                ValidateConnectionString(errors);
+                ValidateConnectionString();
                 break;
             default:
                 return;
         }
 
-        if (errors.Any())
-            Errors[propertyName] = errors;
-
         OnErrorsChanged(propertyName);
     }
 
-    partial void OnCurrentStateChanged(global::WpfPerfBench.ViewModels.InitState value)
+    partial void OnCurrentStateChanged(InitState value)
     {
         NotifyCanExecuteChangedForAllCommands();
     }
@@ -112,6 +144,20 @@ public partial class InitViewModel : ValidationViewModelBase
         MigrateCommand.NotifyCanExecuteChanged();
         NextCommand.NotifyCanExecuteChanged();
     }
+
+    #region Overrides of ValidationViewModelBase
+
+    protected override void OnErrorsChanged(string propertyName)
+    {
+        base.OnErrorsChanged(propertyName);
+        ValidationStatus = Errors.TryGetValue(TestConnectionKey, out var errors)
+            ? errors.First()
+            : HasErrors
+                ? "❌ Некоторые поля заполнены некорректно • Исправьте ошибки"
+                : "✅ Все поля валидны";
+    }
+
+    #endregion
 
     #region Migrate
 
@@ -149,21 +195,27 @@ public partial class InitViewModel : ValidationViewModelBase
 
     #region Validation rules
 
-    private void ValidateFio(List<string> errors)
+    private void ValidateFio()
     {
         if (string.IsNullOrWhiteSpace(Fio))
-            errors.Add("ФИО обязательно для заполнения");
+        {
+            AddError(nameof(Fio), "ФИО обязательно для заполнения");
+        }
         else if (Fio.Length < 3)
-            errors.Add("ФИО должно содержать минимум 3 символа");
+        {
+            AddError(nameof(Fio), "ФИО должно содержать минимум 3 символа");
+        }
         else if (Fio.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length < 2)
-            errors.Add("Введите ФИО полностью (Имя и Фамилию)");
+        {
+            AddError(nameof(Fio), "Введите ФИО полностью (Имя и Фамилию)");
+        }
     }
 
-    private void ValidateEmail(List<string> errors)
+    private void ValidateEmail()
     {
         if (string.IsNullOrWhiteSpace(Email))
         {
-            errors.Add("Email обязателен для заполнения");
+            AddError(nameof(Email), "Email обязателен для заполнения");
             return;
         }
 
@@ -171,53 +223,55 @@ public partial class InitViewModel : ValidationViewModelBase
         {
             var addr = new System.Net.Mail.MailAddress(Email);
             if (addr.Address != Email)
-                errors.Add("Некорректный формат email");
+            {
+                AddError(nameof(Email), "Некорректный формат email");
+            }
         }
         catch
         {
-            errors.Add("Некорректный формат email");
+            AddError(nameof(Email), "Некорректный формат email");
         }
     }
 
-    private void ValidatePassword(List<string> errors)
+    private void ValidatePassword()
     {
         if (string.IsNullOrWhiteSpace(Password))
         {
-            errors.Add("Пароль обязателен для заполнения");
-            return;
+            AddError(nameof(Password), "Пароль обязателен для заполнения");
+        } else if (Password.Length < 8)
+        {
+            AddError(nameof(Password), "Пароль должен содержать минимум 8 символов");
+        } else if (!Password.Any(char.IsDigit))
+        {
+            AddError(nameof(Password), "Пароль должен содержать хотя бы одну цифру");
+        } else if (!Password.Any(char.IsUpper))
+        {
+            AddError(nameof(Password), "Пароль должен содержать хотя бы одну заглавную букву");
         }
-
-        if (Password.Length < 8)
-            errors.Add("Пароль должен содержать минимум 8 символов");
-
-        if (!Password.Any(char.IsDigit))
-            errors.Add("Пароль должен содержать хотя бы одну цифру");
-
-        if (!Password.Any(char.IsUpper))
-            errors.Add("Пароль должен содержать хотя бы одну заглавную букву");
     }
 
-    private void ValidateConfirmPassword(List<string> errors)
+    private void ValidateConfirmPassword()
     {
         if (string.IsNullOrWhiteSpace(ConfirmPassword))
         {
-            errors.Add("Подтверждение пароля обязательно");
-            return;
+            AddError(nameof(ConfirmPassword), "Подтверждение пароля обязательно");
+        } else if (ConfirmPassword != Password)
+        {
+            AddError(nameof(ConfirmPassword), "Пароли не совпадают");
         }
-
-        if (ConfirmPassword != Password)
-            errors.Add("Пароли не совпадают");
     }
 
-    private void ValidateDbType(List<string> errors)
+    private void ValidateDbType()
     {
 
     }
 
-    private void ValidateConnectionString(List<string> errors)
+    private void ValidateConnectionString()
     {
         if (string.IsNullOrWhiteSpace(ConnectionString))
-            errors.Add("ConnectionString обязательно для заполнения");
+        {
+            AddError(nameof(ConnectionString), "ConnectionString обязательно для заполнения");
+        }
     }
 
     #endregion Validation rules

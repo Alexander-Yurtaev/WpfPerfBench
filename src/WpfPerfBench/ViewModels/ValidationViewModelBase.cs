@@ -7,7 +7,7 @@ public abstract class ValidationViewModelBase : ViewModelBase, INotifyDataErrorI
 {
     protected readonly Dictionary<string, List<string>> Errors = [];
 
-    public void Validate()
+    public virtual void Validate()
     {
         var properties = this.GetType().GetProperties();
         foreach (var info in properties)
@@ -38,6 +38,16 @@ public abstract class ValidationViewModelBase : ViewModelBase, INotifyDataErrorI
     public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
     #endregion Implementation of INotifyDataErrorInfo
+
+    protected void AddError(string propertyName, string errorMessage)
+    {
+        Errors.Add(propertyName, [errorMessage]);
+    }
+
+    protected void ClearError(string propertyName)
+    {
+        Errors.Remove(propertyName);
+    }
 
     protected virtual void OnErrorsChanged(string propertyName)
     {

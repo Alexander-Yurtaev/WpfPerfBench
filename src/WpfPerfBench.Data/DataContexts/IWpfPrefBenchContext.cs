@@ -4,7 +4,7 @@ using WpfPerfBench.Data.Entities;
 
 namespace WpfPerfBench.Data.DataContexts;
 
-public interface IWpfPerfBenchContext
+public interface IWpfPerfBenchContext : IDisposable, IAsyncDisposable
 {
     DbSet<Category> Categories { get; set; }
     DbSet<Item> Items { get; set; }
