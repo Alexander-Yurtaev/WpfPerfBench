@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 
 namespace WpfPerfBench.Views
 {
@@ -12,16 +10,6 @@ namespace WpfPerfBench.Views
         public InitView()
         {
             InitializeComponent();
-        }
-
-        // NextCommand
-        public static readonly DependencyProperty NextCommandProperty = DependencyProperty.Register(
-            nameof(NextCommand), typeof(ICommand), typeof(InitView), new PropertyMetadata(default(ICommand)));
-
-        public ICommand NextCommand
-        {
-            get => (ICommand)GetValue(NextCommandProperty);
-            set => SetValue(NextCommandProperty, value);
         }
     }
 }

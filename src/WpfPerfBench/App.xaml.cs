@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
+using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Repositories;
@@ -55,7 +56,9 @@ public partial class App : Application
         // 
         services.AddLogging();
 
-        services.AddSingleton<IUserSession>(new UserSession());
+        services.AddSingleton<IUserSession, UserSession>();
+        services.AddSingleton<INavigationService, NavigationService>();
+
         services.AddSingleton<IDataContextFactory, DataContextFactory>();
         services.AddAutoMapper(cfg => cfg.AddMaps(typeof(App).Assembly));
 

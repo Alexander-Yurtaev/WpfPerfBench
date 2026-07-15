@@ -1,13 +1,25 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data.Enums;
 
 namespace WpfPerfBench.ViewModels;
 
+public enum InitState
+{
+    Init,
+    Migration,
+    Ready
+}
+
 public partial class InitViewModel : ValidationViewModelBase
 {
-    public InitViewModel()
+    private readonly INavigationService _navigationService;
+
+    public InitViewModel(INavigationService navigationService)
     {
+        _navigationService = navigationService;
         Header = new Header("🚀", "Окно инициализации");
         FooterTitle = "Окно инициализации: валидация в реальном времени, выбор БД, прогресс-бар";
     }
@@ -33,15 +45,24 @@ public partial class InitViewModel : ValidationViewModelBase
     [ObservableProperty]
     private string _connectionString = string.Empty;
 
-    #region Overrides of ObservableObject
+    [ObservableProperty]
+    private InitState _currentState;
 
-    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+    #region Test
+
+    private bool CanTest() => CurrentState == InitState.Init;
+
+    [RelayCommand(CanExecute = nameof(CanTest))]
+    private void Test()
     {
-        ValidateProperty(e.PropertyName);
-        base.OnPropertyChanged(e);
+        Validate();
+        if (IsValid)
+        {
+            CurrentState = InitState.Migration;
+        }
     }
 
-    #endregion
+    #endregion Test
 
     protected override void ValidateProperty(string? propertyName)
     {
@@ -79,6 +100,52 @@ public partial class InitViewModel : ValidationViewModelBase
 
         OnErrorsChanged(propertyName);
     }
+
+    partial void OnCurrentStateChanged(global::WpfPerfBench.ViewModels.InitState value)
+    {
+        NotifyCanExecuteChangedForAllCommands();
+    }
+
+    private void NotifyCanExecuteChangedForAllCommands()
+    {
+        TestCommand.NotifyCanExecuteChanged();
+        MigrateCommand.NotifyCanExecuteChanged();
+        NextCommand.NotifyCanExecuteChanged();
+    }
+
+    #region Migrate
+
+    private bool CanMigrate() => CurrentState == InitState.Migration;
+
+    [RelayCommand(CanExecute = nameof(CanMigrate))]
+    private void Migrate()
+    {
+        
+    }
+
+    #endregion Migrate
+
+    #region Next
+
+    private bool CanNext() => CurrentState == InitState.Ready;
+
+    [RelayCommand(CanExecute = nameof(CanNext))]
+    private void Next()
+    {
+        _navigationService.NavigateNext();
+    }
+
+    #endregion Next
+
+    #region Overrides of ObservableObject
+
+    protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+    {
+        ValidateProperty(e.PropertyName);
+        base.OnPropertyChanged(e);
+    }
+
+    #endregion
 
     #region Validation rules
 

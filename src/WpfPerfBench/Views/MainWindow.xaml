@@ -73,8 +73,7 @@
                                 Validation.ErrorTemplate="{x:Null}">
                     <ContentControl.Resources>
                         <DataTemplate DataType="{x:Type viewModels:InitViewModel}">
-                            <views:InitView NextCommand="{Binding RelativeSource={RelativeSource AncestorType=views:MainWindow},
-                                                                        Path=DataContext.NextCommand}"/>
+                            <views:InitView />
                         </DataTemplate>
                         <DataTemplate DataType="{x:Type viewModels:StandViewModel}">
                             <views:StandView />

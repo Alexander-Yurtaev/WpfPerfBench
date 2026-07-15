@@ -45,6 +45,12 @@
             <Setter Property="Background" Value="{StaticResource BgInput}"/>
             <Setter Property="BorderBrush" Value="{StaticResource Success}"/>
             <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CurrentState}" Value="Init">
+                    <Setter Property="IsReadOnly" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
         <Style x:Key="FioValidationStyle"
                TargetType="Label">
@@ -127,13 +133,21 @@
             </Style.Triggers>
         </Style>
         
-        <Style TargetType="ComboBox">
+        <Style x:Key="FormComboBoxStyle"
+               BasedOn="{StaticResource RoundedComboBoxStyle}"
+               TargetType="ComboBox">
             <Setter Property="Padding" Value="14 10"/>
             <Setter Property="Background" Value="{StaticResource BgInput}"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
             <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CurrentState}" Value="Init">
+                    <Setter Property="IsReadOnly" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
         <Style x:Key="BorderValidationStatusStyle"
                TargetType="Border">
@@ -316,15 +330,16 @@
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="1" 
                         Content="Тест"
+                        Command="{Binding TestCommand}"
                         Style="{StaticResource SecondaryBtnStyle}"/>
                 <Button Grid.Column="2" 
                         Content="Миграция"
+                        Command="{Binding MigrateCommand}"
                         Style="{StaticResource SecondaryBtnStyle}"/>
                 <Button Grid.Column="3" 
                         Content="Далее"
                         IsDefault="True"
-                        Command="{Binding RelativeSource={RelativeSource AncestorType=local:InitView},
-                                                Path=NextCommand}"
+                        Command="{Binding NextCommand}"
                         Style="{StaticResource PrimaryBtnStyle}"/>
             </Grid>
         </Grid>

@@ -1,14 +1,12 @@
-﻿using System.ComponentModel;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using WpfPerfBench.Data;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using WpfPerfBench.Core.Services;
 
 namespace WpfPerfBench.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject
 {
-    private readonly IUserSession _userSession;
-    private readonly List<Func<ObservableObject>> _viewModels = [];
+    private readonly INavigationService _navigationService;
+    private readonly Dictionary<int, Func<ObservableObject>> _viewModels = [];
 
     [ObservableProperty]
     private ObservableObject? _currentViewModel;
@@ -19,64 +17,38 @@ public partial class MainWindowViewModel : ObservableObject
     [ObservableProperty]
     private int _totalSteps;
 
-    public MainWindowViewModel(Func<InitViewModel> initViewModel, Func<StandViewModel> standViewModel, IUserSession userSession)
+    public MainWindowViewModel(
+        Func<InitViewModel> initViewModel, 
+        Func<StandViewModel> standViewModel,
+        INavigationService navigationService)
     {
-        _userSession = userSession;
+        _navigationService = navigationService;
         
-        _viewModels.Add(initViewModel);
-        _viewModels.Add(standViewModel);
+        _viewModels.Add(1, initViewModel);
+        _viewModels.Add(2, standViewModel);
 
-        CurrentStep = 0;
         TotalSteps = _viewModels.Count();
 
-        NextCommand.Execute(null);
+        _navigationService.OnNavigateNext += NavigationServiceOnNavigateNext;
+        _navigationService.NavigateNext();
     }
 
-    [RelayCommand(CanExecute = nameof(CanNext))]
-    private void OnNext()
+    private void NavigationServiceOnNavigateNext(object? sender, EventArgs e)
     {
-        var vm = ConvertToValidationViewModelBase(CurrentViewModel);
-        if (vm is not null)
+        NavigateTo(CurrentStep + 1);
+    }
+
+    private void NavigateTo(int step)
+    {
+        if (_viewModels.TryGetValue(step, out var factory))
         {
-            vm.Validate();
-            OnPropertyChanged(nameof(CanNext));
-            RefreshCommand();
-            if (!NextCommand.CanExecute(null)) return;
-            vm.ErrorsChanged -= VmOnErrorsChanged;
-
-            if (vm is InitViewModel initViewModel)
-            {
-                _userSession.Fio = initViewModel.Fio;
-                _userSession.DataProvider = initViewModel.DbType;
-                _userSession.ConnectionString = initViewModel.ConnectionString;
-            }
+            CurrentStep = step;
+            CurrentViewModel = factory();
         }
-
-        CurrentStep++;
-        vm = ConvertToValidationViewModelBase(CurrentViewModel);
-        if (vm is null) return;
-        vm.ErrorsChanged += VmOnErrorsChanged;
+        else
+        {
+            CurrentStep = 0;
+            CurrentViewModel = null;
+        }
     }
-
-    public void RefreshCommand()
-    {
-        NextCommand.NotifyCanExecuteChanged();
-    }
-
-    private ValidationViewModelBase? ConvertToValidationViewModelBase(ObservableObject? currentViewModel)
-    {
-        return currentViewModel as ValidationViewModelBase;
-    }
-
-    private void VmOnErrorsChanged(object? sender, DataErrorsChangedEventArgs e)
-    {
-        OnPropertyChanged(nameof(CanNext));
-    }
-
-    partial void OnCurrentStepChanged(int value)
-    {
-        CurrentViewModel = _viewModels[CurrentStep - 1]();
-    }
-
-    private bool CanNext => CurrentViewModel is InitViewModel { IsValid: true };
 }
