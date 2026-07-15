@@ -53,6 +53,8 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         // 
+        services.AddLogging();
+
         services.AddSingleton<IUserSession>(new UserSession());
         services.AddSingleton<IDataContextFactory, DataContextFactory>();
         services.AddAutoMapper(cfg => cfg.AddMaps(typeof(App).Assembly));

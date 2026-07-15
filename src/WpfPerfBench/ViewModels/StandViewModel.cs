@@ -1,13 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using WpfPerfBench.Data;
-//using WpfPerfBench.Data.Repositories;
+using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Interfaces;
 
 namespace WpfPerfBench.ViewModels;
 
 public partial class StandViewModel : ViewModelBase, ILoadable
 {
-    //private readonly ICategoryRepository _categoryRepository;
+    private readonly ICategoryRepository _categoryRepository;
 
     [ObservableProperty]
     private string _icon;
@@ -30,9 +30,9 @@ public partial class StandViewModel : ViewModelBase, ILoadable
     [ObservableProperty]
     private StatItem[] _treeItems;
 
-    public StandViewModel(IUserSession userSession/*, ICategoryRepository categoryRepository*/)
+    public StandViewModel(IUserSession userSession, ICategoryRepository categoryRepository)
     {
-        //_categoryRepository = categoryRepository;
+        _categoryRepository = categoryRepository;
         
         Header = new Header("🧪", "Рабочий стенд");
         FooterTitle = "Рабочий стенд: дерево, детали с контролами, виртуализированный список, карта с маршрутом";
@@ -49,9 +49,10 @@ public partial class StandViewModel : ViewModelBase, ILoadable
     public async Task LoadAsync(CancellationToken ct)
     {
         await Task.CompletedTask;
-        //var categoryTree = await _categoryRepository.HierarchyCategories(ct);
+        return;
+        var categoryTree = await _categoryRepository.HierarchyCategories(ct);
 
-        //TotalRecordCount = categoryTree.Count;
+        TotalRecordCount = categoryTree.Count;
     }
 
     #endregion
