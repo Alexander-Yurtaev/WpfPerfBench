@@ -4,6 +4,7 @@ using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Repositories;
+using WpfPerfBench.Data.Services;
 using WpfPerfBench.ViewModels;
 using WpfPerfBench.Views;
 
@@ -58,6 +59,7 @@ public partial class App : Application
 
         services.AddSingleton<IUserSession, UserSession>();
         services.AddSingleton<INavigationService, NavigationService>();
+        services.AddSingleton<IDataService, DataService>();
 
         services.AddSingleton<IDataContextFactory, DataContextFactory>();
         services.AddAutoMapper(cfg => cfg.AddMaps(typeof(App).Assembly));

@@ -1,16 +1,25 @@
-﻿using FluentAssertions;
+﻿using AutoMapper;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Enums;
 using WpfPerfBench.Data.Repositories;
+using WpfPerfBench.Data.Services;
 using WpfPerfBench.Tests.Factories;
 
 namespace WpfPerfBench.Tests;
 
 public class CategoryRepositoryTests
 {
+    private readonly IMapper _mapper;
+
+    public CategoryRepositoryTests()
+    {
+        _mapper = TestMapperFactory.CreateMapper();
+    }
+
     [Theory]
     [InlineData(DataProvider.MsSql)]
     [InlineData(DataProvider.Postgres)]
@@ -20,22 +29,21 @@ public class CategoryRepositoryTests
         var context = CreateDataContext(provider);
         await SeedHierarchyCategories(context);
 
-        var mapper = TestMapperFactory.CreateMapper();
-
         var factoryMock = new Mock<IDataContextFactory>();
-        factoryMock.Setup(f => f.CreateContext(It.IsAny<DataProvider>(), It.IsAny<string>()))
+        var userSessionMock = new Mock<UserSession>();
+        
+        var dataServiceMock = new Mock<DataService>(factoryMock.Object, userSessionMock.Object);
+        dataServiceMock.Setup(x => x.CreateContext())
             .Returns(context);
 
-        var userSessionMock = new Mock<UserSession>();
-        var repository = new CategoryRepository(mapper,
-            factoryMock.Object, userSessionMock.Object);
+        var repository = new CategoryRepository(_mapper, dataServiceMock.Object);
 
         // Act
         var result = await repository.Categories(CancellationToken.None);
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().HaveCount(2);
+        result.Should().HaveCount(12);
     }
 
     [Theory]
@@ -47,15 +55,14 @@ public class CategoryRepositoryTests
         var context = CreateDataContext(provider);
         await SeedHierarchyCategories(context);
 
-        var mapper = TestMapperFactory.CreateMapper();
-
         var factoryMock = new Mock<IDataContextFactory>();
-        factoryMock.Setup(f => f.CreateContext(It.IsAny<DataProvider>(), It.IsAny<string>()))
+        var userSessionMock = new Mock<UserSession>();
+
+        var dataServiceMock = new Mock<DataService>(factoryMock.Object, userSessionMock.Object);
+        dataServiceMock.Setup(x => x.CreateContext())
             .Returns(context);
 
-        var userSessionMock = new Mock<UserSession>();
-        var repository = new CategoryRepository(mapper,
-            factoryMock.Object, userSessionMock.Object);
+        var repository = new CategoryRepository(_mapper, dataServiceMock.Object);
 
         // Act
         var result = await repository.HierarchyCategories(CancellationToken.None);

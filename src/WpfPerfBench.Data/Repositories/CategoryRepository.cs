@@ -1,29 +1,25 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using WpfPerfBench.Data.DataContexts;
-using WpfPerfBench.Data.Models;
+using WpfPerfBench.Data.Services;
 
 namespace WpfPerfBench.Data.Repositories;
 
 public class CategoryRepository : ICategoryRepository
 {
     private readonly IMapper _mapper;
-    private readonly IDataContextFactory _factory;
-    private readonly IUserSession _userSession;
+    private readonly IDataService _dataService;
 
     public CategoryRepository(
         IMapper mapper,
-        IDataContextFactory factory, 
-        IUserSession userSession)
+        IDataService dataService)
     {
         _mapper = mapper;
-        _factory = factory;
-        _userSession = userSession;
+        _dataService = dataService;
     }
 
     public async Task<List<Models.Category>> Categories(CancellationToken ct = default)
     {
-        var db = _factory.CreateContext(_userSession.DataProvider, _userSession.ConnectionString!);
+        var db = _dataService.CreateContext();
         var categories = await db.Categories
             .AsNoTracking()
             .ToListAsync(ct);
@@ -32,12 +28,12 @@ public class CategoryRepository : ICategoryRepository
         return result;
     }
 
-    public async Task<List<Category>> HierarchyCategories(CancellationToken ct = default)
+    public async Task<List<Models.Category>> HierarchyCategories(CancellationToken ct = default)
     {
         var categories = await Categories(ct);
         var lookup = categories.ToLookup(c => c.ParentId);
 
-        Category BuildTree(int parentId)
+        Models.Category BuildTree(int parentId)
         {
             var parent = categories.First(c => c.Id == parentId);
             var children = lookup[parentId];
