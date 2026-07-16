@@ -20,9 +20,7 @@ public class PostgresDataContext : DbContextBase
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseNpgsql(ConnectionString)
-                .UseSeeding(CategorySeed)
-                .UseAsyncSeeding(CategorySeedAsync);
+            optionsBuilder.UseNpgsql(ConnectionString);
         }
     }
 

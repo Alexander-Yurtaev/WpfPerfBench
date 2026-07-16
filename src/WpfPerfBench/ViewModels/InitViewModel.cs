@@ -162,8 +162,8 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
             foreach (var migration in migrations)
             {
                 await _dataService.Migrate(db, migration, ct);
-                InitProgressStand.SetMigrationStatus($"Миграции применены ({counter} из {total})");
                 counter++;
+                InitProgressStand.SetMigrationStatus($"Миграции применены ({counter} из {total})");
             }
 
             CurrentState = InitState.Feed;

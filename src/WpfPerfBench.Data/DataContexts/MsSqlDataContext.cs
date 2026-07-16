@@ -20,9 +20,7 @@ public class MsSqlDataContext : DbContextBase
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer(ConnectionString)
-                .UseSeeding(CategorySeed)
-                .UseAsyncSeeding(CategorySeedAsync);
+            optionsBuilder.UseSqlServer(ConnectionString);
         }   
     }
 

@@ -17,7 +17,7 @@ cd src\WpfPerfBench.Data
 dotnet ef migrations add InitialPostgres --context PostgresDataContext --output-dir Migrations/Postgres -- "Host=localhost;Database=wpf_pref_bench;Username=postgres;Password=Wpf_Pref_Bench_26;"
 
 # Äëÿ MS SQL
-dotnet ef migrations add InitialMsSql --context MsSqlDdataContext --output-dir Migrations/Sqlite -- Server=localhost;Database=wpf_pref_bench;User Id=sa;Password=Wpf_Pref_Bench_26;TrustServerCertificate=true;
+dotnet ef migrations add InitialMsSql --context MsSqlDdataContext --output-dir Migrations/MsSql -- Server=localhost;Database=wpf_pref_bench;User Id=sa;Password=Wpf_Pref_Bench_26;TrustServerCertificate=true;
 ```
 
 ```bash

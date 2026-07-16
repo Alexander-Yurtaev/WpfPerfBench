@@ -44,6 +44,8 @@ public abstract class DbContextBase : DbContext, IWpfPerfBenchContext
                 .OnDelete(DeleteBehavior.Restrict);
 
             c.HasIndex(x => x.ParentId);
+
+            c.HasData(GetCategories());
         });
 
         modelBuilder.Entity<Item>(i =>
@@ -73,23 +75,6 @@ public abstract class DbContextBase : DbContext, IWpfPerfBenchContext
     }
 
     #endregion
-
-    protected void CategorySeed(DbContext context, bool flag)
-    {
-        if (context.Set<Category>().Any()) return;
-        var categories = GetCategories();
-        context.Set<Category>().AddRange(categories);
-        context.SaveChanges();
-    }
-
-    protected async Task CategorySeedAsync(DbContext context, bool flag, CancellationToken ct)
-    {
-        if (context.Set<Category>().Any()) return;
-
-        var categories = GetCategories();
-        await context.Set<Category>().AddRangeAsync(categories, ct);
-        await context.SaveChangesAsync(ct);
-    }
 
     public static Category[] GetCategories()
     {
