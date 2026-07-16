@@ -12,6 +12,7 @@ public enum InitState
 {
     Init,
     Migration,
+    Feed,
     Ready
 }
 
@@ -84,11 +85,11 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
         InitUserSession();
 
-        var isChecked = await _dataService.TestConnection(CancellationToken.None);
+        var result = await _dataService.TestConnection(CancellationToken.None);
 
-        if (!isChecked)
+        if (!result.Success)
         {
-            AddError(TestConnectionKey, "Ошибка при подключении к БД");
+            AddError(TestConnectionKey, result.Message);
             OnErrorsChanged(TestConnectionKey);
             return;
         }
@@ -169,9 +170,18 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     private bool CanMigrate() => CurrentState == InitState.Migration;
 
     [RelayCommand(CanExecute = nameof(CanMigrate))]
-    private void Migrate()
+    private async Task Migrate()
     {
-        
+        var result = await _dataService.Migrate(CancellationToken.None);
+
+        if (!result.Success)
+        {
+            AddError(TestConnectionKey, result.Message);
+            OnErrorsChanged(TestConnectionKey);
+            return;
+        }
+
+        CurrentState = InitState.Feed;
     }
 
     #endregion Migrate

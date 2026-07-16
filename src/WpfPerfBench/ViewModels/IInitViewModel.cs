@@ -29,7 +29,7 @@ public interface IInitViewModel : IViewModelBase
 
     IAsyncRelayCommand TestCommand { get; }
 
-    IRelayCommand MigrateCommand { get; }
+    IAsyncRelayCommand MigrateCommand { get; }
 
     IRelayCommand NextCommand { get; }
 

@@ -21,48 +21,35 @@ public class DataService : IDataService
         return _factory.CreateContext(_userSession.DataProvider, _userSession.ConnectionString!);
     }
 
-    public async Task<bool> TestConnection(CancellationToken ct)
+    public async Task<ResultBase> TestConnection(CancellationToken ct)
     {
         try
         {
             var db = CreateContext();
-            return await db.Database.CanConnectAsync(ct);
+            var success = await db.Database.CanConnectAsync(ct);
+            return success 
+                ? ResultBase.SuccessResult() 
+                : ResultBase.FailResult("Ошибка при подключении к БД");
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return false;
+            return ResultBase.FailResult(e.Message);
         }
     }
 
-    //public async Task<bool> TestConnection(CancellationToken ct)
-    //{
-    //    try
-    //    {
-    //        await using var context = CreateContext();
-
-    //        // Получаем информацию о попытке подключения
-    //        var connection = context.Database.GetDbConnection();
-    //        Console.WriteLine($"Попытка подключения к: {connection.ConnectionString}");
-
-    //        // Пробуем открыть соединение вручную
-    //        await connection.OpenAsync(ct);
-    //        Console.WriteLine("✅ Соединение открыто успешно!");
-
-    //        // Проверяем состояние
-    //        Console.WriteLine($"Состояние: {connection.State}");
-    //        Console.WriteLine($"База данных: {connection.Database}");
-    //        Console.WriteLine($"Источник данных: {connection.DataSource}");
-
-    //        await connection.CloseAsync();
-    //        return true;
-    //    }
-    //    catch (Exception e)
-    //    {
-    //        Console.WriteLine($"❌ Ошибка: {e.Message}");
-    //        Console.WriteLine($"Детали: {e.InnerException?.Message}");
-    //        Console.WriteLine($"Stack Trace: {e.StackTrace}");
-    //        return false;
-    //    }
-    //}
+    public async Task<ResultBase> Migrate(CancellationToken ct)
+    {
+        try
+        {
+            var db = CreateContext();
+            await db.Database.MigrateAsync(ct);
+            return ResultBase.SuccessResult();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return ResultBase.FailResult(e.Message);
+        }
+    }
 }

@@ -5,5 +5,6 @@ namespace WpfPerfBench.Data.Services;
 public interface IDataService
 {
     IWpfPerfBenchContext CreateContext();
-    Task<bool> TestConnection(CancellationToken ct);
+    Task<ResultBase> TestConnection(CancellationToken ct);
+    Task<ResultBase> Migrate(CancellationToken ct);
 }
