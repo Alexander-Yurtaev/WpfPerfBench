@@ -34,7 +34,7 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadable
     {
         _categoryRepository = categoryRepository;
         
-        Header = new Header("🧪", "Рабочий стенд");
+        Header = new HeaderViewModel("🧪", "Рабочий стенд");
         FooterTitle = "Рабочий стенд: дерево, детали с контролами, виртуализированный список, карта с маршрутом";
 
         Icon = "👋";

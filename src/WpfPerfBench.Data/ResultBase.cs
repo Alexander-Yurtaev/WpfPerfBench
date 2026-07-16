@@ -14,6 +14,11 @@ public abstract class ResultBase
     {
         return new FailResult(message);
     }
+
+    public static NamesResult NamesResult(IEnumerable<string> names)
+    {
+        return new NamesResult(names);
+    }
 }
 
 public class SuccessResult : ResultBase
@@ -30,5 +35,16 @@ public class FailResult : ResultBase
     {
         Success = false;
         Message = message;
+    }
+}
+
+public class NamesResult : ResultBase
+{
+    public IEnumerable<string> Names { get; }
+
+    public NamesResult(IEnumerable<string> names)
+    {
+        Success = true;
+        Names = names;
     }
 }

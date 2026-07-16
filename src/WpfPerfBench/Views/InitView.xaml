@@ -320,12 +320,15 @@
             </Grid>
             <Grid Grid.Row="4"
                   Style="{StaticResource FormGroupStyle}">
-                <controls:InitProgressStand Style="{StaticResource InitProgressStandStyle}"/>
+                <controls:InitProgressStand 
+                    DataContext="{Binding InitProgressStand}"
+                    Style="{StaticResource InitProgressStandStyle}"/>
             </Grid>
             <Grid Grid.Row="5"
                   Style="{StaticResource FormGroupStyle}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -339,10 +342,13 @@
                         Command="{Binding MigrateCommand}"
                         Style="{StaticResource SecondaryBtnStyle}"/>
                 <Button Grid.Column="3" 
+                        Content="Заполнить"
+                        Command="{Binding FeedCommand}"
+                        Style="{StaticResource SecondaryBtnStyle}"/>
+                <Button Grid.Column="4" 
                         Content="Далее"
-                        IsDefault="True"
                         Command="{Binding NextCommand}"
-                        Style="{StaticResource PrimaryBtnStyle}"/>
+                        Style="{StaticResource SecondaryBtnStyle}"/>
             </Grid>
         </Grid>
         <Border Grid.Row="2"

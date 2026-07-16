@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfPerfBench.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="800">
+             d:DesignWidth="800">
 
     <UserControl.Resources>
         <Style x:Key="MainBorderStyle"
@@ -71,15 +71,15 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="ProgressLabelStyle"
+        <Style x:Key="ConnectionProgressStyle"
                TargetType="Label">
             <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Margin" Value="0 4 0 0"/>
         </Style>
-        <Style x:Key="ProgressStatusStyle"
+        <Style x:Key="MigrationStatusStyle"
                TargetType="Label">
-            <Setter Property="Foreground" Value="{StaticResource Success}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Margin" Value="0 4 0 0"/>
         </Style>
@@ -104,11 +104,11 @@
                          Value="75"
                          Style="{StaticResource RoundedProgressBarStyle}"/>
             <Label Grid.Row="1"
-                   Content="{Binding RelativeSource={RelativeSource AncestorType=local:InitProgressStand}, Path=ProgressLabel}"
-                   Style="{StaticResource ProgressLabelStyle}"/>
+                   Content="{Binding ConnectionProgress, FallbackValue='Проверка подключения...'}"
+                   Style="{StaticResource ConnectionProgressStyle}"/>
             <Label Grid.Row="2"
-                   Content="{Binding RelativeSource={RelativeSource AncestorType=local:InitProgressStand}, Path=ProgressStatus}"
-                   Style="{StaticResource ProgressStatusStyle}"/>
+                   Content="{Binding MigrationStatus, FallbackValue='Инициализация завершена! БД готова к работе.'}"
+                   Style="{StaticResource MigrationStatusStyle}"/>
             <Grid Grid.Row="3"
                   Margin="0 4 0 0">
                 <Grid.ColumnDefinitions>
@@ -120,12 +120,12 @@
                        FontSize="13"
                        Foreground="{StaticResource TextSecondary}"/>
                 <Label Grid.Column="1"
-                       Content="{Binding RelativeSource={RelativeSource AncestorType=local:InitProgressStand}, Path=TotalRecords}"
+                       Content="{Binding TotalRecords, FallbackValue='0'}"
                        FontSize="13"
                        Foreground="{StaticResource Accent}"/>
             </Grid>
             <Label Grid.Row="4"
-                   Content="{Binding RelativeSource={RelativeSource AncestorType=local:InitProgressStand}, Path=ProgressMessage}"
+                   Content="{Binding ProgressMessage, FallbackValue='Данные отсутствуют⚡ Рекомендуется наполнить тестовыми данными'}"
                    Style="{StaticResource ProgressMessageStyle}"/>
         </Grid>
     </Border>

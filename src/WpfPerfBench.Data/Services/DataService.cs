@@ -38,12 +38,25 @@ public class DataService : IDataService
         }
     }
 
-    public async Task<ResultBase> Migrate(CancellationToken ct)
+    public async Task<ResultBase> GetPendingMigrationsAsync(DbContext db, CancellationToken ct)
     {
         try
         {
-            var db = CreateContext();
-            await db.Database.MigrateAsync(ct);
+            var migrations = await db.Database.GetPendingMigrationsAsync(ct);
+            return ResultBase.NamesResult(migrations);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return ResultBase.FailResult(e.Message);
+        }
+    }
+
+    public async Task<ResultBase> Migrate(DbContext db, string migrationName, CancellationToken ct)
+    {
+        try
+        {
+            await db.Database.MigrateAsync(migrationName, ct);
             return ResultBase.SuccessResult();
         }
         catch (Exception e)

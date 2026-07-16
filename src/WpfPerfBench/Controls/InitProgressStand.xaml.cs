@@ -39,8 +39,8 @@ namespace WpfPerfBench.Controls
 
         public int TotalRecords
         {
-            get { return (int)GetValue(TotalRecordsProperty); }
-            set { SetValue(TotalRecordsProperty, value); }
+            get => (int)GetValue(TotalRecordsProperty);
+            set => SetValue(TotalRecordsProperty, value);
         }
 
         // ProgressMessage

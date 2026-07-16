@@ -4,7 +4,7 @@ namespace WpfPerfBench.ViewModels;
 
 public interface IViewModelBase
 {
-    public WpfPerfBench.ViewModels.Header Header
+    public HeaderViewModel Header
     {
         get;
         set;

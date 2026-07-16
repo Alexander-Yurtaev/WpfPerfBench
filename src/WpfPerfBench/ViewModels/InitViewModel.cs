@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
@@ -11,6 +12,7 @@ namespace WpfPerfBench.ViewModels;
 public enum InitState
 {
     Init,
+    Busy,
     Migration,
     Feed,
     Ready
@@ -25,14 +27,16 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     private readonly IDataService _dataService;
 
     public InitViewModel(
+        IInitProgressStandViewModel initProgressStand,
         INavigationService navigationService, 
         IUserSession userSession,
         IDataService dataService)
     {
+        InitProgressStand = initProgressStand;
         _navigationService = navigationService;
         _userSession = userSession;
         _dataService = dataService;
-        Header = new Header("🚀", "Окно инициализации");
+        Header = new HeaderViewModel("🚀", "Окно инициализации");
         FooterTitle = "Окно инициализации: валидация в реальном времени, выбор БД, прогресс-бар";
     }
 
@@ -63,6 +67,9 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     [ObservableProperty] 
     private string _validationStatus;
 
+    [ObservableProperty]
+    private IInitProgressStandViewModel _initProgressStand;
+
     #region Overrides of ValidationViewModelBase
 
     public override void Validate()
@@ -80,24 +87,141 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     [RelayCommand(CanExecute = nameof(CanTest))]
     private async Task Test()
     {
-        Validate();
-        if (!IsValid) return;
+        CurrentState = InitState.Busy;
 
-        InitUserSession();
+        // ToDo устранить задержку при установке статуса
+        InitProgressStand.SetConnectionProgress("Валидация данных ...");
 
-        var result = await _dataService.TestConnection(CancellationToken.None);
-
-        if (!result.Success)
+        try
         {
-            AddError(TestConnectionKey, result.Message);
-            OnErrorsChanged(TestConnectionKey);
-            return;
-        }
+            Validate();
+            if (!IsValid) return;
 
-        CurrentState = InitState.Migration;
+            InitUserSession();
+
+            InitProgressStand.SetConnectionProgress("Проверка подключения к БД ...");
+
+            var result = await _dataService.TestConnection(CancellationToken.None);
+
+            if (!result.Success)
+            {
+                InitProgressStand.SetConnectionProgress(result.Message);
+                AddError(TestConnectionKey, "Ошибка!");
+                OnErrorsChanged(TestConnectionKey);
+                CurrentState = InitState.Init;
+                return;
+            }
+
+            InitProgressStand.SetConnectionProgress("Проверка подключения: готово.");
+            CurrentState = InitState.Migration;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            CurrentState = InitState.Init;
+        }
     }
 
     #endregion Test
+
+    #region Migrate
+
+    private bool CanMigrate() => CurrentState == InitState.Migration;
+
+    [RelayCommand(CanExecute = nameof(CanMigrate))]
+    private async Task Migrate(CancellationToken ct)
+    {
+        CurrentState = InitState.Busy;
+
+        InitProgressStand.SetMigrationStatus("Подготовка к миграции ...");
+
+        try
+        {
+            if (_dataService.CreateContext() is not DbContext db)
+            {
+                throw new InvalidOperationException("Ошибка получения контекста БД");
+            }
+
+            var result = await _dataService.GetPendingMigrationsAsync(db, ct);
+
+            if (!result.Success)
+            {
+                AddError(TestConnectionKey, result.Message);
+                OnErrorsChanged(TestConnectionKey);
+                CurrentState = InitState.Migration;
+                return;
+            }
+
+            var migrations = (result as NamesResult)?.Names.ToArray()
+                             ?? 
+                             throw new InvalidOperationException("Ошибка получения списка миграций");
+
+            var counter = 0;
+            var total = migrations.Count();
+            InitProgressStand.SetMigrationStatus($"Миграции применены ({counter} из {total})");
+            foreach (var migration in migrations)
+            {
+                await _dataService.Migrate(db, migration, ct);
+                InitProgressStand.SetMigrationStatus($"Миграции применены ({counter} из {total})");
+                counter++;
+            }
+
+            CurrentState = InitState.Feed;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            CurrentState = InitState.Migration;
+        }
+    }
+
+    #endregion Migrate
+
+    #region Feed
+
+    private bool CanFeed() => CurrentState == InitState.Feed;
+
+    [RelayCommand(CanExecute = nameof(CanFeed))]
+    private async Task Feed()
+    {
+        CurrentState = InitState.Busy;
+
+        try
+        {
+            //var result = await _dataService.Migrate(CancellationToken.None);
+
+            //if (!result.Success)
+            //{
+            //    AddError(TestConnectionKey, result.Message);
+            //    OnErrorsChanged(TestConnectionKey);
+            //    CurrentState = InitState.Feed;
+            //    return;
+            //}
+
+            await Task.Delay(100);
+
+            CurrentState = InitState.Ready;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            CurrentState = InitState.Feed;
+        }
+    }
+
+    #endregion Feed
+
+    #region Next
+
+    private bool CanNext() => CurrentState == InitState.Ready;
+
+    [RelayCommand(CanExecute = nameof(CanNext))]
+    private void Next()
+    {
+        _navigationService.NavigateNext();
+    }
+
+    #endregion Next
 
     private void InitUserSession()
     {
@@ -148,6 +272,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     {
         TestCommand.NotifyCanExecuteChanged();
         MigrateCommand.NotifyCanExecuteChanged();
+        FeedCommand.NotifyCanExecuteChanged();
         NextCommand.NotifyCanExecuteChanged();
     }
 
@@ -164,39 +289,6 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     }
 
     #endregion
-
-    #region Migrate
-
-    private bool CanMigrate() => CurrentState == InitState.Migration;
-
-    [RelayCommand(CanExecute = nameof(CanMigrate))]
-    private async Task Migrate()
-    {
-        var result = await _dataService.Migrate(CancellationToken.None);
-
-        if (!result.Success)
-        {
-            AddError(TestConnectionKey, result.Message);
-            OnErrorsChanged(TestConnectionKey);
-            return;
-        }
-
-        CurrentState = InitState.Feed;
-    }
-
-    #endregion Migrate
-
-    #region Next
-
-    private bool CanNext() => CurrentState == InitState.Ready;
-
-    [RelayCommand(CanExecute = nameof(CanNext))]
-    private void Next()
-    {
-        _navigationService.NavigateNext();
-    }
-
-    #endregion Next
 
     #region Overrides of ObservableObject
 

@@ -5,23 +5,8 @@ namespace WpfPerfBench.ViewModels;
 public abstract partial class ViewModelBase : ObservableObject, IViewModelBase
 {
     [ObservableProperty]
-    private Header _header = new Header("", "");
+    private HeaderViewModel _header = new HeaderViewModel("", "");
 
     [ObservableProperty]
     private string _footerTitle = string.Empty;
-}
-
-public partial class Header : ObservableObject
-{
-    [ObservableProperty]
-    private string _icon = string.Empty;
-
-    [ObservableProperty]
-    private string _title = string.Empty;
-
-    public Header(string icon, string title)
-    {
-        Icon = icon;
-        Title = title;
-    }
 }
