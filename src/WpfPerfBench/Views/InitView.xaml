@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WpfPerfBench.Views"
              xmlns:controls="clr-namespace:WpfPerfBench.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="800">
+             d:DesignHeight="895" d:DesignWidth="800">
 
     <UserControl.Resources>
         <Style TargetType="UserControl">
@@ -14,7 +14,7 @@
         </Style>
         <Style x:Key="HeaderGridStyle"
                TargetType="Grid">
-            <Setter Property="Margin" Value="0 0 0 25"/>
+            <Setter Property="Margin" Value="0 0 0 12"/>
         </Style>
         <Style x:Key="HeaderIconStyle"
                TargetType="TextBlock">
@@ -30,7 +30,7 @@
         </Style>
         <Style x:Key="FormGroupStyle"
                TargetType="Grid">
-            <Setter Property="Margin" Value="0 0 0 18"/>
+            <Setter Property="Margin" Value="0 0 0 9"/>
         </Style>
         <Style x:Key="FormLabelStyle"
                TargetType="Label">
@@ -132,7 +132,12 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        
+
+        <Style x:Key="InitProgressStandStyle"
+               TargetType="controls:InitProgressStand">
+            <Setter Property="Visibility" Value="Visible"/>
+        </Style>
+
         <Style x:Key="FormComboBoxStyle"
                BasedOn="{StaticResource RoundedComboBoxStyle}"
                TargetType="ComboBox">
@@ -315,7 +320,7 @@
             </Grid>
             <Grid Grid.Row="4"
                   Style="{StaticResource FormGroupStyle}">
-                <controls:InitProgressStand/>
+                <controls:InitProgressStand Style="{StaticResource InitProgressStandStyle}"/>
             </Grid>
             <Grid Grid.Row="5"
                   Style="{StaticResource FormGroupStyle}">

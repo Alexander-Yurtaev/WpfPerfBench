@@ -13,7 +13,7 @@
         Title="WPF Performance Demo" 
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        Height="916" Width="612">
+        Height="985" Width="612">
 
     <b:Interaction.Behaviors>
         <behaviors:DragMoveBehavior/>
