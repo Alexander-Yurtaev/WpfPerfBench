@@ -2,7 +2,7 @@
 
 namespace WpfPerfBench.ViewModels;
 
-public abstract partial class ViewModelBase : ObservableObject
+public abstract partial class ViewModelBase : ObservableObject, IViewModelBase
 {
     [ObservableProperty]
     private Header _header = new Header("", "");

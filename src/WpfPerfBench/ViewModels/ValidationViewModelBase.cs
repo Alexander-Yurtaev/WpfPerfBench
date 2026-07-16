@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace WpfPerfBench.ViewModels;
 
-public abstract class ValidationViewModelBase : ViewModelBase, INotifyDataErrorInfo
+public abstract class ValidationViewModelBase : ViewModelBase, IValidationViewModelBase, INotifyDataErrorInfo
 {
     protected readonly Dictionary<string, List<string>> Errors = [];
 

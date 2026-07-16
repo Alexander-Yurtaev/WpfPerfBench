@@ -15,16 +15,16 @@ public class MainWindowViewModelTests
     public MainWindowViewModelTests()
     {
         _navigationService = new NavigationService();
-        var userSessionMock = new Mock<IUserSession>();
+        //var userSessionMock = new Mock<IUserSession>();
         var categoryRepositoryMock = new Mock<ICategoryRepository>();
 
-        var initViewModelMock = new Mock<Func<InitViewModel>>();
+        var initViewModelMock = new Mock<Func<IInitViewModel>>();
         initViewModelMock.Setup(m => m.Invoke())
-            .Returns(new InitViewModel(_navigationService));
+            .Returns(new Mock<IInitViewModel>().Object);
 
-        var standViewModelMock = new Mock<Func<StandViewModel>>();
+        var standViewModelMock = new Mock<Func<IStandViewModel>>();
         standViewModelMock.Setup(m => m.Invoke())
-            .Returns(new StandViewModel(userSessionMock.Object, categoryRepositoryMock.Object));
+            .Returns(new Mock<IStandViewModel>().Object);
 
         _viewModel = new MainWindowViewModel(
             initViewModelMock.Object, 
@@ -42,7 +42,7 @@ public class MainWindowViewModelTests
         // Assert
         _viewModel.CurrentStep.Should().Be(1);
         _viewModel.CurrentViewModel.Should().NotBeNull();
-        _viewModel.CurrentViewModel.Should().BeOfType<InitViewModel>();
+        _viewModel.CurrentViewModel.Should().BeAssignableTo<IInitViewModel>();
     }
 
     [Fact]
@@ -57,7 +57,7 @@ public class MainWindowViewModelTests
         // Assert
         _viewModel.CurrentStep.Should().Be(2);
         _viewModel.CurrentViewModel.Should().NotBeNull();
-        _viewModel.CurrentViewModel.Should().BeOfType<StandViewModel>();
+        _viewModel.CurrentViewModel.Should().BeAssignableTo<IStandViewModel>();
     }
 
     [Fact]

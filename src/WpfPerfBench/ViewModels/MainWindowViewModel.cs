@@ -6,10 +6,10 @@ namespace WpfPerfBench.ViewModels;
 public partial class MainWindowViewModel : ObservableObject
 {
     private readonly INavigationService _navigationService;
-    private readonly Dictionary<int, Func<ObservableObject>> _viewModels = [];
+    private readonly Dictionary<int, Func<IViewModelBase>> _viewModels = [];
 
     [ObservableProperty]
-    private ObservableObject? _currentViewModel;
+    private IViewModelBase? _currentViewModel;
 
     [ObservableProperty]
     private int _currentStep;
@@ -18,8 +18,8 @@ public partial class MainWindowViewModel : ObservableObject
     private int _totalSteps;
 
     public MainWindowViewModel(
-        Func<InitViewModel> initViewModel, 
-        Func<StandViewModel> standViewModel,
+        Func<IInitViewModel> initViewModel, 
+        Func<IStandViewModel> standViewModel,
         INavigationService navigationService)
     {
         _navigationService = navigationService;

@@ -66,11 +66,11 @@ public partial class App : Application
 
         services.AddTransient<ICategoryRepository, CategoryRepository>();
 
-        services.AddTransient<InitViewModel>();
-        services.AddTransient<Func<InitViewModel>>(sp => sp.GetRequiredService<InitViewModel>);
+        services.AddTransient<IInitViewModel, InitViewModel>();
+        services.AddTransient<Func<IInitViewModel>>(sp => sp.GetRequiredService<IInitViewModel>);
         
-        services.AddTransient<StandViewModel>();
-        services.AddTransient<Func<StandViewModel>>(sp => sp.GetRequiredService<StandViewModel>);
+        services.AddTransient<IStandViewModel, StandViewModel>();
+        services.AddTransient<Func<IStandViewModel>>(sp => sp.GetRequiredService<IStandViewModel>);
         
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<MainWindow>();

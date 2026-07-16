@@ -15,7 +15,7 @@ public enum InitState
     Ready
 }
 
-public partial class InitViewModel : ValidationViewModelBase
+public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 {
     private const string TestConnectionKey = "<TestConnection>";
 
@@ -82,9 +82,7 @@ public partial class InitViewModel : ValidationViewModelBase
         Validate();
         if (!IsValid) return;
 
-        _userSession.Fio = Fio;
-        _userSession.DataProvider = DbType;
-        _userSession.ConnectionString = ConnectionString;
+        InitUserSession();
 
         var isChecked = await _dataService.TestConnection(CancellationToken.None);
 
@@ -99,6 +97,13 @@ public partial class InitViewModel : ValidationViewModelBase
     }
 
     #endregion Test
+
+    private void InitUserSession()
+    {
+        _userSession.Fio = Fio;
+        _userSession.DataProvider = DbType;
+        _userSession.ConnectionString = ConnectionString;
+    }
 
     protected override void ValidateProperty(string? propertyName)
     {

@@ -5,7 +5,7 @@ using WpfPerfBench.Interfaces;
 
 namespace WpfPerfBench.ViewModels;
 
-public partial class StandViewModel : ViewModelBase, ILoadable
+public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadable
 {
     private readonly ICategoryRepository _categoryRepository;
 
