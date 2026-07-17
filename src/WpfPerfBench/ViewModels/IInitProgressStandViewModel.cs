@@ -6,6 +6,9 @@ public interface IInitProgressStandViewModel
     void SetMigrationStatus(string message);
     void SetTotalRecords(string message);
     void SetProgressMessage(string message);
+    void ShowBusy(bool isBusy);
+    void InitProgressbar(double min, double max);
+    void SetProgress(double value);
 
     string ConnectionProgress { get; set; }
 
@@ -14,4 +17,8 @@ public interface IInitProgressStandViewModel
     string TotalRecords { get; set; }
 
     string ProgressMessage { get; set; }
+    bool IsIndeterminate { get; set; }
+    double Min { get; set; }
+    double Max { get; set; }
+    double Value { get; set; }
 }

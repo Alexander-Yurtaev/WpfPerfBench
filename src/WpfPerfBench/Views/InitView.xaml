@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WpfPerfBench.Views"
              xmlns:controls="clr-namespace:WpfPerfBench.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="895" d:DesignWidth="800">
+             d:DesignHeight="811.43" d:DesignWidth="504">
 
     <UserControl.Resources>
         <Style TargetType="UserControl">
@@ -321,8 +321,8 @@
             <Grid Grid.Row="4"
                   Style="{StaticResource FormGroupStyle}">
                 <controls:InitProgressStand 
-                    DataContext="{Binding InitProgressStand}"
-                    Style="{StaticResource InitProgressStandStyle}"/>
+                            DataContext="{Binding InitProgressStand}"
+                            Style="{StaticResource InitProgressStandStyle}"/>
             </Grid>
             <Grid Grid.Row="5"
                   Style="{StaticResource FormGroupStyle}">

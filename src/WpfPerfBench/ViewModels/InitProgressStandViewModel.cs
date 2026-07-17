@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Windows;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace WpfPerfBench.ViewModels;
 
@@ -17,6 +15,18 @@ public partial class InitProgressStandViewModel : ViewModelBase, IInitProgressSt
 
     [ObservableProperty]
     private string _progressMessage = "-";
+
+    [ObservableProperty] 
+    private bool _isIndeterminate;
+
+    [ObservableProperty] 
+    private double _min;
+
+    [ObservableProperty]
+    private double _max;
+
+    [ObservableProperty]
+    private double _value;
 
     public void SetConnectionProgress(string message)
     {
@@ -36,5 +46,21 @@ public partial class InitProgressStandViewModel : ViewModelBase, IInitProgressSt
     public void SetProgressMessage(string message)
     {
         ProgressMessage = message;
+    }
+
+    public void ShowBusy(bool isBusy)
+    {
+        IsIndeterminate = isBusy;
+    }
+
+    public void InitProgressbar(double min, double max)
+    {
+        Min = min;
+        Max = max;
+    }
+
+    public void SetProgress(double value)
+    {
+        Value = value;
     }
 }

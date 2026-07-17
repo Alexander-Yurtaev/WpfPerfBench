@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
@@ -33,6 +33,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
         IDataService dataService)
     {
         InitProgressStand = initProgressStand;
+        InitProgressStand.InitProgressbar(0, 3);
         _navigationService = navigationService;
         _userSession = userSession;
         _dataService = dataService;
@@ -114,6 +115,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
             InitProgressStand.SetConnectionProgress("Проверка подключения: готово.");
             CurrentState = InitState.Migration;
+            InitProgressStand.SetProgress(1);
         }
         catch (Exception e)
         {
@@ -167,6 +169,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
             }
 
             CurrentState = InitState.Feed;
+            InitProgressStand.SetProgress(2);
         }
         catch (Exception e)
         {
@@ -198,9 +201,10 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
             //    return;
             //}
 
-            await Task.Delay(100);
+            await Task.Delay(5000);
 
             CurrentState = InitState.Ready;
+            InitProgressStand.SetProgress(3);
         }
         catch (Exception e)
         {
@@ -265,6 +269,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
     partial void OnCurrentStateChanged(InitState value)
     {
+        InitProgressStand.ShowBusy(value == InitState.Busy);
         NotifyCanExecuteChangedForAllCommands();
     }
 
