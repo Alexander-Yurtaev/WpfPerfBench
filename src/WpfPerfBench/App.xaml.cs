@@ -59,9 +59,11 @@ public partial class App : Application
 
         services.AddSingleton<IUserSession, UserSession>();
         services.AddSingleton<INavigationService, NavigationService>();
-        services.AddSingleton<IDataService, DataService>();
+        
+        services.AddTransient<IDataService, DataService>();
+        services.AddTransient<IGeneratorService, GeneratorService>();
+        services.AddTransient<IDataContextFactory, DataContextFactory>();
 
-        services.AddSingleton<IDataContextFactory, DataContextFactory>();
         services.AddAutoMapper(cfg => cfg.AddMaps(typeof(App).Assembly));
 
         services.AddTransient<ICategoryRepository, CategoryRepository>();

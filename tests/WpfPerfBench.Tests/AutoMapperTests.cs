@@ -8,6 +8,7 @@ namespace WpfPerfBench.Tests;
 public class AutoMapperTests
 {
     private readonly IMapper _mapper;
+    private readonly IGeneratorService _generatorService;
 
     public AutoMapperTests()
     {
@@ -17,6 +18,7 @@ public class AutoMapperTests
         }, new NullLoggerFactory());
 
         _mapper = config.CreateMapper();
+        _generatorService = new GeneratorService();
     }
 
     [Fact]
@@ -30,7 +32,7 @@ public class AutoMapperTests
     public void Map_Category_Model_To_Entity_Success()
     {
         // Arrange
-        var model = GeneratorService.GenerateCategoryModel();
+        var model = _generatorService.GenerateCategoryModel();
 
         // Act
         var entity = _mapper.Map<Data.Entities.Category>(model);
@@ -43,7 +45,7 @@ public class AutoMapperTests
     public void Map_Category_Entity_To_Model_Success()
     {
         // Arrange
-        var model = GeneratorService.GenerateCategoryEntity();
+        var model = _generatorService.GenerateCategoryEntity();
 
         // Act
         var entity = _mapper.Map<Data.Models.Category>(model);
@@ -56,7 +58,7 @@ public class AutoMapperTests
     public void Map_List_Category_Model_To_Entity_Success()
     {
         // Arrange
-        var models = GeneratorService.GenerateListCategoryModel(10);
+        var models = _generatorService.GenerateListCategoryModel(10);
 
         // Act
         var entities = _mapper.Map<List<Data.Entities.Category>>(models);
@@ -83,7 +85,7 @@ public class AutoMapperTests
     public void Map_List_Category_Entity_To_Model_Success()
     {
         // Arrange
-        var models = GeneratorService.GenerateListCategoryEntity(10);
+        var models = _generatorService.GenerateListCategoryEntity(10);
 
         // Act
         var entities = _mapper.Map<List<Data.Models.Category>>(models);

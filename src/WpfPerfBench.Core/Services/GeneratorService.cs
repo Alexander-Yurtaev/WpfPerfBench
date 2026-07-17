@@ -2,9 +2,9 @@
 
 namespace WpfPerfBench.Core.Services;
 
-public static class GeneratorService
+public class GeneratorService : IGeneratorService
 {
-    public static Data.Models.Category GenerateCategoryModel()
+    public Data.Models.Category GenerateCategoryModel()
     {
         var faker = new Faker<Data.Models.Category>()
             .RuleFor(u => u.Id, f => f.Random.Int())
@@ -19,7 +19,7 @@ public static class GeneratorService
         return faker;
     }
 
-    public static Data.Entities.Category GenerateCategoryEntity()
+    public Data.Entities.Category GenerateCategoryEntity()
     {
         var faker = new Faker<Data.Entities.Category>()
             .RuleFor(u => u.Id, f => f.Random.Int())
@@ -34,7 +34,7 @@ public static class GeneratorService
         return faker;
     }
 
-    public static List<Data.Models.Category> GenerateListCategoryModel(int count)
+    public List<Data.Models.Category> GenerateListCategoryModel(int count)
     {
         var faker = new Faker<Data.Models.Category>()
             .RuleFor(u => u.Id, f => f.Random.Int())
@@ -49,7 +49,7 @@ public static class GeneratorService
         return faker.ToList();
     }
 
-    public static List<Data.Entities.Category> GenerateListCategoryEntity(int count)
+    public List<Data.Entities.Category> GenerateListCategoryEntity(int count)
     {
         var faker = new Faker<Data.Entities.Category>()
             .RuleFor(u => u.Id, f => f.Random.Int())
