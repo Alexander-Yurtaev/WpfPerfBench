@@ -1,25 +1,23 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using WpfPerfBench.Data.Services;
+using WpfPerfBench.Data.DataContexts;
 
 namespace WpfPerfBench.Data.Repositories;
 
 public class CategoryRepository : ICategoryRepository
 {
     private readonly IMapper _mapper;
-    private readonly IDataService _dataService;
 
     public CategoryRepository(
-        IMapper mapper,
-        IDataService dataService)
+        IMapper mapper)
     {
         _mapper = mapper;
-        _dataService = dataService;
     }
 
-    public async Task<List<Models.Category>> Categories(CancellationToken ct = default)
+    public async Task<List<Models.Category>> Categories(
+        IWpfPerfBenchContext db, 
+        CancellationToken ct = default)
     {
-        var db = _dataService.CreateContext();
         var categories = await db.Categories
             .AsNoTracking()
             .ToListAsync(ct);
@@ -28,9 +26,11 @@ public class CategoryRepository : ICategoryRepository
         return result;
     }
 
-    public async Task<List<Models.Category>> HierarchyCategories(CancellationToken ct = default)
+    public async Task<List<Models.Category>> HierarchyCategories(
+        IWpfPerfBenchContext db,
+        CancellationToken ct = default)
     {
-        var categories = await Categories(ct);
+        var categories = await Categories(db, ct);
         var lookup = categories.ToLookup(c => c.ParentId);
 
         Models.Category BuildTree(int parentId)
@@ -45,5 +45,18 @@ public class CategoryRepository : ICategoryRepository
         }
 
         return lookup[null].Select(c => BuildTree(c.Id)).ToList();
+    }
+
+    public async Task CleanItems(IWpfPerfBenchContext db, CancellationToken ct = default)
+    {
+        try
+        {
+            await db.Items.ExecuteDeleteAsync(ct);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

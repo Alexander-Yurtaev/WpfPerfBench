@@ -50,9 +50,9 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadable
     {
         await Task.CompletedTask;
         return;
-        var categoryTree = await _categoryRepository.HierarchyCategories(ct);
+        //var categoryTree = await _categoryRepository.HierarchyCategories(ct);
 
-        TotalRecordCount = categoryTree.Count;
+        //TotalRecordCount = categoryTree.Count;
     }
 
     #endregion

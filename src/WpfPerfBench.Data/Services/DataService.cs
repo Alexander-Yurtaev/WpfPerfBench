@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WpfPerfBench.Data.DataContexts;
+using WpfPerfBench.Data.Repositories;
 
 namespace WpfPerfBench.Data.Services;
 
@@ -7,13 +8,16 @@ public class DataService : IDataService
 {
     private readonly IDataContextFactory _factory;
     private readonly IUserSession _userSession;
+    private readonly ICategoryRepository _categoryRepository;
 
     public DataService(
         IDataContextFactory factory,
-        IUserSession userSession)
+        IUserSession userSession,
+        ICategoryRepository categoryRepository)
     {
         _factory = factory;
         _userSession = userSession;
+        _categoryRepository = categoryRepository;
     }
 
     public virtual IWpfPerfBenchContext CreateContext()
@@ -63,5 +67,24 @@ public class DataService : IDataService
             Console.WriteLine(e);
             return ResultBase.FailResult(e.Message);
         }
+    }
+
+    public async Task<ResultBase> CleanItems(IWpfPerfBenchContext db, CancellationToken ct)
+    {
+        try
+        {
+            await _categoryRepository.CleanItems(db, ct);
+            return ResultBase.SuccessResult();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return ResultBase.FailResult(e.Message);
+        }
+    }
+
+    public Task<ResultBase> Feed(IWpfPerfBenchContext db, CancellationToken ct)
+    {
+        throw new NotImplementedException();
     }
 }

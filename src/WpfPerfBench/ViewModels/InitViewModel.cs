@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
-using System.Diagnostics.Metrics;
 using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
@@ -223,15 +222,17 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
         try
         {
-            //var result = await _dataService.Migrate(CancellationToken.None);
+            var db = _dataService.CreateContext();
 
-            //if (!result.Success)
-            //{
-            //    AddError(SystemErrorMessageKey, result.Message);
-            //    OnErrorsChanged(SystemErrorMessageKey);
-            //    CurrentState = InitState.Feed;
-            //    return;
-            //}
+            var result = await _dataService.CleanItems(db, CancellationToken.None);
+
+            if (!result.Success)
+            {
+                AddError(SystemErrorMessageKey, result.Message);
+                OnErrorsChanged(SystemErrorMessageKey);
+                CurrentState = InitState.Feed;
+                return;
+            }
 
             await Task.Delay(5000);
 
