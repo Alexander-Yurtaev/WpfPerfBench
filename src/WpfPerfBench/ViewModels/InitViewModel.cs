@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
+using System.Diagnostics.Metrics;
 using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
@@ -20,7 +21,7 @@ public enum InitState
 
 public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 {
-    private const string TestConnectionKey = "<TestConnection>";
+    private const string SystemErrorMessageKey = "<SystemErrorMessage>";
 
     private readonly INavigationService _navigationService;
     private readonly IUserSession _userSession;
@@ -75,7 +76,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
     public override void Validate()
     {
-        ClearError(TestConnectionKey);
+        ClearError(SystemErrorMessageKey);
         base.Validate();
     }
 
@@ -100,22 +101,52 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
             InitUserSession();
 
+            // Test Connection
             InitProgressStand.SetConnectionProgress("Проверка подключения к БД ...");
 
-            var result = await _dataService.TestConnection(CancellationToken.None);
+            var db = _dataService.CreateContext();
 
-            if (!result.Success)
+            var resultTest = await _dataService.TestConnection(db, CancellationToken.None);
+
+            if (!resultTest.Success)
             {
-                InitProgressStand.SetConnectionProgress(result.Message);
-                AddError(TestConnectionKey, "Ошибка!");
-                OnErrorsChanged(TestConnectionKey);
+                InitProgressStand.SetConnectionProgress(resultTest.Message);
+                AddError(SystemErrorMessageKey, "Ошибка!");
+                OnErrorsChanged(SystemErrorMessageKey);
                 CurrentState = InitState.Init;
                 return;
             }
 
             InitProgressStand.SetConnectionProgress("Проверка подключения: готово.");
-            CurrentState = InitState.Migration;
             InitProgressStand.SetProgress(1);
+
+            // Test Migration
+            var resultMigration = await _dataService.GetPendingMigrationsAsync(db, CancellationToken.None);
+
+            if (!resultMigration.Success)
+            {
+                AddError(SystemErrorMessageKey, resultMigration.Message);
+                OnErrorsChanged(SystemErrorMessageKey);
+                CurrentState = InitState.Init;
+                return;
+            }
+
+            var migrationsCount = (resultMigration as NamesResult)?.Names.Count()
+                             ??
+                             throw new InvalidOperationException("Ошибка получения списка миграций");
+
+            if (migrationsCount > 0)
+            {
+                CurrentState = InitState.Migration;
+            }
+            else
+            {
+                InitProgressStand.SetMigrationStatus($"Новых миграций нет");
+                InitProgressStand.SetProgress(2);
+                var count = await db.Items.CountAsync(CancellationToken.None);
+                InitProgressStand.SetTotalRecords(count.ToString("N0"));
+                CurrentState = InitState.Feed;
+            }   
         }
         catch (Exception e)
         {
@@ -139,17 +170,14 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
         try
         {
-            if (_dataService.CreateContext() is not DbContext db)
-            {
-                throw new InvalidOperationException("Ошибка получения контекста БД");
-            }
+            var db = _dataService.CreateContext();
 
             var result = await _dataService.GetPendingMigrationsAsync(db, ct);
 
             if (!result.Success)
             {
-                AddError(TestConnectionKey, result.Message);
-                OnErrorsChanged(TestConnectionKey);
+                AddError(SystemErrorMessageKey, result.Message);
+                OnErrorsChanged(SystemErrorMessageKey);
                 CurrentState = InitState.Migration;
                 return;
             }
@@ -195,8 +223,8 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
             //if (!result.Success)
             //{
-            //    AddError(TestConnectionKey, result.Message);
-            //    OnErrorsChanged(TestConnectionKey);
+            //    AddError(SystemErrorMessageKey, result.Message);
+            //    OnErrorsChanged(SystemErrorMessageKey);
             //    CurrentState = InitState.Feed;
             //    return;
             //}
@@ -286,7 +314,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     protected override void OnErrorsChanged(string propertyName)
     {
         base.OnErrorsChanged(propertyName);
-        ValidationStatus = Errors.TryGetValue(TestConnectionKey, out var errors)
+        ValidationStatus = Errors.TryGetValue(SystemErrorMessageKey, out var errors)
             ? errors.First()
             : HasErrors
                 ? "❌ Некоторые поля заполнены некорректно • Исправьте ошибки"

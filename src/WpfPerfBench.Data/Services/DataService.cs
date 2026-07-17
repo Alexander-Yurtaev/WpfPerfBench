@@ -21,11 +21,10 @@ public class DataService : IDataService
         return _factory.CreateContext(_userSession.DataProvider, _userSession.ConnectionString!);
     }
 
-    public async Task<ResultBase> TestConnection(CancellationToken ct)
+    public async Task<ResultBase> TestConnection(IWpfPerfBenchContext db, CancellationToken ct)
     {
         try
         {
-            var db = CreateContext();
             var success = await db.Database.CanConnectAsync(ct);
             return success 
                 ? ResultBase.SuccessResult() 
@@ -38,7 +37,7 @@ public class DataService : IDataService
         }
     }
 
-    public async Task<ResultBase> GetPendingMigrationsAsync(DbContext db, CancellationToken ct)
+    public async Task<ResultBase> GetPendingMigrationsAsync(IWpfPerfBenchContext db, CancellationToken ct)
     {
         try
         {
@@ -52,7 +51,7 @@ public class DataService : IDataService
         }
     }
 
-    public async Task<ResultBase> Migrate(DbContext db, string migrationName, CancellationToken ct)
+    public async Task<ResultBase> Migrate(IWpfPerfBenchContext db, string migrationName, CancellationToken ct)
     {
         try
         {
