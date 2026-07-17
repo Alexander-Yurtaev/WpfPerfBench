@@ -97,7 +97,11 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
         try
         {
             Validate();
-            if (!IsValid) return;
+            if (!IsValid)
+            {
+                CurrentState = InitState.Init;
+                return;
+            }
 
             InitUserSession();
 
