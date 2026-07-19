@@ -83,8 +83,17 @@ public class DataService : IDataService
         }
     }
 
-    public Task<ResultBase> Feed(IWpfPerfBenchContext db, CancellationToken ct)
+    public async Task<ResultBase> FeedItems(IWpfPerfBenchContext db, List<Models.Item> items, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _categoryRepository.Feed(db, items, ct);
+            return ResultBase.SuccessResult();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return ResultBase.FailResult(e.GetBaseException().Message);
+        }
     }
 }

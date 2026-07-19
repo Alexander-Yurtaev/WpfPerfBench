@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bogus" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\WpfPerfBench.Data\WpfPerfBench.Data.csproj" />
   </ItemGroup>
 

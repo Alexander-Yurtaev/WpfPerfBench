@@ -25,18 +25,21 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     private readonly INavigationService _navigationService;
     private readonly IUserSession _userSession;
     private readonly IDataService _dataService;
+    private readonly IGeneratorService _generatorService;
 
     public InitViewModel(
         IInitProgressStandViewModel initProgressStand,
         INavigationService navigationService, 
         IUserSession userSession,
-        IDataService dataService)
+        IDataService dataService,
+        IGeneratorService generatorService)
     {
         InitProgressStand = initProgressStand;
         InitProgressStand.InitProgressbar(0, 3);
         _navigationService = navigationService;
         _userSession = userSession;
         _dataService = dataService;
+        _generatorService = generatorService;
         Header = new HeaderViewModel("🚀", "Окно инициализации");
         FooterTitle = "Окно инициализации: валидация в реальном времени, выбор БД, прогресс-бар";
     }
@@ -148,6 +151,10 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
                 InitProgressStand.SetProgress(2);
                 var count = await db.Items.CountAsync(CancellationToken.None);
                 InitProgressStand.SetTotalRecords(count.ToString("N0"));
+                if (count == 0)
+                {
+                    InitProgressStand.SetProgressMessage("Данные отсутствуют⚡ Рекомендуется наполнить тестовыми данными");
+                }
                 CurrentState = InitState.Feed;
             }   
         }
@@ -223,7 +230,8 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
         try
         {
             var db = _dataService.CreateContext();
-
+            
+            // CleanItems
             var result = await _dataService.CleanItems(db, CancellationToken.None);
 
             if (!result.Success)
@@ -234,7 +242,19 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
                 return;
             }
 
-            await Task.Delay(5000);
+            // Feed
+            var items = _generatorService.GenerateListItemModel(1_000_000);
+            result = await _dataService.FeedItems(db, items, CancellationToken.None);
+
+            // InitProgressStand.SetProgressMessage("");
+
+            if (!result.Success)
+            {
+                AddError(SystemErrorMessageKey, result.Message);
+                OnErrorsChanged(SystemErrorMessageKey);
+                CurrentState = InitState.Feed;
+                return;
+            }
 
             CurrentState = InitState.Ready;
             InitProgressStand.SetProgress(3);

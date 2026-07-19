@@ -36,10 +36,10 @@ public class CategoryRepositoryTests
         dataServiceMock.Setup(x => x.CreateContext())
             .Returns(context);
 
-        var repository = new CategoryRepository(_mapper, dataServiceMock.Object);
+        var repository = new CategoryRepository(_mapper);
 
         // Act
-        var result = await repository.Categories(CancellationToken.None);
+        var result = await repository.Categories(context, CancellationToken.None);
 
         // Assert
         result.Should().NotBeNull();
@@ -62,10 +62,10 @@ public class CategoryRepositoryTests
         dataServiceMock.Setup(x => x.CreateContext())
             .Returns(context);
 
-        var repository = new CategoryRepository(_mapper, dataServiceMock.Object);
+        var repository = new CategoryRepository(_mapper);
 
         // Act
-        var result = await repository.HierarchyCategories(CancellationToken.None);
+        var result = await repository.HierarchyCategories(context, CancellationToken.None);
 
         // Assert
         result.Should().NotBeNull();

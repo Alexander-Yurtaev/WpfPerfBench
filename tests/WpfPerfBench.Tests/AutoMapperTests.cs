@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
-using WpfPerfBench.Core.Services;
+using WpfPerfBench.Data.Services;
 
 namespace WpfPerfBench.Tests;
 

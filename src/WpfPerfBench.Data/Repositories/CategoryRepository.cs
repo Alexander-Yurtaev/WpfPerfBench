@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WpfPerfBench.Data.DataContexts;
+using WpfPerfBench.Data.Models;
 
 namespace WpfPerfBench.Data.Repositories;
 
@@ -8,8 +9,7 @@ public class CategoryRepository : ICategoryRepository
 {
     private readonly IMapper _mapper;
 
-    public CategoryRepository(
-        IMapper mapper)
+    public CategoryRepository(IMapper mapper)
     {
         _mapper = mapper;
     }
@@ -58,5 +58,12 @@ public class CategoryRepository : ICategoryRepository
             Console.WriteLine(e);
             throw;
         }
+    }
+
+    public async Task Feed(IWpfPerfBenchContext db, List<Item> items, CancellationToken ct = default)
+    {
+        var entities = _mapper.Map<List<Entities.Item>>(items);
+        await db.Items.AddRangeAsync(entities, ct);
+        await db.SaveChangesAsync(ct);
     }
 }
