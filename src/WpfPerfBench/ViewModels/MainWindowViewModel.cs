@@ -20,6 +20,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     public MainWindowViewModel(
         Func<IInitViewModel> initViewModel,
+        Func<IMigrationViewModel> migrationViewModel,
         Func<ISeedViewModel> seedViewModel,
         Func<IStandViewModel> standViewModel,
         INavigationService navigationService)
@@ -27,8 +28,9 @@ public partial class MainWindowViewModel : ObservableObject
         _navigationService = navigationService;
         
         _viewModels.Add(1, initViewModel);
-        _viewModels.Add(2, seedViewModel);
-        _viewModels.Add(3, standViewModel);
+        _viewModels.Add(2, migrationViewModel);
+        _viewModels.Add(3, seedViewModel);
+        _viewModels.Add(4, standViewModel);
 
         TotalSteps = _viewModels.Count();
 

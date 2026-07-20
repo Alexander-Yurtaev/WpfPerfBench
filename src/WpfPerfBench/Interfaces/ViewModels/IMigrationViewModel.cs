@@ -1,6 +1,6 @@
 ﻿namespace WpfPerfBench.Interfaces.ViewModels;
 
-public interface IMigrationViewModel
+public interface IMigrationViewModel : IViewModelBase
 {
     
 }

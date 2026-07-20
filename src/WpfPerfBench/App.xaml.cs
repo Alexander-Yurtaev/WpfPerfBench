@@ -73,6 +73,9 @@ public partial class App : Application
         services.AddTransient<IInitViewModel, InitViewModel>();
         services.AddTransient<Func<IInitViewModel>>(sp => sp.GetRequiredService<IInitViewModel>);
 
+        services.AddTransient<IMigrationViewModel, MigrationViewModel>();
+        services.AddTransient<Func<IMigrationViewModel>>(sp => sp.GetRequiredService<IMigrationViewModel>);
+
         services.AddTransient<ISeedViewModel, SeedViewModel>();
         services.AddTransient<Func<ISeedViewModel>>(sp => sp.GetRequiredService<ISeedViewModel>);
 
