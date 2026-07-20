@@ -2,13 +2,12 @@
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Data.Enums;
-using WpfPerfBench.Enum;
 
 namespace WpfPerfBench.Interfaces.ViewModels;
 
 public interface IInitViewModel : IViewModelBase
 {
-    void Validate();
+    #region Form Items
 
     string Fio { get; set; }
 
@@ -24,7 +23,7 @@ public interface IInitViewModel : IViewModelBase
 
     string ConnectionString { get; set; }
 
-    InitState CurrentState { get; set; }
+    #endregion Form Items
 
     string ValidationStatus { get; set; }
 
@@ -36,6 +35,8 @@ public interface IInitViewModel : IViewModelBase
 
     bool HasErrors { get; }
     bool IsValid { get; }
+
+    void Validate();
 
     IEnumerable GetErrors(string? propertyName);
     event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;

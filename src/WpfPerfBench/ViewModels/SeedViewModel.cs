@@ -1,9 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Services;
-using WpfPerfBench.Enum;
 using WpfPerfBench.Interfaces.ViewModels;
 
 namespace WpfPerfBench.ViewModels;
@@ -29,18 +27,13 @@ public partial class SeedViewModel : ViewModelBase, ISeedViewModel
         FooterTitle = "Окно заполнения данными: генерация данных, заполнения БД разными методами";
     }
 
-    [ObservableProperty]
-    private InitState _currentState;
-
     #region Seed
 
-    private bool CanSeed() => CurrentState == InitState.Seed;
+    private bool CanSeed() => false; //CurrentPage == Page.Seed;
 
     [RelayCommand(CanExecute = nameof(CanSeed))]
     private async Task Seed()
     {
-        CurrentState = InitState.Busy;
-
         try
         {
             var db = _dataService.CreateContext();
@@ -50,7 +43,7 @@ public partial class SeedViewModel : ViewModelBase, ISeedViewModel
 
             if (!result.Success)
             {
-                CurrentState = InitState.Seed;
+                //CurrentPage = Page.Seed;
                 return;
             }
 
@@ -60,16 +53,16 @@ public partial class SeedViewModel : ViewModelBase, ISeedViewModel
 
             if (!result.Success)
             {
-                CurrentState = InitState.Seed;
+                // CurrentPage = Page.Seed;
                 return;
             }
 
-            CurrentState = InitState.Ready;
+            //CurrentPage = Page.Stand;
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            CurrentState = InitState.Seed;
+            //CurrentPage = Page.Seed;
         }
     }
 
@@ -77,7 +70,7 @@ public partial class SeedViewModel : ViewModelBase, ISeedViewModel
 
     #region Next
 
-    private bool CanNext() => CurrentState == InitState.Ready;
+    private bool CanNext() => false; //CurrentPage == Page.Stand;
 
     [RelayCommand(CanExecute = nameof(CanNext))]
     private void Next()

@@ -2,11 +2,11 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
+using WpfPerfBench.Core.Enum;
 using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
 using WpfPerfBench.Data.Services;
-using WpfPerfBench.Enum;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.ViewModels.Controls;
 
@@ -60,7 +60,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     private string _connectionString = string.Empty;
 
     [ObservableProperty]
-    private InitState _currentState;
+    private Page _currentState;
 
     [ObservableProperty] 
     private string _validationStatus;
@@ -80,13 +80,11 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
     #region Test
 
-    private bool CanTest() => CurrentState == InitState.Init;
+    private bool CanTest() => CurrentState == Page.Init;
 
     [RelayCommand(CanExecute = nameof(CanTest))]
     private async Task Test()
     {
-        CurrentState = InitState.Busy;
-
         // ToDo устранить задержку при установке статуса
         InitProgressStand.SetConnectionProgress("Валидация данных ...");
 
@@ -95,7 +93,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
             Validate();
             if (!IsValid)
             {
-                CurrentState = InitState.Init;
+                CurrentState = Page.Init;
                 return;
             }
 
@@ -113,7 +111,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
                 InitProgressStand.SetConnectionProgress(resultTest.Message);
                 AddError(SystemErrorMessageKey, "Ошибка!");
                 OnErrorsChanged(SystemErrorMessageKey);
-                CurrentState = InitState.Init;
+                CurrentState = Page.Init;
                 return;
             }
 
@@ -127,7 +125,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
             {
                 AddError(SystemErrorMessageKey, resultMigration.Message);
                 OnErrorsChanged(SystemErrorMessageKey);
-                CurrentState = InitState.Init;
+                CurrentState = Page.Init;
                 return;
             }
 
@@ -137,7 +135,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
             if (migrationsCount > 0)
             {
-                CurrentState = InitState.Migration;
+                CurrentState = Page.Migration;
             }
             else
             {
@@ -149,13 +147,13 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
                 {
                     InitProgressStand.SetProgressMessage("Данные отсутствуют⚡ Рекомендуется наполнить тестовыми данными");
                 }
-                CurrentState = InitState.Ready;
+                CurrentState = Page.Seed;
             }   
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            CurrentState = InitState.Init;
+            CurrentState = Page.Init;
         }
     }
 
@@ -163,13 +161,11 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
     #region Migrate
 
-    private bool CanMigrate() => CurrentState == InitState.Migration;
+    private bool CanMigrate() => CurrentState == Page.Migration;
 
     [RelayCommand(CanExecute = nameof(CanMigrate))]
     private async Task Migrate(CancellationToken ct)
     {
-        CurrentState = InitState.Busy;
-
         InitProgressStand.SetMigrationStatus("Подготовка к миграции ...");
 
         try
@@ -182,7 +178,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
             {
                 AddError(SystemErrorMessageKey, result.Message);
                 OnErrorsChanged(SystemErrorMessageKey);
-                CurrentState = InitState.Migration;
+                CurrentState = Page.Migration;
                 return;
             }
 
@@ -200,13 +196,13 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
                 InitProgressStand.SetMigrationStatus($"Миграции применены ({counter} из {total})");
             }
 
-            CurrentState = InitState.Ready;
+            CurrentState = Page.Stand;
             InitProgressStand.SetProgress(2);
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            CurrentState = InitState.Migration;
+            CurrentState = Page.Migration;
         }
     }
 
@@ -214,7 +210,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
     #region Next
 
-    private bool CanNext() => CurrentState == InitState.Ready;
+    private bool CanNext() => false; //CurrentState == Page.Ready;
 
     [RelayCommand(CanExecute = nameof(CanNext))]
     private void Next()
@@ -264,9 +260,9 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
         OnErrorsChanged(propertyName);
     }
 
-    partial void OnCurrentStateChanged(InitState value)
+    partial void OnCurrentStateChanged(Page value)
     {
-        InitProgressStand.ShowBusy(value == InitState.Busy);
+        InitProgressStand.ShowBusy(false/*value == Page.Busy*/);
         NotifyCanExecuteChangedForAllCommands();
     }
 
