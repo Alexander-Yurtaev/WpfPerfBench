@@ -351,5 +351,165 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style TargetType="UserControl">
+            <Setter Property="Background" Value="{StaticResource BgWindow}"/>
+        </Style>
+        <Style x:Key="HeaderGridStyle"
+               TargetType="Grid">
+            <Setter Property="Margin" Value="0 0 0 12"/>
+        </Style>
+        <Style x:Key="HeaderIconStyle"
+               TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Light"/>
+        </Style>
+        <Style x:Key="HeaderTextStyle"
+               TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource Accent}"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="FormGroupStyle"
+               TargetType="Grid">
+            <Setter Property="Margin" Value="0 0 0 9"/>
+        </Style>
+        <Style x:Key="FormLabelStyle"
+               TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Margin" Value="0 0 0 5"/>
+        </Style>
+        <Style x:Key="FormTextBoxStyle"
+               TargetType="TextBox"
+               BasedOn="{StaticResource ShadowTextBoxStyle}">
+            <Setter Property="Background" Value="{StaticResource BgInput}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Success}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CurrentState}" Value="Init">
+                    <Setter Property="IsReadOnly" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="FioValidationStyle"
+               TargetType="Label">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=FioTextBox}" 
+                             Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource Success}"/>
+                    <Setter Property="Content" Value="✅ Поле заполнено"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=FioTextBox}" 
+                             Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+                    <Setter Property="Content" Value="{Binding ElementName=FioTextBox,
+                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="EmailValidationStyle"
+               TargetType="Label">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=EmailTextBox}" 
+                             Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource Success}"/>
+                    <Setter Property="Content" Value="✅ Корректный формат"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=EmailTextBox}" 
+                             Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+                    <Setter Property="Content" Value="{Binding ElementName=EmailTextBox,
+                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="PasswordValidationStyle"
+               TargetType="Label">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=PasswordTextBox}" 
+                             Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource Success}"/>
+                    <Setter Property="Content" Value="✅ Пароль корректный"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=PasswordTextBox}" 
+                             Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+                    <Setter Property="Content" Value="{Binding ElementName=PasswordTextBox,
+                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ConfirmPasswordValidationStyle"
+               TargetType="Label">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConfirmPasswordTextBox}" 
+                             Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource Success}"/>
+                    <Setter Property="Content" Value="✅ Пароли совпадают"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConfirmPasswordTextBox}" 
+                             Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+                    <Setter Property="Content" Value="{Binding ElementName=ConfirmPasswordTextBox,
+                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ConnectionStringValidationStyle"
+               TargetType="Label">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConnectionStringTextBox}" 
+                             Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource Success}"/>
+                    <Setter Property="Content" Value="✅ Поле заполнено"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConnectionStringTextBox}" 
+                             Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+                    <Setter Property="Content" Value="{Binding ElementName=ConnectionStringTextBox,
+                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="FormComboBoxStyle"
+               BasedOn="{StaticResource RoundedComboBoxStyle}"
+               TargetType="ComboBox">
+            <Setter Property="Padding" Value="14 10"/>
+            <Setter Property="Background" Value="{StaticResource BgInput}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CurrentState}" Value="Init">
+                    <Setter Property="IsEnabled" Value="True"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="BorderValidationStatusStyle"
+               TargetType="Border">
+            <Setter Property="Margin" Value="0 12 0 0"/>
+            <Setter Property="Padding" Value="0 12 0 0"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="0 1 0 0"/>
+        </Style>
+        <Style x:Key="ValidationStatusStyle"
+               TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource Success}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=HasErrors}" Value="False">
+                    <Setter Property="Foreground" Value="{StaticResource Success}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=HasErrors}" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>

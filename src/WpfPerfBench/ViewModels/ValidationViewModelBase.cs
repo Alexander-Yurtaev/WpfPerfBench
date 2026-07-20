@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.ComponentModel;
+using WpfPerfBench.Interfaces.ViewModels;
 
 namespace WpfPerfBench.ViewModels;
 

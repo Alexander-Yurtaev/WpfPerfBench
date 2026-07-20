@@ -5,7 +5,9 @@ using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Data.Services;
+using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.ViewModels;
+using WpfPerfBench.ViewModels.Controls;
 using WpfPerfBench.Views;
 
 namespace WpfPerfBench;
@@ -70,7 +72,10 @@ public partial class App : Application
 
         services.AddTransient<IInitViewModel, InitViewModel>();
         services.AddTransient<Func<IInitViewModel>>(sp => sp.GetRequiredService<IInitViewModel>);
-        
+
+        services.AddTransient<ISeedViewModel, SeedViewModel>();
+        services.AddTransient<Func<ISeedViewModel>>(sp => sp.GetRequiredService<ISeedViewModel>);
+
         services.AddTransient<IStandViewModel, StandViewModel>();
         services.AddTransient<Func<IStandViewModel>>(sp => sp.GetRequiredService<IStandViewModel>);
 

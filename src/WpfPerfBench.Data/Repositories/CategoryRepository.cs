@@ -60,7 +60,7 @@ public class CategoryRepository : ICategoryRepository
         }
     }
 
-    public async Task Feed(IWpfPerfBenchContext db, List<Item> items, CancellationToken ct = default)
+    public async Task Seed(IWpfPerfBenchContext db, List<Item> items, CancellationToken ct = default)
     {
         var entities = _mapper.Map<List<Entities.Item>>(items);
         await db.Items.AddRangeAsync(entities, ct);

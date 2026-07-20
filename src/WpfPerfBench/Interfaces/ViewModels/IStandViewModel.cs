@@ -1,6 +1,6 @@
 ﻿using WpfPerfBench.Data;
 
-namespace WpfPerfBench.ViewModels;
+namespace WpfPerfBench.Interfaces.ViewModels;
 
 public interface IStandViewModel : IViewModelBase
 {

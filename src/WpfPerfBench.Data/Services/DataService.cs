@@ -83,11 +83,11 @@ public class DataService : IDataService
         }
     }
 
-    public async Task<ResultBase> FeedItems(IWpfPerfBenchContext db, List<Models.Item> items, CancellationToken ct)
+    public async Task<ResultBase> SeedItems(IWpfPerfBenchContext db, List<Models.Item> items, CancellationToken ct)
     {
         try
         {
-            await _categoryRepository.Feed(db, items, ct);
+            await _categoryRepository.Seed(db, items, ct);
             return ResultBase.SuccessResult();
         }
         catch (Exception e)

@@ -11,8 +11,8 @@ using WpfPerfBench.Data.DataContexts;
 namespace WpfPerfBench.Data.Migrations.Postgres
 {
     [DbContext(typeof(PostgresDataContext))]
-    [Migration("20260709163316_FeedCategory")]
-    partial class FeedCategory
+    [Migration("20260709163316_SeedCategory")]
+    partial class SeedCategory
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,4 +1,4 @@
-﻿namespace WpfPerfBench.ViewModels;
+﻿namespace WpfPerfBench.ViewModels.Controls;
 
 public interface IInitProgressStandViewModel
 {

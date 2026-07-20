@@ -6,17 +6,11 @@ using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
 using WpfPerfBench.Data.Services;
+using WpfPerfBench.Enum;
+using WpfPerfBench.Interfaces.ViewModels;
+using WpfPerfBench.ViewModels.Controls;
 
 namespace WpfPerfBench.ViewModels;
-
-public enum InitState
-{
-    Init,
-    Busy,
-    Migration,
-    Feed,
-    Ready
-}
 
 public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 {
@@ -35,7 +29,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
         IGeneratorService generatorService)
     {
         InitProgressStand = initProgressStand;
-        InitProgressStand.InitProgressbar(0, 3);
+        InitProgressStand.InitProgressbar(0, 2);
         _navigationService = navigationService;
         _userSession = userSession;
         _dataService = dataService;
@@ -155,7 +149,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
                 {
                     InitProgressStand.SetProgressMessage("Данные отсутствуют⚡ Рекомендуется наполнить тестовыми данными");
                 }
-                CurrentState = InitState.Feed;
+                CurrentState = InitState.Ready;
             }   
         }
         catch (Exception e)
@@ -206,7 +200,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
                 InitProgressStand.SetMigrationStatus($"Миграции применены ({counter} из {total})");
             }
 
-            CurrentState = InitState.Feed;
+            CurrentState = InitState.Ready;
             InitProgressStand.SetProgress(2);
         }
         catch (Exception e)
@@ -217,56 +211,6 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     }
 
     #endregion Migrate
-
-    #region Feed
-
-    private bool CanFeed() => CurrentState == InitState.Feed;
-
-    [RelayCommand(CanExecute = nameof(CanFeed))]
-    private async Task Feed()
-    {
-        CurrentState = InitState.Busy;
-
-        try
-        {
-            var db = _dataService.CreateContext();
-            
-            // CleanItems
-            var result = await _dataService.CleanItems(db, CancellationToken.None);
-
-            if (!result.Success)
-            {
-                AddError(SystemErrorMessageKey, result.Message);
-                OnErrorsChanged(SystemErrorMessageKey);
-                CurrentState = InitState.Feed;
-                return;
-            }
-
-            // Feed
-            var items = _generatorService.GenerateListItemModel(1_000_000);
-            result = await _dataService.FeedItems(db, items, CancellationToken.None);
-
-            // InitProgressStand.SetProgressMessage("");
-
-            if (!result.Success)
-            {
-                AddError(SystemErrorMessageKey, result.Message);
-                OnErrorsChanged(SystemErrorMessageKey);
-                CurrentState = InitState.Feed;
-                return;
-            }
-
-            CurrentState = InitState.Ready;
-            InitProgressStand.SetProgress(3);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            CurrentState = InitState.Feed;
-        }
-    }
-
-    #endregion Feed
 
     #region Next
 
@@ -330,7 +274,6 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     {
         TestCommand.NotifyCanExecuteChanged();
         MigrateCommand.NotifyCanExecuteChanged();
-        FeedCommand.NotifyCanExecuteChanged();
         NextCommand.NotifyCanExecuteChanged();
     }
 

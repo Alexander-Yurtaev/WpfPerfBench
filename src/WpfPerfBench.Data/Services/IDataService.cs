@@ -9,5 +9,5 @@ public interface IDataService
     Task<ResultBase> GetPendingMigrationsAsync(IWpfPerfBenchContext db, CancellationToken ct);
     Task<ResultBase> Migrate(IWpfPerfBenchContext db, string migrationName, CancellationToken ct);
     Task<ResultBase> CleanItems(IWpfPerfBenchContext db, CancellationToken ct);
-    Task<ResultBase> FeedItems(IWpfPerfBenchContext db, List<Models.Item> items, CancellationToken ct);
+    Task<ResultBase> SeedItems(IWpfPerfBenchContext db, List<Models.Item> items, CancellationToken ct);
 }

@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using Moq;
 using WpfPerfBench.Core.Services;
-using WpfPerfBench.Data;
 using WpfPerfBench.Data.Repositories;
+using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.ViewModels;
 
 namespace WpfPerfBench.Tests;
@@ -22,12 +22,17 @@ public class MainWindowViewModelTests
         initViewModelMock.Setup(m => m.Invoke())
             .Returns(new Mock<IInitViewModel>().Object);
 
+        var seedViewModelMock = new Mock<Func<ISeedViewModel>>();
+        seedViewModelMock.Setup(m => m.Invoke())
+            .Returns(new Mock<ISeedViewModel>().Object);
+
         var standViewModelMock = new Mock<Func<IStandViewModel>>();
         standViewModelMock.Setup(m => m.Invoke())
             .Returns(new Mock<IStandViewModel>().Object);
 
         _viewModel = new MainWindowViewModel(
-            initViewModelMock.Object, 
+            initViewModelMock.Object,
+            seedViewModelMock.Object,
             standViewModelMock.Object, 
             _navigationService);
     }
@@ -57,7 +62,7 @@ public class MainWindowViewModelTests
         // Assert
         _viewModel.CurrentStep.Should().Be(2);
         _viewModel.CurrentViewModel.Should().NotBeNull();
-        _viewModel.CurrentViewModel.Should().BeAssignableTo<IStandViewModel>();
+        _viewModel.CurrentViewModel.Should().BeAssignableTo<ISeedViewModel>();
     }
 
     [Fact]

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.ComponentModel;
 
-namespace WpfPerfBench.ViewModels;
+namespace WpfPerfBench.Interfaces.ViewModels;
 
 public interface IValidationViewModelBase : IViewModelBase
 {

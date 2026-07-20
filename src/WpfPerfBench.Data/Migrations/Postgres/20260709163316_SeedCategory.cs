@@ -7,7 +7,7 @@
 namespace WpfPerfBench.Data.Migrations.Postgres
 {
     /// <inheritdoc />
-    public partial class FeedCategory : Migration
+    public partial class SeedCategory : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

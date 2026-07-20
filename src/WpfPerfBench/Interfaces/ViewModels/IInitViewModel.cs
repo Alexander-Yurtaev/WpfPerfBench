@@ -2,8 +2,9 @@
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Data.Enums;
+using WpfPerfBench.Enum;
 
-namespace WpfPerfBench.ViewModels;
+namespace WpfPerfBench.Interfaces.ViewModels;
 
 public interface IInitViewModel : IViewModelBase
 {

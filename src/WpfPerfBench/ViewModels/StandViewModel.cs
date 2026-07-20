@@ -2,6 +2,7 @@
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Interfaces;
+using WpfPerfBench.Interfaces.ViewModels;
 
 namespace WpfPerfBench.ViewModels;
 

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using WpfPerfBench.Core.Services;
+using WpfPerfBench.Interfaces.ViewModels;
 
 namespace WpfPerfBench.ViewModels;
 
@@ -18,14 +19,16 @@ public partial class MainWindowViewModel : ObservableObject
     private int _totalSteps;
 
     public MainWindowViewModel(
-        Func<IInitViewModel> initViewModel, 
+        Func<IInitViewModel> initViewModel,
+        Func<ISeedViewModel> seedViewModel,
         Func<IStandViewModel> standViewModel,
         INavigationService navigationService)
     {
         _navigationService = navigationService;
         
         _viewModels.Add(1, initViewModel);
-        _viewModels.Add(2, standViewModel);
+        _viewModels.Add(2, seedViewModel);
+        _viewModels.Add(3, standViewModel);
 
         TotalSteps = _viewModels.Count();
 

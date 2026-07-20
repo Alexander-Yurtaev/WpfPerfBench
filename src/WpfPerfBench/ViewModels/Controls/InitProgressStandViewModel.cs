@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using WpfPerfBench.ViewModels.Controls;
 
 namespace WpfPerfBench.ViewModels;
 
