@@ -390,7 +390,7 @@
             <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
             <Setter Property="IsReadOnly" Value="True"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding CurrentState}" Value="Init">
+                <DataTrigger Binding="{Binding CurrentPage}" Value="Init">
                     <Setter Property="IsReadOnly" Value="False"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -486,7 +486,7 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="IsEnabled" Value="False"/>
             <Style.Triggers>
-                <DataTrigger Binding="{Binding CurrentState}" Value="Init">
+                <DataTrigger Binding="{Binding CurrentPage}" Value="Init">
                     <Setter Property="IsEnabled" Value="True"/>
                 </DataTrigger>
             </Style.Triggers>
