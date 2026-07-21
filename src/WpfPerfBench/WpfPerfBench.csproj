@@ -6,7 +6,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Icons\wpb.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Icons\wpb.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" />
@@ -17,6 +22,11 @@
   <ItemGroup>
     <ProjectReference Include="..\WpfPerfBench.Core\WpfPerfBench.Core.csproj" />
     <ProjectReference Include="..\WpfPerfBench.Data\WpfPerfBench.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Styles\" />
+    <Folder Include="Themes\" />
   </ItemGroup>
 
 </Project>
