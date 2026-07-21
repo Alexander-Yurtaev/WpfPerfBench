@@ -17,10 +17,7 @@ public abstract class ValidationViewModelBase : ViewModelBase, IValidationViewMo
         }
     }
 
-    protected virtual void ValidateProperty(string? propertyName)
-    {
-
-    }
+    protected abstract void ValidateProperty(string? propertyName);
 
     #region Implementation of INotifyDataErrorInfo
 

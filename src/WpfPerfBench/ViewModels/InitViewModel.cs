@@ -19,21 +19,15 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     private readonly INavigationService _navigationService;
     private readonly IUserSession _userSession;
     private readonly IDataService _dataService;
-    private readonly IGeneratorService _generatorService;
 
     public InitViewModel(
-        IInitProgressStandViewModel initProgressStand,
         INavigationService navigationService, 
         IUserSession userSession,
-        IDataService dataService,
-        IGeneratorService generatorService)
+        IDataService dataService)
     {
-        InitProgressStand = initProgressStand;
-        InitProgressStand.InitProgressbar(0, 2);
         _navigationService = navigationService;
         _userSession = userSession;
         _dataService = dataService;
-        _generatorService = generatorService;
         Header = new HeaderViewModel("🚀", "Окно инициализации");
         FooterTitle = "Окно инициализации: валидация в реальном времени, выбор БД, прогресс-бар";
     }
@@ -86,7 +80,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     private async Task Test()
     {
         // ToDo устранить задержку при установке статуса
-        InitProgressStand.SetConnectionProgress("Валидация данных ...");
+        // InitProgressStand.SetConnectionProgress("Валидация данных ...");
 
         try
         {
@@ -100,7 +94,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
             InitUserSession();
 
             // Test Connection
-            InitProgressStand.SetConnectionProgress("Проверка подключения к БД ...");
+            // InitProgressStand.SetConnectionProgress("Проверка подключения к БД ...");
 
             var db = _dataService.CreateContext();
 
@@ -108,15 +102,15 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
             if (!resultTest.Success)
             {
-                InitProgressStand.SetConnectionProgress(resultTest.Message);
+                // InitProgressStand.SetConnectionProgress(resultTest.Message);
                 AddError(SystemErrorMessageKey, "Ошибка!");
                 OnErrorsChanged(SystemErrorMessageKey);
                 CurrentState = Page.Init;
                 return;
             }
 
-            InitProgressStand.SetConnectionProgress("Проверка подключения: готово.");
-            InitProgressStand.SetProgress(1);
+            // InitProgressStand.SetConnectionProgress("Проверка подключения: готово.");
+            // InitProgressStand.SetProgress(1);
 
             // Test Migration
             var resultMigration = await _dataService.GetPendingMigrationsAsync(db, CancellationToken.None);
@@ -139,13 +133,13 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
             }
             else
             {
-                InitProgressStand.SetMigrationStatus($"Новых миграций нет");
-                InitProgressStand.SetProgress(2);
+                // InitProgressStand.SetMigrationStatus($"Новых миграций нет");
+                // InitProgressStand.SetProgress(2);
                 var count = await db.Items.CountAsync(CancellationToken.None);
-                InitProgressStand.SetTotalRecords(count.ToString("N0"));
+                // InitProgressStand.SetTotalRecords(count.ToString("N0"));
                 if (count == 0)
                 {
-                    InitProgressStand.SetProgressMessage("Данные отсутствуют⚡ Рекомендуется наполнить тестовыми данными");
+                    // InitProgressStand.SetProgressMessage("Данные отсутствуют⚡ Рекомендуется наполнить тестовыми данными");
                 }
                 CurrentState = Page.Seed;
             }   
@@ -166,7 +160,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     [RelayCommand(CanExecute = nameof(CanMigrate))]
     private async Task Migrate(CancellationToken ct)
     {
-        InitProgressStand.SetMigrationStatus("Подготовка к миграции ...");
+        // InitProgressStand.SetMigrationStatus("Подготовка к миграции ...");
 
         try
         {
@@ -188,16 +182,16 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
             var counter = 0;
             var total = migrations.Count();
-            InitProgressStand.SetMigrationStatus($"Миграции применены ({counter} из {total})");
+            // InitProgressStand.SetMigrationStatus($"Миграции применены ({counter} из {total})");
             foreach (var migration in migrations)
             {
                 await _dataService.Migrate(db, migration, ct);
                 counter++;
-                InitProgressStand.SetMigrationStatus($"Миграции применены ({counter} из {total})");
+                // InitProgressStand.SetMigrationStatus($"Миграции применены ({counter} из {total})");
             }
 
             CurrentState = Page.Stand;
-            InitProgressStand.SetProgress(2);
+            // InitProgressStand.SetProgress(2);
         }
         catch (Exception e)
         {
@@ -262,7 +256,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
     partial void OnCurrentStateChanged(Page value)
     {
-        InitProgressStand.ShowBusy(false/*value == Page.Busy*/);
+        // InitProgressStand.ShowBusy(false/*value == Page.Busy*/);
         NotifyCanExecuteChangedForAllCommands();
     }
 
@@ -301,7 +295,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
     private void ValidateFio()
     {
-        if (string.IsNullOrWhiteSpace(Fio))
+        if (string.IsNullOrWhiteSpace(Fio) || string.IsNullOrEmpty(Fio))
         {
             AddError(nameof(Fio), "ФИО обязательно для заполнения");
         }
