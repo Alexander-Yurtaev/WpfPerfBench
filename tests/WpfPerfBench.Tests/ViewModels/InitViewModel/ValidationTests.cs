@@ -260,4 +260,61 @@ public class ValidationTests
     }
 
     #endregion Password
+
+    #region ConfirmPassword
+
+    [Theory]
+    [InlineData("A1aaaaaa")]
+    public void ConfirmPassword_Should_Success_ForCorrectValue(string password)
+    {
+        // Arrange
+        var count = 0;
+        _initViewModel.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName == nameof(WpfPerfBench.ViewModels.InitViewModel.ConfirmPassword))
+            {
+                count++;
+            }
+        };
+
+        // Act
+        _initViewModel.Password = password;
+        _initViewModel.ConfirmPassword = password;
+
+        // Assert
+        count.Should().Be(1);
+    }
+
+    [Fact]
+    public void ConfirmPassword_Should_Be_Required()
+    {
+        // Arrange
+
+        // Act
+        _initViewModel.ConfirmPassword = null!;
+
+        // Assert
+        _initViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.ConfirmPassword));
+        errors.Count.Should().Be(1);
+        errors[0].Should().Be("Подтверждение пароля обязательно");
+    }
+
+    [Fact]
+    public void ConfirmPassword_Should_Be_Equals_Password()
+    {
+        // Arrange
+
+        // Act
+        _initViewModel.ConfirmPassword = "A1aaaaaa";
+        _initViewModel.ConfirmPassword = "A2aaaaaa";
+
+        // Assert
+        _initViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.ConfirmPassword));
+        errors.Count.Should().Be(1);
+        errors[0].Should().Be("Пароли не совпадают");
+    }
+
+    #endregion ConfirmPassword
 }
