@@ -5,7 +5,7 @@ using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.ViewModels;
 
-namespace WpfPerfBench.Tests;
+namespace WpfPerfBench.Tests.ViewModels;
 
 public class MainWindowViewModelTests
 {
@@ -22,6 +22,10 @@ public class MainWindowViewModelTests
         initViewModelMock.Setup(m => m.Invoke())
             .Returns(new Mock<IInitViewModel>().Object);
 
+        var migrationViewModelMock = new Mock<Func<IMigrationViewModel>>();
+        migrationViewModelMock.Setup(m => m.Invoke())
+            .Returns(new Mock<IMigrationViewModel>().Object);
+
         var seedViewModelMock = new Mock<Func<ISeedViewModel>>();
         seedViewModelMock.Setup(m => m.Invoke())
             .Returns(new Mock<ISeedViewModel>().Object);
@@ -32,6 +36,7 @@ public class MainWindowViewModelTests
 
         _viewModel = new MainWindowViewModel(
             initViewModelMock.Object,
+            migrationViewModelMock.Object,
             seedViewModelMock.Object,
             standViewModelMock.Object, 
             _navigationService);
