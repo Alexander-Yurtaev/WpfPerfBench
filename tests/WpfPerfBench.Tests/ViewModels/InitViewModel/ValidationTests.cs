@@ -167,4 +167,97 @@ public class ValidationTests
     }
 
     #endregion Email
+
+    #region Password
+
+    [Theory]
+    [InlineData("A1aaaaaa")]
+    public void Password_Should_Success_ForCorrectValue(string password)
+    {
+        // Arrange
+        var count = 0;
+        _initViewModel.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName == nameof(WpfPerfBench.ViewModels.InitViewModel.Password))
+            {
+                count++;
+            }
+        };
+
+        // Act
+        _initViewModel.Password = password;
+
+        // Assert
+        count.Should().Be(1);
+        _initViewModel.HasErrors.Should().BeFalse();
+    }
+
+    [Fact]
+    public void Password_Should_Be_Required()
+    {
+        // Arrange
+
+        // Act
+        _initViewModel.Password = null!;
+
+        // Assert
+        _initViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
+        errors.Count.Should().Be(1);
+        errors[0].Should().Be("Пароль обязателен для заполнения");
+    }
+
+    [Theory]
+    [InlineData("1")]
+    [InlineData("12")]
+    [InlineData("123")]
+    [InlineData("1234")]
+    [InlineData("12345")]
+    [InlineData("123456")]
+    [InlineData("1234567")]
+    public void Password_Should_Be_Correct_Length(string password)
+    {
+        // Arrange
+
+        // Act
+        _initViewModel.Password = password;
+
+        // Assert
+        _initViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
+        errors.Count.Should().Be(1);
+        errors[0].Should().Be("Пароль должен содержать минимум 8 символов");
+    }
+
+    [Fact]
+    public void Password_Should_Has_Number()
+    {
+        // Arrange
+
+        // Act
+        _initViewModel.Password = new string('a', 10);
+
+        // Assert
+        _initViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
+        errors.Count.Should().Be(1);
+        errors[0].Should().Be("Пароль должен содержать хотя бы одну цифру");
+    }
+
+    [Fact]
+    public void Password_Should_Has_Capital_Char()
+    {
+        // Arrange
+
+        // Act
+        _initViewModel.Password = new string('1', 10);
+
+        // Assert
+        _initViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
+        errors.Count.Should().Be(1);
+        errors[0].Should().Be("Пароль должен содержать хотя бы одну заглавную букву");
+    }
+
+    #endregion Password
 }
