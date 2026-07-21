@@ -67,7 +67,7 @@ public class MainWindowViewModelTests
         // Assert
         _viewModel.CurrentStep.Should().Be(2);
         _viewModel.CurrentViewModel.Should().NotBeNull();
-        _viewModel.CurrentViewModel.Should().BeAssignableTo<ISeedViewModel>();
+        _viewModel.CurrentViewModel.Should().BeAssignableTo<IMigrationViewModel>();
     }
 
     [Fact]
