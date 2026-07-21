@@ -317,4 +317,23 @@ public class ValidationTests
     }
 
     #endregion ConfirmPassword
+
+    #region ConnectionString
+
+    [Fact]
+    public void ConnectionString_Should_Be_Required()
+    {
+        // Arrange
+
+        // Act
+        _initViewModel.ConnectionString = null!;
+
+        // Assert
+        _initViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.ConnectionString));
+        errors.Count.Should().Be(1);
+        errors[0].Should().Be("ConnectionString обязательно для заполнения");
+    }
+
+    #endregion ConnectionString
 }
