@@ -28,7 +28,7 @@ public abstract class ValidationViewModelBase : ViewModelBase, IValidationViewMo
 
         return Errors.TryGetValue(propertyName, out var error)
             ? error
-            : Enumerable.Empty<string>();
+            : [];
     }
 
     public bool HasErrors => Errors.Any();

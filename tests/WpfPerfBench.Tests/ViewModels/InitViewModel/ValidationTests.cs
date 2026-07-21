@@ -29,7 +29,7 @@ public class ValidationTests
     [InlineData("Иванов Иван")]
     [InlineData("Иванов И. И.")]
     [InlineData("Иванов И.")]
-    public void Should_Success_ForCorrectFio(string fio)
+    public void Fio_Should_Success_ForCorrectValue(string fio)
     {
         // Arrange
         var count = 0;
@@ -50,7 +50,7 @@ public class ValidationTests
     }
 
     [Fact]
-    public void Should_Be_Required()
+    public void Fio_Should_Be_Required()
     {
         // Arrange
 
@@ -65,7 +65,7 @@ public class ValidationTests
     }
 
     [Fact]
-    public void Should_Be_Correct_Length()
+    public void Fio_Should_Be_Correct_Length()
     {
         // Arrange
 
@@ -80,7 +80,7 @@ public class ValidationTests
     }
 
     [Fact]
-    public void Should_Correct_Format()
+    public void Fio_Should_Correct_Format()
     {
         // Arrange
 
@@ -95,7 +95,7 @@ public class ValidationTests
     }
 
     [Fact]
-    public void Should_HasErrors_When_Set_Empty_Fio()
+    public void Fio_Should_HasErrors_When_Set_Empty()
     {
         // Arrange
         _initViewModel.Fio = "Иванов И.";
@@ -108,4 +108,63 @@ public class ValidationTests
     }
 
     #endregion Fio
+
+    #region Email
+
+    [Theory]
+    [InlineData("a@a")]
+    public void Email_Should_Success_ForCorrectValue(string email)
+    {
+        // Arrange
+        var count = 0;
+        _initViewModel.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName == nameof(WpfPerfBench.ViewModels.InitViewModel.Email))
+            {
+                count++;
+            }
+        };
+
+        // Act
+        _initViewModel.Email = email;
+
+        // Assert
+        count.Should().Be(1);
+        _initViewModel.HasErrors.Should().BeFalse();
+    }
+
+    [Fact]
+    public void Email_Should_Be_Required()
+    {
+        // Arrange
+
+        // Act
+        _initViewModel.Email = null!;
+
+        // Assert
+        _initViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Email));
+        errors.Count.Should().Be(1);
+        errors[0].Should().Be("Email обязателен для заполнения");
+    }
+
+    [Theory]
+    [InlineData("a")]
+    [InlineData("a@")]
+    [InlineData("@a")]
+    public void Email_Should_Correct_Format(string email)
+    {
+        // Arrange
+
+        // Act
+        _initViewModel.Email = email;
+
+        // Assert
+        _initViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Email));
+        errors.Count.Should().Be(1);
+        errors[0].Should().Be("Некорректный формат email");
+    }
+
+    #endregion Email
 }
