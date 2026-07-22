@@ -13,14 +13,25 @@ namespace WpfPerfBench.Tests.ViewModels;
 public class MigrationViewModelTests
 {
     private readonly IMigrationViewModel _viewModel;
-    private readonly Mock<IMessageService> _messageService;
+
     private readonly Mock<IDataService> _dataServiceMock;
+    private readonly Mock<INavigationService> _navigationServiceMock;
+    private readonly Mock<IUserSession> _userSessionMock;
+    private readonly Mock<IMessageService> _messageService;
+    
 
     public MigrationViewModelTests()
     {
         _dataServiceMock = new Mock<IDataService>();
+        _navigationServiceMock = new Mock<INavigationService>();
+        _userSessionMock = new Mock<IUserSession>();
         _messageService = new Mock<IMessageService>();
-        _viewModel = new WpfPerfBench.ViewModels.MigrationViewModel(_dataServiceMock.Object, _messageService.Object);
+
+        _viewModel = new WpfPerfBench.ViewModels.MigrationViewModel(
+            _dataServiceMock.Object, 
+            _navigationServiceMock.Object,
+            _userSessionMock.Object,
+            _messageService.Object);
     }
 
     [Fact]

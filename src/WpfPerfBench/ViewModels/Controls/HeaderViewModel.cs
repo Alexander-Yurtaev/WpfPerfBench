@@ -1,18 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace WpfPerfBench.ViewModels;
+namespace WpfPerfBench.ViewModels.Controls;
 
 public partial class HeaderViewModel : ObservableObject
 {
-    [ObservableProperty]
-    private string _icon = string.Empty;
-
+    [ObservableProperty] 
+    private string _iconPath = "pack://application:,,,/Resources/Icons/wpb.ico";
+    
     [ObservableProperty]
     private string _title = string.Empty;
 
-    public HeaderViewModel(string icon, string title)
+    public HeaderViewModel(string title)
     {
-        Icon = icon;
         Title = title;
     }
 }

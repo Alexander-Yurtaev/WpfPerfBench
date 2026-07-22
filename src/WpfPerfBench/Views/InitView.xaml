@@ -40,7 +40,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0"
@@ -159,12 +158,6 @@
                 </Grid>
             </Grid>
             <Grid Grid.Row="4"
-                  Style="{StaticResource FormGroupStyle}">
-                <controls:InitProgressStand 
-                            DataContext="{Binding InitProgressStand}"
-                            Style="{StaticResource InitProgressStandStyle}"/>
-            </Grid>
-            <Grid Grid.Row="5"
                   Style="{StaticResource FormGroupStyle}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

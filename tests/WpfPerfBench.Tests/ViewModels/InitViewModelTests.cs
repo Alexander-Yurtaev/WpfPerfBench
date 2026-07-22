@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using System.ComponentModel;
+using Moq;
 using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Services;
@@ -9,6 +10,7 @@ namespace WpfPerfBench.Tests.ViewModels;
 public partial class InitViewModelTests
 {
     private readonly IInitViewModel _initViewModel;
+    private readonly INotifyPropertyChanged _propertyChangedViewModel;
 
     public InitViewModelTests()
     {
@@ -20,5 +22,7 @@ public partial class InitViewModelTests
             navigationServiceMock.Object,
             userSessionMock.Object,
             dataServiceMock.Object);
+        
+        _propertyChangedViewModel = (INotifyPropertyChanged)_initViewModel;
     }
 }

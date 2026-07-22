@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.ComponentModel;
+using WpfPerfBench.Core.Interfaces.Services;
+using WpfPerfBench.Data;
 using WpfPerfBench.Interfaces.ViewModels;
 
 namespace WpfPerfBench.ViewModels;
@@ -7,6 +9,13 @@ namespace WpfPerfBench.ViewModels;
 public abstract class ValidationViewModelBase : ViewModelBase, IValidationViewModelBase, INotifyDataErrorInfo
 {
     protected readonly Dictionary<string, List<string>> Errors = [];
+
+    protected ValidationViewModelBase(
+        INavigationService navigationService,
+        IUserSession userSession) : base(navigationService, userSession)
+    {
+        
+    }
 
     public virtual void Validate()
     {

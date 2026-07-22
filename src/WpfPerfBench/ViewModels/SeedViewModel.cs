@@ -8,8 +8,6 @@ namespace WpfPerfBench.ViewModels;
 
 public partial class SeedViewModel : ViewModelBase, ISeedViewModel
 {
-    private readonly INavigationService _navigationService;
-    private readonly IUserSession _userSession;
     private readonly IDataService _dataService;
     private readonly IGeneratorService _generatorService;
 
@@ -17,14 +15,11 @@ public partial class SeedViewModel : ViewModelBase, ISeedViewModel
         INavigationService navigationService,
         IUserSession userSession,
         IDataService dataService,
-        IGeneratorService generatorService)
+        IGeneratorService generatorService) : base(navigationService, userSession)
     {
-        _navigationService = navigationService;
-        _userSession = userSession;
         _dataService = dataService;
         _generatorService = generatorService;
-        Header = new HeaderViewModel("🚀", "Окно заполнения данными");
-        FooterTitle = "Окно заполнения данными: генерация данных, заполнения БД разными методами";
+        Header = new Controls.HeaderViewModel("Заполнение данными");
     }
 
     #region Seed
@@ -75,7 +70,7 @@ public partial class SeedViewModel : ViewModelBase, ISeedViewModel
     [RelayCommand(CanExecute = nameof(CanNext))]
     private void Next()
     {
-        _navigationService.NavigateNext();
+        NavigationService.NavigateNext();
     }
 
     #endregion Next

@@ -7,26 +7,22 @@ using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Interfaces.ViewModels;
-using WpfPerfBench.ViewModels.Controls;
 
 namespace WpfPerfBench.ViewModels;
 
 public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 {
-    private readonly INavigationService _navigationService;
     private readonly IUserSession _userSession;
     private readonly IDataService _dataService;
 
     public InitViewModel(
         INavigationService navigationService, 
         IUserSession userSession,
-        IDataService dataService)
+        IDataService dataService) : base(navigationService, userSession)
     {
-        _navigationService = navigationService;
         _userSession = userSession;
         _dataService = dataService;
-        Header = new HeaderViewModel("🚀", "Окно инициализации");
-        FooterTitle = "Окно инициализации: валидация в реальном времени, выбор БД, прогресс-бар";
+        Header = new Controls.HeaderViewModel("Настройка подключения");
     }
 
     [ObservableProperty]
@@ -55,9 +51,6 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
     [ObservableProperty] 
     private string _validationStatus;
-
-    [ObservableProperty]
-    private IInitProgressStandViewModel _initProgressStand;
 
     #region Test
 
@@ -120,14 +113,12 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
                              ?? 
                              throw new InvalidOperationException("Ошибка получения списка миграций");
 
-            var total = migrations.Count();
             foreach (var migration in migrations)
             {
                 await _dataService.Migrate(db, migration, ct);
             }
 
             CurrentPage = Page.Stand;
-            // InitProgressStand.SetProgress(2);
         }
         catch (Exception e)
         {
@@ -145,7 +136,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     [RelayCommand(CanExecute = nameof(CanNext))]
     private void Next()
     {
-        _navigationService.NavigateNext();
+        NavigationService.NavigateNext();
     }
 
     #endregion Next

@@ -10,7 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Icons\wpb.ico" />
+    <None Remove="Resources\Icons\empty.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\empty.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\wpb.ico" />
   </ItemGroup>
 
   <ItemGroup>

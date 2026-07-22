@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Interfaces;
@@ -31,12 +32,14 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadable
     [ObservableProperty]
     private StatItem[] _treeItems;
 
-    public StandViewModel(IUserSession userSession, ICategoryRepository categoryRepository)
+    public StandViewModel(
+        INavigationService navigationService,
+        IUserSession userSession, 
+        ICategoryRepository categoryRepository) : base(navigationService, userSession)
     {
         _categoryRepository = categoryRepository;
         
-        Header = new HeaderViewModel("🧪", "Рабочий стенд");
-        FooterTitle = "Рабочий стенд: дерево, детали с контролами, виртуализированный список, карта с маршрутом";
+        Header = new Controls.HeaderViewModel("Рабочий стенд");
 
         Icon = "👋";
         Fio = userSession.Fio;

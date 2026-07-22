@@ -17,10 +17,15 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
     [ObservableProperty]
     private ObservableCollection<MigrationItem> _items = [];
 
-    public MigrationViewModel(IDataService dataService, IMessageService messageService)
+    public MigrationViewModel(
+        IDataService dataService,
+        INavigationService navigationService,
+        IUserSession userSession,
+        IMessageService messageService) : base(navigationService, userSession)
     {
         _dataService = dataService;
         _messageService = messageService;
+        Header = new Controls.HeaderViewModel("Управление миграциями");
     }
 
     #region Implementation of ILoadable

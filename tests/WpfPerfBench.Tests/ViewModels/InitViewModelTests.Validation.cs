@@ -15,7 +15,7 @@ public partial class InitViewModelTests
     {
         // Arrange
         var count = 0;
-        _initViewModel.PropertyChanged += (_, args) =>
+        _propertyChangedViewModel.PropertyChanged += (_, args) =>
         {
             if (args.PropertyName == nameof(WpfPerfBench.ViewModels.InitViewModel.Fio))
             {
@@ -99,7 +99,7 @@ public partial class InitViewModelTests
     {
         // Arrange
         var count = 0;
-        _initViewModel.PropertyChanged += (_, args) =>
+        _propertyChangedViewModel.PropertyChanged += (_, args) =>
         {
             if (args.PropertyName == nameof(WpfPerfBench.ViewModels.InitViewModel.Email))
             {
@@ -158,7 +158,7 @@ public partial class InitViewModelTests
     {
         // Arrange
         var count = 0;
-        _initViewModel.PropertyChanged += (_, args) =>
+        _propertyChangedViewModel.PropertyChanged += (_, args) =>
         {
             if (args.PropertyName == nameof(WpfPerfBench.ViewModels.InitViewModel.Password))
             {
@@ -251,7 +251,7 @@ public partial class InitViewModelTests
     {
         // Arrange
         var count = 0;
-        _initViewModel.PropertyChanged += (_, args) =>
+        _propertyChangedViewModel.PropertyChanged += (_, args) =>
         {
             if (args.PropertyName == nameof(WpfPerfBench.ViewModels.InitViewModel.ConfirmPassword))
             {

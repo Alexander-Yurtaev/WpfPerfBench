@@ -8,7 +8,6 @@ using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.ViewModels;
-using WpfPerfBench.ViewModels.Controls;
 using WpfPerfBench.Views;
 
 namespace WpfPerfBench;
@@ -83,8 +82,6 @@ public partial class App : Application
 
         services.AddTransient<IStandViewModel, StandViewModel>();
         services.AddTransient<Func<IStandViewModel>>(sp => sp.GetRequiredService<IStandViewModel>);
-
-        services.AddTransient<IInitProgressStandViewModel, InitProgressStandViewModel>();
 
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<MainWindow>();

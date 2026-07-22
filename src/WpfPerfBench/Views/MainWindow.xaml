@@ -54,7 +54,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -62,7 +61,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <controls:Header Grid.Column="0" 
-                                 Icon="{Binding CurrentViewModel.Header.Icon}"
+                                 IconPath="{Binding CurrentViewModel.Header.IconPath}"
                                  Title="{Binding CurrentViewModel.Header.Title}"
                                  CurrentStep="{Binding CurrentStep}"
                                  TotalSteps="{Binding TotalSteps}"/>
@@ -87,8 +86,6 @@
                     </ContentControl.Resources>
                 </ContentControl>
             </Border>
-            <controls:Footer Grid.Row="2"
-                             Title="{Binding CurrentViewModel.FooterTitle}"/>
         </Grid>
     </Border>
 </Window>

@@ -13,14 +13,14 @@ namespace WpfPerfBench.Controls
             InitializeComponent();
         }
 
-        // Icon
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
-            nameof(Icon), typeof(string), typeof(Header), new PropertyMetadata("🔘"));
+        // IconPath
+        public static readonly DependencyProperty IconPathProperty = DependencyProperty.Register(
+            nameof(IconPath), typeof(string), typeof(Header), new PropertyMetadata("pack://application:,,,/Resources/Icons/wpb.ico"));
 
-        public string Icon
+        public string IconPath
         {
-            get => (string)GetValue(IconProperty);
-            set => SetValue(IconProperty, value);
+            get => (string)GetValue(IconPathProperty);
+            set => SetValue(IconPathProperty, value);
         }
 
         // Title
