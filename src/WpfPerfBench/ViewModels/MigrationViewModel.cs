@@ -18,9 +18,9 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
     private ObservableCollection<MigrationItem> _items = [];
 
     public MigrationViewModel(
-        IDataService dataService,
         INavigationService navigationService,
         IUserSession userSession,
+        IDataService dataService,
         IMessageService messageService) : base(navigationService, userSession)
     {
         _dataService = dataService;

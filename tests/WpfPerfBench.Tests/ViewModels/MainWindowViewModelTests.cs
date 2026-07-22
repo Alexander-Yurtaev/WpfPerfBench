@@ -15,7 +15,6 @@ public class MainWindowViewModelTests
     public MainWindowViewModelTests()
     {
         _navigationService = new NavigationService();
-        //var userSessionMock = new Mock<IUserSession>();
         var categoryRepositoryMock = new Mock<ICategoryRepository>();
 
         var initViewModelMock = new Mock<Func<IInitViewModel>>();

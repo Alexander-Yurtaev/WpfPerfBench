@@ -24,11 +24,11 @@ public partial class InitViewModelTests
         };
 
         // Act
-        _initViewModel.Fio = fio;
+        ViewModel.Fio = fio;
 
         // Assert
         count.Should().Be(1);
-        _initViewModel.HasErrors.Should().BeFalse();
+        ViewModel.HasErrors.Should().BeFalse();
     }
 
     [Fact]
@@ -37,11 +37,11 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        _initViewModel.Fio = null!;
+        ViewModel.Fio = null!;
 
         // Assert
-        _initViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Fio));
+        ViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Fio));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("ФИО обязательно для заполнения");
     }
@@ -52,11 +52,11 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        _initViewModel.Fio = "Ив";
+        ViewModel.Fio = "Ив";
 
         // Assert
-        _initViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Fio));
+        ViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Fio));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("ФИО должно содержать минимум 3 символа");
     }
@@ -67,11 +67,11 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        _initViewModel.Fio = "Иванов";
+        ViewModel.Fio = "Иванов";
 
         // Assert
-        _initViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Fio));
+        ViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Fio));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Введите ФИО полностью (Имя и Фамилию)");
     }
@@ -80,13 +80,13 @@ public partial class InitViewModelTests
     public void Fio_Should_HasErrors_When_Set_Empty()
     {
         // Arrange
-        _initViewModel.Fio = "Иванов И.";
+        ViewModel.Fio = "Иванов И.";
 
         // Act
-        _initViewModel.Fio = "";
+        ViewModel.Fio = "";
 
         // Assert
-        _initViewModel.HasErrors.Should().BeTrue();
+        ViewModel.HasErrors.Should().BeTrue();
     }
 
     #endregion Fio
@@ -108,11 +108,11 @@ public partial class InitViewModelTests
         };
 
         // Act
-        _initViewModel.Email = email;
+        ViewModel.Email = email;
 
         // Assert
         count.Should().Be(1);
-        _initViewModel.HasErrors.Should().BeFalse();
+        ViewModel.HasErrors.Should().BeFalse();
     }
 
     [Fact]
@@ -121,11 +121,11 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        _initViewModel.Email = null!;
+        ViewModel.Email = null!;
 
         // Assert
-        _initViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Email));
+        ViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Email));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Email обязателен для заполнения");
     }
@@ -139,11 +139,11 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        _initViewModel.Email = email;
+        ViewModel.Email = email;
 
         // Assert
-        _initViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Email));
+        ViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Email));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Некорректный формат email");
     }
@@ -167,11 +167,11 @@ public partial class InitViewModelTests
         };
 
         // Act
-        _initViewModel.Password = password;
+        ViewModel.Password = password;
 
         // Assert
         count.Should().Be(1);
-        _initViewModel.HasErrors.Should().BeFalse();
+        ViewModel.HasErrors.Should().BeFalse();
     }
 
     [Fact]
@@ -180,11 +180,11 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        _initViewModel.Password = null!;
+        ViewModel.Password = null!;
 
         // Assert
-        _initViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
+        ViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Пароль обязателен для заполнения");
     }
@@ -202,11 +202,11 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        _initViewModel.Password = password;
+        ViewModel.Password = password;
 
         // Assert
-        _initViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
+        ViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Пароль должен содержать минимум 8 символов");
     }
@@ -217,11 +217,11 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        _initViewModel.Password = new string('a', 10);
+        ViewModel.Password = new string('a', 10);
 
         // Assert
-        _initViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
+        ViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Пароль должен содержать хотя бы одну цифру");
     }
@@ -232,11 +232,11 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        _initViewModel.Password = new string('1', 10);
+        ViewModel.Password = new string('1', 10);
 
         // Assert
-        _initViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
+        ViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Пароль должен содержать хотя бы одну заглавную букву");
     }
@@ -260,8 +260,8 @@ public partial class InitViewModelTests
         };
 
         // Act
-        _initViewModel.Password = password;
-        _initViewModel.ConfirmPassword = password;
+        ViewModel.Password = password;
+        ViewModel.ConfirmPassword = password;
 
         // Assert
         count.Should().Be(1);
@@ -273,11 +273,11 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        _initViewModel.ConfirmPassword = null!;
+        ViewModel.ConfirmPassword = null!;
 
         // Assert
-        _initViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.ConfirmPassword));
+        ViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.ConfirmPassword));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Подтверждение пароля обязательно");
     }
@@ -288,12 +288,12 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        _initViewModel.ConfirmPassword = "A1aaaaaa";
-        _initViewModel.ConfirmPassword = "A2aaaaaa";
+        ViewModel.ConfirmPassword = "A1aaaaaa";
+        ViewModel.ConfirmPassword = "A2aaaaaa";
 
         // Assert
-        _initViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.ConfirmPassword));
+        ViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.ConfirmPassword));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Пароли не совпадают");
     }
@@ -308,11 +308,11 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        _initViewModel.ConnectionString = null!;
+        ViewModel.ConnectionString = null!;
 
         // Assert
-        _initViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)_initViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.ConnectionString));
+        ViewModel.HasErrors.Should().BeTrue();
+        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.ConnectionString));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("ConnectionString обязательно для заполнения");
     }

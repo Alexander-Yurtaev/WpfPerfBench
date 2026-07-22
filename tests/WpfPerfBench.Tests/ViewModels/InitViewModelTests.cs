@@ -1,28 +1,19 @@
 ﻿using System.ComponentModel;
-using Moq;
-using WpfPerfBench.Core.Interfaces.Services;
-using WpfPerfBench.Data;
-using WpfPerfBench.Data.Services;
 using WpfPerfBench.Interfaces.ViewModels;
 
 namespace WpfPerfBench.Tests.ViewModels;
 
-public partial class InitViewModelTests
+public partial class InitViewModelTests : PageViewModelTestsBase<IInitViewModel>
 {
-    private readonly IInitViewModel _initViewModel;
     private readonly INotifyPropertyChanged _propertyChangedViewModel;
 
-    public InitViewModelTests()
+    public InitViewModelTests() : base()
     {
-        var navigationServiceMock = new Mock<INavigationService>();
-        var userSessionMock = new Mock<IUserSession>();
-        var dataServiceMock = new Mock<IDataService>();
-
-        _initViewModel = new WpfPerfBench.ViewModels.InitViewModel(
-            navigationServiceMock.Object,
-            userSessionMock.Object,
-            dataServiceMock.Object);
+        ViewModel = new WpfPerfBench.ViewModels.InitViewModel(
+            NavigationServiceMock.Object,
+            UserSessionMock.Object,
+            DataServiceMock.Object);
         
-        _propertyChangedViewModel = (INotifyPropertyChanged)_initViewModel;
+        _propertyChangedViewModel = (INotifyPropertyChanged)ViewModel;
     }
 }
