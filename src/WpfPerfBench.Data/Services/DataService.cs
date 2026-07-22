@@ -8,16 +8,16 @@ public class DataService : IDataService
 {
     private readonly IDataContextFactory _factory;
     private readonly IUserSession _userSession;
-    private readonly ICategoryRepository _categoryRepository;
+    private readonly IItemRepository _itemRepository;
 
     public DataService(
         IDataContextFactory factory,
         IUserSession userSession,
-        ICategoryRepository categoryRepository)
+        IItemRepository itemRepository)
     {
         _factory = factory;
         _userSession = userSession;
-        _categoryRepository = categoryRepository;
+        _itemRepository = itemRepository;
     }
 
     public virtual IWpfPerfBenchContext CreateContext()
@@ -87,7 +87,7 @@ public class DataService : IDataService
     {
         try
         {
-            await _categoryRepository.CleanItems(db, ct);
+            await _itemRepository.CleanItems(db, ct);
             return ResultBase.SuccessResult();
         }
         catch (Exception e)
@@ -101,7 +101,7 @@ public class DataService : IDataService
     {
         try
         {
-            await _categoryRepository.Seed(db, items, ct);
+            await _itemRepository.Seed(db, items, ct);
             return ResultBase.SuccessResult();
         }
         catch (Exception e)

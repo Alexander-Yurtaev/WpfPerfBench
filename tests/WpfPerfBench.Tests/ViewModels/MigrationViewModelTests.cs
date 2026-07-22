@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
 using WpfPerfBench.Core.Enum;
-using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Interfaces;
@@ -11,18 +10,14 @@ namespace WpfPerfBench.Tests.ViewModels;
 
 public class MigrationViewModelTests : PageViewModelTestsBase<IMigrationViewModel>
 {
-    private readonly Mock<IMessageService> _messageService;
-    
 
     public MigrationViewModelTests()
     {
-        _messageService = new Mock<IMessageService>();
-
         ViewModel = new WpfPerfBench.ViewModels.MigrationViewModel(
             NavigationServiceMock.Object,
             UserSessionMock.Object,
             DataServiceMock.Object,
-            _messageService.Object);
+            MessageServiceMock.Object);
     }
 
     [Fact]
@@ -80,7 +75,7 @@ public class MigrationViewModelTests : PageViewModelTestsBase<IMigrationViewMode
 
         // Assert
         ViewModel.Items.Should().BeEmpty();
-        _messageService.Verify(v => v.ShowErrorMessage("Ошибка получения миграций"), Times.Once);
+        MessageServiceMock.Verify(v => v.ShowErrorMessage("Ошибка получения миграций"), Times.Once);
     }
 
     [Fact]
@@ -101,7 +96,7 @@ public class MigrationViewModelTests : PageViewModelTestsBase<IMigrationViewMode
 
         // Assert
         ViewModel.Items.Should().BeEmpty();
-        _messageService.Verify(v => v.ShowErrorMessage("Ошибка получения миграций"), Times.Once);
+        MessageServiceMock.Verify(v => v.ShowErrorMessage("Ошибка получения миграций"), Times.Once);
     }
 
     #region Private Mothods

@@ -35,7 +35,7 @@ public class AutoMapperTests
         var model = _generatorService.GenerateCategoryModel();
 
         // Act
-        var entity = _mapper.Map<Data.Entities.Category>(model);
+        var entity = _mapper.Map<WpfPerfBench.Data.Entities.Category>(model);
 
         // Assert
         entity.Should().NotBeNull();
@@ -48,7 +48,7 @@ public class AutoMapperTests
         var model = _generatorService.GenerateCategoryEntity();
 
         // Act
-        var entity = _mapper.Map<Data.Models.Category>(model);
+        var entity = _mapper.Map<WpfPerfBench.Data.Models.Category>(model);
 
         // Assert
         entity.Should().NotBeNull();
@@ -61,7 +61,7 @@ public class AutoMapperTests
         var models = _generatorService.GenerateListCategoryModel(10);
 
         // Act
-        var entities = _mapper.Map<List<Data.Entities.Category>>(models);
+        var entities = _mapper.Map<List<WpfPerfBench.Data.Entities.Category>>(models);
 
         // Assert
         entities.Should().NotBeNullOrEmpty();
@@ -71,10 +71,10 @@ public class AutoMapperTests
     public void Map_EmptyList_Category_Model_To_Entity_Success()
     {
         // Arrange
-        var models = new List<Data.Models.Category>();
+        var models = new List<WpfPerfBench.Data.Models.Category>();
 
         // Act
-        var entities = _mapper.Map<List<Data.Entities.Category>>(models);
+        var entities = _mapper.Map<List<WpfPerfBench.Data.Entities.Category>>(models);
 
         // Assert
         entities.Should().NotBeNull();
@@ -88,7 +88,7 @@ public class AutoMapperTests
         var models = _generatorService.GenerateListCategoryEntity(10);
 
         // Act
-        var entities = _mapper.Map<List<Data.Models.Category>>(models);
+        var entities = _mapper.Map<List<WpfPerfBench.Data.Models.Category>>(models);
 
         // Assert
         entities.Should().NotBeNullOrEmpty();
@@ -98,10 +98,10 @@ public class AutoMapperTests
     public void Map_EmptyList_Category_Entity_To_Model_Success()
     {
         // Arrange
-        var models = new List<Data.Entities.Category>();
+        var models = new List<WpfPerfBench.Data.Entities.Category>();
 
         // Act
-        var entities = _mapper.Map<List<Data.Models.Category>>(models);
+        var entities = _mapper.Map<List<WpfPerfBench.Data.Models.Category>>(models);
 
         // Assert
         entities.Should().NotBeNull();

@@ -1,10 +1,9 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System.Collections.ObjectModel;
+using WpfPerfBench.SeedMethods;
 
 namespace WpfPerfBench.Interfaces.ViewModels;
 
 public interface ISeedViewModel : IViewModelBase
 {
-    IRelayCommand NextCommand { get; }
-
-    IAsyncRelayCommand SeedCommand { get; }
+    ObservableCollection<SeedMethodBase> SeedMethods { get; set; }
 }

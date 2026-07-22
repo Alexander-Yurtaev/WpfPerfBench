@@ -6,6 +6,7 @@ using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Data.Services;
+using WpfPerfBench.Factories;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.ViewModels;
 using WpfPerfBench.Views;
@@ -24,7 +25,6 @@ public partial class App : Application
         this.DispatcherUnhandledException += App_DispatcherUnhandledException;
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
-
     }
 
     private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
@@ -66,6 +66,7 @@ public partial class App : Application
         services.AddTransient<IDataService, DataService>();
         services.AddTransient<IGeneratorService, GeneratorService>();
         services.AddTransient<IDataContextFactory, DataContextFactory>();
+        services.AddTransient<ISeedMethodFactory, SeedMethodFactory>();
 
         services.AddAutoMapper(cfg => cfg.AddMaps(typeof(App).Assembly));
 

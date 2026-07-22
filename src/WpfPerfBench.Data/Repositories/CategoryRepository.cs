@@ -46,24 +46,4 @@ public class CategoryRepository : ICategoryRepository
 
         return lookup[null].Select(c => BuildTree(c.Id)).ToList();
     }
-
-    public async Task CleanItems(IWpfPerfBenchContext db, CancellationToken ct = default)
-    {
-        try
-        {
-            await db.Items.ExecuteDeleteAsync(ct);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-    }
-
-    public async Task Seed(IWpfPerfBenchContext db, List<Item> items, CancellationToken ct = default)
-    {
-        var entities = _mapper.Map<List<Entities.Item>>(items);
-        await db.Items.AddRangeAsync(entities, ct);
-        await db.SaveChangesAsync(ct);
-    }
 }

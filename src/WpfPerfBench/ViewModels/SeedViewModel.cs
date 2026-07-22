@@ -1,8 +1,11 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using System.Collections.ObjectModel;
+using System.Reflection;
 using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Services;
+using WpfPerfBench.Factories;
 using WpfPerfBench.Interfaces.ViewModels;
+using WpfPerfBench.SeedMethods;
 
 namespace WpfPerfBench.ViewModels;
 
@@ -10,68 +13,40 @@ public partial class SeedViewModel : ViewModelBase, ISeedViewModel
 {
     private readonly IDataService _dataService;
     private readonly IGeneratorService _generatorService;
+    private readonly ISeedMethodFactory _seedMethodFactory;
 
     public SeedViewModel(
         INavigationService navigationService,
         IUserSession userSession,
         IDataService dataService,
-        IGeneratorService generatorService) : base(navigationService, userSession)
+        IGeneratorService generatorService,
+        ISeedMethodFactory seedMethodFactory) : base(navigationService, userSession)
     {
         _dataService = dataService;
         _generatorService = generatorService;
+        _seedMethodFactory = seedMethodFactory;
         Header = new Controls.HeaderViewModel("Заполнение данными");
+        FillSeedMethods();
     }
 
-    #region Seed
+    public int SeedStats => 1_000_000;
 
-    private bool CanSeed() => false; //CurrentPage == Page.Seed;
+    public ObservableCollection<SeedMethodBase> SeedMethods { get; set; } = [];
 
-    [RelayCommand(CanExecute = nameof(CanSeed))]
-    private async Task Seed()
+    #region Static Methods
+
+    private void FillSeedMethods()
     {
-        try
+        var assembly = Assembly.GetExecutingAssembly();
+        var seedMethods = assembly.GetTypes()
+            .Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(SeedMethodBase)));
+        
+        foreach (var seedMethod in seedMethods)
         {
-            var db = _dataService.CreateContext();
-
-            // CleanItems
-            var result = await _dataService.CleanItems(db, CancellationToken.None);
-
-            if (!result.Success)
-            {
-                //CurrentPage = Page.Seed;
-                return;
-            }
-
-            // Seed
-            var items = _generatorService.GenerateListItemModel(1_000_000);
-            result = await _dataService.SeedItems(db, items, CancellationToken.None);
-
-            if (!result.Success)
-            {
-                // CurrentPage = Page.Seed;
-                return;
-            }
-
-            //CurrentPage = Page.Stand;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            //CurrentPage = Page.Seed;
+            var method = (SeedMethodBase)_seedMethodFactory.Create(seedMethod);
+            SeedMethods.Add(method);
         }
     }
 
-    #endregion Seed
-
-    #region Next
-
-    private bool CanNext() => false; //CurrentPage == Page.Stand;
-
-    [RelayCommand(CanExecute = nameof(CanNext))]
-    private void Next()
-    {
-        NavigationService.NavigateNext();
-    }
-
-    #endregion Next
+    #endregion Static Methods
 }
