@@ -1,4 +1,5 @@
 ﻿using WpfPerfBench.Core.Enum;
+using WpfPerfBench.Core.Interfaces.Services;
 
 namespace WpfPerfBench.Core.Services;
 

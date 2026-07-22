@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
+using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
@@ -60,6 +61,7 @@ public partial class App : Application
         services.AddLogging();
 
         services.AddSingleton<IUserSession, UserSession>();
+        services.AddSingleton<IMessageService, MessageService>();
         services.AddSingleton<INavigationService, NavigationService>();
         
         services.AddTransient<IDataService, DataService>();

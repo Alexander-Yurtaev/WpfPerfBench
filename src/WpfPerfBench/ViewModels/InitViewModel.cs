@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
 using WpfPerfBench.Core.Enum;
-using WpfPerfBench.Core.Services;
+using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
 using WpfPerfBench.Data.Services;

@@ -1,6 +1,6 @@
 ﻿using WpfPerfBench.Core.Enum;
 
-namespace WpfPerfBench.Core.Services;
+namespace WpfPerfBench.Core.Interfaces.Services;
 
 public interface INavigationService
 {

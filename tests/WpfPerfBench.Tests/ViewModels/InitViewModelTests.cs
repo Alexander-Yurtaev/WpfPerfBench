@@ -1,13 +1,14 @@
 ﻿using Moq;
-using WpfPerfBench.Core.Services;
+using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Services;
+using WpfPerfBench.Interfaces.ViewModels;
 
 namespace WpfPerfBench.Tests.ViewModels;
 
 public partial class InitViewModelTests
 {
-    private readonly WpfPerfBench.ViewModels.InitViewModel _initViewModel;
+    private readonly IInitViewModel _initViewModel;
 
     public InitViewModelTests()
     {

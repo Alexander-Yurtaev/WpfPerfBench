@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using WpfPerfBench.Core.Services;
+using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Interfaces.ViewModels;

@@ -41,6 +41,20 @@ public class DataService : IDataService
         }
     }
 
+    public async Task<ResultBase> GetAppliedMigrationsAsync(IWpfPerfBenchContext db, CancellationToken ct)
+    {
+        try
+        {
+            var migrations = await db.Database.GetAppliedMigrationsAsync(ct);
+            return ResultBase.NamesResult(migrations);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return ResultBase.FailResult(e.Message);
+        }
+    }
+
     public async Task<ResultBase> GetPendingMigrationsAsync(IWpfPerfBenchContext db, CancellationToken ct)
     {
         try
