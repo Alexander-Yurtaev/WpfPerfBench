@@ -9,7 +9,7 @@ using WpfPerfBench.Interfaces.ViewModels;
 
 namespace WpfPerfBench.ViewModels;
 
-public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, ILoadable
+public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, ILoadableAsync
 {
     private readonly IDataService _dataService;
     private readonly IMessageService _messageService;
@@ -28,16 +28,17 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
         Header = new Controls.HeaderViewModel("Управление миграциями");
     }
 
-    #region Implementation of ILoadable
+    #region Implementation of ILoadableAsync
 
     public async Task LoadAsync(CancellationToken ct)
     {
         try
         {
             Items.Clear();
-            var appliedMessage = await _dataService.GetAppliedMigrationsAsync(null!, ct);
+            var db = _dataService.CreateContext();
+            var appliedMessage = await _dataService.GetAppliedMigrationsAsync(db, ct);
             ProcessMigrationResult(appliedMessage, MigrationStatus.Applied);
-            var pendingMessage = await _dataService.GetPendingMigrationsAsync(null!, ct);
+            var pendingMessage = await _dataService.GetPendingMigrationsAsync(db, ct);
             ProcessMigrationResult(pendingMessage, MigrationStatus.Pending);
         }
         catch (InvalidOperationException e)

@@ -7,7 +7,7 @@ using WpfPerfBench.Interfaces.ViewModels;
 
 namespace WpfPerfBench.ViewModels;
 
-public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadable
+public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableAsync
 {
     private readonly ICategoryRepository _categoryRepository;
 
@@ -48,7 +48,7 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadable
         StatItems = [];
     }
 
-    #region Implementation of ILoadable
+    #region Implementation of ILoadableAsync
 
     public async Task LoadAsync(CancellationToken ct)
     {

@@ -131,7 +131,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
     #region Next
 
-    private bool CanNext() => false; //CurrentPage == Page.Ready;
+    private bool CanNext() => true; //CurrentPage == Page.Ready;
 
     [RelayCommand(CanExecute = nameof(CanNext))]
     private void Next()

@@ -24,7 +24,7 @@ public class MigrationViewModelTests : PageViewModelTestsBase<IMigrationViewMode
     public async Task LoadAsync_Should_Fill_Items_Collection()
     {
         // Arrange
-        var loadableVm = (ILoadable)ViewModel;
+        var loadableVm = (ILoadableAsync)ViewModel;
 
         DataServiceMock.Setup(ds =>
                 ds.GetPendingMigrationsAsync(It.IsAny<IWpfPerfBenchContext>(), It.IsAny<CancellationToken>()))
@@ -61,7 +61,7 @@ public class MigrationViewModelTests : PageViewModelTestsBase<IMigrationViewMode
     public async Task Show_ErrorMessage_When_GetPendingMigrations_Failed()
     {
         // Arrange
-        var loadableVm = (ILoadable)ViewModel;
+        var loadableVm = (ILoadableAsync)ViewModel;
 
         DataServiceMock.Setup(ds =>
                 ds.GetPendingMigrationsAsync(It.IsAny<IWpfPerfBenchContext>(), It.IsAny<CancellationToken>()))
@@ -82,7 +82,7 @@ public class MigrationViewModelTests : PageViewModelTestsBase<IMigrationViewMode
     public async Task Show_ErrorMessage_When_GetAppliedMigrations_Failed()
     {
         // Arrange
-        var loadableVm = (ILoadable)ViewModel;
+        var loadableVm = (ILoadableAsync)ViewModel;
 
         DataServiceMock.Setup(ds =>
                 ds.GetPendingMigrationsAsync(It.IsAny<IWpfPerfBenchContext>(), It.IsAny<CancellationToken>()))

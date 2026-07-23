@@ -2,5 +2,5 @@
 
 public interface ILoadable
 {
-    Task LoadAsync(CancellationToken ct);
+    void Load();
 }

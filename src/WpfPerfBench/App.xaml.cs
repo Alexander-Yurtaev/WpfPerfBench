@@ -71,6 +71,7 @@ public partial class App : Application
         services.AddAutoMapper(cfg => cfg.AddMaps(typeof(App).Assembly));
 
         services.AddTransient<ICategoryRepository, CategoryRepository>();
+        services.AddTransient<IItemRepository, ItemRepository>();
 
         services.AddTransient<IInitViewModel, InitViewModel>();
         services.AddTransient<Func<IInitViewModel>>(sp => sp.GetRequiredService<IInitViewModel>);

@@ -4,14 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfPerfBench.Views"
-             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="450">
-
-    <b:Interaction.Behaviors>
-        <behaviors:LoadBehavior/>
-    </b:Interaction.Behaviors>
 
     <UserControl.Resources>
         <Style x:Key="HeaderStyle"
@@ -50,7 +45,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid behaviors:LoadExtension.IsActive="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
