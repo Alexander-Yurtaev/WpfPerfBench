@@ -6,6 +6,7 @@ using WpfPerfBench.Data;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Interfaces;
 using WpfPerfBench.Interfaces.ViewModels;
+using WpfPerfBench.Managers;
 
 namespace WpfPerfBench.ViewModels;
 
@@ -25,7 +26,7 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
     {
         _dataService = dataService;
         _messageService = messageService;
-        Header = new Controls.HeaderViewModel("Управление миграциями");
+        Header = new Controls.HeaderViewModel("Управление миграциями", navigationService);
     }
 
     #region Implementation of ILoadableAsync

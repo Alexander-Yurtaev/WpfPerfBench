@@ -1,59 +1,41 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using WpfPerfBench.Core.Interfaces.Services;
+using WpfPerfBench.Core.Enum;
 using WpfPerfBench.Interfaces.ViewModels;
+using WpfPerfBench.Managers;
 
 namespace WpfPerfBench.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject
 {
     private readonly INavigationService _navigationService;
-    private readonly Dictionary<int, Func<IViewModelBase>> _viewModels = [];
 
     [ObservableProperty]
     private IViewModelBase? _currentViewModel;
-
-    [ObservableProperty]
-    private int _currentStep;
-
-    [ObservableProperty]
-    private int _totalSteps;
 
     public MainWindowViewModel(
         Func<IInitViewModel> initViewModel,
         Func<IMigrationViewModel> migrationViewModel,
         Func<ISeedViewModel> seedViewModel,
         Func<IStandViewModel> standViewModel,
-        INavigationService navigationService)
+        INavigationService navigationService,
+        IThemeManager themeManager)
     {
+        ThemeManager = themeManager;
         _navigationService = navigationService;
-        
-        _viewModels.Add(1, initViewModel);
-        _viewModels.Add(2, migrationViewModel);
-        _viewModels.Add(3, seedViewModel);
-        _viewModels.Add(4, standViewModel);
 
-        TotalSteps = _viewModels.Count();
+        _navigationService.AddPage(Page.Init, initViewModel);
+        _navigationService.AddPage(Page.Migration, migrationViewModel);
+        _navigationService.AddPage(Page.Seed, seedViewModel);
+        _navigationService.AddPage(Page.Stand, standViewModel);
 
         _navigationService.OnNavigateNext += NavigationServiceOnNavigateNext;
         _navigationService.NavigateNext();
     }
 
-    private void NavigationServiceOnNavigateNext(object? sender, EventArgs e)
-    {
-        NavigateTo(CurrentStep + 1);
-    }
+    public IThemeManager ThemeManager { get; }
 
-    private void NavigateTo(int step)
+    private void NavigationServiceOnNavigateNext(object? sender, NavigateEventArgs e)
     {
-        if (_viewModels.TryGetValue(step, out var factory))
-        {
-            CurrentStep = step;
-            CurrentViewModel = factory();
-        }
-        else
-        {
-            CurrentStep = 0;
-            CurrentViewModel = null;
-        }
+        CurrentViewModel = e.Factory();
     }
 }

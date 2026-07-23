@@ -2,6 +2,7 @@
 
 public enum Page
 {
+    None,
     Init,
     Migration,
     Seed,

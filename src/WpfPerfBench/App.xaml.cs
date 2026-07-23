@@ -8,6 +8,7 @@ using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Factories;
 using WpfPerfBench.Interfaces.ViewModels;
+using WpfPerfBench.Managers;
 using WpfPerfBench.ViewModels;
 using WpfPerfBench.Views;
 
@@ -62,6 +63,8 @@ public partial class App : Application
         services.AddSingleton<IUserSession, UserSession>();
         services.AddSingleton<IMessageService, MessageService>();
         services.AddSingleton<INavigationService, NavigationService>();
+
+        services.AddTransient<IThemeManager, ThemeManager>();
         
         services.AddTransient<IDataService, DataService>();
         services.AddTransient<IGeneratorService, GeneratorService>();

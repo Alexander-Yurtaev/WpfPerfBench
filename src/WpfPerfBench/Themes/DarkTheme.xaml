@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--Colors-->
+    <Color x:Key="BgPrimaryColor">#1e1e2f</Color>
+    <Color x:Key="BgSecondaryColor">#2a2a3e</Color>
+    <Color x:Key="BgCardColor">#2a2a3e</Color>
+    <Color x:Key="BgWindowColor">#1e1e32</Color>
+    <Color x:Key="BgInputColor">#2a2a42</Color>
+    <Color x:Key="BgTreeColor">#16162a</Color>
+    <Color x:Key="BgListColor">#16162a</Color>
+    <Color x:Key="BgHeaderColor">#18182a</Color>
+    <Color x:Key="BgFooterColor">#18182a</Color>
+    <Color x:Key="BgProgressColor">#1a1a2e</Color>
+    <Color x:Key="BgHoverColor">#2a2a4a</Color>
+    <Color x:Key="BgSelectedColor">#31316a</Color>
+    <Color x:Key="BgMapColor">#0a0a18</Color>
+    <Color x:Key="BgTitleBarColor">#15152a</Color>
+
+    <Color x:Key="TextPrimaryColor">#cdd6f4</Color>
+    <Color x:Key="TextSecondaryColor">#a6adc8</Color>
+    <Color x:Key="TextMutedColor">#6a6a8a</Color>
+    <Color x:Key="TextInverseColor">#1e1e2f</Color>
+
+    <Color x:Key="BorderColorColor">#2a2a4a</Color>
+    <Color x:Key="BorderLightColor">#3a3a5a</Color>
+
+    <Color x:Key="AccentColor">#89b4fa</Color>
+    <Color x:Key="AccentHoverColor">#74c7ec</Color>
+    <Color x:Key="SuccessColor">#a6e3a1</Color>
+    <Color x:Key="DangerColor">#f38ba8</Color>
+    <Color x:Key="WarningColor">#f9e2af</Color>
+
+    <!--Brushes-->
+    <SolidColorBrush x:Key="BgPrimary" Color="{StaticResource BgPrimaryColor}"/>
+    <SolidColorBrush x:Key="BgSecondary" Color="{StaticResource BgSecondaryColor}"/>
+    <SolidColorBrush x:Key="BgCard" Color="{StaticResource BgCardColor}"/>
+    <SolidColorBrush x:Key="BgWindow" Color="{StaticResource BgWindowColor}"/>
+    <SolidColorBrush x:Key="BgInput" Color="{StaticResource BgInputColor}"/>
+    <SolidColorBrush x:Key="BgTree" Color="{StaticResource BgTreeColor}"/>
+    <SolidColorBrush x:Key="BgList" Color="{StaticResource BgListColor}"/>
+    <SolidColorBrush x:Key="BgHeader" Color="{StaticResource BgHeaderColor}"/>
+    <SolidColorBrush x:Key="BgFooter" Color="{StaticResource BgFooterColor}"/>
+    <SolidColorBrush x:Key="BgProgress" Color="{StaticResource BgProgressColor}"/>
+    <SolidColorBrush x:Key="BgHover" Color="{StaticResource BgHoverColor}"/>
+    <SolidColorBrush x:Key="BgSelected" Color="{StaticResource BgSelectedColor}"/>
+    <SolidColorBrush x:Key="BgMap" Color="{StaticResource BgMapColor}"/>
+    <SolidColorBrush x:Key="BgTitleBar" Color="{StaticResource BgTitleBarColor}"/>
+
+    <SolidColorBrush x:Key="TextPrimary" Color="{StaticResource TextPrimaryColor}"/>
+    <SolidColorBrush x:Key="TextSecondary" Color="{StaticResource TextSecondaryColor}"/>
+    <SolidColorBrush x:Key="TextMute" Color="{StaticResource TextMutedColor}"/>
+    <SolidColorBrush x:Key="TextInverse" Color="{StaticResource TextInverseColor}"/>
+
+    <SolidColorBrush x:Key="BorderColor" Color="{StaticResource BorderColorColor}"/>
+    <SolidColorBrush x:Key="BorderLight" Color="{StaticResource BorderLightColor}"/>
+
+    <SolidColorBrush x:Key="Accent" Color="{StaticResource AccentColor}"/>
+    <SolidColorBrush x:Key="AccentHover" Color="{StaticResource AccentHoverColor}"/>
+    <SolidColorBrush x:Key="Success" Color="{StaticResource SuccessColor}"/>
+    <SolidColorBrush x:Key="Danger" Color="{StaticResource DangerColor}"/>
+    <SolidColorBrush x:Key="Warning" Color="{StaticResource WarningColor}"/>
+
+</ResourceDictionary>

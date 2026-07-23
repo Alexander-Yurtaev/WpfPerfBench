@@ -1,5 +1,4 @@
-﻿using Microsoft.Xaml.Behaviors;
-using System.Windows;
+﻿using System.Windows;
 using WpfPerfBench.Interfaces;
 
 namespace WpfPerfBench.Behaviors;
@@ -27,12 +26,13 @@ public static class LoadExtension
         {
             if (e.NewValue is not (bool and true)) return;
             if (d is not FrameworkElement element) return;
-            if (element is { DataContext: not null })
+            if (element is { IsLoaded: true, DataContext: not null })
             {
                 var _ = LoadViewModel(element);
             }
             else
             {
+                element.Loaded += ElementOnLoaded;
                 element.DataContextChanged += ElementOnDataContextChanged;
             }
         }
@@ -43,21 +43,14 @@ public static class LoadExtension
         }
     }
 
+    private static void ElementOnLoaded(object sender, RoutedEventArgs e)
+    {
+        var _ = CheckAndLoadViewModel(sender);
+    }
+
     private static void ElementOnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        try
-        {
-            if (sender is not FrameworkElement element) return;
-            if (element is { DataContext: not null })
-            {
-                var _ = LoadViewModel(element);
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex);
-            throw;
-        }
+        var _ = CheckAndLoadViewModel(sender);
     }
 
     #endregion IsActive
@@ -80,6 +73,23 @@ public static class LoadExtension
     #endregion CancellationTokenSource
 
     #region Private Methods
+
+    private static async Task CheckAndLoadViewModel(object sender)
+    {
+        try
+        {
+            if (sender is not FrameworkElement element) return;
+            if (element is { IsLoaded: true, DataContext: not null })
+            {
+                await LoadViewModel(element);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            throw;
+        }
+    }
 
     private static async Task LoadViewModel(FrameworkElement sender)
     {

@@ -3,6 +3,7 @@ using Moq;
 using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Interfaces.ViewModels;
+using WpfPerfBench.Managers;
 using WpfPerfBench.ViewModels;
 
 namespace WpfPerfBench.Tests.ViewModels;
@@ -33,12 +34,15 @@ public class MainWindowViewModelTests
         standViewModelMock.Setup(m => m.Invoke())
             .Returns(new Mock<IStandViewModel>().Object);
 
+        var themeManagerMock = new Mock<IThemeManager>();
+
         _viewModel = new MainWindowViewModel(
             initViewModelMock.Object,
             migrationViewModelMock.Object,
             seedViewModelMock.Object,
             standViewModelMock.Object, 
-            _navigationService);
+            _navigationService,
+            themeManagerMock.Object);
     }
 
     [Fact]

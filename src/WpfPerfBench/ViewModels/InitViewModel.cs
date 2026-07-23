@@ -2,11 +2,11 @@
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
 using WpfPerfBench.Core.Enum;
-using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Interfaces.ViewModels;
+using WpfPerfBench.Managers;
 
 namespace WpfPerfBench.ViewModels;
 
@@ -20,10 +20,15 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
         IUserSession userSession,
         IDataService dataService) : base(navigationService, userSession)
     {
+        _navigationService = navigationService;
         _userSession = userSession;
         _dataService = dataService;
-        Header = new Controls.HeaderViewModel("Настройка подключения");
+        Header = new Controls.HeaderViewModel("Настройка подключения", NavigationService);
+        _navigationService.OnNavigateNext += NavigationServiceOnOnNavigateNext;
     }
+
+    [ObservableProperty]
+    private INavigationService _navigationService;
 
     [ObservableProperty]
     private string _fio = string.Empty;
@@ -46,15 +51,12 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     [ObservableProperty]
     private string _connectionString = string.Empty;
 
-    [ObservableProperty]
-    private Page _currentPage;
-
     [ObservableProperty] 
     private string _validationStatus;
 
     #region Test
 
-    private bool CanTest() => CurrentPage == Page.Init;
+    private bool CanTest() => _navigationService.CurrentPage == Page.Init;
 
     [RelayCommand(CanExecute = nameof(CanTest))]
     private async Task Test()
@@ -64,7 +66,6 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
             Validate();
             if (!IsValid)
             {
-                CurrentPage = Page.Init;
                 return;
             }
 
@@ -76,13 +77,12 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
             if (!resultTest.Success)
             {
-                CurrentPage = Page.Init;
+                _navigationService.NavigateNext();
             }
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            CurrentPage = Page.Init;
         }
     }
 
@@ -90,7 +90,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
     #region Migrate
 
-    private bool CanMigrate() => CurrentPage == Page.Migration;
+    private bool CanMigrate() => _navigationService.CurrentPage == Page.Migration;
 
     [RelayCommand(CanExecute = nameof(CanMigrate))]
     private async Task Migrate(CancellationToken ct)
@@ -105,7 +105,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
             if (!result.Success)
             {
-                CurrentPage = Page.Migration;
+                _navigationService.NavigateNext();
                 return;
             }
 
@@ -118,12 +118,11 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
                 await _dataService.Migrate(db, migration, ct);
             }
 
-            CurrentPage = Page.Stand;
+            _navigationService.NavigateNext();
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            CurrentPage = Page.Migration;
         }
     }
 
@@ -181,7 +180,12 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
         OnErrorsChanged(propertyName);
     }
 
-    partial void OnCurrentPageChanged(Page value)
+    private void NavigationServiceOnOnNavigateNext(object? sender, NavigateEventArgs e)
+    {
+        RefreshCommands();
+    }
+
+    private void RefreshCommands()
     {
         TestCommand.NotifyCanExecuteChanged();
         MigrateCommand.NotifyCanExecuteChanged();

@@ -3,11 +3,11 @@
 namespace WpfPerfBench.Controls
 {
     /// <summary>
-    /// Interaction logic for Header.xaml
+    /// Interaction logic for ThemeSwitcher.xaml
     /// </summary>
-    public partial class Header : UserControl
+    public partial class ThemeSwitcher : UserControl
     {
-        public Header()
+        public ThemeSwitcher()
         {
             InitializeComponent();
         }

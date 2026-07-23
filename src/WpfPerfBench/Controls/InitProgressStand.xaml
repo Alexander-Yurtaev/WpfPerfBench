@@ -13,14 +13,14 @@
             <Setter Property="Margin" Value="20"/>
             <Setter Property="CornerRadius" Value="8"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
-            <Setter Property="Background" Value="{StaticResource BgSecondary}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+            <Setter Property="Background" Value="{DynamicResource BgSecondary}"/>
             <Setter Property="Padding" Value="15"/>
         </Style>
         <Style x:Key="RoundedProgressBarStyleTmp" TargetType="ProgressBar">
             <Setter Property="Height" Value="16"/>
-            <Setter Property="Background" Value="{StaticResource BgProgress}"/>
-            <Setter Property="Foreground" Value="{StaticResource Accent}"/>
+            <Setter Property="Background" Value="{DynamicResource BgProgress}"/>
+            <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Minimum" Value="0"/>
             <Setter Property="Maximum" Value="100"/>
@@ -54,7 +54,7 @@
                                        VerticalAlignment="Center"
                                        FontSize="10"
                                        FontWeight="Bold"
-                                       Foreground="{StaticResource TextPrimary}"
+                                       Foreground="{DynamicResource TextPrimary}"
                                        Visibility="Collapsed"/>
                         </Grid>
 
@@ -73,13 +73,13 @@
         </Style>
         <Style x:Key="ConnectionProgressStyle"
                TargetType="Label">
-            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Margin" Value="0 4 0 0"/>
         </Style>
         <Style x:Key="MigrationStatusStyle"
                TargetType="Label">
-            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Margin" Value="0 4 0 0"/>
         </Style>
@@ -87,14 +87,14 @@
                TargetType="Label">
             <Setter Property="Margin" Value="0 4 0 0"/>
         </Style>
-        <SolidColorBrush x:Key="ProgressBar.Progress" Color="{StaticResource AccentColor}"/>
-        <SolidColorBrush x:Key="ProgressBar.Background" Color="{StaticResource BgProgressColor}"/>
-        <SolidColorBrush x:Key="ProgressBar.Border" Color="{StaticResource BorderColorColor}"/>
+        <SolidColorBrush x:Key="ProgressBar.Progress" Color="{DynamicResource AccentColor}"/>
+        <SolidColorBrush x:Key="ProgressBar.Background" Color="{DynamicResource BgProgressColor}"/>
+        <SolidColorBrush x:Key="ProgressBar.Border" Color="{DynamicResource BorderColorColor}"/>
         <Style x:Key="RoundedProgressBarStyle" TargetType="{x:Type ProgressBar}">
             <Setter Property="Height" Value="16"/>
-            <Setter Property="Foreground" Value="{StaticResource ProgressBar.Progress}"/>
-            <Setter Property="Background" Value="{StaticResource ProgressBar.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource ProgressBar.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ProgressBar.Progress}"/>
+            <Setter Property="Background" Value="{DynamicResource ProgressBar.Background}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ProgressBar.Border}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -197,11 +197,11 @@
                 <Label Grid.Column="0"
                        Content="📊 Найдено записей: "
                        FontSize="13"
-                       Foreground="{StaticResource TextSecondary}"/>
+                       Foreground="{DynamicResource TextSecondary}"/>
                 <Label Grid.Column="1"
                        Content="{Binding TotalRecords, FallbackValue='0'}"
                        FontSize="13"
-                       Foreground="{StaticResource Accent}"/>
+                       Foreground="{DynamicResource Accent}"/>
             </Grid>
             <Label Grid.Row="4"
                    Content="{Binding ProgressMessage, FallbackValue='Данные отсутствуют⚡ Рекомендуется наполнить тестовыми данными'}"

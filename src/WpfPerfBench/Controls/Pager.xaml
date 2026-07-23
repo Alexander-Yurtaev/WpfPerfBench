@@ -9,13 +9,13 @@
 
     <UserControl.Resources>
         <Style TargetType="Border">
-            <Setter Property="Background" Value="{StaticResource BgSecondary}"/>
+            <Setter Property="Background" Value="{DynamicResource BgSecondary}"/>
             <Setter Property="Padding" Value="8 2"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="CornerRadius" Value="15"/>
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Margin" Value="0 0 2 0"/>
         </Style>
@@ -30,9 +30,9 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Шаг"/>
-            <TextBlock Grid.Column="1" Text="{Binding RelativeSource={RelativeSource AncestorType=local:Pager, Mode=FindAncestor}, Path=CurrentStep}"/>
+            <TextBlock Grid.Column="1" Text="{Binding CurrentStep}"/>
             <TextBlock Grid.Column="2" Text="из"/>
-            <TextBlock Grid.Column="3" Text="{Binding RelativeSource={RelativeSource AncestorType=local:Pager, Mode=FindAncestor}, Path=TotalSteps}"/>
+            <TextBlock Grid.Column="3" Text="{Binding TotalSteps}"/>
         </Grid>
     </Border>
 </UserControl>

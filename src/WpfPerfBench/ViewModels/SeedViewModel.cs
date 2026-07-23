@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reflection;
-using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Factories;
 using WpfPerfBench.Interfaces.ViewModels;
+using WpfPerfBench.Managers;
 using WpfPerfBench.SeedMethods;
 
 namespace WpfPerfBench.ViewModels;
@@ -25,7 +25,7 @@ public partial class SeedViewModel : ViewModelBase, ISeedViewModel
         _dataService = dataService;
         _generatorService = generatorService;
         _seedMethodFactory = seedMethodFactory;
-        Header = new Controls.HeaderViewModel("Заполнение данными");
+        Header = new Controls.HeaderViewModel("Заполнение данными", navigationService);
         FillSeedMethods();
     }
 

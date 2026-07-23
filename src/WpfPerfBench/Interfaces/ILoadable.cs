@@ -2,5 +2,5 @@
 
 public interface ILoadable
 {
-    void Load();
+    public void Load();
 }

@@ -11,37 +11,37 @@
     <UserControl.Resources>
         <Style x:Key="HeaderStyle"
                TargetType="Border">
-            <Setter Property="Background" Value="{StaticResource BgHeader}"/>
+            <Setter Property="Background" Value="{DynamicResource BgHeader}"/>
             <Setter Property="Padding" Value="25 7"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
         </Style>
         <Style x:Key="HeaderIconStyle"
                TargetType="Label">
-            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
             <Setter Property="FontSize" Value="14"/>
         </Style>
         <Style x:Key="HeaderFioStyle"
                TargetType="Label">
-            <Setter Property="Foreground" Value="{StaticResource Accent}"/>
+            <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
         <Style x:Key="HeaderSplitterStyle"
                TargetType="Label">
-            <Setter Property="Foreground" Value="{StaticResource TextMuted}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextMuted}"/>
         </Style>
         <Style x:Key="HeaderDbInfoStyle"
                TargetType="Label">
-            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
         </Style>
         <Style x:Key="TreeViewStyle"
                TargetType="TreeView">
             <Setter Property="MinWidth" Value="200"/>
-            <Setter Property="Background" Value="{StaticResource BgTree}"/>
+            <Setter Property="Background" Value="{DynamicResource BgTree}"/>
             <Setter Property="Padding" Value="10 15"/>
             <Setter Property="BorderThickness" Value="0 0 1 0"/>
-            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
         </Style>
     </UserControl.Resources>
 
@@ -92,7 +92,7 @@
 
             </TreeView>
             <Border Grid.Column="1"
-                    Background="{StaticResource BgSecondary}">
+                    Background="{DynamicResource BgSecondary}">
 
             </Border>
         </Grid>

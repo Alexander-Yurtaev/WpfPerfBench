@@ -26,18 +26,18 @@
 
     <Window.Resources>
         <Style TargetType="Window">
-            <Setter Property="Background" Value="{StaticResource BgWindow}"/>
+            <Setter Property="Background" Value="{DynamicResource BgWindow}"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
         <Style TargetType="Border"
                x:Key="CardBorderStyle">
-            <Setter Property="Background" Value="{StaticResource BgCard}"/>
+            <Setter Property="Background" Value="{DynamicResource BgCard}"/>
             <Setter Property="CornerRadius" Value="16"/>
             <Setter Property="Padding" Value="20 20 20 25"/>
             <Setter Property="Margin" Value="0"/>
             <Setter Property="MinWidth" Value="400"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
         </Style>
         <Style TargetType="Border"
                x:Key="BorderContentStyle">
@@ -49,7 +49,7 @@
         </Style>
     </Window.Resources>
 
-    <Border Style="{StaticResource CardBorderStyle}">
+    <Border Style="{DynamicResource CardBorderStyle}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -61,13 +61,10 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <controls:Header Grid.Column="0" 
-                                 IconPath="{Binding CurrentViewModel.Header.IconPath}"
-                                 Title="{Binding CurrentViewModel.Header.Title}"
-                                 CurrentStep="{Binding CurrentStep}"
-                                 TotalSteps="{Binding TotalSteps}"/>
+                                 DataContext="{Binding Header}"/>
             </Grid>
             <Border Grid.Row="1"
-                    Style="{StaticResource BorderContentStyle}">
+                    Style="{DynamicResource BorderContentStyle}">
                 <ContentControl Content="{Binding CurrentViewModel}"
                                 Validation.ErrorTemplate="{x:Null}">
                     <ContentControl.Resources>

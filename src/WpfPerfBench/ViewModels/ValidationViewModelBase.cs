@@ -3,6 +3,7 @@ using System.ComponentModel;
 using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Interfaces.ViewModels;
+using WpfPerfBench.Managers;
 
 namespace WpfPerfBench.ViewModels;
 

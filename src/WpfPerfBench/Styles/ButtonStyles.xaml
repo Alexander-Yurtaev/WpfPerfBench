@@ -1,0 +1,101 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="BtnStyle" TargetType="Button">
+        <Setter Property="Margin" Value="12 0 0 0"/>
+        <Setter Property="Padding" Value="30,10"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <!-- Основной Border с закруглёнными углами -->
+                    <Border x:Name="Bd"
+                                CornerRadius="8"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+
+                        <!-- Тень (опционально) -->
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="4" 
+                                                  ShadowDepth="2" 
+                                                  Color="Black" 
+                                                  Opacity="0.15"/>
+                        </Border.Effect>
+
+                        <!-- Контент кнопки -->
+                        <ContentPresenter x:Name="Content"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                    </Border>
+
+                    <!-- Триггеры для состояний -->
+                    <ControlTemplate.Triggers>
+                        <!-- При наведении -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentHover}"/>
+                        </Trigger>
+
+                        <!-- При нажатии -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <!--<Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentPressed}"/>-->
+                            <Setter TargetName="Bd" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="2" 
+                                                          ShadowDepth="1" 
+                                                          Color="Black" 
+                                                          Opacity="0.1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <!-- При отключении -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource BgSecondary}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource TextMuted}"/>
+                            <Setter TargetName="Bd" Property="Effect" Value="{x:Null}"/>
+                        </Trigger>
+
+                        <!-- При фокусе -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="2"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PrimaryBtnStyle"
+           BasedOn="{StaticResource BtnStyle}"
+           TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource Accent}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextInverse}"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.4"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SecondaryBtnStyle"
+           BasedOn="{StaticResource BtnStyle}"
+           TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource BgSecondary}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.4"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Interfaces;
 using WpfPerfBench.Interfaces.ViewModels;
+using WpfPerfBench.Managers;
 
 namespace WpfPerfBench.ViewModels;
 
@@ -39,7 +39,7 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
     {
         _categoryRepository = categoryRepository;
         
-        Header = new Controls.HeaderViewModel("Рабочий стенд");
+        Header = new Controls.HeaderViewModel("Рабочий стенд", navigationService);
 
         Icon = "👋";
         Fio = userSession.Fio;
