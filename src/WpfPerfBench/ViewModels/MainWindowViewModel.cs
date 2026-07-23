@@ -2,6 +2,7 @@
 using WpfPerfBench.Core.Enum;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
+using WpfPerfBench.ViewModels.Controls;
 
 namespace WpfPerfBench.ViewModels;
 
@@ -34,8 +35,12 @@ public partial class MainWindowViewModel : ObservableObject
 
     public IThemeManager ThemeManager { get; }
 
+    [ObservableProperty]
+    private HeaderViewModel _header;
+
     private void NavigationServiceOnNavigateNext(object? sender, NavigateEventArgs e)
     {
         CurrentViewModel = e.Factory();
+        Header = new HeaderViewModel("WPF Performance Demo — интерактивный макет", _navigationService);
     }
 }

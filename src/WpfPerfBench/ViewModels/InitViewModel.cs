@@ -23,7 +23,6 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
         _navigationService = navigationService;
         _userSession = userSession;
         _dataService = dataService;
-        Header = new Controls.HeaderViewModel("Настройка подключения", NavigationService);
         _navigationService.OnNavigateNext += NavigationServiceOnOnNavigateNext;
     }
 

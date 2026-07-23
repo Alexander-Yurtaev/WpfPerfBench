@@ -48,6 +48,7 @@
             <local:ThemeSwitcher Grid.Column="2"
                                  VerticalAlignment="Center"/>
             <local:Pager Grid.Column="3"
+                         Margin="6 0 0 0"
                          VerticalAlignment="Center"/>
             <Button Grid.Column="4" 
                     VerticalAlignment="Center"

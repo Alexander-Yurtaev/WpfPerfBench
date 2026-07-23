@@ -30,9 +30,9 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Шаг"/>
-            <TextBlock Grid.Column="1" Text="{Binding CurrentStep}"/>
+            <TextBlock Grid.Column="1" Text="{Binding NavigationService.CurrentPageNumber}"/>
             <TextBlock Grid.Column="2" Text="из"/>
-            <TextBlock Grid.Column="3" Text="{Binding TotalSteps}"/>
+            <TextBlock Grid.Column="3" Text="{Binding NavigationService.TotalSteps}"/>
         </Grid>
     </Border>
 </UserControl>

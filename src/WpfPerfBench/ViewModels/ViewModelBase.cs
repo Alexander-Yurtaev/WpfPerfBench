@@ -2,7 +2,6 @@
 using WpfPerfBench.Data;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
-using WpfPerfBench.ViewModels.Controls;
 
 namespace WpfPerfBench.ViewModels;
 
@@ -15,9 +14,5 @@ public abstract partial class ViewModelBase : ObservableObject, IViewModelBase
     {
         NavigationService = navigationService;
         UserSession = userSession;
-        _header = new Controls.HeaderViewModel("Заголовок", NavigationService);
     }
-
-    [ObservableProperty]
-    private HeaderViewModel _header;
 }

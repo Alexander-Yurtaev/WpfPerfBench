@@ -35,40 +35,6 @@
                                               VerticalAlignment="Center"
                                               Margin="{TemplateBinding Padding}"/>
                     </Border>
-
-                    <!-- Триггеры для состояний -->
-                    <ControlTemplate.Triggers>
-                        <!-- При наведении -->
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentHover}"/>
-                        </Trigger>
-
-                        <!-- При нажатии -->
-                        <Trigger Property="IsPressed" Value="True">
-                            <!--<Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentPressed}"/>-->
-                            <Setter TargetName="Bd" Property="Effect">
-                                <Setter.Value>
-                                    <DropShadowEffect BlurRadius="2" 
-                                                          ShadowDepth="1" 
-                                                          Color="Black" 
-                                                          Opacity="0.1"/>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-
-                        <!-- При отключении -->
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource BgSecondary}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource TextMuted}"/>
-                            <Setter TargetName="Bd" Property="Effect" Value="{x:Null}"/>
-                        </Trigger>
-
-                        <!-- При фокусе -->
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource Accent}"/>
-                            <Setter TargetName="Bd" Property="BorderThickness" Value="2"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -80,6 +46,38 @@
         <Setter Property="Background" Value="{DynamicResource Accent}"/>
         <Setter Property="Foreground" Value="{DynamicResource TextInverse}"/>
         <Style.Triggers>
+            <!-- При наведении -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource AccentHover}"/>
+            </Trigger>
+
+            <!-- При нажатии -->
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource AccentPressed}"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="2" 
+                                          ShadowDepth="1" 
+                                          Color="Black" 
+                                          Opacity="0.1"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+            <!-- При отключении -->
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{DynamicResource BgSecondary}"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextMuted}"/>
+                <Setter Property="Effect" Value="{x:Null}"/>
+            </Trigger>
+
+            <!-- При фокусе -->
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                <Setter Property="BorderThickness" Value="2"/>
+            </Trigger>
+
+            <!-- При недоступности -->
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value="0.4"/>
             </Trigger>
@@ -92,6 +90,38 @@
         <Setter Property="Background" Value="{DynamicResource BgSecondary}"/>
         <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
         <Style.Triggers>
+            <!-- При наведении -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource BgHover}"/>
+            </Trigger>
+
+            <!-- При нажатии -->
+            <Trigger Property="IsPressed" Value="True">
+                <!--<Setter Property="Background" Value="{DynamicResource AccentPressed}"/>-->
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="2" 
+                                          ShadowDepth="1" 
+                                          Color="Black" 
+                                          Opacity="0.1"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+            <!-- При отключении -->
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{DynamicResource BgSecondary}"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextMuted}"/>
+                <Setter Property="Effect" Value="{x:Null}"/>
+            </Trigger>
+
+            <!-- При фокусе -->
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource BgSecondary}"/>
+                <Setter Property="BorderThickness" Value="2"/>
+            </Trigger>
+
+            <!-- При недоступности -->
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value="0.4"/>
             </Trigger>

@@ -1,5 +1,4 @@
 ﻿using WpfPerfBench.Core.Enum;
-using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Interfaces.ViewModels;
 
 namespace WpfPerfBench.Managers;
@@ -7,6 +6,8 @@ namespace WpfPerfBench.Managers;
 public class NavigationService : INavigationService
 {
     public Page CurrentPage { get; set; }
+
+    public int CurrentPageNumber => (int)CurrentPage;
 
     public int TotalSteps => _factories.Count;
 

@@ -39,8 +39,6 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
     {
         _categoryRepository = categoryRepository;
         
-        Header = new Controls.HeaderViewModel("Рабочий стенд", navigationService);
-
         Icon = "👋";
         Fio = userSession.Fio;
         this.DataProvider = userSession.DataProvider.ToString();

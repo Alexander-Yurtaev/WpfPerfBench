@@ -7,7 +7,7 @@
              xmlns:managers="clr-namespace:WpfPerfBench.Managers"
              xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
              mc:Ignorable="d" 
-             d:DesignHeight="56" d:DesignWidth="195">
+             d:DesignWidth="195">
 
     <UserControl.DataContext>
         <managers:ThemeManager/>
@@ -17,14 +17,14 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Background="{DynamicResource BgSecondary}"
-            Padding="18 8"
+            Padding="9 4"
             CornerRadius="30"
             BorderThickness="1"
             BorderBrush="{DynamicResource BorderColor}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="6"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Label  Grid.Column="0" 
@@ -43,7 +43,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="ContentPresenter">
-                        <Setter Property="Margin" Value="6"/>
+                        <Setter Property="Margin" Value="0"/>
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
@@ -58,9 +58,10 @@
                                                 <Border Background="{TemplateBinding Background}"
                                                         BorderThickness="0"
                                                         Cursor="Hand"
-                                                        Padding="10 4"
+                                                        Padding="5 2"
                                                         CornerRadius="20">
-                                                    <Image Source="{Binding IconPath}"/>
+                                                    <Image Source="{Binding IconPath}"
+                                                           Width="38" Height="38"/>
                                                 </Border>
                                             </ControlTemplate>
                                         </Setter.Value>

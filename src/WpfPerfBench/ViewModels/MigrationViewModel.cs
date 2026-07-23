@@ -26,7 +26,6 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
     {
         _dataService = dataService;
         _messageService = messageService;
-        Header = new Controls.HeaderViewModel("Управление миграциями", navigationService);
     }
 
     #region Implementation of ILoadableAsync

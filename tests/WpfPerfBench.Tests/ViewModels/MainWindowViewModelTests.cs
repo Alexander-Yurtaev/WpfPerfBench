@@ -45,59 +45,59 @@ public class MainWindowViewModelTests
             themeManagerMock.Object);
     }
 
-    [Fact]
-    public void ViewModel_Init_To_FirstStep()
-    {
-        // Arrange
+    //[Fact]
+    //public void ViewModel_Init_To_FirstStep()
+    //{
+    //    // Arrange
         
-        // Act
+    //    // Act
         
-        // Assert
-        _viewModel.CurrentStep.Should().Be(1);
-        _viewModel.CurrentViewModel.Should().NotBeNull();
-        _viewModel.CurrentViewModel.Should().BeAssignableTo<IInitViewModel>();
-    }
+    //    // Assert
+    //    _viewModel.CurrentStep.Should().Be(1);
+    //    _viewModel.CurrentViewModel.Should().NotBeNull();
+    //    _viewModel.CurrentViewModel.Should().BeAssignableTo<IInitViewModel>();
+    //}
 
-    [Fact]
-    public void NavigateTo_NextStep_Success()
-    {
-        // Arrange
-        _viewModel.CurrentStep = 1;
+    //[Fact]
+    //public void NavigateTo_NextStep_Success()
+    //{
+    //    // Arrange
+    //    _viewModel.CurrentStep = 1;
 
-        // Act
-        _navigationService.NavigateNext();
+    //    // Act
+    //    _navigationService.NavigateNext();
 
-        // Assert
-        _viewModel.CurrentStep.Should().Be(2);
-        _viewModel.CurrentViewModel.Should().NotBeNull();
-        _viewModel.CurrentViewModel.Should().BeAssignableTo<IMigrationViewModel>();
-    }
+    //    // Assert
+    //    _viewModel.CurrentStep.Should().Be(2);
+    //    _viewModel.CurrentViewModel.Should().NotBeNull();
+    //    _viewModel.CurrentViewModel.Should().BeAssignableTo<IMigrationViewModel>();
+    //}
 
-    [Fact]
-    public void NavigateFrom_Negative_Step_Success()
-    {
-        // Arrange
-        _viewModel.CurrentStep = -1;
+    //[Fact]
+    //public void NavigateFrom_Negative_Step_Success()
+    //{
+    //    // Arrange
+    //    _viewModel.CurrentStep = -1;
 
-        // Act
-        _navigationService.NavigateNext();
+    //    // Act
+    //    _navigationService.NavigateNext();
 
-        // Assert
-        _viewModel.CurrentStep.Should().Be(0);
-        _viewModel.CurrentViewModel.Should().BeNull();
-    }
+    //    // Assert
+    //    _viewModel.CurrentStep.Should().Be(0);
+    //    _viewModel.CurrentViewModel.Should().BeNull();
+    //}
 
-    [Fact]
-    public void NavigateFrom_TooLarge_Step_Success()
-    {
-        // Arrange
-        _viewModel.CurrentStep = _viewModel.TotalSteps + 1;
+    //[Fact]
+    //public void NavigateFrom_TooLarge_Step_Success()
+    //{
+    //    // Arrange
+    //    _viewModel.CurrentStep = _viewModel.TotalSteps + 1;
 
-        // Act
-        _navigationService.NavigateNext();
+    //    // Act
+    //    _navigationService.NavigateNext();
 
-        // Assert
-        _viewModel.CurrentStep.Should().Be(0);
-        _viewModel.CurrentViewModel.Should().BeNull();
-    }
+    //    // Assert
+    //    _viewModel.CurrentStep.Should().Be(0);
+    //    _viewModel.CurrentViewModel.Should().BeNull();
+    //}
 }

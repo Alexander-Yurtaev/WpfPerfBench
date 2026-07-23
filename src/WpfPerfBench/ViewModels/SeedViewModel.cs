@@ -25,7 +25,6 @@ public partial class SeedViewModel : ViewModelBase, ISeedViewModel
         _dataService = dataService;
         _generatorService = generatorService;
         _seedMethodFactory = seedMethodFactory;
-        Header = new Controls.HeaderViewModel("Заполнение данными", navigationService);
         FillSeedMethods();
     }
 

@@ -13,7 +13,9 @@
         Title="WPF Performance Demo" 
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        Height="985" Width="612">
+        Background="Transparent"
+        BorderThickness="0"
+        Height="985" Width="900" ResizeMode="NoResize">
 
     <b:Interaction.Behaviors>
         <behaviors:DragMoveBehavior/>
@@ -25,10 +27,6 @@
     </Window.CommandBindings>
 
     <Window.Resources>
-        <Style TargetType="Window">
-            <Setter Property="Background" Value="{DynamicResource BgWindow}"/>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
         <Style TargetType="Border"
                x:Key="CardBorderStyle">
             <Setter Property="Background" Value="{DynamicResource BgCard}"/>
@@ -41,11 +39,10 @@
         </Style>
         <Style TargetType="Border"
                x:Key="BorderContentStyle">
-            <Setter Property="Background" Value="#ffffff"/>
+            <Setter Property="Background" Value="Transparent"/>
             <Setter Property="CornerRadius" Value="12"/>
             <Setter Property="Padding" Value="25"/>
-            <Setter Property="BorderBrush" Value="#d0d0d8"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style>
     </Window.Resources>
 
@@ -55,14 +52,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <controls:Header Grid.Column="0" 
-                                 DataContext="{Binding Header}"/>
-            </Grid>
+            <controls:Header Grid.Row="0" DataContext="{Binding Header}"/>
             <Border Grid.Row="1"
                     Style="{DynamicResource BorderContentStyle}">
                 <ContentControl Content="{Binding CurrentViewModel}"
