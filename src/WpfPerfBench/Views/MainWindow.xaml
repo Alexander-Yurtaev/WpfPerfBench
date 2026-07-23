@@ -26,26 +26,6 @@
                         Executed="CloseCommandHandler" />
     </Window.CommandBindings>
 
-    <Window.Resources>
-        <Style TargetType="Border"
-               x:Key="CardBorderStyle">
-            <Setter Property="Background" Value="{DynamicResource BgCard}"/>
-            <Setter Property="CornerRadius" Value="16"/>
-            <Setter Property="Padding" Value="20 20 20 25"/>
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="MinWidth" Value="400"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-        </Style>
-        <Style TargetType="Border"
-               x:Key="BorderContentStyle">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="CornerRadius" Value="12"/>
-            <Setter Property="Padding" Value="25"/>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
-    </Window.Resources>
-
     <Border Style="{DynamicResource CardBorderStyle}">
         <Grid>
             <Grid.RowDefinitions>
