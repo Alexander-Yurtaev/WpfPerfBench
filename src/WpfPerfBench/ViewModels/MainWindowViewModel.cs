@@ -34,7 +34,10 @@ public partial class MainWindowViewModel : ObservableObject
         NavigationService.OnNavigate += NavigationServiceOnNavigate;
         NavigationService.NavigateNext();
 
-        Header = new HeaderViewModel("WPF Performance Demo — интерактивный макет", ThemeManager);
+        Header = new HeaderViewModel("WPF Performance Demo", ThemeManager)
+        {
+            Description = "интерактивный макет"
+        };
     }
 
     public IThemeManager ThemeManager { get; }

@@ -11,6 +11,9 @@ public partial class HeaderViewModel : ObservableObject
     [ObservableProperty]
     private string _title = string.Empty;
 
+    [ObservableProperty]
+    private string _description = string.Empty;
+
     public HeaderViewModel(string title, 
         IThemeManager themeManager)
     {
@@ -19,4 +22,11 @@ public partial class HeaderViewModel : ObservableObject
     }
 
     public IThemeManager ThemeManager { get; }
+
+    public bool HasDescription => !string.IsNullOrEmpty(Description);
+
+    partial void OnDescriptionChanged(string value)
+    {
+        OnPropertyChanged(nameof(HasDescription));
+    }
 }

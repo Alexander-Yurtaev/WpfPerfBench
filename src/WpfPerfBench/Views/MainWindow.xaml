@@ -15,7 +15,7 @@
         WindowStyle="None"
         Background="Transparent"
         BorderThickness="0"
-        Height="985" Width="900" ResizeMode="NoResize">
+        Height="985" Width="950" ResizeMode="NoResize">
 
     <b:Interaction.Behaviors>
         <behaviors:DragMoveBehavior/>
