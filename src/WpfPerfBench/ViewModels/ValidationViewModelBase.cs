@@ -56,10 +56,16 @@ public abstract class ValidationViewModelBase : ViewModelBase, IValidationViewMo
         Errors.Remove(propertyName);
     }
 
+    protected virtual void RefreshCommands()
+    {
+
+    }
+
     protected virtual void OnErrorsChanged(string propertyName)
     {
         ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         OnPropertyChanged(nameof(HasErrors));
         OnPropertyChanged(nameof(IsValid));
+        RefreshCommands();
     }
 }

@@ -67,9 +67,9 @@
 
             <!-- При отключении -->
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" Value="{DynamicResource BgSecondary}"/>
-                <Setter Property="Foreground" Value="{DynamicResource TextMuted}"/>
+                <Setter Property="Opacity" Value="0.4"/>
                 <Setter Property="Effect" Value="{x:Null}"/>
+                <Setter Property="Cursor" Value="No"/>
             </Trigger>
 
             <!-- При фокусе -->

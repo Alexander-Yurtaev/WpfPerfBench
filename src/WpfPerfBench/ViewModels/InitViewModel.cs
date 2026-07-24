@@ -15,6 +15,8 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     private readonly IUserSession _userSession;
     private readonly IDataService _dataService;
 
+    private bool _isSuccessTested;
+
     public InitViewModel(
         INavigationService navigationService, 
         IUserSession userSession,
@@ -54,7 +56,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
     #region Test
 
-    private bool CanTest() => NavigationService.CurrentPage == Page.Init;
+    private bool CanTest() => NavigationService.CurrentPage == Page.Init && IsValid && !_isSuccessTested;
 
     [RelayCommand(CanExecute = nameof(CanTest))]
     private async Task Test()
@@ -73,14 +75,16 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
             var resultTest = await _dataService.TestConnection(db, CancellationToken.None);
 
-            if (!resultTest.Success)
-            {
-                NavigationService.NavigateNext();
-            }
+            _isSuccessTested = resultTest.Success;
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
+            _isSuccessTested = false;
+        }
+        finally
+        {
+            RefreshCommands();
         }
     }
 
@@ -178,11 +182,9 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
         OnErrorsChanged(propertyName);
     }
 
-    private void RefreshCommands()
+    protected override void RefreshCommands()
     {
         TestCommand.NotifyCanExecuteChanged();
-        //MigrateCommand.NotifyCanExecuteChanged();
-        //NextCommand.NotifyCanExecuteChanged();
     }
 
     //#region Overrides of ValidationViewModelBase
