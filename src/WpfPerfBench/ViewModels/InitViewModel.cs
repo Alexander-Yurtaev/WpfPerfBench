@@ -5,12 +5,14 @@ using WpfPerfBench.Core.Enum;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
 using WpfPerfBench.Data.Services;
+using WpfPerfBench.Enums;
+using WpfPerfBench.Interfaces;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
 
 namespace WpfPerfBench.ViewModels;
 
-public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
+public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, INavigatable
 {
     private readonly IUserSession _userSession;
     private readonly IDataService _dataService;
@@ -56,7 +58,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
     #region Test
 
-    private bool CanTest() => NavigationService.CurrentPage == Page.Init && IsValid && !_isSuccessTested;
+    private bool CanTest() => NavigationService.CurrentPage == Page.Init && IsValid;
 
     [RelayCommand(CanExecute = nameof(CanTest))]
     private async Task Test()
@@ -85,6 +87,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
         finally
         {
             RefreshCommands();
+            SendOnNavigatable(NavigationType.Next, _isSuccessTested);
         }
     }
 
@@ -291,4 +294,15 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     }
 
     #endregion Validation rules
+
+    #region Implementation of INavigatable
+
+    public event EventHandler<NavigatableEventArgs>? OnNavigatable;
+
+    private void SendOnNavigatable(NavigationType type, bool allowed)
+    {
+        OnNavigatable?.Invoke(this, new NavigatableEventArgs(type, allowed));
+    }
+
+    #endregion
 }

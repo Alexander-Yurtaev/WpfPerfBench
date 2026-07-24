@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Core.Enum;
+using WpfPerfBench.Enums;
+using WpfPerfBench.Interfaces;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
 using WpfPerfBench.ViewModels.Controls;
@@ -9,6 +11,8 @@ namespace WpfPerfBench.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject
 {
+    private Dictionary<object, bool> _allowed = [];
+
     [ObservableProperty]
     private IViewModelBase? _currentViewModel;
 
@@ -47,7 +51,28 @@ public partial class MainWindowViewModel : ObservableObject
 
     private void NavigationServiceOnNavigate(object? sender, NavigateEventArgs e)
     {
+        UnsubscribeFromNavigatable(CurrentViewModel as INavigatable);
         CurrentViewModel = e.Factory();
+        SubscribeFromNavigatable(CurrentViewModel as INavigatable);
+
+        RefreshCommands();
+    }
+
+    private void UnsubscribeFromNavigatable(INavigatable? navigatable)
+    {
+        if (navigatable is null) return;
+        navigatable.OnNavigatable -= OnNavigatable;
+    }
+
+    private void SubscribeFromNavigatable(INavigatable? navigatable)
+    {
+        if (navigatable is null) return;
+        navigatable.OnNavigatable += OnNavigatable;
+    }
+
+    private void OnNavigatable(object? sender, NavigatableEventArgs e)
+    {
+        _allowed[e.Type] = e.Allowed;
         RefreshCommands();
     }
 
@@ -71,7 +96,11 @@ public partial class MainWindowViewModel : ObservableObject
 
     #region Next
 
-    private bool CanNext() => NavigationService.CanNext();
+    private bool CanNext()
+    {
+        var allowed = _allowed.GetValueOrDefault(NavigationType.Next, false);
+        return allowed && NavigationService.CanNext();
+    }
 
     [RelayCommand(CanExecute = nameof(CanNext))]
     private void Next()
