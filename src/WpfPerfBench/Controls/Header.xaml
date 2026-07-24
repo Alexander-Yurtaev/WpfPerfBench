@@ -49,27 +49,23 @@
         <Grid>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Stretch">
-                <Border Grid.Column="1"
-                        BorderThickness="0 0 0 2"
+                <Border BorderThickness="0 0 0 2"
                         BorderBrush="{DynamicResource Accent}"
                         Margin=" 0 0 0 5"
                         Padding="0 0 0 3"
                         HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{Binding IconPath}"/>
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{Binding Title}"
+                        <TextBlock Text="{Binding Title}"
                                    Style="{StaticResource TitleTextBlockStyle}"/>
                         <TextBlock Text=" - "
                                    Visibility="{Binding HasDescription, Converter={StaticResource BoolToVisibilityConv}}"
                                    Style="{StaticResource DescriptionTextBlockStyle}"/>
-                        <TextBlock VerticalAlignment="Center"
-                                   Text="{Binding Description}"
+                        <TextBlock Text="{Binding Description}"
                                    Style="{StaticResource DescriptionTextBlockStyle}"/>
                     </StackPanel>
                 </Border>
-                <local:ThemeSwitcher Grid.Column="2"
-                                     DataContext="{Binding ThemeManager}"
+                <local:ThemeSwitcher DataContext="{Binding ThemeManager}"
                                      Style="{StaticResource ThemeSwitcherStyle}"/>
             </StackPanel>
             
