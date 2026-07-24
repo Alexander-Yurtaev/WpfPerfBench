@@ -17,7 +17,7 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Background="{DynamicResource BgSecondary}"
-            Padding="9 4"
+            Padding="18 8"
             CornerRadius="30"
             BorderThickness="1"
             BorderBrush="{DynamicResource BorderColor}">

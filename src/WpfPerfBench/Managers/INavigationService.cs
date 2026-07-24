@@ -9,8 +9,15 @@ public interface INavigationService
 
     int TotalSteps { get; }
 
-    event EventHandler<NavigateEventArgs>? OnNavigateNext;
+    event EventHandler<NavigateEventArgs>? OnNavigate;
+
+    void NavigatePrev();
+
     void NavigateNext();
 
     void AddPage(Page page, Func<IViewModelBase> factory);
+
+    bool CanNext();
+
+    bool CanPrev();
 }

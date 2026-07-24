@@ -1,11 +1,13 @@
-﻿using WpfPerfBench.Core.Enum;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using WpfPerfBench.Core.Enum;
 using WpfPerfBench.Interfaces.ViewModels;
 
 namespace WpfPerfBench.Managers;
 
-public class NavigationService : INavigationService
+public partial class NavigationService : ObservableObject, INavigationService
 {
-    public Page CurrentPage { get; set; }
+    [ObservableProperty] 
+    private Page _currentPage;
 
     public int CurrentPageNumber => (int)CurrentPage;
 
@@ -13,7 +15,21 @@ public class NavigationService : INavigationService
 
     private readonly Dictionary<Page, Func<IViewModelBase>> _factories = [];
 
-    public event EventHandler<NavigateEventArgs>? OnNavigateNext;
+    public event EventHandler<NavigateEventArgs>? OnNavigate;
+
+    public void NavigatePrev()
+    {
+        var prevPage = Enum.GetValues<Page>()
+            .LastOrDefault(p => p < CurrentPage, Page.None);
+
+        if (prevPage is Page.None)
+        {
+            return;
+        }
+
+        CurrentPage = prevPage;
+        OnNavigate?.Invoke(this, new NavigateEventArgs(CurrentPage, _factories[CurrentPage]));
+    }
 
     public void NavigateNext()
     {
@@ -26,11 +42,32 @@ public class NavigationService : INavigationService
         }
 
         CurrentPage = nextPage;
-        OnNavigateNext?.Invoke(this, new NavigateEventArgs(CurrentPage, _factories[CurrentPage]));
+        OnNavigate?.Invoke(this, new NavigateEventArgs(CurrentPage, _factories[CurrentPage]));
     }
 
     public void AddPage(Page page, Func<IViewModelBase> factory)
     {
         _factories.Add(page, factory);
+    }
+
+    public bool CanPrev()
+    {
+        var firstPage = Enum.GetValues<Page>()
+            .Where(p => p != Page.None)
+            .FirstOrDefault(Page.None);
+        return firstPage != Page.None && CurrentPage != firstPage;
+    }
+
+    public bool CanNext()
+    {
+        var lastPage = Enum.GetValues<Page>()
+            .Where(p => p != Page.None)
+            .LastOrDefault(Page.None);
+        return lastPage != Page.None && CurrentPage != lastPage;
+    }
+
+    partial void OnCurrentPageChanged(Page value)
+    {
+        OnPropertyChanged(nameof(CurrentPageNumber));
     }
 }

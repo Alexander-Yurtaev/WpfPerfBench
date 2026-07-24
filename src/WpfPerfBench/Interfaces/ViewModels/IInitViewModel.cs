@@ -25,13 +25,13 @@ public interface IInitViewModel : IViewModelBase
 
     #endregion Form Items
 
-    string ValidationStatus { get; set; }
+    //string ValidationStatus { get; set; }
 
     IAsyncRelayCommand TestCommand { get; }
 
-    IAsyncRelayCommand MigrateCommand { get; }
+    //IAsyncRelayCommand MigrateCommand { get; }
 
-    IRelayCommand NextCommand { get; }
+    //IRelayCommand NextCommand { get; }
 
     bool HasErrors { get; }
     bool IsValid { get; }

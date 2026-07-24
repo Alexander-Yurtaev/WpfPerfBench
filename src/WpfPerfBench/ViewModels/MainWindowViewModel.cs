@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Core.Enum;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
@@ -8,10 +9,11 @@ namespace WpfPerfBench.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject
 {
-    private readonly INavigationService _navigationService;
-
     [ObservableProperty]
     private IViewModelBase? _currentViewModel;
+
+    [ObservableProperty]
+    private INavigationService _navigationService;
 
     public MainWindowViewModel(
         Func<IInitViewModel> initViewModel,
@@ -22,15 +24,17 @@ public partial class MainWindowViewModel : ObservableObject
         IThemeManager themeManager)
     {
         ThemeManager = themeManager;
-        _navigationService = navigationService;
+        this.NavigationService = navigationService;
 
-        _navigationService.AddPage(Page.Init, initViewModel);
-        _navigationService.AddPage(Page.Migration, migrationViewModel);
-        _navigationService.AddPage(Page.Seed, seedViewModel);
-        _navigationService.AddPage(Page.Stand, standViewModel);
+        NavigationService.AddPage(Page.Init, initViewModel);
+        NavigationService.AddPage(Page.Migration, migrationViewModel);
+        NavigationService.AddPage(Page.Seed, seedViewModel);
+        NavigationService.AddPage(Page.Stand, standViewModel);
 
-        _navigationService.OnNavigateNext += NavigationServiceOnNavigateNext;
-        _navigationService.NavigateNext();
+        NavigationService.OnNavigate += NavigationServiceOnNavigate;
+        NavigationService.NavigateNext();
+
+        Header = new HeaderViewModel("WPF Performance Demo — интерактивный макет", ThemeManager);
     }
 
     public IThemeManager ThemeManager { get; }
@@ -38,9 +42,39 @@ public partial class MainWindowViewModel : ObservableObject
     [ObservableProperty]
     private HeaderViewModel _header;
 
-    private void NavigationServiceOnNavigateNext(object? sender, NavigateEventArgs e)
+    private void NavigationServiceOnNavigate(object? sender, NavigateEventArgs e)
     {
         CurrentViewModel = e.Factory();
-        Header = new HeaderViewModel("WPF Performance Demo — интерактивный макет", _navigationService);
+        RefreshCommands();
     }
+
+    private void RefreshCommands()
+    {
+        PrevCommand.NotifyCanExecuteChanged();
+        NextCommand.NotifyCanExecuteChanged();
+    }
+
+    #region Prev
+
+    private bool CanPrev() => NavigationService.CanPrev();
+
+    [RelayCommand(CanExecute = nameof(CanPrev))]
+    private void Prev()
+    {
+        NavigationService.NavigatePrev();
+    }
+
+    #endregion Prev
+
+    #region Next
+
+    private bool CanNext() => NavigationService.CanNext();
+
+    [RelayCommand(CanExecute = nameof(CanNext))]
+    private void Next()
+    {
+        NavigationService.NavigateNext();
+    }
+
+    #endregion Next
 }

@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Managers;
 
 namespace WpfPerfBench.ViewModels.Controls;
@@ -12,11 +11,12 @@ public partial class HeaderViewModel : ObservableObject
     [ObservableProperty]
     private string _title = string.Empty;
 
-    public HeaderViewModel(string title, INavigationService navigationService)
+    public HeaderViewModel(string title, 
+        IThemeManager themeManager)
     {
-        NavigationService = navigationService;
+        ThemeManager = themeManager;
         Title = title;
     }
 
-    public INavigationService NavigationService { get; }
+    public IThemeManager ThemeManager { get; }
 }

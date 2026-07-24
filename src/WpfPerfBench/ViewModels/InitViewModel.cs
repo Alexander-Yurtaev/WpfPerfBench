@@ -23,7 +23,6 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
         _navigationService = navigationService;
         _userSession = userSession;
         _dataService = dataService;
-        _navigationService.OnNavigateNext += NavigationServiceOnOnNavigateNext;
     }
 
     [ObservableProperty]
@@ -50,12 +49,12 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     [ObservableProperty]
     private string _connectionString = string.Empty;
 
-    [ObservableProperty] 
-    private string _validationStatus;
+    //[ObservableProperty] 
+    //private string _validationStatus;
 
     #region Test
 
-    private bool CanTest() => _navigationService.CurrentPage == Page.Init;
+    private bool CanTest() => NavigationService.CurrentPage == Page.Init;
 
     [RelayCommand(CanExecute = nameof(CanTest))]
     private async Task Test()
@@ -76,7 +75,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
             if (!resultTest.Success)
             {
-                _navigationService.NavigateNext();
+                NavigationService.NavigateNext();
             }
         }
         catch (Exception e)
@@ -87,57 +86,57 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 
     #endregion Test
 
-    #region Migrate
+    //#region Migrate
 
-    private bool CanMigrate() => _navigationService.CurrentPage == Page.Migration;
+    //private bool CanMigrate() => NavigationService.CurrentPage == Page.Migration;
 
-    [RelayCommand(CanExecute = nameof(CanMigrate))]
-    private async Task Migrate(CancellationToken ct)
-    {
-        // InitProgressStand.SetMigrationStatus("Подготовка к миграции ...");
+    //[RelayCommand(CanExecute = nameof(CanMigrate))]
+    //private async Task Migrate(CancellationToken ct)
+    //{
+    //    // InitProgressStand.SetMigrationStatus("Подготовка к миграции ...");
 
-        try
-        {
-            var db = _dataService.CreateContext();
+    //    try
+    //    {
+    //        var db = _dataService.CreateContext();
 
-            var result = await _dataService.GetPendingMigrationsAsync(db, ct);
+    //        var result = await _dataService.GetPendingMigrationsAsync(db, ct);
 
-            if (!result.Success)
-            {
-                _navigationService.NavigateNext();
-                return;
-            }
+    //        if (!result.Success)
+    //        {
+    //            NavigationService.NavigateNext();
+    //            return;
+    //        }
 
-            var migrations = (result as NamesResult)?.Names.ToArray()
-                             ?? 
-                             throw new InvalidOperationException("Ошибка получения списка миграций");
+    //        var migrations = (result as NamesResult)?.Names.ToArray()
+    //                         ?? 
+    //                         throw new InvalidOperationException("Ошибка получения списка миграций");
 
-            foreach (var migration in migrations)
-            {
-                await _dataService.Migrate(db, migration, ct);
-            }
+    //        foreach (var migration in migrations)
+    //        {
+    //            await _dataService.Migrate(db, migration, ct);
+    //        }
 
-            _navigationService.NavigateNext();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-        }
-    }
+    //        NavigationService.NavigateNext();
+    //    }
+    //    catch (Exception e)
+    //    {
+    //        Console.WriteLine(e);
+    //    }
+    //}
 
-    #endregion Migrate
+    //#endregion Migrate
 
-    #region Next
+    //#region Next
 
-    private bool CanNext() => true; //CurrentPage == Page.Ready;
+    //private bool CanNext() => true; //CurrentPage == Page.Ready;
 
-    [RelayCommand(CanExecute = nameof(CanNext))]
-    private void Next()
-    {
-        NavigationService.NavigateNext();
-    }
+    //[RelayCommand(CanExecute = nameof(CanNext))]
+    //private void Next()
+    //{
+    //    NavigationService.NavigateNext();
+    //}
 
-    #endregion Next
+    //#endregion Next
 
     private void InitUserSession()
     {
@@ -179,29 +178,24 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
         OnErrorsChanged(propertyName);
     }
 
-    private void NavigationServiceOnOnNavigateNext(object? sender, NavigateEventArgs e)
-    {
-        RefreshCommands();
-    }
-
     private void RefreshCommands()
     {
         TestCommand.NotifyCanExecuteChanged();
-        MigrateCommand.NotifyCanExecuteChanged();
-        NextCommand.NotifyCanExecuteChanged();
+        //MigrateCommand.NotifyCanExecuteChanged();
+        //NextCommand.NotifyCanExecuteChanged();
     }
 
-    #region Overrides of ValidationViewModelBase
+    //#region Overrides of ValidationViewModelBase
 
-    protected override void OnErrorsChanged(string propertyName)
-    {
-        base.OnErrorsChanged(propertyName);
-        ValidationStatus = HasErrors
-                ? "❌ Некоторые поля заполнены некорректно • Исправьте ошибки"
-                : "✅ Все поля валидны";
-    }
+    //protected override void OnErrorsChanged(string propertyName)
+    //{
+    //    base.OnErrorsChanged(propertyName);
+    //    ValidationStatus = HasErrors
+    //            ? "❌ Некоторые поля заполнены некорректно • Исправьте ошибки"
+    //            : "✅ Все поля валидны";
+    //}
 
-    #endregion
+    //#endregion
 
     #region Overrides of ObservableObject
 
