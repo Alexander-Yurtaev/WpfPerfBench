@@ -10,15 +10,38 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\cabinet.png" />
     <None Remove="Resources\Icons\dark.png" />
+    <None Remove="Resources\Icons\email.png" />
     <None Remove="Resources\Icons\empty.png" />
+    <None Remove="Resources\Icons\geer.png" />
+    <None Remove="Resources\Icons\key_lock.png" />
     <None Remove="Resources\Icons\light.png" />
+    <None Remove="Resources\Icons\link.png" />
+    <None Remove="Resources\Icons\lock.png" />
+    <None Remove="Resources\Icons\man.png" />
+    <None Remove="Resources\Icons\success.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\cabinet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\cross_mark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\dark.png" />
+    <Resource Include="Resources\Icons\email.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\empty.png" />
+    <Resource Include="Resources\Icons\geer.png" />
+    <Resource Include="Resources\Icons\key_lock.png" />
     <Resource Include="Resources\Icons\light.png" />
+    <Resource Include="Resources\Icons\link.png" />
+    <Resource Include="Resources\Icons\lock.png" />
+    <Resource Include="Resources\Icons\man.png" />
+    <Resource Include="Resources\Icons\success.png" />
   </ItemGroup>
 
   <ItemGroup>

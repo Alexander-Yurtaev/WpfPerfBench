@@ -38,8 +38,8 @@
                              DataContext="{Binding Header}"
                              Padding="25"/>
                 <ContentControl Grid.Row="1" 
-                            Content="{Binding CurrentViewModel}"
-                            Validation.ErrorTemplate="{x:Null}">
+                                Content="{Binding CurrentViewModel}"
+                                Validation.ErrorTemplate="{x:Null}">
                     <ContentControl.Resources>
                         <DataTemplate DataType="{x:Type viewModels:InitViewModel}">
                             <views:InitView />
@@ -59,14 +59,14 @@
                     Style="{StaticResource FooterBorderStyle}">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Content="Назад"
-                            Command="{Binding PrevCommand}"
-                            Style="{StaticResource SecondaryBtnStyle}"/>
+                                Command="{Binding PrevCommand}"
+                                Style="{StaticResource SecondaryBtnStyle}"/>
                         <controls:Pager DataContext="{Binding NavigationService}"
-                                    VerticalAlignment="Center"
-                                    Margin="6 0"/>
+                                        VerticalAlignment="Center"
+                                        Margin="6 0"/>
                         <Button Content="Далее"
-                            Command="{Binding NextCommand}"
-                            Style="{StaticResource SecondaryBtnStyle}"/>
+                                Command="{Binding NextCommand}"
+                                Style="{StaticResource SecondaryBtnStyle}"/>
                     </StackPanel>
                 </Border>
             </Grid>

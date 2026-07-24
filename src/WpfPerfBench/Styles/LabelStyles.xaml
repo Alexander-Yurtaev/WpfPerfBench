@@ -11,101 +11,172 @@
 
     <Style x:Key="FioValidationStyle"
            TargetType="Label">
+        <Setter Property="DataContext" Value="{Binding ElementName=FioTextBox,
+                                                               Path=(Validation.Errors).CurrentItem}"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=FioTextBox}" 
                          Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource Success}"/>
-                <Setter Property="Content" Value="✅ Поле заполнено"/>
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/Resources/Icons/success.png"
+                                   Style="{StaticResource ValidationImageStyle}"/>
+                            <Label  Content="Поле заполнено"
+                                    Foreground="{DynamicResource Success}"/>
+                        </StackPanel>
+                    </Setter.Value>
+                </Setter>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=FioTextBox}" 
                          Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource Danger}"/>
-                <Setter Property="Content" Value="{Binding ElementName=FioTextBox,
-                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/Resources/Icons/cross_mark.png"
+                                   Style="{StaticResource ValidationImageStyle}"/>
+                            <Label  Content="{Binding ErrorContent}"
+                                    Foreground="{DynamicResource Danger}"/>
+                        </StackPanel>
+                    </Setter.Value>
+                </Setter>
             </DataTrigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="EmailValidationStyle"
            TargetType="Label">
+        <Setter Property="DataContext" Value="{Binding ElementName=EmailTextBox,
+                                                               Path=(Validation.Errors).CurrentItem}"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=EmailTextBox}" 
                          Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource Success}"/>
-                <Setter Property="Content" Value="✅ Корректный формат"/>
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/Resources/Icons/success.png"
+                                   Style="{StaticResource ValidationImageStyle}"/>
+                            <Label  Content="Корректный формат"
+                                    Foreground="{DynamicResource Success}"/>
+                        </StackPanel>
+                    </Setter.Value>
+                </Setter>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=EmailTextBox}" 
                          Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource Danger}"/>
-                <Setter Property="Content" Value="{Binding ElementName=EmailTextBox,
-                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/Resources/Icons/cross_mark.png"
+                                   Style="{StaticResource ValidationImageStyle}"/>
+                            <Label  Content="{Binding ErrorContent}"
+                                    Foreground="{DynamicResource Danger}"/>
+                        </StackPanel>
+                    </Setter.Value>
+                </Setter>
             </DataTrigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="PasswordValidationStyle"
            TargetType="Label">
+        <Setter Property="DataContext" Value="{Binding ElementName=PasswordTextBox,
+                                                               Path=(Validation.Errors).CurrentItem}"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=PasswordTextBox}" 
                          Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource Success}"/>
-                <Setter Property="Content" Value="✅ Пароль корректный"/>
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/Resources/Icons/success.png"
+                                   Style="{StaticResource ValidationImageStyle}"/>
+                            <Label  Content="Пароль корректный"
+                                    Foreground="{DynamicResource Success}"/>
+                        </StackPanel>
+                    </Setter.Value>
+                </Setter>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=PasswordTextBox}" 
                          Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource Danger}"/>
-                <Setter Property="Content" Value="{Binding ElementName=PasswordTextBox,
-                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/Resources/Icons/cross_mark.png"
+                                   Style="{StaticResource ValidationImageStyle}"/>
+                            <Label  Content="{Binding ErrorContent}"
+                                    Foreground="{DynamicResource Danger}"/>
+                        </StackPanel>
+                    </Setter.Value>
+                </Setter>
             </DataTrigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="ConfirmPasswordValidationStyle"
            TargetType="Label">
+        <Setter Property="DataContext" Value="{Binding ElementName=ConfirmPasswordTextBox,
+                                                               Path=(Validation.Errors).CurrentItem}"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConfirmPasswordTextBox}" 
                          Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource Success}"/>
-                <Setter Property="Content" Value="✅ Пароли совпадают"/>
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/Resources/Icons/success.png"
+                                   Style="{StaticResource ValidationImageStyle}"/>
+                            <Label  Content="Пароли совпадают"
+                                    Foreground="{DynamicResource Success}"/>
+                        </StackPanel>
+                    </Setter.Value>
+                </Setter>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConfirmPasswordTextBox}" 
                          Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource Danger}"/>
-                <Setter Property="Content" Value="{Binding ElementName=ConfirmPasswordTextBox,
-                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/Resources/Icons/cross_mark.png"
+                                   Style="{StaticResource ValidationImageStyle}"/>
+                            <Label  Content="{Binding ErrorContent}"
+                                    Foreground="{DynamicResource Danger}"/>
+                        </StackPanel>
+                    </Setter.Value>
+                </Setter>
             </DataTrigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="ConnectionStringValidationStyle"
            TargetType="Label">
+        <Setter Property="DataContext" Value="{Binding ElementName=ConnectionStringTextBox,
+                                                               Path=(Validation.Errors).CurrentItem}"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConnectionStringTextBox}" 
                          Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource Success}"/>
-                <Setter Property="Content" Value="✅ Поле заполнено"/>
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/Resources/Icons/success.png"
+                                   Style="{StaticResource ValidationImageStyle}"/>
+                            <Label  Content="Поле заполнено"
+                                    Foreground="{DynamicResource Success}"/>
+                        </StackPanel>
+                    </Setter.Value>
+                </Setter>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConnectionStringTextBox}" 
                          Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource Danger}"/>
-                <Setter Property="Content" Value="{Binding ElementName=ConnectionStringTextBox,
-                                                               Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                <Setter Property="Content">
+                    <Setter.Value>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="pack://application:,,,/Resources/Icons/cross_mark.png"
+                                   Style="{StaticResource ValidationImageStyle}"/>
+                            <Label  Content="{Binding ErrorContent}"
+                                    Foreground="{DynamicResource Danger}"/>
+                        </StackPanel>
+                    </Setter.Value>
+                </Setter>
             </DataTrigger>
         </Style.Triggers>
     </Style>
-
-    <!--<Style x:Key="ValidationStatusStyle"
-           TargetType="Label">
-        <Setter Property="Foreground" Value="{DynamicResource Success}"/>
-        <Setter Property="FontSize" Value="12"/>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding Path=HasErrors}" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource Success}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Path=HasErrors}" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource Danger}"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>-->
 
 </ResourceDictionary>
