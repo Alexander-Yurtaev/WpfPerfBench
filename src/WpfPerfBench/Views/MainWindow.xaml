@@ -26,48 +26,50 @@
                         Executed="CloseCommandHandler" />
     </Window.CommandBindings>
 
-    <Border Style="{DynamicResource WindowBorderStyle}">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <controls:Header Grid.Row="0" 
+    <controls:BusyIndicator>
+        <Border Style="{DynamicResource WindowBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <controls:Header Grid.Row="0" 
                              DataContext="{Binding Header}"
                              Padding="25"/>
-            <ContentControl Grid.Row="1" 
+                <ContentControl Grid.Row="1" 
                             Content="{Binding CurrentViewModel}"
                             Validation.ErrorTemplate="{x:Null}">
-                <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type viewModels:InitViewModel}">
-                        <views:InitView />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewModels:MigrationViewModel}">
-                        <views:MigrationView />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewModels:SeedViewModel}">
-                        <views:SeedView />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewModels:StandViewModel}">
-                        <views:StandView />
-                    </DataTemplate>
-                </ContentControl.Resources>
-            </ContentControl>
-            <Border Grid.Row="2"
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type viewModels:InitViewModel}">
+                            <views:InitView />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:MigrationViewModel}">
+                            <views:MigrationView />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:SeedViewModel}">
+                            <views:SeedView />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:StandViewModel}">
+                            <views:StandView />
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+                <Border Grid.Row="2"
                     Style="{StaticResource FooterBorderStyle}">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Content="Назад"
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Назад"
                             Command="{Binding PrevCommand}"
                             Style="{StaticResource SecondaryBtnStyle}"/>
-                    <controls:Pager DataContext="{Binding NavigationService}"
+                        <controls:Pager DataContext="{Binding NavigationService}"
                                     VerticalAlignment="Center"
                                     Margin="6 0"/>
-                    <Button Content="Далее"
+                        <Button Content="Далее"
                             Command="{Binding NextCommand}"
                             Style="{StaticResource SecondaryBtnStyle}"/>
-                </StackPanel>
-            </Border>
-        </Grid>
-    </Border>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+    </controls:BusyIndicator>
 </Window>
