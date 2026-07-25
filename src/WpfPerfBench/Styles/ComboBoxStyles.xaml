@@ -2,32 +2,32 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="RoundedComboBoxStyle" TargetType="ComboBox">
-        <!-- Базовые настройки -->
         <Setter Property="FontSize" Value="14"/>
-        <!--<Setter Property="Padding" Value="10,8"/>-->
-        <Setter Property="Padding" Value="5 7"/>
+        <Setter Property="FontFamily" Value="Segoe UI, Tahoma, sans-serif"/>
+        <Setter Property="Padding" Value="14 10"/>
         <Setter Property="Background" Value="{DynamicResource BgInput}"/>
         <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource Success}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderLight}"/>
         <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Cursor" Value="Hand"/>
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
                     <Grid>
                         <!-- Основной Border с закруглёнными углами -->
-                        <Border x:Name="MainBorder"
-                                    CornerRadius="8"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    SnapsToDevicePixels="True">
+                        <Border x:Name="Bd"
+                                CornerRadius="8"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="True">
 
                             <Border.Effect>
-                                <DropShadowEffect BlurRadius="6" 
-                                                      ShadowDepth="0"
-                                                      Color="{TemplateBinding BorderBrush}" 
-                                                      Opacity="0.3"/>
+                                <DropShadowEffect BlurRadius="0" 
+                                                  ShadowDepth="0"
+                                                  Color="Transparent" 
+                                                  Opacity="0"/>
                             </Border.Effect>
 
                             <Grid>
@@ -38,44 +38,45 @@
 
                                 <!-- Текст/выбранный элемент -->
                                 <ContentPresenter x:Name="ContentPresenter"
-                                                      Grid.Column="0"
-                                                      Content="{TemplateBinding SelectionBoxItem}"
-                                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                                      ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
-                                                      IsHitTestVisible="False"
-                                                      Margin="{TemplateBinding Padding}"
-                                                      VerticalAlignment="Center"
-                                                      SnapsToDevicePixels="True"/>
+                                                  Grid.Column="0"
+                                                  Content="{TemplateBinding SelectionBoxItem}"
+                                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                  ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+                                                  IsHitTestVisible="False"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  VerticalAlignment="Center"
+                                                  SnapsToDevicePixels="True"/>
 
                                 <!-- Кнопка раскрытия (стрелка) -->
                                 <ToggleButton x:Name="DropDownToggle"
-                                          Grid.Column="1"
-                                          Focusable="False"
-                                          IsChecked="{Binding IsDropDownOpen, 
+                                              Grid.Column="1"
+                                              Focusable="False"
+                                              IsChecked="{Binding IsDropDownOpen, 
                                                              RelativeSource={RelativeSource TemplatedParent}}"
-                                          ClickMode="Press"
-                                          Width="30"
-                                          Height="30"
-                                          Margin="0,0,5,0"
-                                          VerticalAlignment="Center">
+                                              ClickMode="Press"
+                                              Width="36"
+                                              Height="36"
+                                              Margin="0,0,8,0"
+                                              VerticalAlignment="Center">
                                     <ToggleButton.Template>
                                         <ControlTemplate TargetType="ToggleButton">
                                             <Border x:Name="ArrowBorder"
-                                                        Background="Transparent"
-                                                        CornerRadius="6">
+                                                    Background="Transparent"
+                                                    CornerRadius="6">
                                                 <Path x:Name="Arrow"
-                                                          Fill="{TemplateBinding Foreground}"
-                                                          HorizontalAlignment="Center"
-                                                          VerticalAlignment="Center"
-                                                          Data="M 0 0 L 5 5 L 10 0 Z"/>
+                                                      Fill="{TemplateBinding Foreground}"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Data="M 0 0 L 6 5 L 12 0 Z"
+                                                      Opacity="0.6"/>
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsChecked" Value="True">
-                                                    <Setter TargetName="Arrow" Property="Data" Value="M 0 5 L 5 0 L 10 5 Z"/>
+                                                    <Setter TargetName="Arrow" Property="Data" Value="M 0 5 L 6 0 L 12 5 Z"/>
                                                 </Trigger>
-                                                <!--<Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter TargetName="ArrowBorder" Property="Background" Value="{DynamicResource BgHover}"/>
-                                                    </Trigger>-->
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Arrow" Property="Opacity" Value="1"/>
+                                                </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </ToggleButton.Template>
@@ -85,35 +86,35 @@
 
                         <!-- Выпадающий список (Popup) -->
                         <Popup x:Name="Popup"
-                                   Placement="Bottom"
-                                   IsOpen="{Binding IsDropDownOpen, 
+                               Placement="Bottom"
+                               IsOpen="{Binding IsDropDownOpen, 
                                                     RelativeSource={RelativeSource TemplatedParent}}"
-                                   AllowsTransparency="True"
-                                   Focusable="False"
-                                   PopupAnimation="Slide">
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
                             <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                      MinWidth="{Binding ActualWidth, 
+                                  MinWidth="{Binding ActualWidth, 
                                              RelativeSource={RelativeSource TemplatedParent}}">
                                 <Border x:Name="DropDownBorder"
-                                            Background="{DynamicResource BgSecondary}"
-                                            BorderBrush="{DynamicResource BorderColor}"
-                                            BorderThickness="1"
-                                            CornerRadius="8"
-                                            Margin="0,5,0,0"
-                                            Padding="4">
+                                        Background="{DynamicResource BgSecondary}"
+                                        BorderBrush="{DynamicResource BorderColor}"
+                                        BorderThickness="1"
+                                        CornerRadius="10"
+                                        Margin="0,4,0,0"
+                                        Padding="4">
                                     <Border.Effect>
-                                        <DropShadowEffect BlurRadius="10" 
-                                                              ShadowDepth="3" 
-                                                              Color="Black" 
-                                                              Opacity="0.15"/>
+                                        <DropShadowEffect BlurRadius="16" 
+                                                          ShadowDepth="4" 
+                                                          Color="Black" 
+                                                          Opacity="0.15"/>
                                     </Border.Effect>
 
                                     <ScrollViewer x:Name="ScrollViewer"
-                                                      CanContentScroll="True"
-                                                      VerticalScrollBarVisibility="Auto">
+                                                  CanContentScroll="True"
+                                                  VerticalScrollBarVisibility="Auto">
                                         <ItemsPresenter x:Name="ItemsPresenter" 
-                                                            KeyboardNavigation.DirectionalNavigation="Contained"
-                                                            SnapsToDevicePixels="True"/>
+                                                        KeyboardNavigation.DirectionalNavigation="Contained"
+                                                        SnapsToDevicePixels="True"/>
                                     </ScrollViewer>
                                 </Border>
                             </Grid>
@@ -124,28 +125,86 @@
                     <ControlTemplate.Triggers>
                         <!-- Состояние "При наведении" -->
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="MainBorder" Property="BorderBrush" Value="{DynamicResource Success}"/>
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="2"/>
                         </Trigger>
 
                         <!-- Состояние "В фокусе" -->
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="MainBorder" Property="BorderBrush" Value="{DynamicResource Success}"/>
-                            <Setter TargetName="MainBorder" Property="BorderThickness" Value="3"/>
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="2"/>
+                            <Setter TargetName="Bd" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="8" 
+                                                      ShadowDepth="0"
+                                                      Color="{DynamicResource AccentColor}" 
+                                                      Opacity="0.25"/>
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
 
                         <!-- Состояние "Открыт" -->
                         <Trigger Property="IsDropDownOpen" Value="True">
-                            <Setter TargetName="MainBorder" Property="BorderBrush" Value="{DynamicResource Success}"/>
-                            <Setter TargetName="MainBorder" Property="BorderThickness" Value="3"/>
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="2"/>
+                            <Setter TargetName="Bd" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="8" 
+                                                      ShadowDepth="0"
+                                                      Color="{DynamicResource AccentColor}" 
+                                                      Opacity="0.25"/>
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
 
                         <!-- Состояние "Валидация ошибка" -->
                         <Trigger Property="Validation.HasError" Value="True">
-                            <Setter TargetName="MainBorder" Property="BorderBrush" Value="{DynamicResource Danger}"/>
-                            <Setter TargetName="MainBorder" Property="BorderThickness" Value="3"/>
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource Danger}"/>
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="2"/>
+                            <Setter TargetName="Bd" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="8" 
+                                                      ShadowDepth="0"
+                                                      Color="{DynamicResource DangerColor}" 
+                                                      Opacity="0.25"/>
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <!-- Стиль для элементов списка -->
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+                    <Setter Property="Padding" Value="12 8"/>
+                    <Setter Property="Margin" Value="2 1"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ComboBoxItem">
+                                <Border x:Name="Border"
+                                        Background="{TemplateBinding Background}"
+                                        Padding="{TemplateBinding Padding}"
+                                        Margin="{TemplateBinding Margin}"
+                                        CornerRadius="6">
+                                    <ContentPresenter/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="{DynamicResource BgHover}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="{DynamicResource BgSelected}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
             </Setter.Value>
         </Setter>
     </Style>
@@ -155,6 +214,7 @@
            TargetType="ComboBox">
         <Setter Property="Padding" Value="14 10"/>
         <Setter Property="Background" Value="{DynamicResource BgInput}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Success}"/>
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
         <Setter Property="FontSize" Value="14"/>

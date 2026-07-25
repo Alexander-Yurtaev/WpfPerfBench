@@ -15,32 +15,47 @@
                 <ControlTemplate TargetType="TextBox">
                     <!-- Основной Border с радиусом и тенью -->
                     <Border x:Name="Bd"
-                                CornerRadius="8"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="2">
+                            CornerRadius="8"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="2">
 
                         <!-- Тень применяем именно сюда -->
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="6" 
-                                                  ShadowDepth="0"
-                                                  Color="{TemplateBinding BorderBrush}" 
-                                                  Opacity="0.3"/>
+                                              ShadowDepth="0"
+                                              Color="{TemplateBinding BorderBrush}" 
+                                              Opacity="0.3"/>
                         </Border.Effect>
 
                         <!-- ScrollViewer нужен для длинного текста -->
                         <ScrollViewer x:Name="PART_ContentHost" 
-                                          Margin="{TemplateBinding Padding}"
-                                          VerticalAlignment="Center"/>
+                                      Margin="{TemplateBinding Padding}"
+                                      VerticalAlignment="Center"/>
 
                     </Border>
 
                     <!-- Триггеры для состояния ошибки и фокуса -->
                     <ControlTemplate.Triggers>
-                        <!--<Trigger Property="IsFocused" Value="True">
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="#89B4FA"/>
-                                <Setter TargetName="Bd" Property="BorderThickness" Value="3"/>
-                            </Trigger>-->
+                        <!-- Состояние "При наведении" -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="2"/>
+                        </Trigger>
+
+                        <!-- Состояние "В фокусе" -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                            <Setter TargetName="Bd" Property="BorderThickness" Value="2"/>
+                            <Setter TargetName="Bd" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="8" 
+                                                      ShadowDepth="0"
+                                                      Color="{DynamicResource AccentColor}" 
+                                                      Opacity="0.25"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
 
                         <Trigger Property="Validation.HasError" Value="True">
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource Danger}"/>
@@ -51,9 +66,9 @@
                             <Setter TargetName="Bd" Property="Effect">
                                 <Setter.Value>
                                     <DropShadowEffect BlurRadius="6" 
-                                                          ShadowDepth="0" 
-                                                          Color="{DynamicResource DangerColor}" 
-                                                          Opacity="0.3"/>
+                                                      ShadowDepth="0" 
+                                                      Color="{DynamicResource DangerColor}" 
+                                                      Opacity="0.3"/>
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
