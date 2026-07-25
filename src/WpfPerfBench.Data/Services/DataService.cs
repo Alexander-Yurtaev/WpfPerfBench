@@ -29,7 +29,9 @@ public class DataService : IDataService
     {
         try
         {
-            var success = await db.Database.CanConnectAsync(ct);
+            var success = false;
+            var task = Task.Run(() => db.Database.CanConnect(), ct);
+            await task.ContinueWith(t => success = t.Result, ct);
             return success 
                 ? ResultBase.SuccessResult() 
                 : ResultBase.FailResult("Ошибка при подключении к БД");

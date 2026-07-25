@@ -3,4 +3,6 @@
 public interface IBusyManager
 {
     bool IsBusy { get; set; }
+
+    CancellationToken CreateToken();
 }
