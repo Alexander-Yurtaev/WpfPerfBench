@@ -60,4 +60,29 @@
     <SolidColorBrush x:Key="Danger" Color="{StaticResource DangerColor}"/>
     <SolidColorBrush x:Key="Warning" Color="{StaticResource WarningColor}"/>
 
+    <!-- Цвета для BusyIndicator -->
+    <Color x:Key="BgBusyOverlayColor">#D91E1E2F</Color>
+    <Color x:Key="BusyOverlayBorderColor">#2a2a4a</Color>
+    <Color x:Key="BusyCircleOuterColor">#89b4fa</Color>
+    <Color x:Key="BusyCircleInnerColor">#6a6a8a</Color>
+    <Color x:Key="BusyDotColor">#89b4fa</Color>
+    <Color x:Key="BusyTextColor">#cdd6f4</Color>
+    <Color x:Key="BusySubTextColor">#a6adc8</Color>
+    <Color x:Key="BusyShadowColor">#99000000</Color>
+    <Color x:Key="BgBusyCardColor">#2a2a3e</Color>
+    <Color x:Key="BgBusyProgressColor">#1a1a2e</Color>
+    <Color x:Key="BgBusyProgressFillColor">#89b4fa</Color>
+
+    <SolidColorBrush x:Key="BgBusyOverlay" Color="{StaticResource BgBusyOverlayColor}"/>
+    <SolidColorBrush x:Key="BusyOverlayBorder" Color="{StaticResource BusyOverlayBorderColor}"/>
+    <SolidColorBrush x:Key="BusyCircleOuter" Color="{StaticResource BusyCircleOuterColor}"/>
+    <SolidColorBrush x:Key="BusyCircleInner" Color="{StaticResource BusyCircleInnerColor}"/>
+    <SolidColorBrush x:Key="BusyDot" Color="{StaticResource BusyDotColor}"/>
+    <SolidColorBrush x:Key="BusyText" Color="{StaticResource BusyTextColor}"/>
+    <SolidColorBrush x:Key="BusySubText" Color="{StaticResource BusySubTextColor}"/>
+    <SolidColorBrush x:Key="BusyShadow" Color="{StaticResource BusyShadowColor}"/>
+    <SolidColorBrush x:Key="BgBusyCard" Color="{StaticResource BgBusyCardColor}"/>
+    <SolidColorBrush x:Key="BgBusyProgress" Color="{StaticResource BgBusyProgressColor}"/>
+    <SolidColorBrush x:Key="BgBusyProgressFill" Color="{StaticResource BgBusyProgressFillColor}"/>
+
 </ResourceDictionary>

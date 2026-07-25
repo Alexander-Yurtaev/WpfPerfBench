@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using WpfPerfBench.Enums;
 
 namespace WpfPerfBench.Controls
 {
@@ -21,6 +22,19 @@ namespace WpfPerfBench.Controls
         }
 
         #endregion IsBusy
+
+        #region BusyType
+
+        public static readonly DependencyProperty BusyTypeProperty = DependencyProperty.Register(
+            nameof(BusyType), typeof(BusyType), typeof(BusyIndicator), new PropertyMetadata(BusyType.Standard));
+
+        public BusyType BusyType
+        {
+            get => (BusyType)GetValue(BusyTypeProperty);
+            set => SetValue(BusyTypeProperty, value);
+        }
+
+        #endregion BusyType
 
         private Grid? _overlayGrid;
         private FrameworkElement? _contentPresenter;

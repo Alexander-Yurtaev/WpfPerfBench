@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
 using WpfPerfBench.Core.Enum;
+using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
 using WpfPerfBench.Data.Services;
@@ -17,6 +18,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
     private readonly IUserSession _userSession;
     private readonly IDataService _dataService;
     private readonly IBusyManager _busyManager;
+    private readonly IMessageService _messageService;
 
     private bool _isSuccessTested;
 
@@ -24,12 +26,14 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
         INavigationService navigationService, 
         IUserSession userSession,
         IDataService dataService,
-        IBusyManager busyManager) : base(navigationService, userSession)
+        IBusyManager busyManager,
+        IMessageService messageService) : base(navigationService, userSession)
     {
         _navigationService = navigationService;
         _userSession = userSession;
         _dataService = dataService;
         _busyManager = busyManager;
+        _messageService = messageService;
     }
 
     [ObservableProperty]
@@ -82,11 +86,16 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
             var resultTest = await _dataService.TestConnection(db, CancellationToken.None);
 
             _isSuccessTested = resultTest.Success;
+            if (!_isSuccessTested)
+            {
+                _messageService.ShowErrorMessage(resultTest.Message);
+            }
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             _isSuccessTested = false;
+            _messageService.ShowErrorMessage(e.Message);
         }
         finally
         {

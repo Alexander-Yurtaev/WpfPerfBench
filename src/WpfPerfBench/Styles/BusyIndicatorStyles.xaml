@@ -12,55 +12,18 @@
                         <ContentPresenter x:Name="PART_ContentPresenter" />
 
                         <!-- Оверлей с индикатором -->
-                        <Grid x:Name="PART_Overlay" Visibility="Collapsed" Background="#80000000">
-                            <Border HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Padding="20"
-                                    CornerRadius="5"
-                                    Background="#FF333333">
-                                <StackPanel Orientation="Horizontal" Margin="10">
-                                    <!-- Анимированные точки -->
-                                    <Ellipse Width="10" Height="10" Fill="White" Margin="0,0,5,0">
-                                        <Ellipse.Triggers>
-                                            <EventTrigger RoutedEvent="Ellipse.Loaded">
-                                                <BeginStoryboard>
-                                                    <Storyboard RepeatBehavior="Forever">
-                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                         From="0.2" To="1" Duration="0:0:0.6"
-                                                                         AutoReverse="True"/>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger>
-                                        </Ellipse.Triggers>
-                                    </Ellipse>
-                                    <Ellipse Width="10" Height="10" Fill="White" Margin="0,0,5,0">
-                                        <Ellipse.Triggers>
-                                            <EventTrigger RoutedEvent="Ellipse.Loaded">
-                                                <BeginStoryboard>
-                                                    <Storyboard RepeatBehavior="Forever" BeginTime="0:0:0.2">
-                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                         From="0.2" To="1" Duration="0:0:0.6"
-                                                                         AutoReverse="True"/>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger>
-                                        </Ellipse.Triggers>
-                                    </Ellipse>
-                                    <Ellipse Width="10" Height="10" Fill="White">
-                                        <Ellipse.Triggers>
-                                            <EventTrigger RoutedEvent="Ellipse.Loaded">
-                                                <BeginStoryboard>
-                                                    <Storyboard RepeatBehavior="Forever" BeginTime="0:0:0.4">
-                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                         From="0.2" To="1" Duration="0:0:0.6"
-                                                                         AutoReverse="True"/>
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger>
-                                        </Ellipse.Triggers>
-                                    </Ellipse>
-                                </StackPanel>
-                            </Border>
+                        <Grid x:Name="PART_Overlay" 
+                              Visibility="Collapsed" 
+                              Background="{DynamicResource BgBusyOverlay}">
+
+                            <controls:StandardBusyIndicator x:Name="PART_StandardBusyIndicator" 
+                                                            Visibility="Collapsed"/>
+                            <controls:ProgressBusyIndicator x:Name="PART_ProgressBusyIndicator" 
+                                                            Visibility="Collapsed"/>
+                            <controls:LargeBusyIndicator x:Name="PART_LargeBusyIndicator" 
+                                                         Visibility="Collapsed"/>
+                            <controls:CompactBusyIndicator x:Name="PART_CompactBusyIndicator" 
+                                                           Visibility="Collapsed"/>
                         </Grid>
                     </Grid>
 
@@ -72,9 +35,26 @@
                         <Trigger Property="IsBusy" Value="False">
                             <Setter TargetName="PART_Overlay" Property="Visibility" Value="Collapsed"/>
                         </Trigger>
+
+                        <Trigger Property="BusyType" Value="Standard">
+                            <Setter TargetName="PART_StandardBusyIndicator" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="BusyType" Value="Progress">
+                            <Setter TargetName="PART_ProgressBusyIndicator" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="BusyType" Value="Large">
+                            <Setter TargetName="PART_LargeBusyIndicator" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="BusyType" Value="Compact">
+                            <Setter TargetName="PART_CompactBusyIndicator" Property="Visibility" Value="Visible"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="StandardBusyOverlay"
+           TargetType="Grid">
     </Style>
 </ResourceDictionary>
