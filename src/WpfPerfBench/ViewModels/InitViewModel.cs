@@ -70,7 +70,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
     [RelayCommand(CanExecute = nameof(CanTest))]
     private async Task Test()
     {
-        _busyManager.IsBusy = true;
+        var ct = _busyManager.ShowIndicator("Проверка подключения БД", $"{_userSession.DataProvider}");
         try
         {
             Validate();
@@ -83,7 +83,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
 
             var db = _dataService.CreateContext();
 
-            var resultTest = await _dataService.TestConnection(db, CancellationToken.None);
+            var resultTest = await _dataService.TestConnection(db, ct);
 
             _isSuccessTested = resultTest.Success;
             if (!_isSuccessTested)
@@ -101,7 +101,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
         {
             RefreshCommands();
             SendOnNavigatable(NavigationType.Next, _isSuccessTested);
-            _busyManager.IsBusy = false;
+            _busyManager.CloseIndicator();
         }
     }
 

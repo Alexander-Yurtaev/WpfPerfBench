@@ -6,35 +6,45 @@
              xmlns:local="clr-namespace:WpfPerfBench.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border Padding="20">
-        <Grid>
+    
+    <Border>
+        <Grid VerticalAlignment="Center"
+              HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <local:BusySpinner Grid.Row="0"
-                               Width="72"
-                               Height="72"
-                               Margin="0 0 0 20"/>
+                               Width="96"
+                               Height="96"
+                               Margin="0 0 0 24"/>
 
             <TextBlock Grid.Row="1" 
-                       Text="Загрузка..."
+                       Text="{Binding BusyText, RelativeSource={RelativeSource AncestorType=local:BusyIndicator}, FallbackValue='Загрузка...'}"
                        Foreground="{DynamicResource BusyText}"
-                       FontSize="16"
+                       FontSize="22"
                        FontWeight="Medium"
-                       Margin="0 0 0 20"
+                       Margin="0 0 0 24"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
 
             <TextBlock Grid.Row="2" 
-                       Text="Пожалуйста, подождите"
-                       Margin="0 0 0 20"
+                       Text="{Binding BusySubText, RelativeSource={RelativeSource AncestorType=local:BusyIndicator}, FallbackValue='Пожалуйста, подождите'}"
+                       Margin="0 0 0 24"
                        Foreground="{DynamicResource BusySubText}"
-                       FontSize="13"
+                       FontSize="16"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
+
+            <Button Grid.Row="3" 
+                    Content="✕ Отмена"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Command="{Binding CancelCommand, RelativeSource={RelativeSource AncestorType=local:BusyIndicator}}"
+                    Style="{StaticResource BtnBusyCloseStyle}"/>
         </Grid>
     </Border>
 </UserControl>

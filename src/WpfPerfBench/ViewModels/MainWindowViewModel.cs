@@ -11,7 +11,7 @@ namespace WpfPerfBench.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject
 {
-    private Dictionary<object, bool> _allowed = [];
+    private readonly Dictionary<object, bool> _allowed = [];
 
     [ObservableProperty]
     private IViewModelBase? _currentViewModel;

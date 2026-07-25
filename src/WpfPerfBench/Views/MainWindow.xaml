@@ -27,6 +27,9 @@
     </Window.CommandBindings>
 
     <controls:BusyIndicator IsBusy="{Binding BusyManager.IsBusy}"
+                            BusyText="{Binding BusyManager.BusyText}"
+                            BusySubText="{Binding BusyManager.BusySubText}"
+                            CancelCommand="{Binding BusyManager.CancelCommand}"
                             BusyType="Standard">
         <Border Style="{DynamicResource WindowBorderStyle}">
             <Grid>

@@ -1,11 +1,25 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Enums;
 
 namespace WpfPerfBench.Controls
 {
     public class BusyIndicator : ContentControl
     {
+        #region BusyType
+
+        public static readonly DependencyProperty BusyTypeProperty = DependencyProperty.Register(
+            nameof(BusyType), typeof(BusyType), typeof(BusyIndicator), new PropertyMetadata(BusyType.Standard));
+
+        public BusyType BusyType
+        {
+            get => (BusyType)GetValue(BusyTypeProperty);
+            set => SetValue(BusyTypeProperty, value);
+        }
+
+        #endregion BusyType
+
         #region IsBusy
 
         public static readonly DependencyProperty IsBusyProperty =
@@ -23,18 +37,52 @@ namespace WpfPerfBench.Controls
 
         #endregion IsBusy
 
-        #region BusyType
+        #region BusyText
 
-        public static readonly DependencyProperty BusyTypeProperty = DependencyProperty.Register(
-            nameof(BusyType), typeof(BusyType), typeof(BusyIndicator), new PropertyMetadata(BusyType.Standard));
+        public static readonly DependencyProperty BusyTextProperty = 
+            DependencyProperty.Register(
+                nameof(BusyText), 
+                typeof(string), 
+                typeof(BusyIndicator), 
+                new PropertyMetadata(default(string)));
 
-        public BusyType BusyType
+        public string BusyText
         {
-            get => (BusyType)GetValue(BusyTypeProperty);
-            set => SetValue(BusyTypeProperty, value);
+            get => (string)GetValue(BusyTextProperty);
+            set => SetValue(BusyTextProperty, value);
         }
 
-        #endregion BusyType
+        #endregion BusyText
+
+        #region BusySubText
+
+        public static readonly DependencyProperty BusySubTextProperty = 
+            DependencyProperty.Register(
+                nameof(BusySubText), 
+                typeof(string), 
+                typeof(BusyIndicator), 
+                new PropertyMetadata("Пожалуйста, подождите"));
+
+        public string BusySubText
+        {
+            get => (string)GetValue(BusySubTextProperty);
+            set => SetValue(BusySubTextProperty, value);
+        }
+
+        #endregion BusySubText
+
+        #region CancelCommand
+
+        public static readonly DependencyProperty CancelCommandProperty = DependencyProperty.Register(
+            nameof(CancelCommand), typeof(RelayCommand), typeof(BusyIndicator), new PropertyMetadata(default(RelayCommand)));
+
+        public RelayCommand CancelCommand
+        {
+            get => (RelayCommand)GetValue(CancelCommandProperty);
+            set => SetValue(CancelCommandProperty, value);
+        }
+
+        #endregion CancelCommand
 
         private Grid? _overlayGrid;
         private FrameworkElement? _contentPresenter;
@@ -58,7 +106,7 @@ namespace WpfPerfBench.Controls
             if (d is not BusyIndicator indicator) return;
             if (!indicator.IsLoaded) return;
             if (indicator._overlayGrid == null) return;
-            
+
             var isBusy = (bool)e.NewValue;
 
             if (isBusy)

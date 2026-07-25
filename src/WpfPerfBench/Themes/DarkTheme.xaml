@@ -72,6 +72,8 @@
     <Color x:Key="BgBusyCardColor">#2a2a3e</Color>
     <Color x:Key="BgBusyProgressColor">#1a1a2e</Color>
     <Color x:Key="BgBusyProgressFillColor">#89b4fa</Color>
+    <Color x:Key="BtnCancelColor">#f38ba8</Color>
+    <Color x:Key="BtnCancelHoverColor">#e06b8a</Color>
 
     <SolidColorBrush x:Key="BgBusyOverlay" Color="{StaticResource BgBusyOverlayColor}"/>
     <SolidColorBrush x:Key="BusyOverlayBorder" Color="{StaticResource BusyOverlayBorderColor}"/>
@@ -84,5 +86,7 @@
     <SolidColorBrush x:Key="BgBusyCard" Color="{StaticResource BgBusyCardColor}"/>
     <SolidColorBrush x:Key="BgBusyProgress" Color="{StaticResource BgBusyProgressColor}"/>
     <SolidColorBrush x:Key="BgBusyProgressFill" Color="{StaticResource BgBusyProgressFillColor}"/>
+    <SolidColorBrush x:Key="BtnCancel" Color="{StaticResource BtnCancelColor}"/>
+    <SolidColorBrush x:Key="BtnCancelHover" Color="{StaticResource BtnCancelHoverColor}"/>
 
 </ResourceDictionary>
