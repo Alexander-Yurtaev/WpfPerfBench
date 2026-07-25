@@ -35,6 +35,7 @@ public class MainWindowViewModelTests
             .Returns(new Mock<IStandViewModel>().Object);
 
         var themeManagerMock = new Mock<IThemeManager>();
+        var busyManagerMock = new Mock<IBusyManager>();
 
         _viewModel = new MainWindowViewModel(
             initViewModelMock.Object,
@@ -42,7 +43,8 @@ public class MainWindowViewModelTests
             seedViewModelMock.Object,
             standViewModelMock.Object, 
             _navigationService,
-            themeManagerMock.Object);
+            themeManagerMock.Object,
+            busyManagerMock.Object);
     }
 
     //[Fact]

@@ -16,17 +16,20 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
 {
     private readonly IUserSession _userSession;
     private readonly IDataService _dataService;
+    private readonly IBusyManager _busyManager;
 
     private bool _isSuccessTested;
 
     public InitViewModel(
         INavigationService navigationService, 
         IUserSession userSession,
-        IDataService dataService) : base(navigationService, userSession)
+        IDataService dataService,
+        IBusyManager busyManager) : base(navigationService, userSession)
     {
         _navigationService = navigationService;
         _userSession = userSession;
         _dataService = dataService;
+        _busyManager = busyManager;
     }
 
     [ObservableProperty]
@@ -63,6 +66,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
     [RelayCommand(CanExecute = nameof(CanTest))]
     private async Task Test()
     {
+        _busyManager.IsBusy = true;
         try
         {
             Validate();
@@ -88,6 +92,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
         {
             RefreshCommands();
             SendOnNavigatable(NavigationType.Next, _isSuccessTested);
+            _busyManager.IsBusy = false;
         }
     }
 

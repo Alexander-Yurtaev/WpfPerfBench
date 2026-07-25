@@ -25,9 +25,11 @@ public partial class MainWindowViewModel : ObservableObject
         Func<ISeedViewModel> seedViewModel,
         Func<IStandViewModel> standViewModel,
         INavigationService navigationService,
-        IThemeManager themeManager)
+        IThemeManager themeManager,
+        IBusyManager busyManager)
     {
         ThemeManager = themeManager;
+        BusyManager = busyManager;
         this.NavigationService = navigationService;
 
         NavigationService.AddPage(Page.Init, initViewModel);
@@ -45,6 +47,7 @@ public partial class MainWindowViewModel : ObservableObject
     }
 
     public IThemeManager ThemeManager { get; }
+    public IBusyManager BusyManager { get; }
 
     [ObservableProperty]
     private HeaderViewModel _header;

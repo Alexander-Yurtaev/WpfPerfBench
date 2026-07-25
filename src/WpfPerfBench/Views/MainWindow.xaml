@@ -26,7 +26,7 @@
                         Executed="CloseCommandHandler" />
     </Window.CommandBindings>
 
-    <controls:BusyIndicator>
+    <controls:BusyIndicator IsBusy="{Binding BusyManager.IsBusy}">
         <Border Style="{DynamicResource WindowBorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>

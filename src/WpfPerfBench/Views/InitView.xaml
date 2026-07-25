@@ -80,101 +80,97 @@
                             Style="{StaticResource EmailValidationStyle}"/>
                 </Grid>
                 <Grid Grid.Row="2"
-                  Style="{StaticResource FormGroupStyle}">
+                      Style="{StaticResource FormGroupStyle}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
+                        <ColumnDefinition Width="14"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Grid   Grid.Column="0"
-                            Margin="0 0 7.5 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0"
-                                    Orientation="Horizontal">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0" 
+                                Grid.Row="0"
+                                Orientation="Horizontal">
                             <Image Source="pack://application:,,,/Resources/Icons/lock.png"
                                    Style="{StaticResource FormImageStyle}"/>
                             <Label Content="Пароль *"
                                    Style="{StaticResource FormLabelStyle}"/>
-                        </StackPanel>
-                        <TextBox Grid.Row="1"
-                                 x:Name="PasswordTextBox"
-                                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{StaticResource FormTextBoxStyle}"/>
-                        <Label  Grid.Row="2" 
-                                Style="{StaticResource PasswordValidationStyle}"/>
-                    </Grid>
-                    <Grid   Grid.Column="1"
-                            Margin="7.5 0 0 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0"
-                                    Orientation="Horizontal">
-                            <Image Source="pack://application:,,,/Resources/Icons/key_lock.png"
+                    </StackPanel>
+                    <TextBox Grid.Column="0" 
+                             Grid.Row="1"
+                             x:Name="PasswordTextBox"
+                             Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource FormTextBoxStyle}"/>
+                    <Label Grid.Column="0" 
+                           Grid.Row="2" 
+                           Style="{StaticResource PasswordValidationStyle}"/>
+                    
+                    <StackPanel Grid.Column="2" 
+                                Grid.Row="0"
+                                Orientation="Horizontal">
+                        <Image Source="pack://application:,,,/Resources/Icons/key_lock.png"
                                    Style="{StaticResource FormImageStyle}"/>
-                            <Label Content="Подтверждение пароля *"
+                        <Label Content="Подтверждение пароля *"
                                    Style="{StaticResource FormLabelStyle}"/>
-                        </StackPanel>
-                        <TextBox Grid.Row="1"
-                                 x:Name="ConfirmPasswordTextBox"
-                                 Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{StaticResource FormTextBoxStyle}"/>
-                        <Label  Grid.Row="2" 
-                                Style="{StaticResource ConfirmPasswordValidationStyle}"/>
-                    </Grid>
+                    </StackPanel>
+                    <TextBox Grid.Column="2"
+                             Grid.Row="1"
+                             x:Name="ConfirmPasswordTextBox"
+                             Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource FormTextBoxStyle}"/>
+                    <Label  Grid.Column="2" 
+                            Grid.Row="2" 
+                            Style="{StaticResource ConfirmPasswordValidationStyle}"/>
                 </Grid>
                 <Grid Grid.Row="3"
-                  Style="{StaticResource FormGroupStyle}">
+                      Style="{StaticResource FormGroupStyle}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
+                        <ColumnDefinition Width="14"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0"
-                      Margin="0 0 7.5 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0" 
-                                    Orientation="Horizontal">
-                            <Image Source="pack://application:,,,/Resources/Icons/cabinet.png"
-                                   Style="{StaticResource FormImageStyle}"/>
-                            <Label Content="Тип базы данных"
-                                   Style="{StaticResource FormLabelStyle}"/>
-                        </StackPanel>
-                        <ComboBox Grid.Row="1"
-                                  ItemsSource="{Binding DbTypes}"
-                                  SelectedValue="{Binding DbType, UpdateSourceTrigger=PropertyChanged}"
-                                  Style="{StaticResource FormComboBoxStyle}"/>
-                        <Label Grid.Row="2" Content="🗄️ Тип базы данных" Visibility="Hidden"/>
-                    </Grid>
-                    <Grid Grid.Column="1"
-                      Margin="7.5 0 0 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0" 
-                                    Orientation="Horizontal">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="0" 
+                                Grid.Row="0"
+                                Orientation="Horizontal">
+                        <Image Source="pack://application:,,,/Resources/Icons/cabinet.png"
+                               Style="{StaticResource FormImageStyle}"/>
+                        <Label Content="Тип базы данных"
+                               Style="{StaticResource FormLabelStyle}"/>
+                    </StackPanel>
+                    <ComboBox Grid.Column="0"
+                              Grid.Row="1"
+                              ItemsSource="{Binding DbTypes}"
+                              SelectedValue="{Binding DbType, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource FormComboBoxStyle}"/>
+                    <Label Grid.Column="0"
+                           Grid.Row="2"
+                           Content="🗄️ Тип базы данных" 
+                           Visibility="Hidden"/>
+                    
+                    <StackPanel Grid.Column="2"
+                                Grid.Row="0" 
+                                Orientation="Horizontal">
                             <Image Source="pack://application:,,,/Resources/Icons/link.png"
                                    Style="{StaticResource FormImageStyle}"/>
                             <Label Content="Connection String"
                                    Style="{StaticResource FormLabelStyle}"/>
-                        </StackPanel>
-                        <TextBox Grid.Row="1"
-                                 x:Name="ConnectionStringTextBox"
-                                 Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}"
-                                 Style="{StaticResource FormTextBoxStyle}"/>
-                        <Label  Grid.Row="2" 
-                                Style="{StaticResource ConnectionStringValidationStyle}"/>
-                    </Grid>
+                    </StackPanel>
+                    <TextBox Grid.Column="2"
+                             Grid.Row="1" 
+                             x:Name="ConnectionStringTextBox"
+                             Text="{Binding ConnectionString, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource FormTextBoxStyle}"/>
+                    <Label  Grid.Column="2"
+                            Grid.Row="2" 
+                            Style="{StaticResource ConnectionStringValidationStyle}"/>
                 </Grid>
                 <Grid Grid.Row="4"
                       Style="{StaticResource FormGroupStyle}">

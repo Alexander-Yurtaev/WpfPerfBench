@@ -63,6 +63,7 @@ public partial class App : Application
         services.AddSingleton<IUserSession, UserSession>();
         services.AddSingleton<IMessageService, MessageService>();
         services.AddSingleton<INavigationService, NavigationService>();
+        services.AddScoped<IBusyManager, BusyManager>();
 
         services.AddTransient<IThemeManager, ThemeManager>();
         
