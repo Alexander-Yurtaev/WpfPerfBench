@@ -14,6 +14,7 @@ public abstract class PageViewModelTestsBase<T> where T : IViewModelBase
     protected Mock<INavigationService> NavigationServiceMock;
     protected Mock<IUserSession> UserSessionMock;
     protected Mock<IDataService> DataServiceMock;
+    protected Mock<IBusyManager> BusyManagerMock;
     protected Mock<IMessageService> MessageServiceMock;
 
     protected PageViewModelTestsBase()
@@ -21,6 +22,7 @@ public abstract class PageViewModelTestsBase<T> where T : IViewModelBase
         NavigationServiceMock = new Mock<INavigationService>();
         UserSessionMock = new Mock<IUserSession>();
         DataServiceMock = new Mock<IDataService>();
+        BusyManagerMock = new Mock<IBusyManager>();
         MessageServiceMock = new Mock<IMessageService>();
     }
 }

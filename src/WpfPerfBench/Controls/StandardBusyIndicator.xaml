@@ -6,12 +6,35 @@
              xmlns:local="clr-namespace:WpfPerfBench.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="Standard Busy Indicator"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="22"
-                   FontWeight="Bold"
-                   Foreground="{DynamicResource BusyText}"/>
-    </Grid>
+    <Border Padding="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <local:BusySpinner Grid.Row="0"
+                               Width="72"
+                               Height="72"
+                               Margin="0 0 0 20"/>
+
+            <TextBlock Grid.Row="1" 
+                       Text="Загрузка..."
+                       Foreground="{DynamicResource BusyText}"
+                       FontSize="16"
+                       FontWeight="Medium"
+                       Margin="0 0 0 20"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Grid.Row="2" 
+                       Text="Пожалуйста, подождите"
+                       Margin="0 0 0 20"
+                       Foreground="{DynamicResource BusySubText}"
+                       FontSize="13"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+        </Grid>
+    </Border>
 </UserControl>
