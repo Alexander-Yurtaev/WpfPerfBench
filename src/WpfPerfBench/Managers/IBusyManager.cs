@@ -7,7 +7,6 @@ public interface IBusyManager
     void SetProgressIndicator(double value);
     void SetLargeIndicator(double value);
     CancellationToken ShowLargeIndicator(double max, string text, string subText = "");
-    CancellationToken ShowCompactIndicator(string text, string subText = "");
     void CloseIndicator();
     void RefreshToken();
     Task CancelAsync();

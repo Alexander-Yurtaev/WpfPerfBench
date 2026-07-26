@@ -57,20 +57,6 @@ public partial class BusyManager : ObservableObject, IBusyManager
         return _tokenSource.Token;
     }
 
-    public CancellationToken ShowCompactIndicator(string text, string subText = "")
-    {
-        ContentIndicator = new CompactContentIndicator(this)
-        {
-            BusyText = text,
-            BusySubText = subText,
-            IsIndeterminate = true
-        };
-        
-        RefreshToken();
-        IsBusy = true;
-        return _tokenSource.Token;
-    }
-
     public void SetProgressIndicator(double value)
     {
         if (ContentIndicator is ProgressContentIndicator indicator)

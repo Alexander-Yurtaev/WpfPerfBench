@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Threading;
 using WpfPerfBench.Core.Enum;
 using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
@@ -89,7 +88,6 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
             await TestStandardIndicator();
             await TestProgressIndicator();
             await TestLargeIndicator();
-            await TestCompactIndicator();
 
             _isSuccessTested = resultTest.Success;
             if (!_isSuccessTested)
@@ -154,19 +152,6 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
                 {
                     _busyManager.SetLargeIndicator(v);
                 });
-                await Task.Delay(100, ct);
-            }
-        }, ct);
-        await task.WaitAsync(ct);
-    }
-
-    private async Task TestCompactIndicator()
-    {
-        var ct = _busyManager.ShowCompactIndicator("Сохранение...", "Синхронизация с сервером");
-        var task = Task.Run(async () =>
-        {
-            for (int i = 0; i < 100; i++)
-            {
                 await Task.Delay(100, ct);
             }
         }, ct);

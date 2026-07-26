@@ -48,8 +48,5 @@
     <DataTemplate DataType="{x:Type controls:LargeContentIndicator}">
         <controls:LargeBusyIndicator/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type controls:CompactContentIndicator}">
-        <controls:CompactBusyIndicator/>
-    </DataTemplate>
 
 </ResourceDictionary>
