@@ -4,11 +4,25 @@ namespace WpfPerfBench.Managers;
 
 public interface IBusyManager
 {
+    CancellationToken ShowStandardIndicator(string text, string subText = "Пожалуйста, подождите");
+    CancellationToken ShowProgressIndicator(double min, double max, string text, string subText = "");
+    void SetProgressIndicator(double value);
+    CancellationToken ShowLargeIndicator(string text, string subText = "");
+    CancellationToken ShowCompactIndicator(double max, string text, string subText = "");
+    void CloseIndicator();
+    void RefreshToken();
+
     bool IsBusy { get; set; }
 
-    CancellationToken ShowIndicator(string text, string subText = "");
+    string BusyText { get; set; }
 
-    void CloseIndicator();
+    string BusySubText { get; set; }
 
-    void RefreshToken();
+    double Minimum { get; set; }
+
+    double Maximum { get; set; }
+
+    double Value { get; set; }
+
+    IRelayCommand CancelCommand { get; }
 }

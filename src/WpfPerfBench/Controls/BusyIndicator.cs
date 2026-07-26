@@ -71,6 +71,93 @@ namespace WpfPerfBench.Controls
 
         #endregion BusySubText
 
+        #region Minimum
+
+        public static readonly DependencyProperty MinimumProperty = 
+            DependencyProperty.Register(
+                nameof(Minimum), 
+                typeof(double), 
+                typeof(BusyIndicator), 
+                new PropertyMetadata(0.0, MinimumChangedCallback));
+
+        private static void MinimumChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is not BusyIndicator indicator) return;
+            indicator.Percent = indicator.CalculatePercent();
+        }
+
+        public double Minimum
+        {
+            get => (double)GetValue(MinimumProperty);
+            set => SetValue(MinimumProperty, value);
+        }
+
+        #endregion Minimum
+
+        #region Maximum
+
+        public static readonly DependencyProperty MaximumProperty = 
+            DependencyProperty.Register(
+                nameof(Maximum), 
+                typeof(double), 
+                typeof(BusyIndicator), 
+                new PropertyMetadata(0.0, MaximumChangedCallback));
+
+        private static void MaximumChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is not BusyIndicator indicator) return;
+            indicator.Percent = indicator.CalculatePercent();
+        }
+
+        public double Maximum
+        {
+            get => (double)GetValue(MaximumProperty);
+            set => SetValue(MaximumProperty, value);
+        }
+
+        #endregion Maximum
+
+        #region Value
+
+        public static readonly DependencyProperty ValueProperty = 
+            DependencyProperty.Register(
+                nameof(Value), 
+                typeof(double), 
+                typeof(BusyIndicator), 
+                new PropertyMetadata(0.0, ValueChangedCallback));
+
+        private static void ValueChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is not BusyIndicator indicator) return;
+            indicator.Percent = indicator.CalculatePercent();
+        }
+
+        public double Value
+        {
+            get => (double)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
+        }
+
+        #endregion Value
+
+        #region Percent
+
+        public static readonly DependencyProperty PercentProperty = DependencyProperty.Register(
+            nameof(Percent), typeof(double), typeof(BusyIndicator), new PropertyMetadata(0.0));
+
+        public double Percent
+        {
+            get => (double)GetValue(PercentProperty);
+            set => SetValue(PercentProperty, value);
+        }
+
+        private double CalculatePercent()
+        {
+            return (Value - Minimum) / (Maximum - Minimum);
+        }
+
+        #endregion Percent
+
         #region CancelCommand
 
         public static readonly DependencyProperty CancelCommandProperty = DependencyProperty.Register(

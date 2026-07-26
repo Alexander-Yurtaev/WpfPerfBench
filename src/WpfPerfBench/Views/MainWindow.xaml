@@ -30,7 +30,10 @@
                             BusyText="{Binding BusyManager.BusyText}"
                             BusySubText="{Binding BusyManager.BusySubText}"
                             CancelCommand="{Binding BusyManager.CancelCommand}"
-                            BusyType="Standard">
+                            Minimum="{Binding BusyManager.Minimum}"
+                            Maximum="{Binding BusyManager.Maximum}"
+                            Value="{Binding BusyManager.Value, Mode=OneWay}"
+                            BusyType="Progress">
         <Border Style="{DynamicResource WindowBorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>

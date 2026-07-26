@@ -13,8 +13,49 @@ public partial class BusyManager : ObservableObject, IBusyManager
 
     [ObservableProperty] private string _busySubText = string.Empty;
 
-    public CancellationToken ShowIndicator(string text, string subText = "Пожалуйста, подождите")
+    [ObservableProperty] private double _minimum;
+
+    [ObservableProperty] private double _maximum;
+
+    [ObservableProperty] private double _value;
+
+    public CancellationToken ShowStandardIndicator(string text, string subText = "Пожалуйста, подождите")
     {
+        BusyText = text;
+        BusySubText = subText;
+        IsBusy = true;
+        RefreshToken();
+        return _tokenSource.Token;
+    }
+
+    public CancellationToken ShowProgressIndicator(double min, double max, string text, string subText = "")
+    {
+        Minimum = min;
+        Maximum = max;
+        BusyText = text;
+        BusySubText = subText;
+        IsBusy = true;
+        RefreshToken();
+        return _tokenSource.Token;
+    }
+
+    public void SetProgressIndicator(double value)
+    {
+        Value = value;
+    }
+
+    public CancellationToken ShowLargeIndicator(string text, string subText = "")
+    {
+        BusyText = text;
+        BusySubText = subText;
+        IsBusy = true;
+        RefreshToken();
+        return _tokenSource.Token;
+    }
+
+    public CancellationToken ShowCompactIndicator(double max, string text, string subText = "")
+    {
+        Maximum = max;
         BusyText = text;
         BusySubText = subText;
         IsBusy = true;

@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
+using System.Windows;
+using System.Windows.Threading;
 using WpfPerfBench.Core.Enum;
 using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
@@ -70,7 +72,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
     [RelayCommand(CanExecute = nameof(CanTest))]
     private async Task Test()
     {
-        var ct = _busyManager.ShowIndicator("Проверка подключения БД", $"{_userSession.DataProvider}");
+        var ct = _busyManager.ShowProgressIndicator(0, 100, "Проверка подключения БД", $"{_userSession.DataProvider}");
         try
         {
             Validate();
@@ -83,7 +85,21 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
 
             var db = _dataService.CreateContext();
 
-            var resultTest = await _dataService.TestConnection(db, ct);
+            var resultTest = ResultBase.SuccessResult();//await _dataService.TestConnection(db, ct);
+
+            var task = Task.Run(async () =>
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    var v = i;
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        _busyManager.SetProgressIndicator(v);
+                    });
+                    await Task.Delay(100, ct);
+                }
+            }, ct);
+            await task.WaitAsync(ct);
 
             _isSuccessTested = resultTest.Success;
             if (!_isSuccessTested)
