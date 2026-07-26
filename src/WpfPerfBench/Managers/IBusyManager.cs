@@ -7,8 +7,9 @@ public interface IBusyManager
     CancellationToken ShowStandardIndicator(string text, string subText = "Пожалуйста, подождите");
     CancellationToken ShowProgressIndicator(double min, double max, string text, string subText = "");
     void SetProgressIndicator(double value);
-    CancellationToken ShowLargeIndicator(string text, string subText = "");
-    CancellationToken ShowCompactIndicator(double max, string text, string subText = "");
+    void SetLargeIndicator(double value);
+    CancellationToken ShowLargeIndicator(double max, string text, string subText = "");
+    CancellationToken ShowCompactIndicator(string text, string subText = "");
     void CloseIndicator();
     void RefreshToken();
 

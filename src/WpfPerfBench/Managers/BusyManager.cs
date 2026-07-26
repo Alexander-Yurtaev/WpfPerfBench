@@ -23,19 +23,19 @@ public partial class BusyManager : ObservableObject, IBusyManager
     {
         BusyText = text;
         BusySubText = subText;
-        IsBusy = true;
         RefreshToken();
+        IsBusy = true;
         return _tokenSource.Token;
     }
 
-    public CancellationToken ShowProgressIndicator(double min, double max, string text, string subText = "")
+    public CancellationToken ShowProgressIndicator(double min, double max, string text, string subText = "0%")
     {
         Minimum = min;
         Maximum = max;
         BusyText = text;
         BusySubText = subText;
-        IsBusy = true;
         RefreshToken();
+        IsBusy = true;
         return _tokenSource.Token;
     }
 
@@ -44,22 +44,27 @@ public partial class BusyManager : ObservableObject, IBusyManager
         Value = value;
     }
 
-    public CancellationToken ShowLargeIndicator(string text, string subText = "")
+    public void SetLargeIndicator(double value)
     {
-        BusyText = text;
-        BusySubText = subText;
-        IsBusy = true;
-        RefreshToken();
-        return _tokenSource.Token;
+        Value = value;
     }
 
-    public CancellationToken ShowCompactIndicator(double max, string text, string subText = "")
+    public CancellationToken ShowLargeIndicator(double max, string text, string subText = "Загружено 0 / 0 элементов")
     {
         Maximum = max;
         BusyText = text;
         BusySubText = subText;
-        IsBusy = true;
         RefreshToken();
+        IsBusy = true;
+        return _tokenSource.Token;
+    }
+
+    public CancellationToken ShowCompactIndicator(string text, string subText = "")
+    {
+        BusyText = text;
+        BusySubText = subText;
+        RefreshToken();
+        IsBusy = true;
         return _tokenSource.Token;
     }
 

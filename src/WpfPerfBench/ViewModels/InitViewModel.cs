@@ -72,7 +72,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
     [RelayCommand(CanExecute = nameof(CanTest))]
     private async Task Test()
     {
-        var ct = _busyManager.ShowProgressIndicator(0, 100, "Проверка подключения БД", $"{_userSession.DataProvider}");
+        var ct = _busyManager.ShowLargeIndicator(100, "Построение карты...", "Загружено {0} / {1} элементов");
         try
         {
             Validate();

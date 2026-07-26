@@ -33,7 +33,7 @@
                             Minimum="{Binding BusyManager.Minimum}"
                             Maximum="{Binding BusyManager.Maximum}"
                             Value="{Binding BusyManager.Value, Mode=OneWay}"
-                            BusyType="Progress">
+                            BusyType="Large">
         <Border Style="{DynamicResource WindowBorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>

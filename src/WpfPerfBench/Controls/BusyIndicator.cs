@@ -10,7 +10,10 @@ namespace WpfPerfBench.Controls
         #region BusyType
 
         public static readonly DependencyProperty BusyTypeProperty = DependencyProperty.Register(
-            nameof(BusyType), typeof(BusyType), typeof(BusyIndicator), new PropertyMetadata(BusyType.Standard));
+            nameof(BusyType), 
+            typeof(BusyType), 
+            typeof(BusyIndicator), 
+            new PropertyMetadata(BusyType.Standard));
 
         public BusyType BusyType
         {
