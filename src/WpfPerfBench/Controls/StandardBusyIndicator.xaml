@@ -23,7 +23,7 @@
                                Margin="0 0 0 24"/>
 
             <TextBlock Grid.Row="1" 
-                       Text="{Binding BusyText, RelativeSource={RelativeSource AncestorType=local:BusyIndicator}, FallbackValue='Загрузка...'}"
+                       Text="{Binding BusyText, FallbackValue='Загрузка...'}"
                        Foreground="{DynamicResource BusyText}"
                        FontSize="22"
                        FontWeight="Medium"
@@ -32,7 +32,7 @@
                        HorizontalAlignment="Center"/>
 
             <TextBlock Grid.Row="2" 
-                       Text="{Binding BusySubText, RelativeSource={RelativeSource AncestorType=local:BusyIndicator}, FallbackValue='Пожалуйста, подождите'}"
+                       Text="{Binding BusySubText, FallbackValue='Пожалуйста, подождите'}"
                        Margin="0 0 0 24"
                        Foreground="{DynamicResource BusySubText}"
                        FontSize="16"
@@ -43,7 +43,7 @@
                     Content="✕ Отмена"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Command="{Binding CancelCommand, RelativeSource={RelativeSource AncestorType=local:BusyIndicator}}"
+                    Command="{Binding CancelCommand}"
                     Style="{StaticResource BtnBusyCloseStyle}"/>
         </Grid>
     </Border>
