@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using WpfPerfBench.Controls;
 
 namespace WpfPerfBench.Managers;
 
@@ -9,20 +9,20 @@ public partial class BusyManager : ObservableObject, IBusyManager
 
     [ObservableProperty] private bool _isBusy;
 
-    [ObservableProperty] private string _busyText = string.Empty;
+    [ObservableProperty] private BaseContentIndicator _contentIndicator;
 
-    [ObservableProperty] private string _busySubText = string.Empty;
-
-    [ObservableProperty] private double _minimum;
-
-    [ObservableProperty] private double _maximum;
-
-    [ObservableProperty] private double _value;
+    public BusyManager()
+    {
+        ContentIndicator = new StandardContentIndicator(this);
+    }
 
     public CancellationToken ShowStandardIndicator(string text, string subText = "Пожалуйста, подождите")
     {
-        BusyText = text;
-        BusySubText = subText;
+        ContentIndicator = new StandardContentIndicator(this)
+        {
+            BusyText = text,
+            BusySubText = subText
+        };
         RefreshToken();
         IsBusy = true;
         return _tokenSource.Token;
@@ -30,30 +30,28 @@ public partial class BusyManager : ObservableObject, IBusyManager
 
     public CancellationToken ShowProgressIndicator(double min, double max, string text, string subText = "0%")
     {
-        Minimum = min;
-        Maximum = max;
-        BusyText = text;
-        BusySubText = subText;
+        ContentIndicator = new ProgressContentIndicator(this)
+        {
+            Minimum = min,
+            Maximum = max,
+            BusyText = text,
+            BusySubText = subText
+        };
+        
         RefreshToken();
         IsBusy = true;
         return _tokenSource.Token;
     }
 
-    public void SetProgressIndicator(double value)
+    public CancellationToken ShowLargeIndicator(double max, string text, string subTextFormat = "Загружено 0 / 0 элементов")
     {
-        Value = value;
-    }
-
-    public void SetLargeIndicator(double value)
-    {
-        Value = value;
-    }
-
-    public CancellationToken ShowLargeIndicator(double max, string text, string subText = "Загружено 0 / 0 элементов")
-    {
-        Maximum = max;
-        BusyText = text;
-        BusySubText = subText;
+        ContentIndicator = new LargeContentIndicator(this)
+        {
+            Maximum = max,
+            BusyText = text,
+            BusySubTextFormat = subTextFormat
+        };
+        
         RefreshToken();
         IsBusy = true;
         return _tokenSource.Token;
@@ -61,11 +59,32 @@ public partial class BusyManager : ObservableObject, IBusyManager
 
     public CancellationToken ShowCompactIndicator(string text, string subText = "")
     {
-        BusyText = text;
-        BusySubText = subText;
+        ContentIndicator = new CompactContentIndicator(this)
+        {
+            BusyText = text,
+            BusySubText = subText,
+            IsIndeterminate = true
+        };
+        
         RefreshToken();
         IsBusy = true;
         return _tokenSource.Token;
+    }
+
+    public void SetProgressIndicator(double value)
+    {
+        if (ContentIndicator is ProgressContentIndicator indicator)
+        {
+            indicator.Value = value;
+        }
+    }
+
+    public void SetLargeIndicator(double value)
+    {
+        if (ContentIndicator is LargeContentIndicator indicator)
+        {
+            indicator.Value = value;
+        }
     }
 
     public void CloseIndicator()
@@ -81,9 +100,8 @@ public partial class BusyManager : ObservableObject, IBusyManager
         }
     }
 
-    [RelayCommand]
-    private void Cancel()
+    public async Task CancelAsync()
     {
-        var _ = _tokenSource.CancelAsync();
+        await _tokenSource.CancelAsync();
     }
 }

@@ -94,7 +94,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
                     var v = i;
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        _busyManager.SetProgressIndicator(v);
+                        _busyManager.SetLargeIndicator(v);
                     });
                     await Task.Delay(100, ct);
                 }

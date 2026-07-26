@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-
-namespace WpfPerfBench.Managers;
+﻿namespace WpfPerfBench.Managers;
 
 public interface IBusyManager
 {
@@ -12,18 +10,7 @@ public interface IBusyManager
     CancellationToken ShowCompactIndicator(string text, string subText = "");
     void CloseIndicator();
     void RefreshToken();
+    Task CancelAsync();
 
     bool IsBusy { get; set; }
-
-    string BusyText { get; set; }
-
-    string BusySubText { get; set; }
-
-    double Minimum { get; set; }
-
-    double Maximum { get; set; }
-
-    double Value { get; set; }
-
-    IRelayCommand CancelCommand { get; }
 }

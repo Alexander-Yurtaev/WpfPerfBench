@@ -16,14 +16,8 @@
                               Visibility="Collapsed" 
                               Background="{DynamicResource BgBusyOverlay}">
 
-                            <controls:StandardBusyIndicator x:Name="PART_StandardBusyIndicator" 
-                                                            Visibility="Collapsed"/>
-                            <controls:ProgressBusyIndicator x:Name="PART_ProgressBusyIndicator" 
-                                                            Visibility="Collapsed"/>
-                            <controls:LargeBusyIndicator x:Name="PART_LargeBusyIndicator" 
-                                                         Visibility="Collapsed"/>
-                            <controls:CompactBusyIndicator x:Name="PART_CompactBusyIndicator" 
-                                                           Visibility="Collapsed"/>
+                            <ContentControl Content="{TemplateBinding ContentIndicator}"/>
+
                         </Grid>
                     </Grid>
 
@@ -35,19 +29,6 @@
                         <Trigger Property="IsBusy" Value="False">
                             <Setter TargetName="PART_Overlay" Property="Visibility" Value="Collapsed"/>
                         </Trigger>
-
-                        <Trigger Property="BusyType" Value="Standard">
-                            <Setter TargetName="PART_StandardBusyIndicator" Property="Visibility" Value="Visible"/>
-                        </Trigger>
-                        <Trigger Property="BusyType" Value="Progress">
-                            <Setter TargetName="PART_ProgressBusyIndicator" Property="Visibility" Value="Visible"/>
-                        </Trigger>
-                        <Trigger Property="BusyType" Value="Large">
-                            <Setter TargetName="PART_LargeBusyIndicator" Property="Visibility" Value="Visible"/>
-                        </Trigger>
-                        <Trigger Property="BusyType" Value="Compact">
-                            <Setter TargetName="PART_CompactBusyIndicator" Property="Visibility" Value="Visible"/>
-                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -57,4 +38,18 @@
     <Style x:Key="StandardBusyOverlay"
            TargetType="Grid">
     </Style>
+
+    <DataTemplate DataType="{x:Type controls:StandardContentIndicator}">
+        <controls:StandardBusyIndicator/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type controls:ProgressContentIndicator}">
+        <controls:ProgressBusyIndicator/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type controls:LargeContentIndicator}">
+        <controls:LargeBusyIndicator/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type controls:CompactContentIndicator}">
+        <controls:CompactBusyIndicator/>
+    </DataTemplate>
+
 </ResourceDictionary>

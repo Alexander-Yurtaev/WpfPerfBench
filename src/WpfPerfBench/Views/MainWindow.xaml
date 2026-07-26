@@ -27,13 +27,7 @@
     </Window.CommandBindings>
 
     <controls:BusyIndicator IsBusy="{Binding BusyManager.IsBusy}"
-                            BusyText="{Binding BusyManager.BusyText}"
-                            BusySubText="{Binding BusyManager.BusySubText}"
-                            CancelCommand="{Binding BusyManager.CancelCommand}"
-                            Minimum="{Binding BusyManager.Minimum}"
-                            Maximum="{Binding BusyManager.Maximum}"
-                            Value="{Binding BusyManager.Value, Mode=OneWay}"
-                            BusyType="Large">
+                            ContentIndicator="{Binding BusyManager.ContentIndicator}">
         <Border Style="{DynamicResource WindowBorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
