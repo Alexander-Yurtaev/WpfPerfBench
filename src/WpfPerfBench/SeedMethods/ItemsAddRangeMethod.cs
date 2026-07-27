@@ -21,7 +21,7 @@ public class ItemsAddRangeMethod : SeedMethodBase
     {
         var result = await DataService.CleanItems(db, ct);
 
-        if (result.Success) return true;
+        if (result.Success == true) return true;
         
         MessageService.ShowErrorMessage(result.Message);
         return false;
@@ -34,7 +34,7 @@ public class ItemsAddRangeMethod : SeedMethodBase
             var items = GeneratorService.GenerateListItemModel(1_000_000);
             var result = await DataService.SeedItems(db, items, ct);
 
-            if (!result.Success)
+            if (result.Success == false)
             {
                 MessageService.ShowErrorMessage(result.Message);
             }

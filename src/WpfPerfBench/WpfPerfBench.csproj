@@ -51,6 +51,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" />
     <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="H.Hooks" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
   </ItemGroup>
 

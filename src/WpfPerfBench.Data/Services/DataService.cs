@@ -32,9 +32,13 @@ public class DataService : IDataService
             var success = false;
             var task = Task.Run(() => db.Database.CanConnect(), ct);
             await task.ContinueWith(t => success = t.Result, ct);
-            return success 
-                ? ResultBase.SuccessResult() 
+            return success
+                ? ResultBase.SuccessResult()
                 : ResultBase.FailResult("Ошибка при подключении к БД");
+        }
+        catch (TaskCanceledException e)
+        {
+            return ResultBase.CancelResult();
         }
         catch (Exception e)
         {

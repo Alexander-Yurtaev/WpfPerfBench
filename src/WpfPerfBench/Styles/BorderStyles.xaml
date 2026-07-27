@@ -1,18 +1,19 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style x:Key="FooterBorderStyle"
-           TargetType="Border">
-        <Setter Property="Margin" Value="0 0 0 25"/>
-        <Setter Property="Padding" Value="0 20 0 0"/>
-        <Setter Property="BorderThickness" Value="0"/>
-    </Style>
-
     <Style x:Key="WindowBorderStyle"
            TargetType="Border">
         <Setter Property="Background" Value="{DynamicResource BgTitleBar}"/>
         <Setter Property="CornerRadius" Value="12"/>
         <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="ModalDialogBorderStyle" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource BgModal}"/>
+        <Setter Property="CornerRadius" Value="20"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ModalBorder}"/>
+        <Setter Property="Padding" Value="28 32"/>
     </Style>
 
     <Style x:Key="CardBorderStyle"
@@ -31,6 +32,13 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="CornerRadius" Value="12"/>
         <Setter Property="Padding" Value="25"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="FooterBorderStyle"
+           TargetType="Border">
+        <Setter Property="Margin" Value="0 0 0 25"/>
+        <Setter Property="Padding" Value="0 20 0 0"/>
         <Setter Property="BorderThickness" Value="0"/>
     </Style>
 

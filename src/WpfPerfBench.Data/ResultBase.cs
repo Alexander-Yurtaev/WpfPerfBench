@@ -2,7 +2,7 @@
 
 public abstract class ResultBase
 {
-    public bool Success { get; protected set; }
+    public bool? Success { get; protected set; }
     public string Message { get; protected set; } = string.Empty;
 
     public static SuccessResult SuccessResult()
@@ -13,6 +13,11 @@ public abstract class ResultBase
     public static FailResult FailResult(string message)
     {
         return new FailResult(message);
+    }
+
+    public static CancelResult CancelResult()
+    {
+        return new CancelResult();
     }
 
     public static NamesResult NamesResult(IEnumerable<string> names)
@@ -35,6 +40,14 @@ public class FailResult : ResultBase
     {
         Success = false;
         Message = message;
+    }
+}
+
+public class CancelResult : ResultBase
+{
+    public CancelResult()
+    {
+        Success = null;
     }
 }
 

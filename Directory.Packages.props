@@ -9,10 +9,12 @@
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageVersion Include="coverlet.collector" Version="10.0.1" />
     <PackageVersion Include="FluentAssertions" Version="8.10.0" />
+    <PackageVersion Include="H.Hooks" Version="1.7.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.17" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.17" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.17" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.7.0" />
+    <PackageVersion Include="Microsoft.Windows.SDK.Contracts" Version="10.0.28000.2526" />
     <PackageVersion Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.142" />
     <PackageVersion Include="Moq" Version="4.20.72" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />

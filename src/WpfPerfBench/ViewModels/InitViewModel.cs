@@ -20,7 +20,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
     private readonly IBusyManager _busyManager;
     private readonly IMessageService _messageService;
 
-    private bool _isSuccessTested;
+    private bool? _isSuccessTested;
 
     public InitViewModel(
         INavigationService navigationService, 
@@ -86,7 +86,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
             var resultTest = await _dataService.TestConnection(db, ct);
 
             _isSuccessTested = resultTest.Success;
-            if (!_isSuccessTested)
+            if (_isSuccessTested == false)
             {
                 _messageService.ShowErrorMessage(resultTest.Message);
             }
@@ -100,7 +100,10 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
         finally
         {
             RefreshCommands();
-            SendOnNavigatable(NavigationType.Next, _isSuccessTested);
+            if (_isSuccessTested is not null)
+            {
+                SendOnNavigatable(NavigationType.Next, _isSuccessTested.Value);
+            }
             _busyManager.CloseIndicator();
         }
     }
