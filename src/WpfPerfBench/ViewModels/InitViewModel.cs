@@ -86,9 +86,17 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
             var resultTest = await _dataService.TestConnection(db, ct);
 
             _isSuccessTested = resultTest.Success;
-            if (_isSuccessTested == false)
+            if (_isSuccessTested == true)
+            {
+                _messageService.ShowSuccessMessage("Проверка выполнена!", "Подключение к БД проверено. Вы можете продолжить работу.");
+            }
+            else if (_isSuccessTested == false)
             {
                 _messageService.ShowErrorMessage(resultTest.Message);
+            }
+            else
+            {
+                _messageService.ShowWarningMessage("Проверка подключения к БД была прервана.");
             }
         }
         catch (Exception e)
