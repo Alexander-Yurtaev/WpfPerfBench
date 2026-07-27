@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using Moq;
-using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;

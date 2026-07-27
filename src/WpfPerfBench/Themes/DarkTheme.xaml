@@ -29,6 +29,7 @@
     <Color x:Key="SuccessColor">#a6e3a1</Color>
     <Color x:Key="DangerColor">#f38ba8</Color>
     <Color x:Key="WarningColor">#f9e2af</Color>
+    <Color x:Key="InfoColor">#89b4fa</Color>
 
     <!--Brushes-->
     <SolidColorBrush x:Key="BgPrimary" Color="{StaticResource BgPrimaryColor}"/>
@@ -59,6 +60,7 @@
     <SolidColorBrush x:Key="Success" Color="{StaticResource SuccessColor}"/>
     <SolidColorBrush x:Key="Danger" Color="{StaticResource DangerColor}"/>
     <SolidColorBrush x:Key="Warning" Color="{StaticResource WarningColor}"/>
+    <SolidColorBrush x:Key="Info" Color="{StaticResource InfoColor}"/>
 
     <!-- Цвета для BusyIndicator -->
     <Color x:Key="BgBusyOverlayColor">#1E1E2FD9</Color>
@@ -88,5 +90,21 @@
     <SolidColorBrush x:Key="BgBusyProgressFill" Color="{StaticResource BgBusyProgressFillColor}"/>
     <SolidColorBrush x:Key="BtnCancel" Color="{StaticResource BtnCancelColor}"/>
     <SolidColorBrush x:Key="BtnCancelHover" Color="{StaticResource BtnCancelHoverColor}"/>
+
+    <!-- Modal Dialog -->
+    <Color x:Key="BgModalColor">#2a2a3e</Color>
+    <Color x:Key="ModalBorderColor">#3a3a5a</Color>
+    <Color x:Key="BgDangerColor">#4a2a3a</Color>
+    <Color x:Key="BgWarningColor">#4a3a2a</Color>
+    <Color x:Key="BgInfoColor">#2a3a4a</Color>
+    <Color x:Key="BgSuccessColor">#2a4a2a</Color>
+
+    <SolidColorBrush x:Key="BgModal" Color="{StaticResource BgModalColor}"/>
+    <SolidColorBrush x:Key="ModalBorder" Color="{StaticResource ModalBorderColor}"/>
+    <SolidColorBrush x:Key="BgDanger" Color="{StaticResource BgDangerColor}"/>
+    <SolidColorBrush x:Key="BgWarning" Color="{StaticResource BgWarningColor}"/>
+    <SolidColorBrush x:Key="BgInfo" Color="{StaticResource BgInfoColor}"/>
+    <SolidColorBrush x:Key="BgSuccess" Color="{StaticResource BgSuccessColor}"/>
+
 
 </ResourceDictionary>

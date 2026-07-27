@@ -1,12 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 using WpfPerfBench.Core.Enum;
-using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Interfaces;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
+using WpfPerfBench.Services;
 
 namespace WpfPerfBench.ViewModels;
 

@@ -6,6 +6,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!--СТИЛИ КОМПОНЕНТОВ-->
+                <ResourceDictionary Source="Styles/WindowStyles.xaml"/>
                 <ResourceDictionary Source="Styles/BusyIndicatorStyles.xaml"/>
 
                 <ResourceDictionary Source="Styles/BorderStyles.xaml"/>

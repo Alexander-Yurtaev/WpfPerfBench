@@ -11,11 +11,9 @@
         xmlns:views="clr-namespace:WpfPerfBench.Views"
         mc:Ignorable="d"
         Title="WPF Performance Demo" 
-        WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
-        Background="Transparent"
-        BorderThickness="0"
-        Height="985" Width="950" ResizeMode="NoResize">
+        Style="{StaticResource MainWindowStyle}"
+        Height="985" Width="950"
+        WindowStartupLocation="CenterScreen">
 
     <b:Interaction.Behaviors>
         <behaviors:DragMoveBehavior/>

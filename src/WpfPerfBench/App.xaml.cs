@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-using WpfPerfBench.Core.Interfaces.Services;
-using WpfPerfBench.Core.Services;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Data.Services;
+using WpfPerfBench.Extensions;
 using WpfPerfBench.Factories;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
+using WpfPerfBench.Services;
 using WpfPerfBench.ViewModels;
 using WpfPerfBench.Views;
 
@@ -61,7 +61,7 @@ public partial class App : Application
         services.AddLogging();
 
         services.AddSingleton<IUserSession, UserSession>();
-        services.AddSingleton<IMessageService, MessageService>();
+        services.AddMessageService();
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddScoped<IBusyManager, BusyManager>();
 
@@ -93,6 +93,8 @@ public partial class App : Application
         services.AddTransient<MainWindow>();
 
         ServiceProvider = services.BuildServiceProvider();
+
+        ServiceProvider.UseMessageService();
 
         var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
         mainWindow.Show();

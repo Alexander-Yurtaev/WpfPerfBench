@@ -1,6 +1,6 @@
-﻿using WpfPerfBench.Core.Interfaces.Services;
-using WpfPerfBench.Data.DataContexts;
+﻿using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Services;
+using WpfPerfBench.Services;
 
 namespace WpfPerfBench.SeedMethods;
 
