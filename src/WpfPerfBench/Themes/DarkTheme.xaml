@@ -106,5 +106,4 @@
     <SolidColorBrush x:Key="BgInfo" Color="{StaticResource BgInfoColor}"/>
     <SolidColorBrush x:Key="BgSuccess" Color="{StaticResource BgSuccessColor}"/>
 
-
 </ResourceDictionary>

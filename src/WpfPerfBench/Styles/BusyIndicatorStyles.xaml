@@ -16,7 +16,8 @@
                         <!-- Оверлей с индикатором -->
                         <Grid x:Name="PART_Overlay" 
                               Visibility="Collapsed" 
-                              Background="{DynamicResource BgBusyOverlay}">
+                              Background="{DynamicResource BgBusyOverlay}"
+                              Opacity="1">
 
                             <ContentControl Content="{TemplateBinding ContentIndicator}"/>
 

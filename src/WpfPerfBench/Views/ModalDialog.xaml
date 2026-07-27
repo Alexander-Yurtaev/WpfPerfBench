@@ -7,10 +7,15 @@
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
         xmlns:commands="clr-namespace:WpfPerfBench.Commands"
+        xmlns:converters="clr-namespace:WpfPerfBench.Converters"
         mc:Ignorable="d"
         Title="{Binding}"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource ModalDialogStyle}">
+
+    <Window.Resources>
+        <converters:NullableVisibleConverter x:Key="NullableVisibleConv"/>
+    </Window.Resources>
 
     <b:Interaction.Behaviors>
         <behaviors:DragMoveBehavior/>
@@ -45,30 +50,33 @@
                        Margin="0 0 0 20"
                        LineHeight="22"
                        TextWrapping="WrapWithOverflow"/>
-            <ItemsControl Grid.Row="3" 
-                          ItemsSource="{Binding Commands}"
-                          HorizontalAlignment="Center">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type commands:RelayUICommand}">
-                        <Button Content="{Binding Title}"
-                                Command="{Binding Command}"
-                                Background="{DynamicResource Danger}"
-                                Foreground="#ffff"
-                                Padding="28 8"
-                                BorderThickness="0"
-                                FontWeight="Bold"
-                                FontSize="14"
-                                Cursor="Hand"
-                                MinWidth="80"/>
-                        <!--border-radius: 10px;-->
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <StackPanel Grid.Row="3"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <ContentControl Content="{Binding SecondaryCommand}"
+                                Visibility="{Binding SecondaryCommand, Converter={StaticResource NullableVisibleConv}}">
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate DataType="{x:Type commands:RelayUICommand}">
+                            <Button Content="{Binding Title}"
+                                    Command="{Binding Command}"
+                                    Style="{StaticResource SecondaryBtnStyle}"/>
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>                    
+                </ContentControl>
+                <Border Width="12" 
+                        Visibility="{Binding SecondaryCommand, Converter={StaticResource NullableVisibleConv}}"/>
+                <ContentControl Content="{Binding PrimaryCommand}"
+                                Visibility="{Binding PrimaryCommand, Converter={StaticResource NullableVisibleConv}}">
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate DataType="{x:Type commands:RelayUICommand}">
+                            <Button Content="{Binding Title}"
+                                    Command="{Binding Command}"
+                                    IsDefault="False"
+                                    Style="{StaticResource PrimaryBtnStyle}"/>
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
+            </StackPanel>
         </Grid>
     </Border>
 </Window>

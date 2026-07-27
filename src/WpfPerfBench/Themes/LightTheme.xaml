@@ -89,4 +89,19 @@
     <SolidColorBrush x:Key="BtnCancel" Color="{StaticResource BtnCancelColor}"/>
     <SolidColorBrush x:Key="BtnCancelHover" Color="{StaticResource BtnCancelHoverColor}"/>
 
+    <!-- Modal Dialog -->
+    <Color x:Key="BgModalColor">#ffffff</Color>
+    <Color x:Key="ModalBorderColor">#d0d0d8</Color>
+    <Color x:Key="BgDangerColor">#f5e0e0</Color>
+    <Color x:Key="BgWarningColor">#f5ede0</Color>
+    <Color x:Key="BgInfoColor">#e0e8f5</Color>
+    <Color x:Key="BgSuccessColor">#e0f5e0</Color>
+
+    <SolidColorBrush x:Key="BgModal" Color="{StaticResource BgModalColor}"/>
+    <SolidColorBrush x:Key="ModalBorder" Color="{StaticResource ModalBorderColor}"/>
+    <SolidColorBrush x:Key="BgDanger" Color="{StaticResource BgDangerColor}"/>
+    <SolidColorBrush x:Key="BgWarning" Color="{StaticResource BgWarningColor}"/>
+    <SolidColorBrush x:Key="BgInfo" Color="{StaticResource BgInfoColor}"/>
+    <SolidColorBrush x:Key="BgSuccess" Color="{StaticResource BgSuccessColor}"/>
+
 </ResourceDictionary>

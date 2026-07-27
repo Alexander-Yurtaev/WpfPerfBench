@@ -52,7 +52,8 @@ public class MessageService : IMessageService
         {
             var dialog = _dialogFactory();
             var dialogVm = factory(args);
-            dialogVm.Commands.Add(new RelayUICommand("Закрыть", CreateCloseCommand(dialog)));
+            var command = new RelayUICommand("Закрыть", CreateCloseCommand(dialog));
+            dialogVm.PrimaryCommand = command;
             dialog.DataContext = dialogVm;
             dialog.Owner = Application.Current.MainWindow;
             dialog.ShowDialog();

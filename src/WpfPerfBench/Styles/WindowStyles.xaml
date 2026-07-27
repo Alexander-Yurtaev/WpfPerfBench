@@ -4,6 +4,7 @@
     <Style x:Key="MainWindowStyle" TargetType="Window">
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="Background" Value="Transparent"/>
+        <!--<Setter Property="AllowsTransparency" Value="True"/>-->
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="ResizeMode" Value="NoResize"/>
     </Style>
@@ -11,6 +12,7 @@
     <Style x:Key="ModalDialogStyle" TargetType="Window">
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="AllowsTransparency" Value="True"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="ResizeMode" Value="NoResize"/>
         <Setter Property="MaxWidth" Value="460"/>

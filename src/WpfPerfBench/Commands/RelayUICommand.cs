@@ -8,7 +8,6 @@ public partial class RelayUICommand : ObservableObject
 {
     [ObservableProperty] private string _title;
     [ObservableProperty] private RelayCommand _command;
-    [ObservableProperty] private Style _style;
 
 
     public RelayUICommand(string title, RelayCommand command)
