@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
-using System.Windows;
 using WpfPerfBench.Core.Enum;
 using WpfPerfBench.Core.Interfaces.Services;
 using WpfPerfBench.Data;
@@ -71,6 +70,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
     [RelayCommand(CanExecute = nameof(CanTest))]
     private async Task Test()
     {
+        var ct = _busyManager.ShowStandardIndicator("Загрузка...");
         try
         {
             Validate();
@@ -83,11 +83,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
 
             var db = _dataService.CreateContext();
 
-            var resultTest = ResultBase.SuccessResult();//await _dataService.TestConnection(db, ct);
-
-            await TestStandardIndicator();
-            await TestProgressIndicator();
-            await TestLargeIndicator();
+            var resultTest = await _dataService.TestConnection(db, ct);
 
             _isSuccessTested = resultTest.Success;
             if (!_isSuccessTested)
@@ -107,55 +103,6 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
             SendOnNavigatable(NavigationType.Next, _isSuccessTested);
             _busyManager.CloseIndicator();
         }
-    }
-
-    private async Task TestStandardIndicator()
-    {
-        var ct = _busyManager.ShowStandardIndicator("Загрузка...", "Пожалуйста, подождите");
-        var task = Task.Run(async () =>
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                await Task.Delay(100, ct);
-            }
-        }, ct);
-        await task.WaitAsync(ct);
-    }
-
-    private async Task TestProgressIndicator()
-    {
-        var ct = _busyManager.ShowProgressIndicator(0, 100, "Импорт данных...", "Обработка записей");
-        var task = Task.Run(async () =>
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                var v = i;
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    _busyManager.SetProgressIndicator(v);
-                });
-                await Task.Delay(100, ct);
-            }
-        }, ct);
-        await task.WaitAsync(ct);
-    }
-
-    private async Task TestLargeIndicator()
-    {
-        var ct = _busyManager.ShowLargeIndicator(100, "Построение карты...", "Загружено {0} / {1} элементов");
-        var task = Task.Run(async () =>
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                var v = i;
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    _busyManager.SetLargeIndicator(v);
-                });
-                await Task.Delay(100, ct);
-            }
-        }, ct);
-        await task.WaitAsync(ct);
     }
 
     #endregion Test

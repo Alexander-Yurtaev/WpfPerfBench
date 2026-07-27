@@ -61,14 +61,14 @@
     <SolidColorBrush x:Key="Warning" Color="{StaticResource WarningColor}"/>
 
     <!-- Цвета для BusyIndicator -->
-    <Color x:Key="BgBusyOverlayColor">#D91E1E2F</Color>
+    <Color x:Key="BgBusyOverlayColor">#1E1E2FD9</Color>
     <Color x:Key="BusyOverlayBorderColor">#2a2a4a</Color>
     <Color x:Key="BusyCircleOuterColor">#89b4fa</Color>
     <Color x:Key="BusyCircleInnerColor">#6a6a8a</Color>
     <Color x:Key="BusyDotColor">#89b4fa</Color>
     <Color x:Key="BusyTextColor">#cdd6f4</Color>
     <Color x:Key="BusySubTextColor">#a6adc8</Color>
-    <Color x:Key="BusyShadowColor">#99000000</Color>
+    <Color x:Key="BusyShadowColor">#00000099</Color>
     <Color x:Key="BgBusyCardColor">#2a2a3e</Color>
     <Color x:Key="BgBusyProgressColor">#1a1a2e</Color>
     <Color x:Key="BgBusyProgressFillColor">#89b4fa</Color>
