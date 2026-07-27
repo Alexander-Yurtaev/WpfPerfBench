@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace WpfPerfBench.Controls
+namespace WpfPerfBench.Controls.BusyIndicators
 {
     /// <summary>
     /// Interaction logic for ProgressBusyIndicator.xaml

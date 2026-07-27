@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using WpfPerfBench.Managers;
 
-namespace WpfPerfBench.Controls;
+namespace WpfPerfBench.Controls.ContentIndicators;
 
 public partial class ProgressContentIndicator(IBusyManager busyManager) : BaseContentIndicator(busyManager)
 {

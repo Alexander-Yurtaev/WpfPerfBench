@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:WpfPerfBench"
-                    xmlns:controls="clr-namespace:WpfPerfBench.Controls">
+                    xmlns:controls="clr-namespace:WpfPerfBench.Controls"
+                    xmlns:contentIndicators="clr-namespace:WpfPerfBench.Controls.ContentIndicators"
+                    xmlns:busyIndicators="clr-namespace:WpfPerfBench.Controls.BusyIndicators">
 
     <Style TargetType="{x:Type controls:BusyIndicator}">
         <Setter Property="Template">
@@ -39,14 +41,14 @@
            TargetType="Grid">
     </Style>
 
-    <DataTemplate DataType="{x:Type controls:StandardContentIndicator}">
-        <controls:StandardBusyIndicator/>
+    <DataTemplate DataType="{x:Type contentIndicators:StandardContentIndicator}">
+        <busyIndicators:StandardBusyIndicator/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type controls:ProgressContentIndicator}">
-        <controls:ProgressBusyIndicator/>
+    <DataTemplate DataType="{x:Type contentIndicators:ProgressContentIndicator}">
+        <busyIndicators:ProgressBusyIndicator/>
     </DataTemplate>
-    <DataTemplate DataType="{x:Type controls:LargeContentIndicator}">
-        <controls:LargeBusyIndicator/>
+    <DataTemplate DataType="{x:Type contentIndicators:LargeContentIndicator}">
+        <busyIndicators:LargeBusyIndicator/>
     </DataTemplate>
 
 </ResourceDictionary>

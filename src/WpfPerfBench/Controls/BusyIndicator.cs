@@ -43,13 +43,13 @@ namespace WpfPerfBench.Controls
 
         public static readonly DependencyProperty ContentIndicatorProperty = DependencyProperty.Register(
             nameof(ContentIndicator), 
-            typeof(BaseContentIndicator), 
+            typeof(ContentIndicators.BaseContentIndicator), 
             typeof(BusyIndicator), 
             new PropertyMetadata(null));
 
-        public BaseContentIndicator ContentIndicator
+        public ContentIndicators.BaseContentIndicator ContentIndicator
         {
-            get => (BaseContentIndicator)GetValue(ContentIndicatorProperty);
+            get => (ContentIndicators.BaseContentIndicator)GetValue(ContentIndicatorProperty);
             set => SetValue(ContentIndicatorProperty, value);
         }
 

@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Managers;
 
-namespace WpfPerfBench.Controls;
+namespace WpfPerfBench.Controls.ContentIndicators;
 
 public abstract partial class BaseContentIndicator(IBusyManager busyManager) : ObservableObject
 {
