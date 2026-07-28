@@ -48,7 +48,17 @@ public abstract class ValidationViewModelBase : ViewModelBase, IValidationViewMo
 
     protected void AddError(string propertyName, string errorMessage)
     {
-        Errors.Add(propertyName, [errorMessage]);
+        if (Errors.TryGetValue(propertyName, out var list))
+        {
+            if (!list.Contains(errorMessage))
+            {
+                list.Add(errorMessage);
+            }
+        }
+        else
+        {
+            Errors.Add(propertyName, [errorMessage]);
+        }   
     }
 
     protected void ClearError(string propertyName)

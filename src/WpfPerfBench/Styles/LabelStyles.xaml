@@ -79,10 +79,10 @@
 
     <Style x:Key="PasswordValidationStyle"
            TargetType="Label">
-        <Setter Property="DataContext" Value="{Binding ElementName=PasswordTextBox,
+        <Setter Property="DataContext" Value="{Binding ElementName=PasswordBox,
                                                                Path=(Validation.Errors).CurrentItem}"/>
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=PasswordTextBox}" 
+            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=PasswordBox}" 
                          Value="False">
                 <Setter Property="Content">
                     <Setter.Value>
@@ -95,7 +95,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=PasswordTextBox}" 
+            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=PasswordBox}" 
                          Value="True">
                 <Setter Property="Content">
                     <Setter.Value>
@@ -113,10 +113,10 @@
 
     <Style x:Key="ConfirmPasswordValidationStyle"
            TargetType="Label">
-        <Setter Property="DataContext" Value="{Binding ElementName=ConfirmPasswordTextBox,
+        <Setter Property="DataContext" Value="{Binding ElementName=ConfirmPasswordBox,
                                                                Path=(Validation.Errors).CurrentItem}"/>
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConfirmPasswordTextBox}" 
+            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConfirmPasswordBox}" 
                          Value="False">
                 <Setter Property="Content">
                     <Setter.Value>
@@ -129,7 +129,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConfirmPasswordTextBox}" 
+            <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=ConfirmPasswordBox}" 
                          Value="True">
                 <Setter Property="Content">
                     <Setter.Value>

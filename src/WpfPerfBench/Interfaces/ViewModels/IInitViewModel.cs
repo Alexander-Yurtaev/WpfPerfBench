@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.ComponentModel;
+using System.Security;
 using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Data.Enums;
 
@@ -13,9 +14,9 @@ public interface IInitViewModel : IViewModelBase
 
     string Email { get; set; }
 
-    string Password { get; set; }
+    SecureString? Password { get; set; }
 
-    string ConfirmPassword { get; set; }
+    SecureString? ConfirmPassword { get; set; }
 
     DataProvider[] DbTypes { get; set; }
 

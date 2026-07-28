@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Security;
 using WpfPerfBench.Core.Enum;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
@@ -46,10 +48,10 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
     private string _email = string.Empty;
 
     [ObservableProperty]
-    private string _password = string.Empty;
+    private SecureString? _password;
 
     [ObservableProperty]
-    private string _confirmPassword = string.Empty;
+    private SecureString? _confirmPassword;
 
     [ObservableProperty]
     private DataProvider[] _dbTypes = [DataProvider.Postgres, DataProvider.MsSql];
@@ -59,9 +61,6 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
 
     [ObservableProperty]
     private string _connectionString = string.Empty;
-
-    //[ObservableProperty] 
-    //private string _validationStatus;
 
     #region Test
 
@@ -279,30 +278,12 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
 
     private void ValidatePassword()
     {
-        if (string.IsNullOrWhiteSpace(Password))
-        {
-            AddError(nameof(Password), "Пароль обязателен для заполнения");
-        } else if (Password.Length < 8)
-        {
-            AddError(nameof(Password), "Пароль должен содержать минимум 8 символов");
-        } else if (!Password.Any(char.IsDigit))
-        {
-            AddError(nameof(Password), "Пароль должен содержать хотя бы одну цифру");
-        } else if (!Password.Any(char.IsUpper))
-        {
-            AddError(nameof(Password), "Пароль должен содержать хотя бы одну заглавную букву");
-        }
+        ValidatePassword(nameof(Password), Password, ConfirmPassword, ValidatePasswordString);
     }
 
     private void ValidateConfirmPassword()
     {
-        if (string.IsNullOrWhiteSpace(ConfirmPassword))
-        {
-            AddError(nameof(ConfirmPassword), "Подтверждение пароля обязательно");
-        } else if (ConfirmPassword != Password)
-        {
-            AddError(nameof(ConfirmPassword), "Пароли не совпадают");
-        }
+        ValidatePassword(nameof(ConfirmPassword), Password, ConfirmPassword, ValidateConfirmPasswordString);
     }
 
     private void ValidateDbType()
@@ -319,6 +300,103 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
     }
 
     #endregion Validation rules
+
+    #region SecureString
+
+    public void ValidatePassword(string propertyName,
+        SecureString? securePassword, SecureString? secureConfirmPassword,
+        Action<string, string?, string?> validatePasswordString)
+    {
+        if (propertyName == nameof(InitViewModel.Password))
+        {
+            if (securePassword == null || securePassword.Length == 0)
+            {
+                var errorMessage = "Пароль обязателен для заполнения";
+                AddError(propertyName, errorMessage);
+                return;
+            }
+        }
+
+        if (propertyName == nameof(InitViewModel.ConfirmPassword))
+        {
+            if (secureConfirmPassword == null || secureConfirmPassword.Length == 0)
+            {
+                var errorMessage = "Подтверждение пароля обязательно";
+                AddError(propertyName, errorMessage);
+                return;
+            }
+        }
+
+        IntPtr ptr = IntPtr.Zero;
+        IntPtr ptrConfirm = IntPtr.Zero;
+        try
+        {
+            // Извлекаем строку во временную память
+            string? password = null;
+            if (securePassword is not null)
+            {
+                ptr = Marshal.SecureStringToGlobalAllocUnicode(securePassword);
+                password = Marshal.PtrToStringUni(ptr);
+            }
+
+            string? confirmPassword = null;
+            if (secureConfirmPassword is not null)
+            {
+                ptrConfirm = Marshal.SecureStringToGlobalAllocUnicode(secureConfirmPassword);
+                confirmPassword = Marshal.PtrToStringUni(ptrConfirm);
+            }
+            
+            // Выполняем валидацию
+            validatePasswordString(propertyName, password, confirmPassword);
+        }
+        finally
+        {
+            // НЕМЕДЛЕННО очищаем память после валидации
+            if (ptr != IntPtr.Zero)
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(ptr);
+            }
+
+            if (ptrConfirm != IntPtr.Zero)
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(ptrConfirm);
+            }
+        }
+    }
+
+    private void ValidatePasswordString(string propertyName, string? password, string? confirmPassword)
+    {
+        if (password is null)
+        {
+            AddError(propertyName, "Пароль обязателен для заполнения");
+        }
+        else if (password.Length < 8)
+        {
+            AddError(propertyName, "Пароль должен содержать минимум 8 символов");
+        }
+        else if (!password.Any(char.IsDigit))
+        {
+            AddError(propertyName, "Пароль должен содержать хотя бы одну цифру");
+        }
+        else if (!password.Any(char.IsUpper))
+        {
+            AddError(propertyName, "Пароль должен содержать хотя бы одну заглавную букву");
+        }
+    }
+
+    private void ValidateConfirmPasswordString(string propertyName, string? password, string? confirmPassword)
+    {
+        if (string.IsNullOrWhiteSpace(confirmPassword))
+        {
+            AddError(propertyName, "Подтверждение пароля обязательно");
+        }
+        else if (password != confirmPassword)
+        {
+            AddError(propertyName, "Пароли не совпадают");
+        }
+    }
+
+    #endregion SecureString
 
     #region Implementation of INavigatable
 

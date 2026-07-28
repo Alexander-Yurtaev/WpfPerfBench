@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="Styles/GridStyles.xaml"/>
                 <ResourceDictionary Source="Styles/ImageStyles.xaml"/>
                 <ResourceDictionary Source="Styles/LabelStyles.xaml"/>
+                <ResourceDictionary Source="Styles/PasswordBoxStyles.xaml"/>
                 <ResourceDictionary Source="Styles/ProgressBarStyles.xaml"/>
                 <ResourceDictionary Source="Styles/TextBlockStyles.xaml"/>
                 <ResourceDictionary Source="Styles/TextBoxStyles.xaml"/>

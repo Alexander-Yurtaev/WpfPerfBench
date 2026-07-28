@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfPerfBench.Views"
-             xmlns:controls="clr-namespace:WpfPerfBench.Controls"
              xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="811.43" d:DesignWidth="504">
@@ -70,8 +69,7 @@
                                 Orientation="Horizontal">
                         <Image Source="pack://application:,,,/Resources/Icons/email.png"
                                Style="{StaticResource FormImageStyle}"/>
-                        <Label Grid.Row="0" 
-                               Content="Email *"
+                        <Label Content="Email *"
                                Style="{StaticResource FormLabelStyle}"/>
                     </StackPanel>
                     <TextBox Grid.Row="1"
@@ -101,11 +99,11 @@
                             <Label Content="Пароль *"
                                    Style="{StaticResource FormLabelStyle}"/>
                     </StackPanel>
-                    <TextBox Grid.Column="0" 
-                             Grid.Row="1"
-                             x:Name="PasswordTextBox"
-                             Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource FormTextBoxStyle}"/>
+                    <PasswordBox Grid.Column="0" 
+                                 Grid.Row="1"
+                                 x:Name="PasswordBox"
+                                 behaviors:PasswordBoxBehavior.PropertyName="Password"
+                                 Style="{StaticResource FormPasswordBoxStyle}"/>
                     <Label Grid.Column="0" 
                            Grid.Row="2" 
                            Style="{StaticResource PasswordValidationStyle}"/>
@@ -118,11 +116,11 @@
                         <Label Content="Подтверждение пароля *"
                                    Style="{StaticResource FormLabelStyle}"/>
                     </StackPanel>
-                    <TextBox Grid.Column="2"
-                             Grid.Row="1"
-                             x:Name="ConfirmPasswordTextBox"
-                             Text="{Binding ConfirmPassword, UpdateSourceTrigger=PropertyChanged}"
-                             Style="{StaticResource FormTextBoxStyle}"/>
+                    <PasswordBox Grid.Column="2"
+                                 Grid.Row="1"
+                                 x:Name="ConfirmPasswordBox"
+                                 behaviors:PasswordBoxBehavior.PropertyName="ConfirmPassword"
+                                 Style="{StaticResource FormPasswordBoxStyle}"/>
                     <Label  Grid.Column="2" 
                             Grid.Row="2" 
                             Style="{StaticResource ConfirmPasswordValidationStyle}"/>

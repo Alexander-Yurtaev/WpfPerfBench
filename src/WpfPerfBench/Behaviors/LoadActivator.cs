@@ -11,24 +11,33 @@ public static class LoadActivator
         "IsActive", 
         typeof(bool), 
         typeof(LoadActivator), 
-        new PropertyMetadata(false, PropertyChangedCallback));
-
-    public static void SetIsActive(DependencyObject element, bool value)
-    {
-        element.SetValue(IsActiveProperty, value);
-    }
+        new PropertyMetadata(false, IsActiveChangedCallback));
 
     public static bool GetIsActive(DependencyObject element)
     {
         return (bool)element.GetValue(IsActiveProperty);
     }
 
-    private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    public static void SetIsActive(DependencyObject element, bool value)
+    {
+        element.SetValue(IsActiveProperty, value);
+    }
+
+    private static void IsActiveChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         try
         {
-            if (e.NewValue is not (bool and true)) return;
+            if (e.NewValue is not bool flag) return;
+
             if (d is not FrameworkElement element) return;
+
+            if (!flag)
+            {
+                element.Loaded -= ElementOnLoaded;
+                element.DataContextChanged -= ElementOnDataContextChanged;
+                return;
+            }
+            
             if (element is { IsLoaded: true, DataContext: not null })
             {
                 var _ = LoadViewModel(element);
@@ -61,16 +70,19 @@ public static class LoadActivator
     #region CancellationTokenSource
 
     public static readonly DependencyProperty CancellationTokenSourceProperty = DependencyProperty.RegisterAttached(
-        "CancellationTokenSource", typeof(CancellationTokenSource), typeof(LoadActivator), new PropertyMetadata(default(CancellationTokenSource)));
-
-    public static void SetCancellationTokenSource(DependencyObject element, CancellationTokenSource value)
-    {
-        element.SetValue(CancellationTokenSourceProperty, value);
-    }
+        "CancellationTokenSource", 
+        typeof(CancellationTokenSource), 
+        typeof(LoadActivator), 
+        new PropertyMetadata(default(CancellationTokenSource)));
 
     public static CancellationTokenSource GetCancellationTokenSource(DependencyObject element)
     {
         return (CancellationTokenSource)element.GetValue(CancellationTokenSourceProperty);
+    }
+
+    public static void SetCancellationTokenSource(DependencyObject element, CancellationTokenSource value)
+    {
+        element.SetValue(CancellationTokenSourceProperty, value);
     }
 
     #endregion CancellationTokenSource
