@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfPerfBench.Views"
              xmlns:controls="clr-namespace:WpfPerfBench.Controls"
+             xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="811.43" d:DesignWidth="504">
 
@@ -52,6 +53,7 @@
                     </StackPanel>
                     <TextBox Grid.Row="1"
                              x:Name="FioTextBox"
+                             behaviors:FocusOnLoad.IsActive="True"
                              Text="{Binding Fio, UpdateSourceTrigger=PropertyChanged}"
                              Style="{StaticResource FormTextBoxStyle}"/>
                     <Label Grid.Row="2" 

@@ -13,7 +13,7 @@
         <managers:ThemeManager/>
     </UserControl.DataContext>
 
-    <Border behaviors:LoadExtension.IsActive="True"
+    <Border behaviors:LoadActivator.IsActive="True"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             Background="{DynamicResource BgSecondary}"

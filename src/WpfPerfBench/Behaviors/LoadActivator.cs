@@ -3,12 +3,15 @@ using WpfPerfBench.Interfaces;
 
 namespace WpfPerfBench.Behaviors;
 
-public static class LoadExtension
+public static class LoadActivator
 {
     #region IsActive
 
     public static readonly DependencyProperty IsActiveProperty = DependencyProperty.RegisterAttached(
-        "IsActive", typeof(bool), typeof(LoadExtension), new PropertyMetadata(false, PropertyChangedCallback));
+        "IsActive", 
+        typeof(bool), 
+        typeof(LoadActivator), 
+        new PropertyMetadata(false, PropertyChangedCallback));
 
     public static void SetIsActive(DependencyObject element, bool value)
     {
@@ -58,7 +61,7 @@ public static class LoadExtension
     #region CancellationTokenSource
 
     public static readonly DependencyProperty CancellationTokenSourceProperty = DependencyProperty.RegisterAttached(
-        "CancellationTokenSource", typeof(CancellationTokenSource), typeof(LoadExtension), new PropertyMetadata(default(CancellationTokenSource)));
+        "CancellationTokenSource", typeof(CancellationTokenSource), typeof(LoadActivator), new PropertyMetadata(default(CancellationTokenSource)));
 
     public static void SetCancellationTokenSource(DependencyObject element, CancellationTokenSource value)
     {

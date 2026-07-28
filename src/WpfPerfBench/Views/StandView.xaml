@@ -45,7 +45,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid behaviors:LoadExtension.IsActive="True">
+    <Grid behaviors:LoadActivator.IsActive="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
