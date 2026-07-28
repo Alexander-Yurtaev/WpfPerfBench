@@ -4,5 +4,6 @@ public enum MigrationStatus
 {
     Pending,
     Applied,
-    Failed
+    Failed,
+    Skipped
 }

@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\box.png" />
     <None Remove="Resources\Icons\cabinet.png" />
     <None Remove="Resources\Icons\dark.png" />
     <None Remove="Resources\Icons\email.png" />
@@ -26,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\box.png" />
     <Resource Include="Resources\Icons\cabinet.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>

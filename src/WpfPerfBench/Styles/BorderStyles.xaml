@@ -42,4 +42,11 @@
         <Setter Property="BorderThickness" Value="0"/>
     </Style>
 
+    <Style x:Key="CountBorderIndicatorStyle"
+           TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource BgSecondary}"/>
+        <Setter Property="Padding" Value="12 4"/>
+        <Setter Property="CornerRadius" Value="30"/>
+    </Style>
+
 </ResourceDictionary>

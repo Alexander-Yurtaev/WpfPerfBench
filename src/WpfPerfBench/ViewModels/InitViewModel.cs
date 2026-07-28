@@ -117,58 +117,6 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
 
     #endregion Test
 
-    //#region Migrate
-
-    //private bool CanMigrate() => NavigationService.CurrentPage == Page.Migration;
-
-    //[RelayCommand(CanExecute = nameof(CanMigrate))]
-    //private async Task Migrate(CancellationToken ct)
-    //{
-    //    // InitProgressStand.SetMigrationStatus("Подготовка к миграции ...");
-
-    //    try
-    //    {
-    //        var db = _dataService.CreateContext();
-
-    //        var result = await _dataService.GetPendingMigrationsAsync(db, ct);
-
-    //        if (!result.Success)
-    //        {
-    //            NavigationService.NavigateNext();
-    //            return;
-    //        }
-
-    //        var migrations = (result as NamesResult)?.Names.ToArray()
-    //                         ?? 
-    //                         throw new InvalidOperationException("Ошибка получения списка миграций");
-
-    //        foreach (var migration in migrations)
-    //        {
-    //            await _dataService.Migrate(db, migration, ct);
-    //        }
-
-    //        NavigationService.NavigateNext();
-    //    }
-    //    catch (Exception e)
-    //    {
-    //        Console.WriteLine(e);
-    //    }
-    //}
-
-    //#endregion Migrate
-
-    //#region Next
-
-    //private bool CanNext() => true; //CurrentPage == Page.Ready;
-
-    //[RelayCommand(CanExecute = nameof(CanNext))]
-    //private void Next()
-    //{
-    //    NavigationService.NavigateNext();
-    //}
-
-    //#endregion Next
-
     private void InitUserSession()
     {
         _userSession.Fio = Fio;

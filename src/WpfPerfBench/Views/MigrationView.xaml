@@ -7,7 +7,49 @@
              xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="811.43" d:DesignWidth="504">
-    <Grid behaviors:LoadActivator.IsActive="True">
-        <ItemsControl ItemsSource="{Binding Items}"/>
-    </Grid>
+
+    <Border behaviors:LoadActivator.IsActive="True"
+            Style="{DynamicResource CardBorderStyle}">
+        <ScrollViewer VerticalScrollBarVisibility="Hidden" 
+                      HorizontalScrollBarVisibility="Hidden">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                      Style="{StaticResource HeaderGridStyle}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" 
+                                Orientation="Horizontal">
+                        <Image Source="pack://application:,,,/Resources/Icons/box.png" 
+                               Style="{StaticResource HeaderIconStyle}" />
+                        <TextBlock Style="{StaticResource HeaderTextStyle}"
+                                   Text="Управление миграциями"/>
+                    </StackPanel>
+                    <Border Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource CountBorderIndicatorStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Доступно: "
+                                       Style="{StaticResource CountTextBlockIndicatorStyle}"/>
+                            <TextBlock Text="{Binding MigrationCount, FallbackValue=0, Mode=OneWay}"
+                                       Style="{StaticResource CountTextBlockIndicatorStyle}"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                <ItemsControl Grid.Row="1" 
+                              ItemsSource="{Binding Items}"/>
+                <Button Grid.Row="2"
+                        Content="Выполнить"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource PrimaryBtnStyle}"
+                        Command="{Binding ApplyMigrationsCommand}"/>
+            </Grid>
+        </ScrollViewer>
+    </Border>
 </UserControl>
