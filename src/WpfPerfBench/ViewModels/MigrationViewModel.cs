@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Core.Enum;
 using WpfPerfBench.Data;
+using WpfPerfBench.Wrappers;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Interfaces;
 using WpfPerfBench.Interfaces.ViewModels;
@@ -60,14 +61,17 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
                         break;
                 }
             }
+
+            if (!isFailed)
+            {
+                _messageService.ShowSuccessMessage("Миграции применены!", "Вы можете продолжить работу.");
+            }
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             throw;
         }
-
-        _messageService.ShowSuccessMessage("Миграции применены!", "Вы можете продолжить работу.");
     }
 
     private bool CanApplyMigrations() => Items.Any(i => i.Status == MigrationStatus.Pending);
@@ -79,6 +83,7 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
         try
         {
             Items.Clear();
+            ApplyMigrationsCommand.NotifyCanExecuteChanged();
             OnPropertyChanged(nameof(MigrationCount));
             var db = _dataService.CreateContext();
             var appliedMessage = await _dataService.GetAppliedMigrationsAsync(db, ct);
@@ -109,6 +114,7 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
                     foreach (var name in names.Names)
                     {
                         Items.Add(new MigrationItem(name) { Status = status });
+                        ApplyMigrationsCommand.NotifyCanExecuteChanged();
                         OnPropertyChanged(nameof(MigrationCount));
                     }
 

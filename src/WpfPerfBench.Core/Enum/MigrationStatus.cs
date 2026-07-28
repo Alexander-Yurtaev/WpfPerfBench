@@ -1,9 +1,21 @@
-﻿namespace WpfPerfBench.Core.Enum;
+﻿using System.ComponentModel;
+
+namespace WpfPerfBench.Core.Enum;
 
 public enum MigrationStatus
 {
+    [Description("Ожидание")]
     Pending,
+
+    [Description("Выполнена")]
     Applied,
+
+    [Description("Ошибка")]
     Failed,
-    Skipped
+
+    [Description("Пропущена")]
+    Skipped,
+
+    [Description("Выполняется...")]
+    Processing
 }

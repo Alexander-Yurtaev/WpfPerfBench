@@ -41,15 +41,19 @@
                        HorizontalAlignment="Center"
                        TextAlignment="Center"
                        Margin="0 0 0 8"/>
-            <TextBlock Grid.Row="2" Text="{Binding Description}"
-                       FontSize="15"
-                       Foreground="{DynamicResource TextSecondary}"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       TextAlignment="Center"
-                       Margin="0 0 0 20"
-                       LineHeight="22"
-                       TextWrapping="WrapWithOverflow"/>
+            <ScrollViewer Grid.Row="2" 
+                          HorizontalScrollBarVisibility="Hidden"
+                          VerticalScrollBarVisibility="Auto">
+                <TextBlock Text="{Binding Description}"
+                           FontSize="15"
+                           Foreground="{DynamicResource TextSecondary}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           Margin="0 0 0 20"
+                           LineHeight="22"
+                           TextWrapping="WrapWithOverflow"/>
+            </ScrollViewer>
             <StackPanel Grid.Row="3"
                         Orientation="Horizontal"
                         HorizontalAlignment="Center">

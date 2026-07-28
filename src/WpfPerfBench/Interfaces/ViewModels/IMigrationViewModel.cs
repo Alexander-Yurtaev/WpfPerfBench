@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using WpfPerfBench.Data;
+using WpfPerfBench.Wrappers;
 
 namespace WpfPerfBench.Interfaces.ViewModels;
 

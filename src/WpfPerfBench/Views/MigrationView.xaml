@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfPerfBench.Views"
              xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
+             xmlns:controls="clr-namespace:WpfPerfBench.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="811.43" d:DesignWidth="504">
 
@@ -43,7 +44,18 @@
                     </Border>
                 </Grid>
                 <ItemsControl Grid.Row="1" 
-                              ItemsSource="{Binding Items}"/>
+                              ItemsSource="{Binding Items}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:MigrationItem/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
                 <Button Grid.Row="2"
                         Content="Выполнить"
                         HorizontalAlignment="Right"

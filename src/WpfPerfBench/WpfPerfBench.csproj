@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\applied.png" />
     <None Remove="Resources\Icons\box.png" />
     <None Remove="Resources\Icons\cabinet.png" />
     <None Remove="Resources\Icons\dark.png" />
@@ -22,11 +23,15 @@
     <None Remove="Resources\Icons\link.png" />
     <None Remove="Resources\Icons\lock.png" />
     <None Remove="Resources\Icons\man.png" />
+    <None Remove="Resources\Icons\pending.png" />
+    <None Remove="Resources\Icons\processing.png" />
+    <None Remove="Resources\Icons\skipped.png" />
     <None Remove="Resources\Icons\success.png" />
     <None Remove="Resources\Icons\warning.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\applied.png" />
     <Resource Include="Resources\Icons\box.png" />
     <Resource Include="Resources\Icons\cabinet.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
@@ -46,6 +51,9 @@
     <Resource Include="Resources\Icons\link.png" />
     <Resource Include="Resources\Icons\lock.png" />
     <Resource Include="Resources\Icons\man.png" />
+    <Resource Include="Resources\Icons\pending.png" />
+    <Resource Include="Resources\Icons\processing.png" />
+    <Resource Include="Resources\Icons\skipped.png" />
     <Resource Include="Resources\Icons\success.png" />
     <Resource Include="Resources\Icons\warning.png" />
   </ItemGroup>
