@@ -15,6 +15,30 @@ docker compose -f docker-compose-postgres.yml up -d
 
 Реализована поддержка ***только*** Postgres.
 
+<div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+  <div style="flex: 1; min-width: 300px; max-width: 700px;">
+    <img src="./Documents/Screenshorts/page1_dark.png" alt="Главная (тёмная тема)" style="width: 100%; height: auto; display: block;"/>
+  </div>
+  <div style="flex: 1; min-width: 300px; max-width: 700px;">
+    <img src="./Documents/Screenshorts/page1_light.png" alt="Главная (светлая тема)" style="width: 100%; height: auto; display: block;"/>
+  </div>
+</div>
+<br/>
+<em style="display: block; text-align: center;">Настройка подключений (тёмная и светлая темы)</em>
+
+<br/>
+
+<div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+  <div style="flex: 1; min-width: 300px; max-width: 700px;">
+    <img src="./Documents/Screenshorts/page2_dark.png" alt="Главная (тёмная тема)" style="width: 100%; height: auto; display: block;"/>
+  </div>
+  <div style="flex: 1; min-width: 300px; max-width: 700px;">
+    <img src="./Documents/Screenshorts/page2_light.png" alt="Главная (светлая тема)" style="width: 100%; height: auto; display: block;"/>
+  </div>
+</div>
+<br/>
+<em style="display: block; text-align: center;">Управление миграциями (тёмная и светлая темы)</em>
+
 ```bash
 # Для Postgres
 docker compose -f docker-compose-postgres.yml up -d

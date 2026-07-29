@@ -23,6 +23,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Screenshorts", "Screenshorts", "{9F1A2205-A78F-48CF-9760-A7DE4368D8B5}"
+	ProjectSection(SolutionItems) = preProject
+		Documents\Screenshorts\page1_dark.png = Documents\Screenshorts\page1_dark.png
+		Documents\Screenshorts\page1_light.png = Documents\Screenshorts\page1_light.png
+		Documents\Screenshorts\page2_dark.png = Documents\Screenshorts\page2_dark.png
+		Documents\Screenshorts\page2_light.png = Documents\Screenshorts\page2_light.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +100,8 @@ Global
 		{51EE2D92-8D54-4639-A253-53276716CF18} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{6A5D4A94-C360-4BD2-BF53-751B4EA76742} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{A72297AA-C005-40AA-85DC-1E657C9C7F12} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}
+		{9F1A2205-A78F-48CF-9760-A7DE4368D8B5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {237DB84C-DCE5-42A8-B5E0-FB7176646E15}
