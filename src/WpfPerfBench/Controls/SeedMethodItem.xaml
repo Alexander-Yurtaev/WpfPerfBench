@@ -11,6 +11,7 @@
 
     <UserControl.Resources>
         <converters:SeedStatusToVisibilityConverter x:Key="SeedStatusToVisibilityConv"/>
+        
         <Style x:Key="SeedMethodStyle"
                TargetType="Border">
             <Setter Property="Background" Value="{DynamicResource BgSecondary}"/>
