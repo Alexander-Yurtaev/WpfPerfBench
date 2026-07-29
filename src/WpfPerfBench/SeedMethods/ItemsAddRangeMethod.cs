@@ -13,8 +13,8 @@ public class ItemsAddRangeMethod : SeedMethodBase
         IMessageService messageService) 
         : base(dataService, generatorService, messageService)
     {
-        Title = "Поштучная вставка (без транзакции)";
-        Description = "Вставка каждой записи отдельным INSERT. Самый медленный способ, но простой для понимания.";
+        Title = "AddRange + SaveChangesAsync";
+        Description = "Добавление всех записей с последующим сохранением всех изменений.";
     }
 
     #region Overrides of SeedMethodBase
@@ -25,12 +25,17 @@ public class ItemsAddRangeMethod : SeedMethodBase
         return result;
     }
 
-    protected override async Task<ResultBase> OnSeed(IWpfPerfBenchContext db, CancellationToken ct)
+    protected override async Task<ResultBase> OnSeed(
+        IWpfPerfBenchContext db, 
+        ISeedMethodStat stat,
+        CancellationToken ct)
     {
         try
         {
+            stat.UpdateIsIndeterminate(true);
             var items = await GeneratorService.GenerateListItemModel(1_000_000, ct);
-            var result = await DataService.SeedItems(db, items, ct);
+            stat.UpdateTotalItemCount(items.Count);
+            var result = await DataService.SeedItems(db, items, stat, ct);
             return result;
         }
         catch (TaskCanceledException ex)
@@ -41,6 +46,10 @@ public class ItemsAddRangeMethod : SeedMethodBase
         {
             Console.WriteLine(e);
             return ResultBase.FailResult(e.Message);
+        }
+        finally
+        {
+            stat.UpdateIsIndeterminate(false);
         }
     }
 

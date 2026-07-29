@@ -94,6 +94,7 @@
                 <StackPanel Grid.Column="0" Orientation="Vertical"
                             Style="{StaticResource MethodProgressStyle}">
                     <ProgressBar Minimum="0" Maximum="100"
+                                 IsIndeterminate="{Binding Stat.IsIndeterminate}"
                                  Style="{StaticResource BusyProgressBarStyle}"/>
                     <StackPanel DataContext="{Binding Stat}"
                                 Orientation="Horizontal">
@@ -102,8 +103,9 @@
                         </Label>
                         <Label Style="{StaticResource ProgressLabelStyle}"
                                Content=" / "/>
-                        <Label Style="{StaticResource ProgressLabelStyle}"
-                               Content="{Binding TotalItemCount, Mode=OneWay}"/>
+                        <Label Style="{StaticResource ProgressLabelStyle}">
+                            <Run Text="{Binding TotalItemCount, StringFormat={}{0:N0}, Mode=OneWay}"/>
+                        </Label>
                         <Label Style="{StaticResource ProgressLabelStyle}"
                                Content=" | "/>
                         <Image Source="pack://application:,,,/Resources/Icons/clock.png"

@@ -41,14 +41,7 @@ public abstract partial class SeedMethodBase : ObservableObject
     [ObservableProperty]
     private SeedStatus _status = SeedStatus.None;
 
-    public SeedMethodStatWrapper Stat { get; set; }
-
-    public void Init(int totalItemCount)
-    {
-        var model = new SeedMethodStat { TotalItemCount = totalItemCount };
-        Stat = new SeedMethodStatWrapper(model);
-        OnPropertyChanged(nameof(Stat));
-    }
+    public ISeedMethodStat Stat { get; set; }
 
     [RelayCommand]
     private async Task Seed()
@@ -63,7 +56,7 @@ public abstract partial class SeedMethodBase : ObservableObject
         
         this.Status = SeedStatus.Processing;
 
-        var result = await Seed(TokenSource.Token);
+        var result = await Seed(Stat, TokenSource.Token);
 
         switch (result)
         {
@@ -82,12 +75,12 @@ public abstract partial class SeedMethodBase : ObservableObject
         }
     }
 
-    private async Task<ResultBase> Seed(CancellationToken ct)
+    private async Task<ResultBase> Seed(ISeedMethodStat stat, CancellationToken ct)
     {
         var db = DataService.CreateContext();
         var result = await Prepare(db, ct);
         if (result is FailResult failResult) return failResult;
-        return await OnSeed(db, ct);
+        return await OnSeed(db, stat, ct);
     }
 
     [RelayCommand(CanExecute = nameof(CanCancel))]
@@ -101,5 +94,5 @@ public abstract partial class SeedMethodBase : ObservableObject
 
     protected abstract Task<ResultBase> Prepare(IWpfPerfBenchContext db, CancellationToken ct);
 
-    protected abstract Task<ResultBase> OnSeed(IWpfPerfBenchContext db, CancellationToken ct);
+    protected abstract Task<ResultBase> OnSeed(IWpfPerfBenchContext db, ISeedMethodStat stat, CancellationToken ct);
 }

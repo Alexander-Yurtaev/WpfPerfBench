@@ -27,10 +27,17 @@ public class ItemRepository : IItemRepository
         }
     }
 
-    public async Task Seed(IWpfPerfBenchContext db, List<Item> items, CancellationToken ct = default)
+    public async Task Seed(IWpfPerfBenchContext db, 
+        List<Item> items, 
+        ISeedMethodStat stat,
+        CancellationToken ct = default)
     {
-        var entities = _mapper.Map<List<Entities.Item>>(items);
-        await db.Items.AddRangeAsync(entities, ct);
-        await db.SaveChangesAsync(ct);
+        await Task.Run(async () =>
+        {
+            var entities = _mapper.Map<List<Entities.Item>>(items);
+            db.Items.AddRange(entities);
+            stat.UpdateProcessedItemCount(entities.Count);
+            await db.SaveChangesAsync(ct);
+        }, ct);
     }
 }

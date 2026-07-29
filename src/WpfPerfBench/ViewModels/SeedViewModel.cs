@@ -43,7 +43,6 @@ public partial class SeedViewModel : ViewModelBase, ISeedViewModel
         foreach (var seedMethod in seedMethods)
         {
             var method = (SeedMethodBase)_seedMethodFactory.Create(seedMethod);
-            method.Init(SeedCount);
             SeedMethods.Add(method);
         }
     }
