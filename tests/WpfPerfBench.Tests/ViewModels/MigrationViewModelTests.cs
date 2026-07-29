@@ -17,7 +17,8 @@ public class MigrationViewModelTests : PageViewModelTestsBase<IMigrationViewMode
             NavigationServiceMock.Object,
             UserSessionMock.Object,
             DataServiceMock.Object,
-            MessageServiceMock.Object);
+            MessageServiceMock.Object,
+            BusyManagerMock.Object);
     }
 
     [Fact]

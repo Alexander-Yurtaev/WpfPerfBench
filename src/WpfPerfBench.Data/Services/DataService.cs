@@ -36,7 +36,7 @@ public class DataService : IDataService
                 ? ResultBase.SuccessResult()
                 : ResultBase.FailResult("Ошибка при подключении к БД");
         }
-        catch (TaskCanceledException e)
+        catch (TaskCanceledException)
         {
             return ResultBase.CancelResult();
         }
