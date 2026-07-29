@@ -51,18 +51,31 @@ public static class LoadActivator
         catch (Exception ex)
         {
             Console.WriteLine(ex);
-            throw;
         }
     }
 
-    private static void ElementOnLoaded(object sender, RoutedEventArgs e)
+    private static async void ElementOnLoaded(object sender, RoutedEventArgs e)
     {
-        var _ = CheckAndLoadViewModel(sender);
+        try
+        {
+            await CheckAndLoadViewModel(sender);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
     }
 
-    private static void ElementOnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+    private static async void ElementOnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        var _ = CheckAndLoadViewModel(sender);
+        try
+        {
+            await CheckAndLoadViewModel(sender);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
     }
 
     #endregion IsActive

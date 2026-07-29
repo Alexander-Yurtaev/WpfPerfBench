@@ -16,6 +16,7 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
 {
     private readonly IDataService _dataService;
     private readonly IMessageService _messageService;
+    private readonly IBusyManager _busyManager;
 
     [ObservableProperty] private ObservableCollection<MigrationItem> _items = [];
 
@@ -23,10 +24,12 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
         INavigationService navigationService,
         IUserSession userSession,
         IDataService dataService,
-        IMessageService messageService) : base(navigationService, userSession)
+        IMessageService messageService,
+        IBusyManager busyManager) : base(navigationService, userSession)
     {
         _dataService = dataService;
         _messageService = messageService;
+        _busyManager = busyManager;
     }
 
     public int MigrationCount => Items.Count;
@@ -34,6 +37,7 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
     [RelayCommand(CanExecute = nameof(CanApplyMigrations))]
     private async Task ApplyMigrations()
     {
+        var ct = _busyManager.ShowStandardIndicator("Миграции...");
         try
         {
             var db = _dataService.CreateContext();
@@ -48,7 +52,8 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
                     migration.Status = MigrationStatus.Skipped;
                     continue;
                 }
-                var result = await _dataService.Migrate(db, migration.Name, CancellationToken.None);
+
+                var result = await _dataService.Migrate(db, migration.Name, ct);
                 switch (result.Success)
                 {
                     case true:
@@ -72,6 +77,10 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
             Console.WriteLine(e);
             throw;
         }
+        finally
+        {
+            _busyManager.CloseIndicator();
+        }
     }
 
     private bool CanApplyMigrations() => Items.Any(i => i.Status == MigrationStatus.Pending);
@@ -80,15 +89,18 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
 
     public async Task LoadAsync(CancellationToken ct)
     {
+        var ctLocal = _busyManager.ShowStandardIndicator("Загрузка...");
+        var ctTotal = CancellationTokenSource.CreateLinkedTokenSource(ct, ctLocal);
+
         try
         {
             Items.Clear();
             ApplyMigrationsCommand.NotifyCanExecuteChanged();
             OnPropertyChanged(nameof(MigrationCount));
             var db = _dataService.CreateContext();
-            var appliedMessage = await _dataService.GetAppliedMigrationsAsync(db, ct);
+            var appliedMessage = await _dataService.GetAppliedMigrationsAsync(db, ctTotal.Token);
             ProcessMigrationResult(appliedMessage, MigrationStatus.Applied);
-            var pendingMessage = await _dataService.GetPendingMigrationsAsync(db, ct);
+            var pendingMessage = await _dataService.GetPendingMigrationsAsync(db, ctTotal.Token);
             ProcessMigrationResult(pendingMessage, MigrationStatus.Pending);
         }
         catch (InvalidOperationException e)
@@ -96,6 +108,10 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
             Console.WriteLine(e);
             Items.Clear();
             _messageService.ShowErrorMessage(e.Message);
+        }
+        finally
+        {
+            _busyManager.CloseIndicator();
         }
     }
 
