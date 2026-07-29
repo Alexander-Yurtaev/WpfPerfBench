@@ -2,20 +2,24 @@
 
 namespace WpfPerfBench.Enums;
 
+[Flags]
 public enum SeedStatus
 {
     [Description("")]
-    None,
+    None = 1,
 
     [Description("Выполняется...")]
-    Processing,
+    Processing = 2,
 
     [Description("Выполнено")]
-    Finished,
+    Finished = 4,
 
     [Description("Ошибка")]
-    Failed,
+    Failed = 8,
 
     [Description("Прервано")]
-    Canceled
+    Canceled = 16,
+
+    [Description("")]
+    CanStart = None | Finished | Failed | Canceled,
 }

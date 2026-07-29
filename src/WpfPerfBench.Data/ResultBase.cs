@@ -15,9 +15,9 @@ public abstract class ResultBase
         return new FailResult(message);
     }
 
-    public static CancelResult CancelResult()
+    public static CancelResult CancelResult(string message="")
     {
-        return new CancelResult();
+        return new CancelResult(message);
     }
 
     public static NamesResult NamesResult(IEnumerable<string> names)
@@ -45,9 +45,10 @@ public class FailResult : ResultBase
 
 public class CancelResult : ResultBase
 {
-    public CancelResult()
+    public CancelResult(string message = "Операция отменена")
     {
         Success = null;
+        Message = message;
     }
 }
 

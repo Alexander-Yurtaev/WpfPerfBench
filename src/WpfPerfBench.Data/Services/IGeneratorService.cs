@@ -8,5 +8,5 @@ public interface IGeneratorService
     List<Entities.Category> GenerateListCategoryEntity(int count);
 
     Models.Item GenerateItemModel();
-    List<Models.Item> GenerateListItemModel(int count);
+    Task<List<Models.Item>> GenerateListItemModel(int count, CancellationToken ct);
 }

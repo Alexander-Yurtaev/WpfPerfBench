@@ -72,24 +72,29 @@ public class GeneratorService : IGeneratorService
         return faker;
     }
 
-    public List<Models.Item> GenerateListItemModel(int count)
+    public async Task<List<Models.Item>> GenerateListItemModel(int count, CancellationToken ct)
     {
-        var faker = new Faker<Models.Item>()
-            .RuleFor(i => i.CategoryId, f => f.Random.Int(1,12))
-            .RuleFor(i => i.Name, f => f.Company.CompanyName())
-            .RuleFor(i => i.CreatedAt, f => f.Date.Recent().ToUniversalTime())
-            .RuleFor(i => i.Price, f => f.Random.Decimal())
-            .RuleFor(i => i.Weight, f => f.Random.Float())
-            .RuleFor(i => i.IsFragile, f => f.Random.Bool())
-            .RuleFor(i => i.IsUrgent, f => f.Random.Bool())
-            .RuleFor(i => i.Comments, f => f.Lorem.Paragraph())
-            .RuleFor(i => i.Latitude, f => f.Random.Double())
-            .RuleFor(i => i.Longitude, f => f.Random.Double())
-            .RuleFor(i => i.DeliveryLatitude, f => f.Random.Double())
-            .RuleFor(i => i.DeliveryLongitude, f => f.Random.Double())
-            .RuleFor(i => i.IsDeleted, f => f.Random.Bool())
-            .Generate(count);
+        var result = await Task.Run(() =>
+        {
+            var faker = new Faker<Models.Item>()
+                .RuleFor(i => i.CategoryId, f => f.Random.Int(1, 12))
+                .RuleFor(i => i.Name, f => f.Company.CompanyName())
+                .RuleFor(i => i.CreatedAt, f => f.Date.Recent().ToUniversalTime())
+                .RuleFor(i => i.Price, f => f.Random.Decimal())
+                .RuleFor(i => i.Weight, f => f.Random.Float())
+                .RuleFor(i => i.IsFragile, f => f.Random.Bool())
+                .RuleFor(i => i.IsUrgent, f => f.Random.Bool())
+                .RuleFor(i => i.Comments, f => f.Lorem.Paragraph())
+                .RuleFor(i => i.Latitude, f => f.Random.Double())
+                .RuleFor(i => i.Longitude, f => f.Random.Double())
+                .RuleFor(i => i.DeliveryLatitude, f => f.Random.Double())
+                .RuleFor(i => i.DeliveryLongitude, f => f.Random.Double())
+                .RuleFor(i => i.IsDeleted, f => f.Random.Bool())
+                .Generate(count);
 
-        return faker.ToList();
+            return faker.ToList();
+        }, ct);
+
+        return result;
     }
 }

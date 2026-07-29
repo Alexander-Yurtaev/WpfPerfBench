@@ -17,11 +17,11 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding}" 
                              Value="{x:Static enum:SeedStatus.None}">
-                    <Setter Property="Background" Value="{DynamicResource Success}"/>
+                    <Setter Property="Background" Value="{DynamicResource TextMute}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding}" 
                              Value="{x:Static enum:SeedStatus.Processing}">
-                    <Setter Property="Background" Value="{DynamicResource Danger}"/>
+                    <Setter Property="Background" Value="{DynamicResource Warning}"/>
                     <DataTrigger.EnterActions>
                         <BeginStoryboard>
                             <Storyboard>
@@ -49,11 +49,11 @@
                 </DataTrigger>
                 <DataTrigger Binding="{Binding}" 
                              Value="{x:Static enum:SeedStatus.Finished}">
-                    <Setter Property="Background" Value="{DynamicResource BgInput}"/>
+                    <Setter Property="Background" Value="{DynamicResource Success}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding}" 
                              Value="{x:Static enum:SeedStatus.Failed}">
-                    <Setter Property="Background" Value="{DynamicResource Warning}"/>
+                    <Setter Property="Background" Value="{DynamicResource Danger}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding}" 
                              Value="{x:Static enum:SeedStatus.Canceled}">
@@ -69,7 +69,7 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding}" 
                              Value="{x:Static enum:SeedStatus.None}">
-                    <Setter Property="Foreground" Value="{DynamicResource TextInverse}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource BgInput}"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding}" 
                              Value="{x:Static enum:SeedStatus.Processing}">

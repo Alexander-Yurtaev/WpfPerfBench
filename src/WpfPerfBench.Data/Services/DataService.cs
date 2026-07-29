@@ -29,9 +29,7 @@ public class DataService : IDataService
     {
         try
         {
-            var success = false;
-            var task = Task.Run(() => db.Database.CanConnect(), ct);
-            await task.ContinueWith(t => success = t.Result, ct);
+            var success = await Task.Run(() => db.Database.CanConnect(), ct);
             return success
                 ? ResultBase.SuccessResult()
                 : ResultBase.FailResult("Ошибка при подключении к БД");
@@ -109,6 +107,11 @@ public class DataService : IDataService
         {
             await _itemRepository.Seed(db, items, ct);
             return ResultBase.SuccessResult();
+        }
+        catch (OperationCanceledException e)
+        {
+            Console.WriteLine(e);
+            return ResultBase.CancelResult(e.Message);
         }
         catch (Exception e)
         {

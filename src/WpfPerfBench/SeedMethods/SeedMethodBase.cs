@@ -60,12 +60,34 @@ public abstract partial class SeedMethodBase : ObservableObject
 
         TokenSource = new CancellationTokenSource();
         CancelCommand.NotifyCanExecuteChanged();
-        var token = TokenSource.Token;
+        
+        this.Status = SeedStatus.Processing;
 
+        var result = await Seed(TokenSource.Token);
+
+        switch (result)
+        {
+            case SuccessResult successResult:
+                this.Status = SeedStatus.Finished;
+                MessageService.ShowSuccessMessage(this.Title, "Данные загружены.");
+                break;
+            case FailResult failResult:
+                this.Status = SeedStatus.Failed;
+                MessageService.ShowErrorMessage(failResult.Message);
+                break;
+            case CancelResult cancelResult:
+                this.Status = SeedStatus.Canceled;
+                MessageService.ShowWarningMessage(cancelResult.Message);
+                break;
+        }
+    }
+
+    private async Task<ResultBase> Seed(CancellationToken ct)
+    {
         var db = DataService.CreateContext();
-        var prepared = await Prepare(db, token);
-        if (!prepared) return;
-        await OnSeed(db, token);
+        var result = await Prepare(db, ct);
+        if (result is FailResult failResult) return failResult;
+        return await OnSeed(db, ct);
     }
 
     [RelayCommand(CanExecute = nameof(CanCancel))]
@@ -77,7 +99,7 @@ public abstract partial class SeedMethodBase : ObservableObject
 
     private bool CanCancel => TokenSource is not null;
 
-    protected abstract Task<bool> Prepare(IWpfPerfBenchContext db, CancellationToken ct);
+    protected abstract Task<ResultBase> Prepare(IWpfPerfBenchContext db, CancellationToken ct);
 
-    protected abstract Task OnSeed(IWpfPerfBenchContext db, CancellationToken ct);
+    protected abstract Task<ResultBase> OnSeed(IWpfPerfBenchContext db, CancellationToken ct);
 }

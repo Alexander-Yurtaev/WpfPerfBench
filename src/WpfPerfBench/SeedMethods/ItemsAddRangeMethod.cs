@@ -1,4 +1,5 @@
-﻿using WpfPerfBench.Data.DataContexts;
+﻿using WpfPerfBench.Data;
+using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Services;
 
@@ -18,34 +19,28 @@ public class ItemsAddRangeMethod : SeedMethodBase
 
     #region Overrides of SeedMethodBase
 
-    protected override async Task<bool> Prepare(IWpfPerfBenchContext db, CancellationToken ct)
+    protected override async Task<ResultBase> Prepare(IWpfPerfBenchContext db, CancellationToken ct)
     {
         var result = await DataService.CleanItems(db, ct);
-
-        if (result.Success == true) return true;
-        
-        MessageService.ShowErrorMessage(result.Message);
-        return false;
+        return result;
     }
 
-    protected override async Task OnSeed(IWpfPerfBenchContext db, CancellationToken ct)
+    protected override async Task<ResultBase> OnSeed(IWpfPerfBenchContext db, CancellationToken ct)
     {
         try
         {
-            var items = GeneratorService.GenerateListItemModel(1_000_000);
+            var items = await GeneratorService.GenerateListItemModel(1_000_000, ct);
             var result = await DataService.SeedItems(db, items, ct);
-
-            if (result.Success == false)
-            {
-                MessageService.ShowErrorMessage(result.Message);
-            }
-
-            MessageService.ShowSuccessMessage("Загрузка...", "Данные загружены.");
+            return result;
+        }
+        catch (TaskCanceledException ex)
+        {
+            return ResultBase.CancelResult("Процесс заполнения БД данными был прерван.");
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            MessageService.ShowErrorMessage(e.Message);
+            return ResultBase.FailResult(e.Message);
         }
     }
 

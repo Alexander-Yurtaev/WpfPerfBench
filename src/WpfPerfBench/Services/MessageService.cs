@@ -21,22 +21,22 @@ public class MessageService : IMessageService
 
     public void ShowErrorMessage(string message)
     {
-        ShowDialog([message], MessageType.Error);
+        Application.Current.Dispatcher.Invoke(() => ShowDialog([message], MessageType.Error));
     }
 
     public void ShowInfoMessage(string header, string message)
     {
-        ShowDialog([header, message], MessageType.Info);
+        Application.Current.Dispatcher.Invoke(() => ShowDialog([header, message], MessageType.Info));
     }
 
     public void ShowSuccessMessage(string header, string message)
     {
-        ShowDialog([header, message], MessageType.Success);
+        Application.Current.Dispatcher.Invoke(() => ShowDialog([header, message], MessageType.Success));
     }
 
     public void ShowWarningMessage(string message)
     {
-        ShowDialog([message], MessageType.Warning);
+        Application.Current.Dispatcher.Invoke(() => ShowDialog([message], MessageType.Warning));
     }
 
     #endregion
