@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using WpfPerfBench.Core.Enum;
+using WpfPerfBench.Enums;
 
 namespace WpfPerfBench.Wrappers;
 

@@ -28,7 +28,7 @@ public partial class SeedViewModel : ViewModelBase, ISeedViewModel
         FillSeedMethods();
     }
 
-    public int SeedStats => 1_000_000;
+    public int SeedCount => 1_000_000;
 
     public ObservableCollection<SeedMethodBase> SeedMethods { get; set; } = [];
 
@@ -43,6 +43,7 @@ public partial class SeedViewModel : ViewModelBase, ISeedViewModel
         foreach (var seedMethod in seedMethods)
         {
             var method = (SeedMethodBase)_seedMethodFactory.Create(seedMethod);
+            method.Init(SeedCount);
             SeedMethods.Add(method);
         }
     }

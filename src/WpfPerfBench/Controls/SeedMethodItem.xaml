@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="WpfPerfBench.Controls.SeedMethodItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfPerfBench.Controls"
+             xmlns:enum="clr-namespace:WpfPerfBench.Enums"
+             mc:Ignorable="d" 
+             d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type enum:SeedStatus}">
+            <local:SeedStatus/>
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <Border Background="{DynamicResource BgSecondary}"
+            CornerRadius="10"
+            Padding="20 16"
+            BorderThickness="1"
+            BorderBrush="{DynamicResource BorderColor}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" 
+                           Text="{Binding Title}"/>
+                <ContentControl Grid.Column="1"
+                                Content="{Binding Status}"/>
+            </Grid>
+            <TextBlock Grid.Row="1" 
+                       Text="{Binding Description}"/>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <ProgressBar Minimum="0" Maximum="100"/>
+                    <StackPanel DataContext="{Binding Stat}"
+                                Orientation="Horizontal">
+                        <TextBlock>
+                            <Run Text="{Binding ProcessedItemCount, StringFormat={}{0:N0}, Mode=OneWay}"/>
+                        </TextBlock>
+                        <TextBlock Text=" / "/>
+                        <TextBlock Text="{Binding TotalItemCount, Mode=OneWay}"/>
+                        <TextBlock Text=" | "/>
+                        <Image Source="pack://application:,,,/Resources/Icons/clock.png"
+                               Width="20" Height="20"/>
+                        <TextBlock Text="{Binding Duration, Mode=OneWay}"/>
+                        <TextBlock Text=" | "/>
+                        <Image Source="pack://application:,,,/Resources/Icons/cabinet.png"
+                               Width="20" Height="20"/>
+                        <TextBlock Text="{Binding MemoryString, Mode=OneWay}"/>
+                    </StackPanel>
+                </StackPanel>
+                <Button Grid.Column="1"
+                        Content="Старт"
+                        IsDefault="False"
+                        Style="{StaticResource PrimaryBtnStyle}"/>
+                <Button Grid.Column="1"
+                        Content="Стоп"
+                        IsDefault="False"
+                        Style="{StaticResource PrimaryBtnStyle}"/>
+            </Grid>
+        </Grid>
+
+    </Border>
+</UserControl>

@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using WpfPerfBench.Core.Enum;
+using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Services;
+using WpfPerfBench.Enums;
 using WpfPerfBench.Services;
+using WpfPerfBench.Wrappers;
 
 namespace WpfPerfBench.SeedMethods;
 
@@ -15,16 +17,19 @@ public abstract partial class SeedMethodBase : ObservableObject
     protected CancellationTokenSource? TokenSource;
 
     protected SeedMethodBase(
-        IDataService dataService, 
+        IDataService dataService,
         IGeneratorService generatorService,
         IMessageService messageService)
     {
         DataService = dataService;
         GeneratorService = generatorService;
         MessageService = messageService;
+
+        var model = new SeedMethodStat();
+        Stat = new SeedMethodStatWrapper(model);
     }
 
-    [ObservableProperty] 
+    [ObservableProperty]
     private string _title = string.Empty;
 
     [ObservableProperty]
@@ -34,7 +39,16 @@ public abstract partial class SeedMethodBase : ObservableObject
     private MethodMetrics _methodMetrics = new MethodMetrics();
 
     [ObservableProperty]
-    private MethodStatus _methodStatus = MethodStatus.Pending;
+    private SeedStatus _status = SeedStatus.None;
+
+    public SeedMethodStatWrapper Stat { get; set; }
+
+    public void Init(int totalItemCount)
+    {
+        var model = new SeedMethodStat { TotalItemCount = totalItemCount };
+        Stat = new SeedMethodStatWrapper(model);
+        OnPropertyChanged(nameof(Stat));
+    }
 
     [RelayCommand]
     private async Task Seed()

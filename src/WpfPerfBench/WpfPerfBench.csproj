@@ -13,6 +13,7 @@
     <None Remove="Resources\Icons\applied.png" />
     <None Remove="Resources\Icons\box.png" />
     <None Remove="Resources\Icons\cabinet.png" />
+    <None Remove="Resources\Icons\clock.png" />
     <None Remove="Resources\Icons\dark.png" />
     <None Remove="Resources\Icons\email.png" />
     <None Remove="Resources\Icons\empty.png" />
@@ -36,6 +37,7 @@
     <Resource Include="Resources\Icons\cabinet.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\clock.png" />
     <Resource Include="Resources\Icons\cross_mark.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
@@ -72,6 +74,12 @@
   <ItemGroup>
     <ProjectReference Include="..\WpfPerfBench.Core\WpfPerfBench.Core.csproj" />
     <ProjectReference Include="..\WpfPerfBench.Data\WpfPerfBench.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controls\SeedStatus.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

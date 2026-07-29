@@ -10,4 +10,8 @@
     <ProjectReference Include="..\WpfPerfBench.Data\WpfPerfBench.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enum\" />
+  </ItemGroup>
+
 </Project>
