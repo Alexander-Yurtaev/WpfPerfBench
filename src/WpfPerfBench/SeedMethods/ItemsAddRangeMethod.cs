@@ -12,7 +12,8 @@ public class ItemsAddRangeMethod : SeedMethodBase
         IMessageService messageService) 
         : base(dataService, generatorService, messageService)
     {
-        
+        Title = "Поштучная вставка (без транзакции)";
+        Description = "Вставка каждой записи отдельным INSERT. Самый медленный способ, но простой для понимания.";
     }
 
     #region Overrides of SeedMethodBase
@@ -38,6 +39,8 @@ public class ItemsAddRangeMethod : SeedMethodBase
             {
                 MessageService.ShowErrorMessage(result.Message);
             }
+
+            MessageService.ShowSuccessMessage("Загрузка...", "Данные загружены.");
         }
         catch (Exception e)
         {

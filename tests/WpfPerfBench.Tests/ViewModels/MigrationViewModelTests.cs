@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using Moq;
-using WpfPerfBench.Core.Enum;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
+using WpfPerfBench.Enums;
 using WpfPerfBench.Interfaces;
 using WpfPerfBench.Interfaces.ViewModels;
 

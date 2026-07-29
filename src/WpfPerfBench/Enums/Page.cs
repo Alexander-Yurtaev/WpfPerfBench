@@ -1,4 +1,4 @@
-﻿namespace WpfPerfBench.Core.Enum;
+﻿namespace WpfPerfBench.Enums;
 
 public enum Page
 {

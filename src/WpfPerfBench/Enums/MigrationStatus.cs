@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace WpfPerfBench.Core.Enum;
+namespace WpfPerfBench.Enums;
 
 public enum MigrationStatus
 {
