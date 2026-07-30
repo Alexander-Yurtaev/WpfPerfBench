@@ -1,9 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
+using System.Diagnostics;
 using WpfPerfBench.Data.Metrics;
 
 namespace WpfPerfBench.Wrappers;
 
-public partial class SeedMethodMetricsWrapper(SeedMethodMetrics model) : ObservableObject, ISeedMethodMetricsRefresher
+public partial class SeedMethodMetricsWrapper(SeedMethodMetrics model) : ObservableObject, 
+    ISeedMethodMetricsRefresher, ISeedMethodDurationMetric
 {
     private readonly SeedMethodMetrics _model = model;
 
@@ -37,8 +40,13 @@ public partial class SeedMethodMetricsWrapper(SeedMethodMetrics model) : Observa
             if (_model.Duration == value) return;
             _model.Duration = value;
             OnPropertyChanged();
+            OnPropertyChanged(nameof(DurationString));
         }
     }
+
+    public string DurationStringFormat { get; set; } = @"hh\:mm\:ss";
+
+    public string DurationString => _model.Duration.ToString(DurationStringFormat);
 
     public long MemoryBefore
     {
@@ -114,4 +122,45 @@ public partial class SeedMethodMetricsWrapper(SeedMethodMetrics model) : Observa
         GC.WaitForPendingFinalizers();
         GC.Collect();
     }
+
+    #region Implementation of ISeedMethodDurationMetric
+
+    private readonly Stopwatch _sw = new Stopwatch();
+    private Timer? _timer;
+
+    public void Start()
+    {
+        if (_timer is not null) return;
+
+        _timer = new Timer(
+            TimerCallback,
+            null,
+            TimeSpan.FromSeconds(1),
+            TimeSpan.FromSeconds(1)
+        );
+
+        _sw.Restart();
+    }
+
+    public void Stop()
+    {
+        _sw.Stop();
+
+        if (_timer is not null)
+        {
+            _timer.Change(Timeout.Infinite, Timeout.Infinite);
+            _timer.Dispose();
+            _timer = null;
+        }
+
+        TimerCallback(null);
+    }
+
+    private void TimerCallback(object? state)
+    {
+        var duration = _sw.Elapsed;
+        UpdateDuration(duration);
+    }
+
+    #endregion
 }

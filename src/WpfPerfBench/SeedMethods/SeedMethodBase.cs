@@ -55,9 +55,11 @@ public abstract partial class SeedMethodBase : ObservableObject
         this.Status = SeedStatus.Processing;
 
         MethodMetrics.UpdateMemoryBefore(true);
+        MethodMetrics.Start();
 
         var result = await Seed(MethodMetrics, TokenSource.Token);
 
+        MethodMetrics.Stop();
         MethodMetrics.UpdateMemoryAfter(true);
 
         switch (result)

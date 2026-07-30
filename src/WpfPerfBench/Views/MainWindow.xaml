@@ -65,7 +65,8 @@
                                         Margin="6 0"/>
                         <Button Content="Далее"
                                 Command="{Binding NextCommand}"
-                                Style="{StaticResource SecondaryBtnStyle}"/>
+                                IsDefault="False"
+                                Style="{StaticResource PrimaryBtnStyle}"/>
                     </StackPanel>
                 </Border>
             </Grid>

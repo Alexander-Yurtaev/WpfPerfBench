@@ -96,6 +96,11 @@ public class DataService : IDataService
             await _itemRepository.CleanItems(db, ct);
             return ResultBase.SuccessResult();
         }
+        catch (TaskCanceledException e)
+        {
+            Console.WriteLine(e);
+            return ResultBase.CancelResult("Очистка таблицы была отменена");
+        }
         catch (Exception e)
         {
             Console.WriteLine(e);
@@ -117,7 +122,7 @@ public class DataService : IDataService
         catch (OperationCanceledException e)
         {
             Console.WriteLine(e);
-            return ResultBase.CancelResult(e.Message);
+            return ResultBase.CancelResult("Операция заполнения данными отменена");
         }
         catch (Exception e)
         {

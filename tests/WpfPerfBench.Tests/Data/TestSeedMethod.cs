@@ -24,8 +24,8 @@ public class TestSeedMethod : SeedMethodBase
     }
 
     protected override async Task<ResultBase> OnSeed(
-        IWpfPerfBenchContext db, 
-        ISeedMethodMetricsViewModel metrics, 
+        IWpfPerfBenchContext db,
+        ISeedMethodMetricsRefresher metrics, 
         CancellationToken ct)
     {
         return await Task.FromResult(ResultBase.SuccessResult());
