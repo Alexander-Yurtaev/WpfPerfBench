@@ -1,7 +1,8 @@
 ﻿using System.Windows;
 using WpfPerfBench.Data;
+using WpfPerfBench.Wrappers;
 
-namespace WpfPerfBench.Wrappers;
+namespace WpfPerfBench.Dispatchers;
 
 public class SeedMethodStatDispatcher : ISeedMethodStat
 {
