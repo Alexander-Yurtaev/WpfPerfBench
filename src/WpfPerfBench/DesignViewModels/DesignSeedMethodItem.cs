@@ -22,8 +22,8 @@ public class DesignSeedMethodItem : ObservableObject
         {
             ProcessedItemCount = 0,
             TotalItemCount = 0,
-            MemoryBefore = 0,
-            MemoryAfter = 0,
+            MemoryBefore = 1_234_567,
+            MemoryAfter = 7_654_321,
             Duration = TimeSpan.Parse("17:59:31.6334929")
         };
 

@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
 using System.Diagnostics;
 using WpfPerfBench.Data.Metrics;
 
@@ -160,6 +159,7 @@ public partial class SeedMethodMetricsWrapper(SeedMethodMetrics model) : Observa
     {
         var duration = _sw.Elapsed;
         UpdateDuration(duration);
+        UpdateMemoryAfter();
     }
 
     #endregion

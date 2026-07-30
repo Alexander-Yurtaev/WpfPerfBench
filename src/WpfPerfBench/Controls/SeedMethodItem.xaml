@@ -13,6 +13,7 @@
 
     <UserControl.Resources>
         <converters:SeedStatusToVisibilityConverter x:Key="SeedStatusToVisibilityConv"/>
+        <converters:BytesToFormatStringConverter x:Key="BytesToFormatStringConv"/>
         
         <Style x:Key="SeedMethodStyle"
                TargetType="Border">
@@ -66,6 +67,7 @@
             <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
             <Setter Property="FontSize" Value="11"/>
             <Setter Property="Margin" Value="0 4 0 0"/>
+            <Setter Property="Padding" Value="4 0 0 0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
 
@@ -129,9 +131,9 @@
                                Margin="0 5 0 0"
                                Style="{StaticResource FormImageStyle}"/>
                         <TextBlock Style="{StaticResource ProgressTextBlockStyle}">
-                            <Run Text="{Binding MemoryBefore, Mode=OneWay, StringFormat={}{0:N0}}"/>
+                            <Run Text="{Binding MemoryBefore, Mode=OneWay, Converter={StaticResource BytesToFormatStringConv}}"/>
                             <Run Text=" / "/>
-                            <Run Text="{Binding MemoryAfter, Mode=OneWay, StringFormat={}{0:N0}}"/>
+                            <Run Text="{Binding MemoryAfter, Mode=OneWay, Converter={StaticResource BytesToFormatStringConv}}"/>
                         </TextBlock>
                                
                     </StackPanel>
