@@ -1,5 +1,6 @@
 ﻿using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
+using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.SeedMethods;
 using WpfPerfBench.Services;
@@ -22,8 +23,9 @@ public class TestSeedMethod : SeedMethodBase
         return await Task.FromResult(ResultBase.SuccessResult());
     }
 
-    protected override async Task<ResultBase> OnSeed(IWpfPerfBenchContext db, 
-        ISeedMethodStat stat, 
+    protected override async Task<ResultBase> OnSeed(
+        IWpfPerfBenchContext db, 
+        ISeedMethodMetricsViewModel metrics, 
         CancellationToken ct)
     {
         return await Task.FromResult(ResultBase.SuccessResult());

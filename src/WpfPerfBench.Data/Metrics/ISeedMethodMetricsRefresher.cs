@@ -1,6 +1,6 @@
-﻿namespace WpfPerfBench.Data;
+﻿namespace WpfPerfBench.Data.Metrics;
 
-public interface ISeedMethodStat
+public interface ISeedMethodMetricsRefresher
 {
     void UpdateProcessedItemCount(int count);
     void UpdateTotalItemCount(int count);

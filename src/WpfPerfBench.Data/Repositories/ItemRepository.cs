@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WpfPerfBench.Data.DataContexts;
+using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Data.Models;
 
 namespace WpfPerfBench.Data.Repositories;
@@ -29,14 +30,14 @@ public class ItemRepository : IItemRepository
 
     public async Task Seed(IWpfPerfBenchContext db, 
         List<Item> items, 
-        ISeedMethodStat stat,
+        ISeedMethodMetricsRefresher metrics,
         CancellationToken ct = default)
     {
         await Task.Run(async () =>
         {
             var entities = _mapper.Map<List<Entities.Item>>(items);
             db.Items.AddRange(entities);
-            stat.UpdateProcessedItemCount(entities.Count);
+            metrics.UpdateProcessedItemCount(entities.Count);
             await db.SaveChangesAsync(ct);
         }, ct);
     }

@@ -1,5 +1,6 @@
 ﻿using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
+using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Services;
 
@@ -27,18 +28,18 @@ public class ItemsAddRangeMethod : SeedMethodBase
 
     protected override async Task<ResultBase> OnSeed(
         IWpfPerfBenchContext db, 
-        ISeedMethodStat stat,
+        ISeedMethodMetricsRefresher metrics,
         CancellationToken ct)
     {
         try
         {
-            stat.UpdateIsIndeterminate(true);
+            metrics.UpdateIsIndeterminate(true);
             var items = await GeneratorService.GenerateListItemModel(1_000_000, ct);
-            stat.UpdateTotalItemCount(items.Count);
-            var result = await DataService.SeedItems(db, items, stat, ct);
+            metrics.UpdateTotalItemCount(items.Count);
+            var result = await DataService.SeedItems(db, items, metrics, ct);
             return result;
         }
-        catch (TaskCanceledException ex)
+        catch (TaskCanceledException)
         {
             return ResultBase.CancelResult("Процесс заполнения БД данными был прерван.");
         }
@@ -49,7 +50,7 @@ public class ItemsAddRangeMethod : SeedMethodBase
         }
         finally
         {
-            stat.UpdateIsIndeterminate(false);
+            metrics.UpdateIsIndeterminate(false);
         }
     }
 

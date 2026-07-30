@@ -1,14 +1,14 @@
 ﻿using System.Windows;
-using WpfPerfBench.Data;
+using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Wrappers;
 
 namespace WpfPerfBench.Dispatchers;
 
-public class SeedMethodStatDispatcher : ISeedMethodStat
+public class SeedMethodStatDispatcher : ISeedMethodMetricsRefresher
 {
-    private readonly SeedMethodStatWrapper _wrapper;
+    private readonly SeedMethodMetricsWrapper _wrapper;
 
-    public SeedMethodStatDispatcher(SeedMethodStatWrapper wrapper)
+    public SeedMethodStatDispatcher(SeedMethodMetricsWrapper wrapper)
     {
         _wrapper = wrapper;
     }

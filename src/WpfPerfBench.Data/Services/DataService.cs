@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WpfPerfBench.Data.DataContexts;
+using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Data.Models;
 using WpfPerfBench.Data.Repositories;
 
@@ -102,12 +103,15 @@ public class DataService : IDataService
         }
     }
 
-    public async Task<ResultBase> SeedItems(IWpfPerfBenchContext db, List<Item> items, ISeedMethodStat stat,
+    public async Task<ResultBase> SeedItems(
+        IWpfPerfBenchContext db, 
+        List<Item> items, 
+        ISeedMethodMetricsRefresher metrics,
         CancellationToken ct)
     {
         try
         {
-            await _itemRepository.Seed(db, items, stat, ct);
+            await _itemRepository.Seed(db, items, metrics, ct);
             return ResultBase.SuccessResult();
         }
         catch (OperationCanceledException e)

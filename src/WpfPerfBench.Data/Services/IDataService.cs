@@ -1,4 +1,5 @@
 ﻿using WpfPerfBench.Data.DataContexts;
+using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Data.Models;
 
 namespace WpfPerfBench.Data.Services;
@@ -11,5 +12,5 @@ public interface IDataService
     Task<ResultBase> GetPendingMigrationsAsync(IWpfPerfBenchContext db, CancellationToken ct);
     Task<ResultBase> Migrate(IWpfPerfBenchContext db, string migrationName, CancellationToken ct);
     Task<ResultBase> CleanItems(IWpfPerfBenchContext db, CancellationToken ct);
-    Task<ResultBase> SeedItems(IWpfPerfBenchContext db, List<Item> items, ISeedMethodStat stat, CancellationToken ct);
+    Task<ResultBase> SeedItems(IWpfPerfBenchContext db, List<Item> items, ISeedMethodMetricsRefresher metrics, CancellationToken ct);
 }

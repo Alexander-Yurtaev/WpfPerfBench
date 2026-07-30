@@ -10,29 +10,24 @@ namespace WpfPerfBench.Tests.ViewModels;
 
 public partial class SeedViewModelTests : PageViewModelTestsBase<ISeedViewModel>
 {
-    private readonly Mock<IGeneratorService> _generatorServiceMock;
-    private readonly Mock<ISeedMethodFactory> _seedMethodFactoryMock;
-
     public SeedViewModelTests()
     {
-        _generatorServiceMock = new Mock<IGeneratorService>();
+        var generatorServiceMock = new Mock<IGeneratorService>();
 
         var testSeedMethod = new TestSeedMethod(
             DataServiceMock.Object,
-            _generatorServiceMock.Object,
+            generatorServiceMock.Object,
             MessageServiceMock.Object);
 
 
-        _seedMethodFactoryMock = new Mock<ISeedMethodFactory>();
-        _seedMethodFactoryMock.Setup(x => x.Create(It.IsAny<Type>()))
+        var seedMethodFactoryMock = new Mock<ISeedMethodFactory>();
+        seedMethodFactoryMock.Setup(x => x.Create(It.IsAny<Type>()))
             .Returns(testSeedMethod);
 
         ViewModel = new SeedViewModel(
             NavigationServiceMock.Object,
             UserSessionMock.Object,
-            DataServiceMock.Object,
-            _generatorServiceMock.Object,
-            _seedMethodFactoryMock.Object);
+            seedMethodFactoryMock.Object);
     }
 
     [Fact]

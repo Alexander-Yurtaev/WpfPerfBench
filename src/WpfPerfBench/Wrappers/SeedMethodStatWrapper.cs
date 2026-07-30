@@ -1,11 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using WpfPerfBench.Data;
+using WpfPerfBench.Data.Metrics;
 
 namespace WpfPerfBench.Wrappers;
 
-public partial class SeedMethodStatWrapper(SeedMethodStat model) : ObservableObject, ISeedMethodStat
+public partial class SeedMethodMetricsWrapper(SeedMethodMetrics model) : ObservableObject, ISeedMethodMetricsRefresher
 {
-    private readonly SeedMethodStat _model = model;
+    private readonly SeedMethodMetrics _model = model;
 
     public int ProcessedItemCount
     {

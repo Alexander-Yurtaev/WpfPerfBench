@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
+using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Enums;
 using WpfPerfBench.Services;
@@ -25,8 +26,8 @@ public abstract partial class SeedMethodBase : ObservableObject
         GeneratorService = generatorService;
         MessageService = messageService;
 
-        var model = new SeedMethodStat();
-        Stat = new SeedMethodStatWrapper(model);
+        var metrics = new SeedMethodMetrics();
+        MethodMetrics = new SeedMethodMetricsWrapper(metrics);
     }
 
     [ObservableProperty]
@@ -36,12 +37,9 @@ public abstract partial class SeedMethodBase : ObservableObject
     private string _description = string.Empty;
 
     [ObservableProperty]
-    private MethodMetrics _methodMetrics = new MethodMetrics();
-
-    [ObservableProperty]
     private SeedStatus _status = SeedStatus.None;
 
-    public ISeedMethodStat Stat { get; set; }
+    public SeedMethodMetricsWrapper MethodMetrics { get; set; }
 
     [RelayCommand]
     private async Task Seed()
@@ -58,17 +56,17 @@ public abstract partial class SeedMethodBase : ObservableObject
 
         ForceGC();
         var before = GC.GetTotalMemory(false);
-        Stat.UpdateMemoryBefore(before);
+        MethodMetrics.UpdateMemoryBefore(before);
 
-        var result = await Seed(Stat, TokenSource.Token);
+        var result = await Seed(MethodMetrics, TokenSource.Token);
 
         ForceGC();
         var after = GC.GetTotalMemory(false);
-        Stat.UpdateMemoryAfter(after);
+        MethodMetrics.UpdateMemoryAfter(after);
 
         switch (result)
         {
-            case SuccessResult successResult:
+            case SuccessResult _:
                 this.Status = SeedStatus.Finished;
                 MessageService.ShowSuccessMessage(this.Title, "Данные загружены.");
                 break;
@@ -83,12 +81,12 @@ public abstract partial class SeedMethodBase : ObservableObject
         }
     }
 
-    private async Task<ResultBase> Seed(ISeedMethodStat stat, CancellationToken ct)
+    private async Task<ResultBase> Seed(ISeedMethodMetricsRefresher metrics, CancellationToken ct)
     {
         var db = DataService.CreateContext();
         var result = await Prepare(db, ct);
         if (result is FailResult failResult) return failResult;
-        return await OnSeed(db, stat, ct);
+        return await OnSeed(db, metrics, ct);
     }
 
     [RelayCommand(CanExecute = nameof(CanCancel))]
@@ -102,7 +100,7 @@ public abstract partial class SeedMethodBase : ObservableObject
 
     protected abstract Task<ResultBase> Prepare(IWpfPerfBenchContext db, CancellationToken ct);
 
-    protected abstract Task<ResultBase> OnSeed(IWpfPerfBenchContext db, ISeedMethodStat stat, CancellationToken ct);
+    protected abstract Task<ResultBase> OnSeed(IWpfPerfBenchContext db, ISeedMethodMetricsRefresher metrics, CancellationToken ct);
 
     private void ForceGC()
     {

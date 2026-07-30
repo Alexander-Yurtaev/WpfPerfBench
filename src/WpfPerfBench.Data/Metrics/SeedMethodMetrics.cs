@@ -1,6 +1,6 @@
-﻿namespace WpfPerfBench.Data;
+﻿namespace WpfPerfBench.Data.Metrics;
 
-public class SeedMethodStat
+public class SeedMethodMetrics
 {
     public int ProcessedItemCount { get; set; }
     public int TotalItemCount { get; set; }

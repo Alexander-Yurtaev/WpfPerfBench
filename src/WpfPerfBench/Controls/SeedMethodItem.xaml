@@ -102,9 +102,9 @@
                 <StackPanel Grid.Column="0" Orientation="Vertical"
                             Style="{StaticResource MethodProgressStyle}">
                     <ProgressBar Minimum="0" Maximum="100"
-                                 IsIndeterminate="{Binding Stat.IsIndeterminate}"
+                                 IsIndeterminate="{Binding MethodMetrics.IsIndeterminate}"
                                  Style="{StaticResource BusyProgressBarStyle}"/>
-                    <StackPanel DataContext="{Binding Stat}"
+                    <StackPanel DataContext="{Binding MethodMetrics}"
                                 Orientation="Horizontal">
                         <Label Style="{StaticResource ProgressLabelStyle}">
                             <Run Text="{Binding ProcessedItemCount, StringFormat={}{0:N0}, Mode=OneWay}"/>
