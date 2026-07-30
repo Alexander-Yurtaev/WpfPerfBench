@@ -10,15 +10,18 @@ public class DataService : IDataService
 {
     private readonly IDataContextFactory _factory;
     private readonly IUserSession _userSession;
+    private readonly ICategoryRepository _categoryRepository;
     private readonly IItemRepository _itemRepository;
 
     public DataService(
         IDataContextFactory factory,
         IUserSession userSession,
+        ICategoryRepository categoryRepository,
         IItemRepository itemRepository)
     {
         _factory = factory;
         _userSession = userSession;
+        _categoryRepository = categoryRepository;
         _itemRepository = itemRepository;
     }
 
@@ -47,12 +50,14 @@ public class DataService : IDataService
         }
     }
 
+    #region Migrations
+
     public async Task<ResultBase> GetAppliedMigrationsAsync(IWpfPerfBenchContext db, CancellationToken ct)
     {
         try
         {
             var migrations = await db.Database.GetAppliedMigrationsAsync(ct);
-            return ResultBase.NamesResult(migrations);
+            return ResultBase.EntityResult(migrations);
         }
         catch (Exception e)
         {
@@ -66,7 +71,7 @@ public class DataService : IDataService
         try
         {
             var migrations = await db.Database.GetPendingMigrationsAsync(ct);
-            return ResultBase.NamesResult(migrations);
+            return ResultBase.EntityResult(migrations);
         }
         catch (Exception e)
         {
@@ -88,6 +93,10 @@ public class DataService : IDataService
             return ResultBase.FailResult(e.Message);
         }
     }
+
+    #endregion Migrations
+
+    #region Seed
 
     public async Task<ResultBase> CleanItems(IWpfPerfBenchContext db, CancellationToken ct)
     {
@@ -130,4 +139,25 @@ public class DataService : IDataService
             return ResultBase.FailResult(e.GetBaseException().Message);
         }
     }
+
+    #endregion Seed
+
+    #region Category
+
+    public async Task<ResultBase> HierarchyCategories(CancellationToken ct = default)
+    {
+        try
+        {
+            var db = CreateContext();
+            var treeItems = await _categoryRepository.HierarchyCategories(db, ct);
+            return ResultBase.EntityResult(treeItems);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return ResultBase.FailResult(e.Message);
+        }
+    }
+
+    #endregion Category
 }

@@ -26,14 +26,19 @@ public class CategoryRepository : ICategoryRepository
         return result;
     }
 
-    public async Task<List<Models.Category>> HierarchyCategories(
+    public async Task<List<CategoryTreeItem>> HierarchyCategories(
         IWpfPerfBenchContext db,
         CancellationToken ct = default)
     {
-        var categories = await Categories(db, ct);
+        var categories = await db.Categories
+            .Include(c => c.Items)
+            .AsNoTracking()
+            .Select(c => new CategoryTreeItem(c.Id, c.Name, c.ParentId, c.Items.Count))
+            .ToListAsync(ct);
+
         var lookup = categories.ToLookup(c => c.ParentId);
 
-        Models.Category BuildTree(int parentId)
+        CategoryTreeItem BuildTree(int parentId)
         {
             var parent = categories.First(c => c.Id == parentId);
             var children = lookup[parentId];

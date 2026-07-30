@@ -125,9 +125,9 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
         {
             case FailResult fail:
                 throw new InvalidOperationException(fail.Message);
-            case NamesResult names:
+            case EntityResult<string> names:
                 {
-                    foreach (var name in names.Names)
+                    foreach (var name in names.Entities)
                     {
                         Items.Add(new MigrationItem(name) { Status = status });
                         ApplyMigrationsCommand.NotifyCanExecuteChanged();

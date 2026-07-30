@@ -20,9 +20,9 @@ public abstract class ResultBase
         return new CancelResult(message);
     }
 
-    public static NamesResult NamesResult(IEnumerable<string> names)
+    public static EntityResult<T> EntityResult<T>(IEnumerable<T> entities)
     {
-        return new NamesResult(names);
+        return new EntityResult<T>(entities);
     }
 }
 
@@ -52,13 +52,13 @@ public class CancelResult : ResultBase
     }
 }
 
-public class NamesResult : ResultBase
+public class EntityResult<T> : ResultBase
 {
-    public IEnumerable<string> Names { get; }
+    public IEnumerable<T> Entities { get; }
 
-    public NamesResult(IEnumerable<string> names)
+    public EntityResult(IEnumerable<T> entities)
     {
         Success = true;
-        Names = names;
+        Entities = entities;
     }
 }

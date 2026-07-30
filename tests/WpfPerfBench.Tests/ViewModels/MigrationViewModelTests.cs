@@ -41,16 +41,16 @@ public class MigrationViewModelTests : PageViewModelTestsBase<IMigrationViewMode
         ViewModel.Items.Should().NotBeNullOrEmpty();
         ViewModel.Items.Should().HaveCount(6);
 
-        var pendingExpected = (NamesResult)await GetPendingMigrations();
-        foreach (var name in pendingExpected.Names)
+        var pendingExpected = (EntityResult<string>)await GetPendingMigrations();
+        foreach (var name in pendingExpected.Entities)
         {
             ViewModel.Items
                 .Where(i => i.Status == MigrationStatus.Pending)
                 .Should().Contain(i => i.Name == name);
         }
 
-        var appliedExpected = (NamesResult)await GetAppliedMigrations();
-        foreach (var name in appliedExpected.Names)
+        var appliedExpected = (EntityResult<string>)await GetAppliedMigrations();
+        foreach (var name in appliedExpected.Entities)
         {
             ViewModel.Items
                 .Where(i => i.Status == MigrationStatus.Applied)
@@ -110,7 +110,7 @@ public class MigrationViewModelTests : PageViewModelTestsBase<IMigrationViewMode
             "PendingMigration #2",
             "PendingMigration #3"
         };
-        return await Task.FromResult<ResultBase>(new NamesResult(items));
+        return await Task.FromResult<ResultBase>(new EntityResult<string>(items));
     }
 
     private async Task<ResultBase> GetAppliedMigrations()
@@ -121,7 +121,7 @@ public class MigrationViewModelTests : PageViewModelTestsBase<IMigrationViewMode
             "AppliedMigration #2",
             "AppliedMigration #3"
         };
-        return await Task.FromResult<ResultBase>(new NamesResult(items));
+        return await Task.FromResult<ResultBase>(new EntityResult<string>(items));
     }
 
     private async Task<ResultBase> GetPendingMigrationsFail()

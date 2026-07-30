@@ -1,4 +1,6 @@
-﻿using WpfPerfBench.Data;
+﻿using System.Collections.ObjectModel;
+using WpfPerfBench.Data;
+using WpfPerfBench.Data.Models;
 
 namespace WpfPerfBench.Interfaces.ViewModels;
 
@@ -11,12 +13,9 @@ public interface IStandViewModel : IViewModelBase
     string Fio { get; set; }
 
     string DataProvider { get; set; }
-
-    string ThemeIcon { get; set; }
-
     int TotalRecordCount { get; set; }
 
     StatItem[] StatItems { get; set; }
 
-    StatItem[] TreeItems { get; set; }
+    ObservableCollection<CategoryTreeItem> TreeItems { get; set; }
 }

@@ -5,8 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfPerfBench.Views"
              xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
+             xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="450">
+             d:DesignHeight="700" d:DesignWidth="450"
+             d:DataContext="{d:DesignInstance Type=designViewModels:DesignStandViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
         <Style x:Key="HeaderStyle"
@@ -31,9 +33,15 @@
                TargetType="Label">
             <Setter Property="Foreground" Value="{DynamicResource TextMuted}"/>
         </Style>
-        <Style x:Key="HeaderDbInfoStyle"
+        <Style x:Key="HeaderDbInfoLabelStyle"
                TargetType="Label">
             <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="HeaderDbInfoTextBlockStyle"
+               TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style x:Key="TreeViewStyle"
                TargetType="TreeView">
@@ -72,14 +80,14 @@
                        Style="{StaticResource HeaderSplitterStyle}"
                        Content="|" />
                 <Label Grid.Column="3" 
-                       Style="{StaticResource HeaderDbInfoStyle}"
-                       Content="{Binding DataProvider, FallbackValue='MS SQL'}" />
+                       Style="{StaticResource HeaderDbInfoLabelStyle}"
+                       Content="{Binding DataProvider, FallbackValue='Пусто'}" />
                 <Label Grid.Column="4" 
                        Style="{StaticResource HeaderSplitterStyle}"
                        Content="•" />
-                <Label Grid.Column="5" 
-                       Style="{StaticResource HeaderDbInfoStyle}"
-                       Content="{Binding TotalRecordCount, FallbackValue='1 000 00'}" />
+                <TextBlock Grid.Column="5" 
+                       Style="{StaticResource HeaderDbInfoTextBlockStyle}"
+                       Text="{Binding TotalRecordCount, StringFormat='N0', Mode=OneWay, FallbackValue='0'}" />
             </Grid>
         </Border>
         <Grid Grid.Row="1">
@@ -88,8 +96,18 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TreeView Grid.Column="0"
+                      ItemsSource="{Binding TreeItems}"
                       Style="{StaticResource TreeViewStyle}">
-
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <TextBlock Foreground="Beige">
+                            <Run Text="{Binding Name, Mode=OneWay}"/>
+                            <Run Text=" ("/>
+                            <Run Text="{Binding ItemsCount, Mode=OneWay, StringFormat={}{0:N0}}"/>
+                            <Run Text=")"/>
+                        </TextBlock>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
             </TreeView>
             <Border Grid.Column="1"
                     Background="{DynamicResource BgSecondary}">
