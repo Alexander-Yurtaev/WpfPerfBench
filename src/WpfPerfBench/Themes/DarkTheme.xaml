@@ -27,7 +27,7 @@
     <Color x:Key="AccentColor">#89b4fa</Color>
     <Color x:Key="AccentHoverColor">#74c7ec</Color>
     <Color x:Key="SuccessColor">#a6e3a1</Color>
-    <Color x:Key="DangerColor">#f38ba8</Color>
+    <Color x:Key="DangerColor">#cc4455</Color>
     <Color x:Key="WarningColor">#f9e2af</Color>
     <Color x:Key="InfoColor">#89b4fa</Color>
 

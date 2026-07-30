@@ -58,7 +58,7 @@
         <Style x:Key="ProgressLabelStyle"
                TargetType="Label">
             <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
-            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="Margin" Value="0 4 0 0"/>
         </Style>
 
@@ -95,8 +95,8 @@
                                 Content="{Binding Status}"/>
             </Grid>
             <TextBlock Grid.Row="1" 
-                       Text="{Binding Description}"
-                       Style="{StaticResource MethodDescStyle}"/>
+                           Text="{Binding Description}"
+                           Style="{StaticResource MethodDescStyle}"/>
             <Grid Grid.Row="2"
                   Style="{StaticResource MethodControlsStyle}">
                 <Grid.ColumnDefinitions>

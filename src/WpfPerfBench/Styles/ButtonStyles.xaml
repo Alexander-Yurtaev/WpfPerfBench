@@ -185,7 +185,7 @@
                 <ControlTemplate TargetType="Button">
                     <!-- Основной Border с закруглёнными углами -->
                     <Border x:Name="Bd"
-                            CornerRadius="30"
+                            CornerRadius="8"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
