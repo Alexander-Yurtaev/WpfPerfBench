@@ -30,14 +30,14 @@ public class SeedMethodStatDispatcher : ISeedMethodMetricsRefresher
         Application.Current.Dispatcher.Invoke(() => _wrapper.UpdateDuration(duration));
     }
 
-    public void UpdateMemoryBefore(long memory)
+    public void UpdateMemoryBefore(bool callGC = false)
     {
-        Application.Current.Dispatcher.Invoke(() => _wrapper.UpdateMemoryBefore(memory));
+        Application.Current.Dispatcher.Invoke(() => _wrapper.UpdateMemoryBefore(callGC));
     }
 
-    public void UpdateMemoryAfter(long memory)
+    public void UpdateMemoryAfter(bool callGC = false)
     {
-        Application.Current.Dispatcher.Invoke(() => _wrapper.UpdateMemoryBefore(memory));
+        Application.Current.Dispatcher.Invoke(() => _wrapper.UpdateMemoryBefore(callGC));
     }
 
     public void UpdateIsIndeterminate(bool value)
@@ -50,8 +50,8 @@ public class SeedMethodStatDispatcher : ISeedMethodMetricsRefresher
         UpdateProcessedItemCount(0);
         UpdateTotalItemCount(0);
         UpdateDuration(TimeSpan.Zero);
-        UpdateMemoryBefore(0);
-        UpdateMemoryAfter(0);
+        UpdateMemoryBefore();
+        UpdateMemoryAfter();
     }
 
     #endregion

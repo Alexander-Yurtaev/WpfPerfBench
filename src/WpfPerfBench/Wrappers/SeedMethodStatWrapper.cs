@@ -79,14 +79,18 @@ public partial class SeedMethodMetricsWrapper(SeedMethodMetrics model) : Observa
         Duration = duration;
     }
 
-    public void UpdateMemoryBefore(long memory)
+    public void UpdateMemoryBefore(bool callGC = false)
     {
-        MemoryBefore = memory;
+        if (callGC) ForceGC();
+        var before = GC.GetTotalMemory(false);
+        MemoryBefore = before;
     }
 
-    public void UpdateMemoryAfter(long memory)
+    public void UpdateMemoryAfter(bool callGC = false)
     {
-        MemoryAfter = memory;
+        if (callGC) ForceGC();
+        var before = GC.GetTotalMemory(false);
+        MemoryAfter = before;
     }
 
     public void UpdateIsIndeterminate(bool value)
@@ -99,8 +103,15 @@ public partial class SeedMethodMetricsWrapper(SeedMethodMetrics model) : Observa
         UpdateProcessedItemCount(0);
         UpdateTotalItemCount(0);
         UpdateDuration(TimeSpan.Zero);
-        UpdateMemoryBefore(0);
-        UpdateMemoryAfter(0);
+        MemoryBefore = 0;
+        MemoryAfter = 0;
         UpdateIsIndeterminate(false);
+    }
+
+    private void ForceGC()
+    {
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
     }
 }
