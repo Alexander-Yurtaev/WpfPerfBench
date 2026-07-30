@@ -40,8 +40,27 @@ public partial class SeedMethodStatWrapper(SeedMethodStat model) : ObservableObj
         }
     }
 
-    public string MemoryString => $"{_model.Memory} {_model.MemoryUnit}";
+    public long MemoryBefore
+    {
+        get => _model.MemoryBefore;
+        private set
+        {
+            if (_model.MemoryBefore == value) return;
+            _model.MemoryBefore = value;
+            OnPropertyChanged();
+        }
+    }
 
+    public long MemoryAfter
+    {
+        get => _model.MemoryAfter;
+        private set
+        {
+            if (_model.MemoryAfter == value) return;
+            _model.MemoryAfter = value;
+            OnPropertyChanged();
+        }
+    }
 
     [ObservableProperty] private bool _isIndeterminate;
 
@@ -60,11 +79,14 @@ public partial class SeedMethodStatWrapper(SeedMethodStat model) : ObservableObj
         Duration = duration;
     }
 
-    public void UpdateMemory(int memory, string unit)
+    public void UpdateMemoryBefore(long memory)
     {
-        _model.Memory = memory;
-        _model.MemoryUnit = unit;
-        OnPropertyChanged(nameof(MemoryString));
+        MemoryBefore = memory;
+    }
+
+    public void UpdateMemoryAfter(long memory)
+    {
+        MemoryAfter = memory;
     }
 
     public void UpdateIsIndeterminate(bool value)
@@ -77,7 +99,8 @@ public partial class SeedMethodStatWrapper(SeedMethodStat model) : ObservableObj
         UpdateProcessedItemCount(0);
         UpdateTotalItemCount(0);
         UpdateDuration(TimeSpan.Zero);
-        UpdateMemory(0, "");
+        UpdateMemoryBefore(0);
+        UpdateMemoryAfter(0);
         UpdateIsIndeterminate(false);
     }
 }

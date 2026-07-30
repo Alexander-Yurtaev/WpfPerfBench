@@ -56,7 +56,15 @@ public abstract partial class SeedMethodBase : ObservableObject
         
         this.Status = SeedStatus.Processing;
 
+        ForceGC();
+        var before = GC.GetTotalMemory(false);
+        Stat.UpdateMemoryBefore(before);
+
         var result = await Seed(Stat, TokenSource.Token);
+
+        ForceGC();
+        var after = GC.GetTotalMemory(false);
+        Stat.UpdateMemoryAfter(after);
 
         switch (result)
         {
@@ -95,4 +103,11 @@ public abstract partial class SeedMethodBase : ObservableObject
     protected abstract Task<ResultBase> Prepare(IWpfPerfBenchContext db, CancellationToken ct);
 
     protected abstract Task<ResultBase> OnSeed(IWpfPerfBenchContext db, ISeedMethodStat stat, CancellationToken ct);
+
+    private void ForceGC()
+    {
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
+    }
 }

@@ -59,6 +59,14 @@
             <Setter Property="Margin" Value="0 4 0 0"/>
         </Style>
 
+        <Style x:Key="ProgressTextBlockStyle"
+               TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextMute}"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Margin" Value="0 4 0 0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
         <DataTemplate DataType="{x:Type enum:SeedStatus}">
             <local:SeedStatus/>
         </DataTemplate>
@@ -118,8 +126,12 @@
                         <Image Source="pack://application:,,,/Resources/Icons/cabinet.png"
                                Margin="0 5 0 0"
                                Style="{StaticResource FormImageStyle}"/>
-                        <Label Style="{StaticResource ProgressLabelStyle}"
-                               Content="{Binding MemoryString, Mode=OneWay}"/>
+                        <TextBlock Style="{StaticResource ProgressTextBlockStyle}">
+                            <Run Text="{Binding MemoryBefore, Mode=OneWay, StringFormat={}{0:N0}}"/>
+                            <Run Text=" / "/>
+                            <Run Text="{Binding MemoryAfter, Mode=OneWay, StringFormat={}{0:N0}}"/>
+                        </TextBlock>
+                               
                     </StackPanel>
                 </StackPanel>
                 <Button Grid.Column="1"

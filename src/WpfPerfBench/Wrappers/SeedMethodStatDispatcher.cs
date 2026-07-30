@@ -29,9 +29,14 @@ public class SeedMethodStatDispatcher : ISeedMethodStat
         Application.Current.Dispatcher.Invoke(() => _wrapper.UpdateDuration(duration));
     }
 
-    public void UpdateMemory(int memory, string unit)
+    public void UpdateMemoryBefore(long memory)
     {
-        Application.Current.Dispatcher.Invoke(() => _wrapper.UpdateMemory(memory, unit));
+        Application.Current.Dispatcher.Invoke(() => _wrapper.UpdateMemoryBefore(memory));
+    }
+
+    public void UpdateMemoryAfter(long memory)
+    {
+        Application.Current.Dispatcher.Invoke(() => _wrapper.UpdateMemoryBefore(memory));
     }
 
     public void UpdateIsIndeterminate(bool value)
@@ -44,7 +49,8 @@ public class SeedMethodStatDispatcher : ISeedMethodStat
         UpdateProcessedItemCount(0);
         UpdateTotalItemCount(0);
         UpdateDuration(TimeSpan.Zero);
-        UpdateMemory(0, "");
+        UpdateMemoryBefore(0);
+        UpdateMemoryAfter(0);
     }
 
     #endregion
