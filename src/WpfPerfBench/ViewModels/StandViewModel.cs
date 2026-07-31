@@ -10,7 +10,7 @@ using WpfPerfBench.Services;
 
 namespace WpfPerfBench.ViewModels;
 
-public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableAsync
+public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableAsync, ITreeViewHelper
 {
     private readonly IBusyManager _busyManager;
     private readonly IMessageService _messageService;
@@ -31,7 +31,8 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
     [ObservableProperty]
     private StatItem[] _statItems;
 
-    public ObservableCollection<CategoryTreeItem> TreeItems { get; set; }
+    [ObservableProperty] 
+    private object? _selectedItem;
 
     public StandViewModel(
         IBusyManager busyManager,
@@ -52,13 +53,15 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
         TreeItems = [];
     }
 
+    public ObservableCollection<CategoryTreeItem> TreeItems { get; set; }
+
     #region Implementation of ILoadableAsync
 
     public async Task LoadAsync(CancellationToken ct)
     {
         var ctLocal = _busyManager.ShowStandardIndicator("Загрузка...");
         var ctTotal = CancellationTokenSource.CreateLinkedTokenSource(ct, ctLocal);
-
+        
         try
         {
             var result = await _dataService.HierarchyCategories(ctTotal.Token);

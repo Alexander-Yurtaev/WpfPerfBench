@@ -96,6 +96,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TreeView Grid.Column="0"
+                      behaviors:TreeViewHelper.IsActive="True"
                       ItemsSource="{Binding TreeItems}"
                       Style="{StaticResource TreeViewStyle}">
                 <TreeView.ItemTemplate>
@@ -111,7 +112,8 @@
             </TreeView>
             <Border Grid.Column="1"
                     Background="{DynamicResource BgSecondary}">
-
+                <TextBlock Text="{Binding SelectedItem}"
+                           Foreground="Beige"/>
             </Border>
         </Grid>
         <Grid Grid.Row="2">
