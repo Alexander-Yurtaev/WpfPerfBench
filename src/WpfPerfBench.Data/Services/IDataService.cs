@@ -14,4 +14,5 @@ public interface IDataService
     Task<ResultBase> CleanItems(IWpfPerfBenchContext db, CancellationToken ct);
     Task<ResultBase> SeedItems(IWpfPerfBenchContext db, List<Item> items, ISeedMethodMetricsRefresher metrics, CancellationToken ct);
     Task<ResultBase> HierarchyCategories(CancellationToken ct = default);
+    Task<ResultBase> GetItemsByCategoryId(int categoryId, CancellationToken ct = default);
 }

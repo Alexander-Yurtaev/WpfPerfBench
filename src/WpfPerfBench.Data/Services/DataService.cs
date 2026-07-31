@@ -152,6 +152,31 @@ public class DataService : IDataService
             var treeItems = await _categoryRepository.HierarchyCategories(db, ct);
             return ResultBase.EntityResult(treeItems);
         }
+        catch (TaskCanceledException e)
+        {
+            Console.WriteLine(e);
+            return ResultBase.CancelResult("Операция получения данных для дерева была отменена");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return ResultBase.FailResult(e.Message);
+        }
+    }
+
+    public async Task<ResultBase> GetItemsByCategoryId(int categoryId, CancellationToken ct = default)
+    {
+        try
+        {
+            var db = CreateContext();
+            var items = await _itemRepository.GetItemsByCategoryId(db, categoryId, ct);
+            return ResultBase.EntityResult(items);
+        }
+        catch (TaskCanceledException e)
+        {
+            Console.WriteLine(e);
+            return ResultBase.CancelResult($"Операция получения данных для categoryId={categoryId} была отменена");
+        }
         catch (Exception e)
         {
             Console.WriteLine(e);

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Diagnostics;
+using WpfPerfBench.Core.Helpers;
 using WpfPerfBench.Data.Metrics;
 
 namespace WpfPerfBench.Wrappers;
@@ -43,9 +44,7 @@ public partial class SeedMethodMetricsWrapper(SeedMethodMetrics model) : Observa
         }
     }
 
-    public string DurationStringFormat { get; set; } = @"hh\:mm\:ss";
-
-    public string DurationString => _model.Duration.ToString(DurationStringFormat);
+    public string DurationString => TimeSpanHelper.ToHmsFormatString(_model.Duration);
 
     public long MemoryBefore
     {

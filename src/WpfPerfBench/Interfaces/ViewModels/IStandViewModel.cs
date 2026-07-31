@@ -15,7 +15,7 @@ public interface IStandViewModel : IViewModelBase
     string DataProvider { get; set; }
     int TotalRecordCount { get; set; }
 
-    StatItem[] StatItems { get; set; }
+    ObservableCollection<StatItem> StatItems { get; set; }
 
     ObservableCollection<CategoryTreeItem> TreeItems { get; set; }
 }

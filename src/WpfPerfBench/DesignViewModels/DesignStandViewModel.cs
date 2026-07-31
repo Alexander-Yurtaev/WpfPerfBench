@@ -1,4 +1,6 @@
-﻿using WpfPerfBench.Data.Models;
+﻿using WpfPerfBench.Core.Helpers;
+using WpfPerfBench.Data;
+using WpfPerfBench.Data.Models;
 
 namespace WpfPerfBench.DesignViewModels;
 
@@ -12,6 +14,17 @@ public class DesignStandViewModel
         TotalRecordCount = 1_000_000;
         TreeItems = GetTreeItems();
         SelectedItem = TreeItems.FirstOrDefault();
+        var item = new Item
+        {
+            Id = 1,
+            CategoryId = (SelectedItem as CategoryTreeItem)!.Id,
+            Name = "Item1"
+        };
+        Items = [item];
+        StatItems =
+        [
+            new StatItem("Загрузка дерева", TimeSpanHelper.ToHmsfFormatString(TimeSpan.Parse("12:34:56.789")))
+        ];
     }
 
     public string Icon { get; set; }
@@ -20,6 +33,8 @@ public class DesignStandViewModel
     public int TotalRecordCount { get; set; }
     public CategoryTreeItem[] TreeItems { get; set; }
     public object? SelectedItem { get; set; }
+    public List<Item> Items { get; set; }
+    public List<StatItem> StatItems { get; set; }
 
     private CategoryTreeItem[] GetTreeItems()
     {

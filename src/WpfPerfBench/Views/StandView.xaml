@@ -6,6 +6,8 @@
              xmlns:local="clr-namespace:WpfPerfBench.Views"
              xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
              xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
+             xmlns:data="clr-namespace:WpfPerfBench.Data"
+             xmlns:models="clr-namespace:WpfPerfBench.Data.Models;assembly=WpfPerfBench.Data"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="450"
              d:DataContext="{d:DesignInstance Type=designViewModels:DesignStandViewModel, IsDesignTimeCreatable=True}">
@@ -112,12 +114,45 @@
             </TreeView>
             <Border Grid.Column="1"
                     Background="{DynamicResource BgSecondary}">
-                <TextBlock Text="{Binding SelectedItem}"
-                           Foreground="Beige"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="0"
+                              ItemsSource="{Binding Items}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:Item}">
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <GridSplitter Grid.Row="1"/>
+                    <Grid Grid.Row="2"/>
+                </Grid>
             </Border>
         </Grid>
         <Grid Grid.Row="2">
-            <ItemsControl ItemsSource="{Binding StatItems}"/>
+            <ItemsControl ItemsSource="{Binding StatItems}"
+                          Background="{DynamicResource BgSecondary}"
+                          Padding=" 5 0"
+                          VerticalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type data:StatItem}">
+                        <TextBlock Foreground="Azure">
+                            <Run Text="{Binding Title}"/>
+                            <Run Text=" - "/>
+                            <Run Text="{Binding Value}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
     </Grid>
 </UserControl>

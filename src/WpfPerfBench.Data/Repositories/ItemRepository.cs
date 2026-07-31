@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Metrics;
-using WpfPerfBench.Data.Models;
 
 namespace WpfPerfBench.Data.Repositories;
 
@@ -28,8 +27,9 @@ public class ItemRepository : IItemRepository
         }
     }
 
-    public async Task Seed(IWpfPerfBenchContext db, 
-        List<Item> items, 
+    public async Task Seed(
+        IWpfPerfBenchContext db, 
+        List<Models.Item> items, 
         ISeedMethodMetricsRefresher metrics,
         CancellationToken ct = default)
     {
@@ -40,5 +40,27 @@ public class ItemRepository : IItemRepository
             metrics.UpdateProcessedItemCount(entities.Count);
             await db.SaveChangesAsync(ct);
         }, ct);
+    }
+
+    public async Task<List<Models.Item>> GetItemsByCategoryId(
+        IWpfPerfBenchContext db, 
+        int categoryId, 
+        CancellationToken ct = default)
+    {
+        try
+        {
+            var entities = await db.Items
+                .Where(i => i.CategoryId == categoryId)
+                .AsNoTracking()
+                .ToListAsync(ct);
+
+            var items = _mapper.Map<List<Models.Item>>(entities);
+            return items;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

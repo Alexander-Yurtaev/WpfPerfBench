@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using WpfPerfBench.Data.Models;
 using WpfPerfBench.ViewModels;
 
 namespace WpfPerfBench.Behaviors;
@@ -43,7 +44,7 @@ public static class TreeViewHelper
     {
         if (sender is not TreeView treeView) return;
         if (treeView.DataContext is not ITreeViewHelper helper) return;
-        helper.SelectedItem = e.NewValue;
+        helper.SelectedTreeItem = e.NewValue as CategoryTreeItem;
     }
 
     #endregion IsActive

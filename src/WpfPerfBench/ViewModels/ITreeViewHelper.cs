@@ -1,6 +1,8 @@
-﻿namespace WpfPerfBench.ViewModels;
+﻿using WpfPerfBench.Data.Models;
+
+namespace WpfPerfBench.ViewModels;
 
 public interface ITreeViewHelper
 {
-    object? SelectedItem { get; set; }
+    CategoryTreeItem? SelectedTreeItem { get; set; }
 }
