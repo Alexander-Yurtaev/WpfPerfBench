@@ -58,14 +58,6 @@
                TargetType="ListView">
             <Setter Property="Background" Value="{DynamicResource BgList}"/>
         </Style>
-        <Style x:Key="ItemsBorderStyle"
-               TargetType="Border">
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Padding" Value="0 0 0 8"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-            <!--max-height: 250px;-->
-        </Style>
         <Style x:Key="TerminalContainerStyle" TargetType="Border">
             <Setter Property="Background" Value="{DynamicResource BgConsole}"/>
             <Setter Property="Padding" Value="14 10"/>
@@ -142,31 +134,19 @@
             <Border Grid.Row="0"
                     Grid.Column="1"
                     Background="{DynamicResource BgSecondary}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Border Grid.Row="0"
-                            Style="{StaticResource ItemsBorderStyle}">
-                        <ListView ItemsSource="{Binding Items}"
-                                  Style="{StaticResource ItemsListViewStyle}">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            <ListView.ItemTemplate>
-                                <DataTemplate DataType="{x:Type models:Item}">
-                                    <controls:ItemRow />
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Border>
-                    <GridSplitter Grid.Row="1" Height="5"/>
-                    <Grid Grid.Row="2"/>
-                </Grid>
+                <ListView ItemsSource="{Binding Items}"
+                          Style="{StaticResource ItemsListViewStyle}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:Item}">
+                            <controls:ItemRow />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Border>
             <Border Grid.Row="1"
                     Grid.Column="0"

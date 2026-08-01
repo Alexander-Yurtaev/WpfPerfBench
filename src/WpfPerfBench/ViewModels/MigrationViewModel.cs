@@ -100,13 +100,13 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
         try
         {
             await Task.Run(async () =>
-            {
-                var db = _dataService.CreateContext();
-                var appliedMessage = await _dataService.GetAppliedMigrationsAsync(db, ctTotal.Token);
-                ProcessMigrationResult(appliedMessage, MigrationStatus.Applied);
-                var pendingMessage = await _dataService.GetPendingMigrationsAsync(db, ctTotal.Token);
-                ProcessMigrationResult(pendingMessage, MigrationStatus.Pending);
-            }, ctTotal.Token)
+                {
+                    var db = _dataService.CreateContext();
+                    var appliedMessage = await _dataService.GetAppliedMigrationsAsync(db, ctTotal.Token);
+                    ProcessMigrationResult(appliedMessage, MigrationStatus.Applied);
+                    var pendingMessage = await _dataService.GetPendingMigrationsAsync(db, ctTotal.Token);
+                    ProcessMigrationResult(pendingMessage, MigrationStatus.Pending);
+                }, ctTotal.Token)
             .ContinueWith(task =>
             {
                 if (task.Exception is null) return;
@@ -142,6 +142,8 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
         {
             case FailResult fail:
                 throw new InvalidOperationException(fail.Message);
+            case CancelResult cancel:
+                break;
             case EntityResult<string> names:
                 {
                     foreach (var name in names.Entities)

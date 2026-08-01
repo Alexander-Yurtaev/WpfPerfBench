@@ -59,6 +59,11 @@ public class DataService : IDataService
             var migrations = await db.Database.GetAppliedMigrationsAsync(ct);
             return ResultBase.EntityResult(migrations);
         }
+        catch (TaskCanceledException e)
+        {
+            Console.WriteLine(e);
+            return ResultBase.CancelResult("Операция загрузки миграций отменена.");
+        }
         catch (Exception e)
         {
             Console.WriteLine(e);
@@ -72,6 +77,11 @@ public class DataService : IDataService
         {
             var migrations = await db.Database.GetPendingMigrationsAsync(ct);
             return ResultBase.EntityResult(migrations);
+        }
+        catch (TaskCanceledException e)
+        {
+            Console.WriteLine(e);
+            return ResultBase.CancelResult("Операция загрузки миграций отменена.");
         }
         catch (Exception e)
         {
