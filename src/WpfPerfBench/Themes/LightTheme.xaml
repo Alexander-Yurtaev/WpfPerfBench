@@ -31,6 +31,9 @@
     <Color x:Key="WarningColor">#f9e2af</Color>
     <Color x:Key="InfoColor">#89b4fa</Color>
 
+    <Color x:Key="BgConsoleColor">#f5f5fa</Color>
+    <Color x:Key="TextConsoleColor">#1a3a1a</Color>
+
     <!--Brushes-->
     <SolidColorBrush x:Key="BgPrimary" Color="{StaticResource BgPrimaryColor}"/>
     <SolidColorBrush x:Key="BgSecondary" Color="{StaticResource BgSecondaryColor}"/>
@@ -61,6 +64,9 @@
     <SolidColorBrush x:Key="Danger" Color="{StaticResource DangerColor}"/>
     <SolidColorBrush x:Key="Warning" Color="{StaticResource WarningColor}"/>
     <SolidColorBrush x:Key="Info" Color="{StaticResource InfoColor}"/>
+
+    <SolidColorBrush x:Key="BgConsole" Color="{StaticResource BgConsoleColor}"/>
+    <SolidColorBrush x:Key="TextConsole" Color="{StaticResource TextConsoleColor}"/>
 
     <!-- Цвета для BusyIndicator -->
     <Color x:Key="BgBusyOverlayColor">#141423D9</Color>

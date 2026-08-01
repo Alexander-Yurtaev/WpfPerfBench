@@ -18,20 +18,12 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
     private readonly IMessageService _messageService;
     private readonly IDataService _dataService;
 
-    [ObservableProperty]
-    private string _icon;
-
-    [ObservableProperty]
-    private string _fio;
-
-    [ObservableProperty]
-    private string _dataProvider;
-
-    [ObservableProperty]
-    private int _totalRecordCount;
-
-    [ObservableProperty] 
-    private CategoryTreeItem? _selectedTreeItem;
+    [ObservableProperty] private string _icon;
+    [ObservableProperty] private string _fio;
+    [ObservableProperty] private string _dataProvider;
+    [ObservableProperty] private int _totalRecordCount;
+    [ObservableProperty] private CategoryTreeItem? _selectedTreeItem;
+    [ObservableProperty] private ObservableCollection<Item> _items = [];
 
     public StandViewModel(
         IBusyManager busyManager,
@@ -50,12 +42,9 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
         TotalRecordCount = 1000;
         StatItems = [];
         TreeItems = [];
-        Items = [];
     }
 
     public ObservableCollection<CategoryTreeItem> TreeItems { get; set; }
-
-    public ObservableCollection<Item> Items { get; set; }
 
     public ObservableCollection<StatItem> StatItems { get; set; }
 
@@ -124,11 +113,13 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
         Items.Clear();
         if (value is null) return;
 
-        var _ = FillItemsByCategoryId(value!.Id);
+        var _ = FillItemsByCategoryId(value.Id);
     }
 
     private async Task FillItemsByCategoryId(int categoryId)
     {
+        _busyManager.ShowStandardIndicator("Загрузка данных...", $"CategoryId = {categoryId}");
+
         var sw = new Stopwatch();
         sw.Start();
 
@@ -137,10 +128,8 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
             var result = await _dataService.GetItemsByCategoryId(categoryId);
             if (result is EntityResult<Item> entityItems)
             {
-                foreach (var entity in entityItems.Entities)
-                {
-                    Items.Add(entity);
-                }
+                var items = new ObservableCollection<Item>(entityItems.Entities);
+                Items = items;
             }
         }
         catch (Exception e)
@@ -157,6 +146,8 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
                 elapsed = TimeSpanHelper.ToHmsfFormatString(sw.Elapsed);
             }
             StatItems.Add(new StatItem("Загрузка дерева", elapsed));
+
+            _busyManager.CloseIndicator();
         }
     }
 
