@@ -66,7 +66,8 @@ public partial class App : Application
         services.AddScoped<IBusyManager, BusyManager>();
 
         services.AddTransient<IThemeManager, ThemeManager>();
-        
+        services.AddSingleton<IConsoleManager, ConsoleManager>();
+
         services.AddTransient<IDataService, DataService>();
         services.AddTransient<IGeneratorService, GeneratorService>();
         services.AddTransient<IDataContextFactory, DataContextFactory>();

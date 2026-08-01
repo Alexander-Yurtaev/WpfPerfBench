@@ -14,6 +14,7 @@ namespace WpfPerfBench.ViewModels;
 
 public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableAsync, ITreeViewHelper
 {
+    public IConsoleManager ConsoleManager { get; }
     private readonly IBusyManager _busyManager;
     private readonly IMessageService _messageService;
     private readonly IDataService _dataService;
@@ -30,23 +31,22 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
         IMessageService messageService,
         INavigationService navigationService,
         IUserSession userSession,
-        IDataService dataService) : base(navigationService, userSession)
+        IDataService dataService,
+        IConsoleManager consoleManager) : base(navigationService, userSession)
     {
         _busyManager = busyManager;
         _messageService = messageService;
         _dataService = dataService;
+        ConsoleManager = consoleManager;
 
         Icon = "👋";
         Fio = userSession.Fio;
         DataProvider = userSession.DataProvider.ToString();
         TotalRecordCount = 1000;
-        StatItems = [];
         TreeItems = [];
     }
 
     public ObservableCollection<CategoryTreeItem> TreeItems { get; set; }
-
-    public ObservableCollection<StatItem> StatItems { get; set; }
 
     #region Implementation of ILoadableAsync
 
@@ -100,7 +100,7 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
             {
                 value = TimeSpanHelper.ToHmsfFormatString(sw.Elapsed);
             }
-            StatItems.Add(new StatItem("Загрузка дерева", value));
+            ConsoleManager.Log("Загрузка дерева", value);
 
             _busyManager.CloseIndicator();
         }
@@ -140,12 +140,7 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
         finally
         {
             sw.Stop();
-            var elapsed = TimeSpanHelper.ToHmsFormatString(sw.Elapsed);
-            if (elapsed == "00:00:00")
-            {
-                elapsed = TimeSpanHelper.ToHmsfFormatString(sw.Elapsed);
-            }
-            StatItems.Add(new StatItem("Загрузка дерева", elapsed));
+            ConsoleManager.Log("Загрузка данных", sw.Elapsed);
 
             _busyManager.CloseIndicator();
         }

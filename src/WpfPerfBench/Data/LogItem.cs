@@ -2,14 +2,14 @@
 
 public class LogItem
 {
-    public LogItem(DateTime time, string level, string message)
+    public LogItem(DateTime time, string title, string value)
     {
         Time = time;
-        Level = level;
-        Message = message;
+        Title = title;
+        Value = value;
     }
 
     public DateTime Time { get; set; }
-    public string Level { get; set; }
-    public string Message { get; set; }
+    public string Title { get; set; }
+    public string Value { get; set; }
 }

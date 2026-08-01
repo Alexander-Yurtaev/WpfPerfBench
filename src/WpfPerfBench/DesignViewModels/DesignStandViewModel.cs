@@ -1,6 +1,7 @@
 ﻿using WpfPerfBench.Core.Helpers;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Models;
+using WpfPerfBench.Managers;
 using Item = WpfPerfBench.Data.Entities.Item;
 
 namespace WpfPerfBench.DesignViewModels;
@@ -18,15 +19,17 @@ public class DesignStandViewModel
         Items = Enumerable.Range(1, 10)
             .Select(r => new Item { Id = r, CategoryId = 1, Name = $"Item{r}" })
             .ToList();
-        
-        StatItems =
-        [
-            new StatItem("Загрузка дерева", TimeSpanHelper.ToHmsfFormatString(TimeSpan.Parse("12:34:56.789")))
-        ];
 
-        LogItems = Enumerable.Range(1, 10)
-            .Select(r => new LogItem(DateTime.Now.AddHours(r), "INFO", $"Message #{r}"))
-            .ToList();
+        var logItems = new List<LogItem>
+        {
+            new LogItem(DateTime.Now, "Загрузка дерева", TimeSpanHelper.ToHmsfFormatString(TimeSpan.Parse("12:34:56.789")))
+        };
+
+        ConsoleManager = new ConsoleManager();
+        foreach (var item in logItems)
+        {
+            ConsoleManager.LogItems.Add(item);
+        }
     }
 
     public string Icon { get; set; }
@@ -36,8 +39,7 @@ public class DesignStandViewModel
     public CategoryTreeItem[] TreeItems { get; set; }
     public object? SelectedItem { get; set; }
     public List<Item> Items { get; set; }
-    public List<StatItem> StatItems { get; set; }
-    public List<LogItem> LogItems { get; set; }
+    public IConsoleManager ConsoleManager { get; set; }
 
     private CategoryTreeItem[] GetTreeItems()
     {

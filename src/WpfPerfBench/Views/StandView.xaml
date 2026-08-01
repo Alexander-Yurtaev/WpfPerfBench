@@ -185,7 +185,7 @@
                                    Margin="0 0 0 8"/>
                     </Border>
                     <ListBox Grid.Row="1"
-                             ItemsSource="{Binding LogItems}"
+                             ItemsSource="{Binding ConsoleManager.LogItems}"
                              Foreground="{DynamicResource TextConsole}"
                              Background="Transparent">
                         <ListBox.ItemTemplate>
@@ -197,8 +197,8 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="{Binding Time, StringFormat=hh:mm:ss}" Margin="0 0 20 0"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding Level}" Margin="0 0 20 0"/>
-                                    <TextBlock Grid.Column="2" Text="{Binding Message}"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Title}" Margin="0 0 20 0"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding Value}"/>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
