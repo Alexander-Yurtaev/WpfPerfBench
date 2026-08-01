@@ -6,9 +6,9 @@ public class GeneratorService : IGeneratorService
 {
     public Models.Category GenerateCategoryModel()
     {
-        var faker = new Faker<Models.Category>()
-            .RuleFor(u => u.Id, f => f.Random.Int())
-            .RuleFor(u => u.Name, f => f.Company.Bs())
+        var faker = new Faker<Models.Category>("ru")
+            .RuleFor(u => u.Id, f => f.IndexFaker)
+            .RuleFor(u => u.Name, f => f.Commerce.Categories(1).First())
             .RuleFor(u => u.ParentId, f => f.Random.Int())
             //.RuleFor(u => u.Parent, f => f.Random.Int())
             .RuleFor(u => u.IsActive, f => f.Random.Bool())
@@ -21,9 +21,9 @@ public class GeneratorService : IGeneratorService
 
     public Entities.Category GenerateCategoryEntity()
     {
-        var faker = new Faker<Entities.Category>()
+        var faker = new Faker<Entities.Category>("ru")
             .RuleFor(u => u.Id, f => f.Random.Int())
-            .RuleFor(u => u.Name, f => f.Company.Bs())
+            .RuleFor(u => u.Name, f => f.Commerce.Categories(1).First())
             .RuleFor(u => u.ParentId, f => f.Random.Int())
             //.RuleFor(u => u.Parent, f => f.Random.Int())
             .RuleFor(u => u.IsActive, f => f.Random.Bool())
@@ -36,9 +36,9 @@ public class GeneratorService : IGeneratorService
 
     public List<Models.Category> GenerateListCategoryModel(int count)
     {
-        var faker = new Faker<Models.Category>()
+        var faker = new Faker<Models.Category>("ru")
             .RuleFor(u => u.Id, f => f.Random.Int())
-            .RuleFor(u => u.Name, f => f.Company.Bs())
+            .RuleFor(u => u.Name, f => f.Commerce.Categories(1).First())
             .RuleFor(u => u.ParentId, f => f.Random.Int())
             //.RuleFor(u => u.Parent, f => f.Random.Int())
             .RuleFor(u => u.IsActive, f => f.Random.Bool())
@@ -51,9 +51,9 @@ public class GeneratorService : IGeneratorService
 
     public List<Entities.Category> GenerateListCategoryEntity(int count)
     {
-        var faker = new Faker<Entities.Category>()
+        var faker = new Faker<Entities.Category>("ru")
             .RuleFor(u => u.Id, f => f.Random.Int())
-            .RuleFor(u => u.Name, f => f.Company.Bs())
+            .RuleFor(u => u.Name, f => f.Commerce.Categories(1).First())
             .RuleFor(u => u.ParentId, f => f.Random.Int())
             //.RuleFor(u => u.Parent, f => f.Random.Int())
             .RuleFor(u => u.IsActive, f => f.Random.Bool())
@@ -66,7 +66,7 @@ public class GeneratorService : IGeneratorService
 
     public Models.Item GenerateItemModel()
     {
-        var faker = new Faker<Models.Item>()
+        var faker = new Faker<Models.Item>("ru")
             .Generate();
 
         return faker;
@@ -76,7 +76,7 @@ public class GeneratorService : IGeneratorService
     {
         var result = await Task.Run(() =>
         {
-            var faker = new Faker<Models.Item>()
+            var faker = new Faker<Models.Item>("ru")
                 .RuleFor(i => i.CategoryId, f => f.Random.Int(1, 12))
                 .RuleFor(i => i.Name, f => f.Company.CompanyName())
                 .RuleFor(i => i.CreatedAt, f => f.Date.Recent().ToUniversalTime())
