@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Windows;
 using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Data;
 using WpfPerfBench.Wrappers;
@@ -92,18 +93,33 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
         var ctLocal = _busyManager.ShowStandardIndicator("Загрузка...");
         var ctTotal = CancellationTokenSource.CreateLinkedTokenSource(ct, ctLocal);
 
+        Items.Clear();
+        ApplyMigrationsCommand.NotifyCanExecuteChanged();
+        OnPropertyChanged(nameof(MigrationCount));
+
         try
         {
-            Items.Clear();
-            ApplyMigrationsCommand.NotifyCanExecuteChanged();
-            OnPropertyChanged(nameof(MigrationCount));
-            var db = _dataService.CreateContext();
-            var appliedMessage = await _dataService.GetAppliedMigrationsAsync(db, ctTotal.Token);
-            ProcessMigrationResult(appliedMessage, MigrationStatus.Applied);
-            var pendingMessage = await _dataService.GetPendingMigrationsAsync(db, ctTotal.Token);
-            ProcessMigrationResult(pendingMessage, MigrationStatus.Pending);
+            await Task.Run(async () =>
+            {
+                var db = _dataService.CreateContext();
+                var appliedMessage = await _dataService.GetAppliedMigrationsAsync(db, ctTotal.Token);
+                ProcessMigrationResult(appliedMessage, MigrationStatus.Applied);
+                var pendingMessage = await _dataService.GetPendingMigrationsAsync(db, ctTotal.Token);
+                ProcessMigrationResult(pendingMessage, MigrationStatus.Pending);
+            }, ctTotal.Token)
+            .ContinueWith(task =>
+            {
+                if (task.Exception is null) return;
+                throw task.Exception;
+            }, ctTotal.Token);
         }
-        catch (InvalidOperationException e)
+        catch (TaskCanceledException e)
+        {
+            Console.WriteLine(e);
+            Items.Clear();
+            _messageService.ShowWarningMessage("Операция загрузки миграций отменена.");
+        }
+        catch (Exception e)
         {
             Console.WriteLine(e);
             Items.Clear();
@@ -111,6 +127,7 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
         }
         finally
         {
+            ApplyMigrationsCommand.NotifyCanExecuteChanged();
             _busyManager.CloseIndicator();
         }
     }
@@ -129,8 +146,8 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
                 {
                     foreach (var name in names.Entities)
                     {
-                        Items.Add(new MigrationItem(name) { Status = status });
-                        ApplyMigrationsCommand.NotifyCanExecuteChanged();
+                        Application.Current.Dispatcher.Invoke(() =>
+                            Items.Add(new MigrationItem(name) { Status = status }));
                         OnPropertyChanged(nameof(MigrationCount));
                     }
 
