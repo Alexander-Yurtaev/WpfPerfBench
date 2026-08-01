@@ -8,10 +8,12 @@
         xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
         xmlns:commands="clr-namespace:WpfPerfBench.Commands"
         xmlns:converters="clr-namespace:WpfPerfBench.Converters"
+        xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
         mc:Ignorable="d"
         Title="{Binding}"
         WindowStartupLocation="CenterScreen"
-        Style="{StaticResource ModalDialogStyle}">
+        Style="{StaticResource ModalDialogStyle}"
+        d:DataContext="{d:DesignInstance Type=designViewModels:DesignSuccessDialog, IsDesignTimeCreatable=True}">
 
     <Window.Resources>
         <converters:NullableVisibleConverter x:Key="NullableVisibleConv"/>
@@ -41,19 +43,17 @@
                        HorizontalAlignment="Center"
                        TextAlignment="Center"
                        Margin="0 0 0 8"/>
-            <ScrollViewer Grid.Row="2" 
-                          HorizontalScrollBarVisibility="Hidden"
-                          VerticalScrollBarVisibility="Auto">
-                <TextBlock Text="{Binding Description}"
-                           FontSize="15"
-                           Foreground="{DynamicResource TextSecondary}"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           TextAlignment="Center"
-                           Margin="0 0 0 20"
-                           LineHeight="22"
-                           TextWrapping="WrapWithOverflow"/>
-            </ScrollViewer>
+            <TextBlock Grid.Row="2"
+                       Text="{Binding Description}"
+                       FontSize="15"
+                       Foreground="{DynamicResource TextSecondary}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       Margin="0 0 0 20"
+                       LineHeight="22"
+                       TextWrapping="WrapWithOverflow"
+                       MaxWidth="400"/>
             <StackPanel Grid.Row="3"
                         Orientation="Horizontal"
                         HorizontalAlignment="Center">
