@@ -7,8 +7,10 @@
              xmlns:managers="clr-namespace:WpfPerfBench.Managers"
              xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
              xmlns:viewModels="clr-namespace:WpfPerfBench.ViewModels"
+             xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
              mc:Ignorable="d" 
-             d:DesignWidth="195">
+             d:DesignWidth="195"
+             d:DataContext="{d:DesignInstance Type=designViewModels:DesignThemeSwitcher, IsDesignTimeCreatable=True}">
 
     <UserControl.DataContext>
         <managers:ThemeManager/>

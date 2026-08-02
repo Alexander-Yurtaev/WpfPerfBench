@@ -35,6 +35,7 @@ public class DesignThemeManager : IThemeManager
     #region Implementation of IThemeManager
 
     public ObservableCollection<ThemeItem> Themes { get; set; }
+
     public void Load()
     {
         
