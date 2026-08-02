@@ -1,5 +1,5 @@
-﻿using System.Security;
-using FluentAssertions;
+﻿using FluentAssertions;
+using System.Security;
 
 namespace WpfPerfBench.Tests.ViewModels;
 

@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using WpfPerfBench.Controls;
 using WpfPerfBench.Controls.ContentIndicators;
 using BaseContentIndicator = WpfPerfBench.Controls.ContentIndicators.BaseContentIndicator;
 using LargeContentIndicator = WpfPerfBench.Controls.ContentIndicators.LargeContentIndicator;
@@ -41,7 +40,7 @@ public partial class BusyManager : ObservableObject, IBusyManager
             BusyText = text,
             BusySubText = subText
         };
-        
+
         RefreshToken();
         IsBusy = true;
         return _tokenSource.Token;
@@ -55,7 +54,7 @@ public partial class BusyManager : ObservableObject, IBusyManager
             BusyText = text,
             BusySubTextFormat = subTextFormat
         };
-        
+
         RefreshToken();
         IsBusy = true;
         return _tokenSource.Token;

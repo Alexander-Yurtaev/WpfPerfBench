@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using Moq;
+﻿using Moq;
 using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
@@ -40,7 +39,7 @@ public class MainWindowViewModelTests
             initViewModelMock.Object,
             migrationViewModelMock.Object,
             seedViewModelMock.Object,
-            standViewModelMock.Object, 
+            standViewModelMock.Object,
             _navigationService,
             themeManagerMock.Object,
             busyManagerMock.Object);
@@ -50,9 +49,9 @@ public class MainWindowViewModelTests
     //public void ViewModel_Init_To_FirstStep()
     //{
     //    // Arrange
-        
+
     //    // Act
-        
+
     //    // Assert
     //    _viewModel.CurrentStep.Should().Be(1);
     //    _viewModel.CurrentViewModel.Should().NotBeNull();

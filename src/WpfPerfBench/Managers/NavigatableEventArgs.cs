@@ -1,5 +1,4 @@
-﻿using Microsoft.Identity.Client;
-using WpfPerfBench.Enums;
+﻿using WpfPerfBench.Enums;
 
 namespace WpfPerfBench.Managers;
 

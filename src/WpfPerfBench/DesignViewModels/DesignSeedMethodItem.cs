@@ -1,5 +1,4 @@
-﻿using Bogus.DataSets;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Enums;
 using WpfPerfBench.Wrappers;

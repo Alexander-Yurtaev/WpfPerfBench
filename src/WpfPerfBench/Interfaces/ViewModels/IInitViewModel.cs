@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using CommunityToolkit.Mvvm.Input;
+using System.Collections;
 using System.ComponentModel;
 using System.Security;
-using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Data.Enums;
 
 namespace WpfPerfBench.Interfaces.ViewModels;

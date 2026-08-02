@@ -15,7 +15,7 @@ public abstract class ResultBase
         return new FailResult(message);
     }
 
-    public static CancelResult CancelResult(string message="")
+    public static CancelResult CancelResult(string message = "")
     {
         return new CancelResult(message);
     }

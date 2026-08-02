@@ -8,7 +8,6 @@ using WpfPerfBench.Extensions;
 using WpfPerfBench.Factories;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
-using WpfPerfBench.Services;
 using WpfPerfBench.ViewModels;
 using WpfPerfBench.Views;
 

@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
+using System.Windows;
 using WpfPerfBench.Commands;
 using WpfPerfBench.Enums;
 using WpfPerfBench.ViewModels.Dialogs;

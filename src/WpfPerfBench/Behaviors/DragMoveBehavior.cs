@@ -1,7 +1,7 @@
-﻿using Microsoft.Xaml.Behaviors;
+﻿using GMap.NET.WindowsPresentation;
+using Microsoft.Xaml.Behaviors;
 using System.Windows;
 using System.Windows.Input;
-using GMap.NET.WindowsPresentation;
 
 namespace WpfPerfBench.Behaviors;
 
