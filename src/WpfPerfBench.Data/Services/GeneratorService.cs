@@ -85,10 +85,10 @@ public class GeneratorService : IGeneratorService
                 .RuleFor(i => i.IsFragile, f => f.Random.Bool())
                 .RuleFor(i => i.IsUrgent, f => f.Random.Bool())
                 .RuleFor(i => i.Comments, f => f.Lorem.Paragraph())
-                .RuleFor(i => i.Latitude, f => f.Random.Double())
-                .RuleFor(i => i.Longitude, f => f.Random.Double())
-                .RuleFor(i => i.DeliveryLatitude, f => f.Random.Double())
-                .RuleFor(i => i.DeliveryLongitude, f => f.Random.Double())
+                .RuleFor(i => i.Latitude, f => f.Address.Latitude())
+                .RuleFor(i => i.Longitude, f => f.Address.Longitude())
+                .RuleFor(i => i.DeliveryLatitude, f => f.Address.Latitude())
+                .RuleFor(i => i.DeliveryLongitude, f => f.Address.Longitude())
                 .RuleFor(i => i.IsDeleted, f => f.Random.Bool())
                 .Generate(count);
 

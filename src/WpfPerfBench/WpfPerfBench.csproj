@@ -67,6 +67,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" />
     <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="GMap.NET.WinPresentation" />
     <PackageReference Include="H.Hooks" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
   </ItemGroup>

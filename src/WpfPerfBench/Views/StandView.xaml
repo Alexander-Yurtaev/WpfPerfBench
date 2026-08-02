@@ -9,6 +9,8 @@
              xmlns:data="clr-namespace:WpfPerfBench.Data"
              xmlns:models="clr-namespace:WpfPerfBench.Data.Models;assembly=WpfPerfBench.Data"
              xmlns:controls="clr-namespace:WpfPerfBench.Controls"
+             xmlns:gmap="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="450"
              d:DataContext="{d:DesignInstance Type=designViewModels:DesignStandViewModel, IsDesignTimeCreatable=True}">
@@ -348,7 +350,12 @@
                         </Border>
                     </TabItem>
                     <TabItem Header="Карта">
-
+                        <gmap:GMapControl>
+                            <b:Interaction.Behaviors>
+                                <behaviors:GMapListViewBehavior SelectedItem="{Binding ElementName=ItemsListView,
+                                                Path=SelectedItem}"/>
+                            </b:Interaction.Behaviors>
+                        </gmap:GMapControl>
                     </TabItem>
                 </TabControl>
             </Border>

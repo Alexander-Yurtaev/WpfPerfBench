@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xaml.Behaviors;
 using System.Windows;
 using System.Windows.Input;
+using GMap.NET.WindowsPresentation;
 
 namespace WpfPerfBench.Behaviors;
 
@@ -21,6 +22,7 @@ public class DragMoveBehavior : Behavior<Window>
     private void AssociatedObjectOnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         if (e.ClickCount != 1) return;
+        if (e.OriginalSource is GMapControl) return;
         AssociatedObject.DragMove();
     }
 }
