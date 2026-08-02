@@ -7,8 +7,10 @@
              xmlns:converters="clr-namespace:WpfPerfBench.Converters"
              xmlns:data="clr-namespace:WpfPerfBench.Data"
              xmlns:enum="clr-namespace:WpfPerfBench.Core.Enums;assembly=WpfPerfBench.Core"
+             xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
              mc:Ignorable="d" 
-             d:DesignWidth="800">
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance Type=designViewModels:DesignMigrationItem, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
         <converters:StatusToImageConverter x:Key="StatusToImageConv"
