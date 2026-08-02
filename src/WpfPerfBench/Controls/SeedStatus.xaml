@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:WpfPerfBench.Controls"
              xmlns:converters="clr-namespace:WpfPerfBench.Converters"
              xmlns:enum="clr-namespace:WpfPerfBench.Core.Enums;assembly=WpfPerfBench.Core"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             d:DataContext="{x:Static enum:SeedStatus.Finished}">
 
     <UserControl.Resources>
         <converters:EnumDescriptionConverter x:Key="EnumDescriptionConv"/>
