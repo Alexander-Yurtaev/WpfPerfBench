@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 
-namespace WpfPerfBench.DesignViewModels;
+namespace WpfPerfBench.DesignViewModels.BusyIndicators;
 
 public class DesignProgressBusyIndicator
 {
