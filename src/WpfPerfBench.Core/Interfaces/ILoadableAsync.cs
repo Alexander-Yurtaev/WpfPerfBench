@@ -1,4 +1,4 @@
-﻿namespace WpfPerfBench.Interfaces;
+﻿namespace WpfPerfBench.Core.Interfaces;
 
 public interface ILoadableAsync
 {

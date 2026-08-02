@@ -1,4 +1,4 @@
-﻿namespace WpfPerfBench.Data;
+﻿namespace WpfPerfBench.Core.Data;
 
 public class LogItem
 {

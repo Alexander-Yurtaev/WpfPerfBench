@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace WpfPerfBench.Enums;
+namespace WpfPerfBench.Core.Enums;
 
 [Flags]
 public enum SeedStatus

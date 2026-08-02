@@ -1,7 +1,8 @@
-﻿using WpfPerfBench.Enums;
+﻿using WpfPerfBench.Core.Enums;
 using WpfPerfBench.Interfaces.ViewModels;
+using WpfPerfBench.Managers;
 
-namespace WpfPerfBench.Managers;
+namespace WpfPerfBench.Interfaces.Managers;
 
 public interface INavigationService
 {

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using WpfPerfBench.Controls.ContentIndicators;
+using WpfPerfBench.Interfaces.Managers;
 using BaseContentIndicator = WpfPerfBench.Controls.ContentIndicators.BaseContentIndicator;
 using LargeContentIndicator = WpfPerfBench.Controls.ContentIndicators.LargeContentIndicator;
 using ProgressContentIndicator = WpfPerfBench.Controls.ContentIndicators.ProgressContentIndicator;

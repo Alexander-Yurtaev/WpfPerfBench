@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using WpfPerfBench.Data;
+using WpfPerfBench.Interfaces.Managers;
 using WpfPerfBench.Interfaces.ViewModels;
-using WpfPerfBench.Managers;
 
 namespace WpfPerfBench.ViewModels;
 

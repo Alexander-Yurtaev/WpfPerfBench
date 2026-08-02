@@ -1,7 +1,8 @@
-﻿using WpfPerfBench.Core.Helpers;
-using WpfPerfBench.Data;
+﻿using WpfPerfBench.Core.Data;
+using WpfPerfBench.Core.Helpers;
+using WpfPerfBench.Core.Interfaces;
+using WpfPerfBench.Core.Managers;
 using WpfPerfBench.Data.Models;
-using WpfPerfBench.Managers;
 
 namespace WpfPerfBench.DesignViewModels;
 

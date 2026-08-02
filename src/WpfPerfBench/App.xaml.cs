@@ -1,11 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
+using WpfPerfBench.Core.Interfaces;
+using WpfPerfBench.Core.Managers;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Repositories;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Extensions;
 using WpfPerfBench.Factories;
+using WpfPerfBench.Interfaces.Managers;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
 using WpfPerfBench.ViewModels;

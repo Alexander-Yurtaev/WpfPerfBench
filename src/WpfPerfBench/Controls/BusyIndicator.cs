@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using WpfPerfBench.Enums;
+using WpfPerfBench.Core.Enums;
 
 namespace WpfPerfBench.Controls
 {

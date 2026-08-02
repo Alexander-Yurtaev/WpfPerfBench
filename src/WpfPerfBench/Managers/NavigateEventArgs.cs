@@ -1,4 +1,4 @@
-﻿using WpfPerfBench.Enums;
+﻿using WpfPerfBench.Core.Enums;
 using WpfPerfBench.Interfaces.ViewModels;
 
 namespace WpfPerfBench.Managers;

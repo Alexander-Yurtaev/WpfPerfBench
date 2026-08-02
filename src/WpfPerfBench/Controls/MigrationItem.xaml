@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WpfPerfBench.Controls"
              xmlns:converters="clr-namespace:WpfPerfBench.Converters"
              xmlns:data="clr-namespace:WpfPerfBench.Data"
-             xmlns:enum="clr-namespace:WpfPerfBench.Enums"
+             xmlns:enum="clr-namespace:WpfPerfBench.Core.Enums;assembly=WpfPerfBench.Core"
              mc:Ignorable="d" 
              d:DesignWidth="800">
 

@@ -1,8 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
-using WpfPerfBench.Enums;
+using WpfPerfBench.Core.Enums;
+using WpfPerfBench.Core.Interfaces;
 using WpfPerfBench.Interfaces;
+using WpfPerfBench.Interfaces.Managers;
 
 namespace WpfPerfBench.Managers;
 
@@ -13,14 +15,14 @@ public class ThemeManager : IThemeManager, ILoadable
         Themes = [];
     }
 
-    public ObservableCollection<ThemeItem> Themes { get; set; }
+    public ObservableCollection<ViewModels.ThemeItem> Themes { get; set; }
 
     #region Implementation of ILoadable
 
     public void Load()
     {
-        Themes.Add(ThemeItem.CreateDefault(Theme.Dark));
-        Themes.Add(ThemeItem.Create(Theme.Light));
+        Themes.Add(ViewModels.ThemeItem.CreateDefault(Theme.Dark));
+        Themes.Add(ViewModels.ThemeItem.Create(Theme.Light));
 
         foreach (var theme in Themes)
         {
@@ -30,8 +32,8 @@ public class ThemeManager : IThemeManager, ILoadable
 
     private void ThemeOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName != nameof(ThemeItem.IsSelected)) return;
-        var item = (ThemeItem)sender!;
+        if (e.PropertyName != nameof(ViewModels.ThemeItem.IsSelected)) return;
+        var item = (ViewModels.ThemeItem)sender!;
         if (!item.IsSelected) return;
         ResetOtherThemes(item);
         ApplyTheme(item);
@@ -41,7 +43,7 @@ public class ThemeManager : IThemeManager, ILoadable
 
     #region Private Methods
 
-    private void ResetOtherThemes(ThemeItem item)
+    private void ResetOtherThemes(ViewModels.ThemeItem item)
     {
         foreach (var themeItem in Themes.Where(t => t.IsSelected && t.Title != item.Title))
         {
@@ -49,7 +51,7 @@ public class ThemeManager : IThemeManager, ILoadable
         }
     }
 
-    private void ApplyTheme(ThemeItem themeItem)
+    private void ApplyTheme(ViewModels.ThemeItem themeItem)
     {
         var newThemeDict = new ResourceDictionary
         {

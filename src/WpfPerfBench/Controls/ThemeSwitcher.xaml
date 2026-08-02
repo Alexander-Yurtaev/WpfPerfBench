@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:WpfPerfBench.Controls"
              xmlns:managers="clr-namespace:WpfPerfBench.Managers"
              xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
+             xmlns:viewModels="clr-namespace:WpfPerfBench.ViewModels"
              mc:Ignorable="d" 
              d:DesignWidth="195">
 
@@ -47,7 +48,7 @@
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type managers:ThemeItem}">
+                    <DataTemplate DataType="{x:Type viewModels:ThemeItem}">
                         <RadioButton IsChecked="{Binding IsSelected}">
                             <RadioButton.Style>
                                 <Style TargetType="RadioButton">

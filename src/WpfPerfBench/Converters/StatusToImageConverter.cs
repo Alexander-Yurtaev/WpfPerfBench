@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
-using WpfPerfBench.Enums;
+using WpfPerfBench.Core.Enums;
 
 namespace WpfPerfBench.Converters;
 

@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using WpfPerfBench.Enums;
+using WpfPerfBench.Core.Enums;
 using WpfPerfBench.Interfaces;
+using WpfPerfBench.Interfaces.Managers;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
+using WpfPerfBench.Managers.Args;
 using WpfPerfBench.ViewModels.Controls;
 
 namespace WpfPerfBench.ViewModels;

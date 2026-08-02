@@ -1,10 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using WpfPerfBench.Core.Enums;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Data.Services;
-using WpfPerfBench.Enums;
 using WpfPerfBench.Services;
 using WpfPerfBench.Wrappers;
 

@@ -1,4 +1,4 @@
-﻿using WpfPerfBench.Enums;
+﻿using WpfPerfBench.Core.Enums;
 using WpfPerfBench.ViewModels.Dialogs;
 
 namespace WpfPerfBench.Services;

@@ -1,4 +1,4 @@
-﻿namespace WpfPerfBench.Enums;
+﻿namespace WpfPerfBench.Core.Enums;
 
 public enum DialogResult
 {

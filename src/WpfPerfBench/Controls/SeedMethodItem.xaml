@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfPerfBench.Controls"
-             xmlns:enum="clr-namespace:WpfPerfBench.Enums"
              xmlns:converters="clr-namespace:WpfPerfBench.Converters"
              xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
+             xmlns:enum="clr-namespace:WpfPerfBench.Core.Enums;assembly=WpfPerfBench.Core"
              mc:Ignorable="d" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=designViewModels:DesignSeedMethodItem, IsDesignTimeCreatable=True}">

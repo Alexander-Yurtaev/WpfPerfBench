@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using WpfPerfBench.Managers;
+using WpfPerfBench.Interfaces.Managers;
 
 namespace WpfPerfBench.Controls.ContentIndicators;
 

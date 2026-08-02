@@ -1,5 +1,6 @@
 ﻿using Moq;
 using WpfPerfBench.Data.Repositories;
+using WpfPerfBench.Interfaces.Managers;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
 using WpfPerfBench.ViewModels;

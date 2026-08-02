@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using System.Windows;
 using WpfPerfBench.Commands;
-using WpfPerfBench.Enums;
+using WpfPerfBench.Core.Enums;
 using WpfPerfBench.ViewModels.Dialogs;
 using WpfPerfBench.Views;
 

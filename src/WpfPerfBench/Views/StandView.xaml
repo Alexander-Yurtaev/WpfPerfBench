@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WpfPerfBench.Views"
              xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
              xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
-             xmlns:data="clr-namespace:WpfPerfBench.Data"
+             xmlns:data="clr-namespace:WpfPerfBench.Core.Data;assembly=WpfPerfBench.Core"
              xmlns:models="clr-namespace:WpfPerfBench.Data.Models;assembly=WpfPerfBench.Data"
              xmlns:controls="clr-namespace:WpfPerfBench.Controls"
              xmlns:gmap="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"

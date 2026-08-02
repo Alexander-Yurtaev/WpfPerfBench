@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using WpfPerfBench.Core.Interfaces;
 using WpfPerfBench.Interfaces;
 
 namespace WpfPerfBench.Behaviors;

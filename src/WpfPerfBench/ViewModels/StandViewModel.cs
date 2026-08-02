@@ -2,12 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using WpfPerfBench.Core.Helpers;
+using WpfPerfBench.Core.Interfaces;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Models;
 using WpfPerfBench.Data.Services;
-using WpfPerfBench.Interfaces;
+using WpfPerfBench.Interfaces.Managers;
 using WpfPerfBench.Interfaces.ViewModels;
-using WpfPerfBench.Managers;
 using WpfPerfBench.Services;
 
 namespace WpfPerfBench.ViewModels;

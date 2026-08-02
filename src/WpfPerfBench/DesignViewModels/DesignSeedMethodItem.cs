@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using WpfPerfBench.Core.Enums;
 using WpfPerfBench.Data.Metrics;
-using WpfPerfBench.Enums;
 using WpfPerfBench.Wrappers;
 
 namespace WpfPerfBench.DesignViewModels;

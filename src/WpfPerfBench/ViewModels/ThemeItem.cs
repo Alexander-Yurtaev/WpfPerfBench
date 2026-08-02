@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using WpfPerfBench.Enums;
+using WpfPerfBench.Core.Enums;
 
-namespace WpfPerfBench.Managers;
+namespace WpfPerfBench.ViewModels;
 
 public partial class ThemeItem(string iconPath, string title) : ObservableObject
 {

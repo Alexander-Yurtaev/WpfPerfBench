@@ -2,8 +2,8 @@
 using System.Reflection;
 using WpfPerfBench.Data;
 using WpfPerfBench.Factories;
+using WpfPerfBench.Interfaces.Managers;
 using WpfPerfBench.Interfaces.ViewModels;
-using WpfPerfBench.Managers;
 using WpfPerfBench.SeedMethods;
 
 namespace WpfPerfBench.ViewModels;

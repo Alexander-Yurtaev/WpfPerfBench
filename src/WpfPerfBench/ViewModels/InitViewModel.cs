@@ -3,13 +3,14 @@ using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Security;
+using WpfPerfBench.Core.Enums;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
 using WpfPerfBench.Data.Services;
-using WpfPerfBench.Enums;
 using WpfPerfBench.Interfaces;
+using WpfPerfBench.Interfaces.Managers;
 using WpfPerfBench.Interfaces.ViewModels;
-using WpfPerfBench.Managers;
+using WpfPerfBench.Managers.Args;
 using WpfPerfBench.Services;
 
 namespace WpfPerfBench.ViewModels;

@@ -3,12 +3,12 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
+using WpfPerfBench.Core.Enums;
+using WpfPerfBench.Core.Interfaces;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Services;
-using WpfPerfBench.Enums;
-using WpfPerfBench.Interfaces;
+using WpfPerfBench.Interfaces.Managers;
 using WpfPerfBench.Interfaces.ViewModels;
-using WpfPerfBench.Managers;
 using WpfPerfBench.Services;
 using WpfPerfBench.Wrappers;
 

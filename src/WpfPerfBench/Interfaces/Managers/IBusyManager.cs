@@ -1,4 +1,4 @@
-﻿namespace WpfPerfBench.Managers;
+﻿namespace WpfPerfBench.Interfaces.Managers;
 
 public interface IBusyManager
 {

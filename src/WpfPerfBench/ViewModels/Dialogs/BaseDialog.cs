@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using WpfPerfBench.Commands;
-using WpfPerfBench.Enums;
+using WpfPerfBench.Core.Enums;
 
 namespace WpfPerfBench.ViewModels.Dialogs;
 

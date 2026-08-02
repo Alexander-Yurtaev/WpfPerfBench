@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using WpfPerfBench.Enums;
+using WpfPerfBench.Core.Enums;
 using WpfPerfBench.Services;
 using WpfPerfBench.ViewModels.Dialogs;
 using WpfPerfBench.Views;

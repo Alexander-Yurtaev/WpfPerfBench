@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using WpfPerfBench.Data;
+using WpfPerfBench.Core.Data;
 
-namespace WpfPerfBench.Managers;
+namespace WpfPerfBench.Core.Interfaces;
 
 public interface IConsoleManager
 {

@@ -1,6 +1,6 @@
-﻿using WpfPerfBench.Enums;
+﻿using WpfPerfBench.Core.Enums;
 
-namespace WpfPerfBench.Managers;
+namespace WpfPerfBench.Managers.Args;
 
 public class NavigatableEventArgs
 {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using ThemeItem = WpfPerfBench.ViewModels.ThemeItem;
 
-namespace WpfPerfBench.Managers;
+namespace WpfPerfBench.Interfaces.Managers;
 
 public interface IThemeManager
 {
