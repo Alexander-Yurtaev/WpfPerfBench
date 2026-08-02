@@ -65,7 +65,10 @@
             <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
         </Style>
         <Style x:Key="InfoContainerStyle" TargetType="Border">
-
+            <Setter Property="Background" Value="{DynamicResource BgSecondary}"/>
+        </Style>
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="{DynamicResource BgSecondary}"/>
         </Style>
     </UserControl.Resources>
 
@@ -134,7 +137,8 @@
             <Border Grid.Row="0"
                     Grid.Column="1"
                     Background="{DynamicResource BgSecondary}">
-                <ListView ItemsSource="{Binding Items}"
+                <ListView x:Name="ItemsListView"
+                          ItemsSource="{Binding Items}"
                           Style="{StaticResource ItemsListViewStyle}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -189,8 +193,159 @@
                     Grid.Column="1" 
                     Style="{StaticResource InfoContainerStyle}">
                 <TabControl>
-                    <TabItem Header="Детали">
+                    <TabControl.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="Foreground" Value="{DynamicResource TextMute}"/>
+                            <Setter Property="FontSize" Value="12"/>
+                        </Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="FontWeight" Value="Medium"/>
+                        </Style>
+                        <Style TargetType="CheckBox">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="FontWeight" Value="Medium"/>
+                        </Style>
+                    </TabControl.Resources>
+                    <TabItem Header="Детали"
+                             DataContext="{Binding ElementName=ItemsListView,
+                                                Path=SelectedItem}">
+                        <Border Background="{DynamicResource BgWindow}">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Hidden">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
 
+                                    <Label Grid.Column="0"
+                                       Grid.Row="0"
+                                       Content="CategoryId:"/>
+                                    <TextBlock Grid.Column="1"
+                                           Grid.Row="0"
+                                           Text="{Binding CategoryId}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="1"
+                                       Content="Name:"/>
+                                    <TextBlock Grid.Column="1"
+                                           Grid.Row="1"
+                                           Text="{Binding Name}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="2"
+                                       Content="Status:"/>
+                                    <TextBlock Grid.Column="1"
+                                           Grid.Row="2"
+                                           Text="{Binding Status}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="3"
+                                       Content="Priority:"/>
+                                    <TextBlock Grid.Column="1" 
+                                           Grid.Row="3"
+                                           Text="{Binding Priority}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="4"
+                                       Content="CreatedAt:"/>
+                                    <TextBlock Grid.Column="1"
+                                           Grid.Row="4"
+                                           Text="{Binding CreatedAt, StringFormat=dd-MM-yyyy}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="5"
+                                       Content="Price:"/>
+                                    <TextBlock Grid.Column="1"
+                                           Grid.Row="5"
+                                           Text="{Binding Price, StringFormat=C}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="6"
+                                       Content="Weight:"/>
+                                    <TextBlock Grid.Column="1"
+                                           Grid.Row="6"
+                                           Text="{Binding Weight, StringFormat={}{0} кг}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="7"
+                                       Content="IsFragile:"/>
+                                    <CheckBox Grid.Column="1"
+                                          Grid.Row="7"
+                                          IsChecked="{Binding IsFragile}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="8"
+                                       Content="IsUrgent:"/>
+                                    <CheckBox Grid.Column="1"
+                                          Grid.Row="8"
+                                          IsChecked="{Binding IsUrgent}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="9"
+                                       Content="Comments:"/>
+                                    <TextBlock Grid.Column="1"
+                                           Grid.Row="9"
+                                           Text="{Binding Comments}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="10"
+                                       Content="Latitude:"/>
+                                    <TextBlock Grid.Column="1"
+                                           Grid.Row="10"
+                                           Text="{Binding Latitude}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="11"
+                                       Content="Longitude:"/>
+                                    <TextBlock Grid.Column="1"
+                                           Grid.Row="11"
+                                           Text="{Binding Longitude}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="12"
+                                       Content="DeliveryLatitude:"/>
+                                    <TextBlock Grid.Column="1"
+                                           Grid.Row="12"
+                                           Text="{Binding DeliveryLatitude}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="13"
+                                       Content="DeliveryLongitude:"/>
+                                    <TextBlock Grid.Column="1"
+                                           Grid.Row="13"
+                                           Text="{Binding DeliveryLongitude}"/>
+
+                                    <Label Grid.Column="0"
+                                       Grid.Row="14"
+                                       Content="IsDeleted:"/>
+                                    <CheckBox Grid.Column="1"
+                                          Grid.Row="14"
+                                          IsChecked="{Binding IsDeleted}"/>
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
                     </TabItem>
                     <TabItem Header="Карта">
 

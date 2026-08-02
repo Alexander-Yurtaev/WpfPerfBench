@@ -2,7 +2,6 @@
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Models;
 using WpfPerfBench.Managers;
-using Item = WpfPerfBench.Data.Entities.Item;
 
 namespace WpfPerfBench.DesignViewModels;
 
