@@ -48,14 +48,6 @@
             <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        <Style x:Key="TreeViewStyle"
-               TargetType="TreeView">
-            <Setter Property="MinWidth" Value="200"/>
-            <Setter Property="Background" Value="{DynamicResource BgTree}"/>
-            <Setter Property="Padding" Value="10 15"/>
-            <Setter Property="BorderThickness" Value="0 0 1 0"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-        </Style>
         <Style x:Key="ItemsListViewStyle"
                TargetType="ListView">
             <Setter Property="Background" Value="{DynamicResource BgList}"/>
@@ -127,7 +119,7 @@
                       Style="{StaticResource TreeViewStyle}">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                        <TextBlock Foreground="Beige">
+                        <TextBlock>
                             <Run Text="{Binding Name, Mode=OneWay}"/>
                             <Run Text=" ("/>
                             <Run Text="{Binding ItemsCount, Mode=OneWay, StringFormat={}{0:N0}}"/>
