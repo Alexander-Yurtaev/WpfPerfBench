@@ -1,15 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
-using System.Windows;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
+using System.Text;
+using System.Windows;
 using WpfPerfBench.Data;
-using WpfPerfBench.Wrappers;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Enums;
 using WpfPerfBench.Interfaces;
 using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
 using WpfPerfBench.Services;
+using WpfPerfBench.Wrappers;
 
 namespace WpfPerfBench.ViewModels;
 
@@ -107,17 +108,28 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
                     var pendingMessage = await _dataService.GetPendingMigrationsAsync(db, ctTotal.Token);
                     ProcessMigrationResult(pendingMessage, MigrationStatus.Pending);
                 }, ctTotal.Token)
-            .ContinueWith(task =>
-            {
-                if (task.Exception is null) return;
-                throw task.Exception;
-            }, ctTotal.Token);
+                .ContinueWith(task =>
+                {
+                    if (task.Exception is null) return;
+                    throw task.Exception;
+                }, ctTotal.Token);
         }
         catch (TaskCanceledException e)
         {
             Console.WriteLine(e);
             Items.Clear();
             _messageService.ShowWarningMessage("Операция загрузки миграций отменена.");
+        }
+        catch (AggregateException e)
+        {
+            Console.WriteLine(e);
+            Items.Clear();
+            var message = new StringBuilder();
+            foreach (var exception in e.InnerExceptions)
+            {
+                message.Append(exception.GetBaseException().Message);
+            }
+            _messageService.ShowErrorMessage(message.ToString());
         }
         catch (Exception e)
         {
@@ -142,14 +154,22 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
         {
             case FailResult fail:
                 throw new InvalidOperationException(fail.Message);
-            case CancelResult cancel:
+            case CancelResult _:
                 break;
             case EntityResult<string> names:
                 {
                     foreach (var name in names.Entities)
                     {
-                        Application.Current.Dispatcher.Invoke(() =>
-                            Items.Add(new MigrationItem(name) { Status = status }));
+                        if (Application.Current is not null)
+                        {
+                            Application.Current.Dispatcher.Invoke(() =>
+                                Items.Add(new MigrationItem(name) { Status = status }));
+                        }
+                        else
+                        {
+                            Items.Add(new MigrationItem(name) { Status = status });
+                        }
+                            
                         OnPropertyChanged(nameof(MigrationCount));
                     }
 

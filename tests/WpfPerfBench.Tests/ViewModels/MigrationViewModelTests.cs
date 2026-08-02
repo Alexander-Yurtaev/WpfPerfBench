@@ -30,6 +30,7 @@ public class MigrationViewModelTests : PageViewModelTestsBase<IMigrationViewMode
         DataServiceMock.Setup(ds =>
                 ds.GetPendingMigrationsAsync(It.IsAny<IWpfPerfBenchContext>(), It.IsAny<CancellationToken>()))
             .Returns(GetPendingMigrations);
+
         DataServiceMock.Setup(ds =>
                 ds.GetAppliedMigrationsAsync(It.IsAny<IWpfPerfBenchContext>(), It.IsAny<CancellationToken>()))
             .Returns(GetAppliedMigrations);
@@ -88,6 +89,7 @@ public class MigrationViewModelTests : PageViewModelTestsBase<IMigrationViewMode
         DataServiceMock.Setup(ds =>
                 ds.GetPendingMigrationsAsync(It.IsAny<IWpfPerfBenchContext>(), It.IsAny<CancellationToken>()))
             .Returns(GetPendingMigrations);
+
         DataServiceMock.Setup(ds =>
                 ds.GetAppliedMigrationsAsync(It.IsAny<IWpfPerfBenchContext>(), It.IsAny<CancellationToken>()))
             .Returns(GetAppliedMigrationsFail);
