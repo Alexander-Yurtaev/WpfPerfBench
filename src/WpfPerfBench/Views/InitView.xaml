@@ -5,8 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfPerfBench.Views"
              xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
+             xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="811.43" d:DesignWidth="504">
+             d:DesignHeight="811.43" d:DesignWidth="504"
+             d:DataContext="{d:DesignInstance Type=designViewModels:DesignInitView, IsDesignTimeCreatable=True}">
 
     <Border Style="{DynamicResource CardBorderStyle}">
         <Grid>
