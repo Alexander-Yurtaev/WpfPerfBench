@@ -1,45 +1,50 @@
-﻿using WpfPerfBench.Core.Data;
+﻿using System.Collections.ObjectModel;
+using WpfPerfBench.Core.Data;
 using WpfPerfBench.Core.Helpers;
 using WpfPerfBench.Core.Interfaces;
 using WpfPerfBench.Core.Managers;
+using WpfPerfBench.Data;
 using WpfPerfBench.Data.Models;
+using WpfPerfBench.ViewModels;
 
 namespace WpfPerfBench.DesignViewModels;
 
-public class DesignStandViewModel
+public class DesignStandViewModel : StandViewModel
 {
-    public DesignStandViewModel()
+    public DesignStandViewModel() : base(
+        null, 
+        null, 
+        null, 
+        new UserSession(), 
+        null,
+        new ConsoleManager())
     {
         Icon = "👋";
         Fio = "Иванов Иван Иванович";
         DataProvider = "DataProvider";
         TotalRecordCount = 1_000_000;
-        TreeItems = GetTreeItems();
+        TreeItems = new ObservableCollection<CategoryTreeItem>(GetTreeItems());
         SelectedItem = TreeItems.FirstOrDefault();
-        Items = Enumerable.Range(1, 10)
+        var items = Enumerable.Range(1, 10)
             .Select(r => new Item { Id = r, CategoryId = 1, Name = $"Item{r}" })
             .ToList();
+        foreach (var item in items)
+        {
+            Items.Add(item);
+        }
 
         var logItems = new List<LogItem>
         {
             new LogItem(DateTime.Now, "Загрузка дерева", TimeSpanHelper.ToHmsfFormatString(TimeSpan.Parse("12:34:56.789")))
         };
 
-        ConsoleManager = new ConsoleManager();
         foreach (var item in logItems)
         {
             ConsoleManager.LogItems.Add(item);
         }
     }
 
-    public string Icon { get; set; }
-    public string Fio { get; set; }
-    public string DataProvider { get; set; }
-    public int TotalRecordCount { get; set; }
-    public CategoryTreeItem[] TreeItems { get; set; }
     public object? SelectedItem { get; set; }
-    public List<Item> Items { get; set; }
-    public IConsoleManager ConsoleManager { get; set; }
 
     private CategoryTreeItem[] GetTreeItems()
     {

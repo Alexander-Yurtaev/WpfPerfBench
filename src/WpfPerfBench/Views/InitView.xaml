@@ -8,7 +8,7 @@
              xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="811.43" d:DesignWidth="504"
-             d:DataContext="{d:DesignInstance Type=designViewModels:DesignInitView, IsDesignTimeCreatable=True}">
+             d:DataContext="{d:DesignInstance Type=designViewModels:DesignInitViewModel, IsDesignTimeCreatable=True}">
 
     <Border Style="{DynamicResource CardBorderStyle}">
         <Grid>

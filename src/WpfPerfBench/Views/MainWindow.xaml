@@ -9,11 +9,13 @@
         xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
         xmlns:viewModels="clr-namespace:WpfPerfBench.ViewModels"
         xmlns:views="clr-namespace:WpfPerfBench.Views"
+        xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
         mc:Ignorable="d"
         Title="WPF Performance Demo" 
         Style="{StaticResource MainWindowStyle}"
         Height="985" Width="950"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        d:DataContext="{d:DesignInstance Type=designViewModels:DesignMainWindow, IsDesignTimeCreatable=True}">
 
     <b:Interaction.Behaviors>
         <behaviors:DragMoveBehavior/>

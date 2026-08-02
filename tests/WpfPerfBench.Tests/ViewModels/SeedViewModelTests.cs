@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
+using WpfPerfBench.Core.Interfaces;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Factories;
 using WpfPerfBench.Interfaces.ViewModels;
@@ -34,7 +35,12 @@ public partial class SeedViewModelTests : PageViewModelTestsBase<ISeedViewModel>
     public void Should_Success_Fill_SeedMethods()
     {
         // Arrange
+
         // Act
+        if (ViewModel is ILoadable loadable)
+        {
+            loadable.Load();
+        }
 
         // Assert
         ViewModel.SeedMethods.Should().NotBeEmpty();

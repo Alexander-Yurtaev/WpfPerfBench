@@ -6,8 +6,10 @@
              xmlns:local="clr-namespace:WpfPerfBench.Views"
              xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
              xmlns:controls="clr-namespace:WpfPerfBench.Controls"
+             xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="811.43" d:DesignWidth="504">
+             d:DesignHeight="811.43" d:DesignWidth="504"
+             d:DataContext="{d:DesignInstance Type=designViewModels:DesignSeedViewModel, IsDesignTimeCreatable=True}">
 
     <Border behaviors:LoadActivator.IsActive="True"
             Style="{DynamicResource CardBorderStyle}">

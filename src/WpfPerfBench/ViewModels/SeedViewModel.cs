@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reflection;
+using WpfPerfBench.Core.Interfaces;
 using WpfPerfBench.Data;
 using WpfPerfBench.Factories;
 using WpfPerfBench.Interfaces.Managers;
@@ -8,7 +9,7 @@ using WpfPerfBench.SeedMethods;
 
 namespace WpfPerfBench.ViewModels;
 
-public class SeedViewModel : ViewModelBase, ISeedViewModel
+public class SeedViewModel : ViewModelBase, ISeedViewModel, ILoadable
 {
     private readonly ISeedMethodFactory _seedMethodFactory;
 
@@ -18,16 +19,24 @@ public class SeedViewModel : ViewModelBase, ISeedViewModel
         ISeedMethodFactory seedMethodFactory) : base(navigationService, userSession)
     {
         _seedMethodFactory = seedMethodFactory;
-        FillSeedMethods();
     }
 
     public int SeedCount => 1_000_000;
 
     public ObservableCollection<SeedMethodBase> SeedMethods { get; set; } = [];
 
+    #region Implementation of ILoadable
+
+    public void Load()
+    {
+        FillSeedMethods();
+    }
+
+    #endregion
+
     #region Static Methods
 
-    private void FillSeedMethods()
+    protected virtual void FillSeedMethods()
     {
         var assembly = Assembly.GetExecutingAssembly();
         var seedMethods = assembly.GetTypes()

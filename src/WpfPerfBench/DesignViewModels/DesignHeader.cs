@@ -9,7 +9,7 @@ public class DesignHeader
 {
     public DesignHeader()
     {
-        IconPath = "pack://application:,,,/Resources/Icons/geer.ico";
+        IconPath = "pack://application:,,,/WpfPerfBench;component/Resources/Icons/wpb.ico";
         Title = "WPF Performance Demo";
         Description = "интерактивный макет";
         ThemeManager = new ThemeManager();
@@ -26,8 +26,8 @@ public class DesignThemeManager : IThemeManager
 {
     public DesignThemeManager()
     {
-        var light = new ThemeItem("pack://application:,,,/Resources/Icons/light.ico", "Светлая");
-        var dark = new ThemeItem("pack://application:,,,/Resources/Icons/dark.ico", "Темная");
+        var light = new ThemeItem("pack://application:,,,/WpfPerfBench;component/Resources/Icons/light.ico", "Светлая");
+        var dark = new ThemeItem("pack://application:,,,/WpfPerfBench;component/Resources/Icons/dark.ico", "Темная");
         ThemeItem[] themes = [light, dark];
         Themes = new ObservableCollection<ThemeItem>(themes);
     }

@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using System.Security;
+using WpfPerfBench.Core.Helpers;
 
 namespace WpfPerfBench.Tests.ViewModels;
 
@@ -168,7 +169,7 @@ public partial class InitViewModelTests
         };
 
         // Act
-        ViewModel.Password = CreateSecureString(password);
+        ViewModel.Password = SecurityHelpers.CreateSecureString(password);
 
         // Assert
         count.Should().Be(1);
@@ -204,7 +205,7 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        ViewModel.Password = CreateSecureString(password);
+        ViewModel.Password = SecurityHelpers.CreateSecureString(password);
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
@@ -220,7 +221,7 @@ public partial class InitViewModelTests
 
         // Act
         var password = new string('a', 10);
-        ViewModel.Password = CreateSecureString(password);
+        ViewModel.Password = SecurityHelpers.CreateSecureString(password);
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
@@ -236,7 +237,7 @@ public partial class InitViewModelTests
 
         // Act
         var password = new string('1', 10);
-        ViewModel.Password = CreateSecureString(password);
+        ViewModel.Password = SecurityHelpers.CreateSecureString(password);
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
@@ -264,8 +265,8 @@ public partial class InitViewModelTests
         };
 
         // Act
-        ViewModel.Password = CreateSecureString(password);
-        ViewModel.ConfirmPassword = CreateSecureString(password);
+        ViewModel.Password = SecurityHelpers.CreateSecureString(password);
+        ViewModel.ConfirmPassword = SecurityHelpers.CreateSecureString(password);
 
         // Assert
         count.Should().Be(1);
@@ -277,7 +278,7 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        ViewModel.Password = CreateSecureString("A1111111");
+        ViewModel.Password = SecurityHelpers.CreateSecureString("A1111111");
         ViewModel.ConfirmPassword = null!;
         ViewModel.Validate();
 
@@ -294,8 +295,8 @@ public partial class InitViewModelTests
         // Arrange
 
         // Act
-        ViewModel.ConfirmPassword = CreateSecureString("A1aaaaaa");
-        ViewModel.ConfirmPassword = CreateSecureString("A2aaaaaa");
+        ViewModel.ConfirmPassword = SecurityHelpers.CreateSecureString("A1aaaaaa");
+        ViewModel.ConfirmPassword = SecurityHelpers.CreateSecureString("A2aaaaaa");
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
@@ -324,19 +325,4 @@ public partial class InitViewModelTests
     }
 
     #endregion ConnectionString
-
-    #region PrivateMethods
-
-    private SecureString CreateSecureString(string value)
-    {
-        var secureString = new SecureString();
-        foreach (var c in value)
-        {
-            secureString.AppendChar(c);
-        }
-
-        return secureString;
-    }
-
-    #endregion PrivateMethods
 }
