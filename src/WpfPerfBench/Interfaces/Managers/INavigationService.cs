@@ -8,7 +8,7 @@ public interface INavigationService
 {
     Page CurrentPage { get; set; }
 
-    int TotalSteps { get; }
+    int TotalPages { get; }
 
     event EventHandler<NavigateEventArgs>? OnNavigate;
 

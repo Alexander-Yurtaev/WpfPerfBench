@@ -92,7 +92,7 @@ public class MainWindowViewModelTests
     //public void NavigateFrom_TooLarge_Step_Success()
     //{
     //    // Arrange
-    //    _viewModel.CurrentStep = _viewModel.TotalSteps + 1;
+    //    _viewModel.CurrentStep = _viewModel.TotalPages + 1;
 
     //    // Act
     //    _navigationService.NavigateNext();

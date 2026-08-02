@@ -12,7 +12,7 @@ public partial class NavigationService : ObservableObject, INavigationService
 
     public int CurrentPageNumber => (int)CurrentPage;
 
-    public int TotalSteps => _factories.Count;
+    public int TotalPages => _factories.Count;
 
     private readonly Dictionary<Page, Func<IViewModelBase>> _factories = [];
 
