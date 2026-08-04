@@ -1,4 +1,5 @@
 ﻿using Moq;
+using WpfPerfBench.Core.Interfaces;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Services;
 using WpfPerfBench.Interfaces.Managers;
@@ -16,6 +17,7 @@ public abstract class PageViewModelTestsBase<T> where T : IViewModelBase
     protected Mock<IDataService> DataServiceMock;
     protected Mock<IBusyManager> BusyManagerMock;
     protected Mock<IMessageService> MessageServiceMock;
+    protected Mock<IConsoleManager> ConsoleManagerMock;
 
     protected PageViewModelTestsBase()
     {
@@ -24,5 +26,6 @@ public abstract class PageViewModelTestsBase<T> where T : IViewModelBase
         DataServiceMock = new Mock<IDataService>();
         BusyManagerMock = new Mock<IBusyManager>();
         MessageServiceMock = new Mock<IMessageService>();
+        ConsoleManagerMock = new Mock<IConsoleManager>();
     }
 }
