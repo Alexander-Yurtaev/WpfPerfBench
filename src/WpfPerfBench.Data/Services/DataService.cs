@@ -197,7 +197,7 @@ public class DataService : IDataService
             var items = await _itemRepository.GetItemsByCategoryId(db, categoryId, ct);
             return ResultBase.EntityResult(items);
         }
-        catch (TaskCanceledException e)
+        catch (SystemException e) when (e is TaskCanceledException or OperationCanceledException)
         {
             Console.WriteLine(e);
             return ResultBase.CancelResult($"Операция получения данных для categoryId={categoryId} была отменена");

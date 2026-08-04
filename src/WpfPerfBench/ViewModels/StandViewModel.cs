@@ -118,18 +118,29 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
 
     private async Task FillItemsByCategoryId(int categoryId)
     {
-        _busyManager.ShowStandardIndicator("Загрузка данных...", $"CategoryId = {categoryId}");
+        var ct = _busyManager.ShowStandardIndicator("Загрузка данных...", $"CategoryId = {categoryId}");
 
         var sw = new Stopwatch();
         sw.Start();
 
         try
         {
-            var result = await _dataService.GetItemsByCategoryId(categoryId);
-            if (result is EntityResult<Item> entityItems)
+            var result = await _dataService.GetItemsByCategoryId(categoryId, ct);
+            if (result is FailResult failResult)
+            {
+                _messageService.ShowErrorMessage(failResult.Message);
+            }
+            else if (result is CancelResult cancelResult)
+            {
+                _messageService.ShowWarningMessage(cancelResult.Message);
+            } else if (result is EntityResult<Item> entityItems)
             {
                 var items = new ObservableCollection<Item>(entityItems.Entities);
                 Items = items;
+            }
+            else
+            {
+                _messageService.ShowErrorMessage($"Неизвсетный тип ошибки {result.GetType()} с сообщением: {result.Message}");
             }
         }
         catch (Exception e)
