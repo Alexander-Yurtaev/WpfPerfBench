@@ -8,7 +8,7 @@ public class DataContextFactory : IDataContextFactory
     {
         switch (provider)
         {
-            case DataProvider.MsSql:
+            case DataProvider.SqlServer:
             {
                 var factory = new MsSqlContextFactory();
                 return factory.CreateDbContext([connectionString]);

@@ -3,13 +3,12 @@ using WpfPerfBench.Core.Enums;
 using WpfPerfBench.Core.Helpers;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
-using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Managers;
 using WpfPerfBench.ViewModels;
 
 namespace WpfPerfBench.DesignViewModels;
 
-public class DesignInitViewModel : InitViewModel, IInitViewModel
+public class DesignInitViewModel : InitViewModel
 {
     public DesignInitViewModel() : base(
         new NavigationService(), 
@@ -22,7 +21,7 @@ public class DesignInitViewModel : InitViewModel, IInitViewModel
         Email = "ivan.ivanov@mail";
         Password = SecurityHelpers.CreateSecureString("A1111111"); ;
         ConfirmPassword = new SecureString();//SecurityHelpers.CreateSecureString("A1111111"); ;
-        DbTypes = [DataProvider.Postgres, DataProvider.MsSql];
+        DbTypes = [DataProvider.Postgres, DataProvider.SqlServer];
         DbType = DbTypes[0];
         ConnectionString = "ConnectionString";
 

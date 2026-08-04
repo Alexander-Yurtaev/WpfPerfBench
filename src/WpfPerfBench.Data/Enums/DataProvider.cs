@@ -3,5 +3,5 @@
 public enum DataProvider
 {
     Postgres,
-    MsSql,
+    SqlServer,
 }

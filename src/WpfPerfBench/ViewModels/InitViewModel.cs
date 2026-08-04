@@ -52,7 +52,7 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
     private SecureString? _confirmPassword;
 
     [ObservableProperty]
-    private DataProvider[] _dbTypes = [DataProvider.Postgres, DataProvider.MsSql];
+    private DataProvider[] _dbTypes = [DataProvider.Postgres, DataProvider.SqlServer];
 
     [ObservableProperty]
     private DataProvider _dbType = DataProvider.Postgres;
