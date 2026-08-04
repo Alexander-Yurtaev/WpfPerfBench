@@ -21,7 +21,7 @@ public class CategoryRepositoryTests
     }
 
     [Theory]
-    [InlineData(DataProvider.MsSql)]
+    [InlineData(DataProvider.SqlServer)]
     [InlineData(DataProvider.Postgres)]
     public async Task Call_CategoryRepository_Success(DataProvider provider)
     {
@@ -47,7 +47,7 @@ public class CategoryRepositoryTests
     }
 
     [Theory]
-    [InlineData(DataProvider.MsSql)]
+    [InlineData(DataProvider.SqlServer)]
     [InlineData(DataProvider.Postgres)]
     public async Task Call_HierarchyCategories_Success(DataProvider provider)
     {
@@ -93,13 +93,13 @@ public class CategoryRepositoryTests
     {
         switch (provider)
         {
-            case DataProvider.MsSql:
+            case DataProvider.SqlServer:
             {
-                var options = new DbContextOptionsBuilder<MsSqlDataContext>()
+                var options = new DbContextOptionsBuilder<SqlServerDataContext>()
                     .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                     .Options;
 
-                return new MsSqlDataContext(options);
+                return new SqlServerDataContext(options);
             }
             case DataProvider.Postgres:
             {

@@ -10,7 +10,7 @@ public class DataContextFactory : IDataContextFactory
         {
             case DataProvider.SqlServer:
             {
-                var factory = new MsSqlContextFactory();
+                var factory = new SqlServerContextFactory();
                 return factory.CreateDbContext([connectionString]);
             }
             case DataProvider.Postgres:

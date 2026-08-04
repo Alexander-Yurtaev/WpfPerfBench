@@ -2,14 +2,14 @@
 
 namespace WpfPerfBench.Data.DataContexts;
 
-public class MsSqlDataContext : DbContextBase
+public class SqlServerDataContext : DbContextBase
 {
-    public MsSqlDataContext(string connectionString) : base(connectionString)
+    public SqlServerDataContext(string connectionString) : base(connectionString)
     {
         
     }
 
-    public MsSqlDataContext(DbContextOptions options) : base(options)
+    public SqlServerDataContext(DbContextOptions options) : base(options)
     {
         
     }

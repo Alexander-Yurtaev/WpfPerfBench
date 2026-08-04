@@ -10,7 +10,7 @@ using WpfPerfBench.Data.DataContexts;
 
 namespace WpfPerfBench.Data.Migrations.SqlServer
 {
-    [DbContext(typeof(MsSqlDataContext))]
+    [DbContext(typeof(SqlServerDataContext))]
     [Migration("20260709162035_InitialSqlServer")]
     partial class InitialSqlServer
     {
