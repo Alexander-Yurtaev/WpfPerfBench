@@ -1,6 +1,6 @@
 ﻿using WpfPerfBench.Data.Models;
 
-namespace WpfPerfBench.ViewModels;
+namespace WpfPerfBench.Interfaces.ViewModels;
 
 public interface ITreeViewHelper
 {

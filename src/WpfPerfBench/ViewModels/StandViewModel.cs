@@ -60,9 +60,8 @@ public partial class StandViewModel : ViewModelBase, IStandViewModel, ILoadableA
 
         try
         {
-            var result = await _dataService.HierarchyCategories(ctTotal.Token);
-
             TreeItems.Clear();
+            var result = await _dataService.HierarchyCategories(ctTotal.Token);
 
             switch (result)
             {

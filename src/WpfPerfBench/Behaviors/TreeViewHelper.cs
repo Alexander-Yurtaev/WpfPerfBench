@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using WpfPerfBench.Data.Models;
-using WpfPerfBench.ViewModels;
+using WpfPerfBench.Interfaces.ViewModels;
 
 namespace WpfPerfBench.Behaviors;
 
