@@ -120,14 +120,14 @@
                         </Label>
                         <Label Style="{StaticResource ProgressLabelStyle}"
                                Content=" | "/>
-                        <Image Source="pack://application:,,,/Resources/Icons/clock.png"
+                        <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/clock.png"
                                Margin="0 5 0 0"
-                               Style="{StaticResource FormImageStyle}"/>
+                               Style="{StaticResource FormImageStyle}" />
                         <Label Style="{StaticResource ProgressLabelStyle}"
                                Content="{Binding DurationString, Mode=OneWay}"/>
                         <Label Style="{StaticResource ProgressLabelStyle}"
                                Content=" | "/>
-                        <Image Source="pack://application:,,,/Resources/Icons/cabinet.png"
+                        <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/cabinet.png"
                                Margin="0 5 0 0"
                                Style="{StaticResource FormImageStyle}"/>
                         <TextBlock Style="{StaticResource ProgressTextBlockStyle}">

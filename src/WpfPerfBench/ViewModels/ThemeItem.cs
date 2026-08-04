@@ -25,9 +25,9 @@ public partial class ThemeItem(string iconPath, string title) : ObservableObject
     {
         return theme switch
         {
-            Theme.Light => new ThemeItem("pack://application:,,,/Resources/Icons/light.png", "Светлая")
+            Theme.Light => new ThemeItem("pack://application:,,,/WpfPerfBench;component/Resources/Icons/light.png", "Светлая")
                 { Theme = theme },
-            _ => new ThemeItem("pack://application:,,,/Resources/Icons/dark.png", "Темная")
+            _ => new ThemeItem("pack://application:,,,/WpfPerfBench;component/Resources/Icons/dark.png", "Темная")
                 { Theme = theme },
         };
     }

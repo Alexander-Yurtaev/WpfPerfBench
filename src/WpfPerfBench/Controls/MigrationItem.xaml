@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfPerfBench.Controls"
              xmlns:converters="clr-namespace:WpfPerfBench.Converters"
-             xmlns:data="clr-namespace:WpfPerfBench.Data"
              xmlns:enum="clr-namespace:WpfPerfBench.Core.Enums;assembly=WpfPerfBench.Core"
              xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
              mc:Ignorable="d" 
@@ -14,11 +13,11 @@
 
     <UserControl.Resources>
         <converters:StatusToImageConverter x:Key="StatusToImageConv"
-                                           PendingIcon="pack://application:,,,/Resources/Icons/pending.png"
-                                           SuccessIcon="pack://application:,,,/Resources/Icons/success.png"
-                                           FailIcon="pack://application:,,,/Resources/Icons/cross_mark.png"
-                                           SkippedIcon="pack://application:,,,/Resources/Icons/skipped.png"
-                                           ProcessingIcon="pack://application:,,,/Resources/Icons/processing.png"/>
+                                           PendingIcon="pack://application:,,,/WpfPerfBench;component/Resources/Icons/pending.png"
+                                           SuccessIcon="pack://application:,,,/WpfPerfBench;component/Resources/Icons/success.png"
+                                           FailIcon="pack://application:,,,/WpfPerfBench;component/Resources/Icons/cross_mark.png"
+                                           SkippedIcon="pack://application:,,,/WpfPerfBench;component/Resources/Icons/skipped.png"
+                                           ProcessingIcon="pack://application:,,,/WpfPerfBench;component/Resources/Icons/processing.png"/>
         
         <DataTemplate DataType="{x:Type enum:MigrationStatus}">
             <local:MigrationStatus/>

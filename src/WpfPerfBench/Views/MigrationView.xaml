@@ -29,7 +29,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" 
                                 Orientation="Horizontal">
-                        <Image Source="pack://application:,,,/Resources/Icons/box.png" 
+                        <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/box.png" 
                                Style="{StaticResource HeaderIconStyle}" />
                         <TextBlock Style="{StaticResource HeaderTextStyle}"
                                    Text="Управление миграциями"/>

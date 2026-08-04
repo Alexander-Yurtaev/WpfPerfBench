@@ -34,7 +34,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" 
                                 Orientation="Horizontal">
-                        <Image Source="pack://application:,,,/Resources/Icons/geer.png" 
+                        <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/geer.png" 
                                Style="{StaticResource HeaderIconStyle}" />
                         <TextBlock Style="{StaticResource HeaderTextStyle}"
                                    Text="Заполнение данными"/>

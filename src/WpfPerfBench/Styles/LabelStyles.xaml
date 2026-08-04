@@ -19,7 +19,7 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="pack://application:,,,/Resources/Icons/success.png"
+                            <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/success.png"
                                    Style="{StaticResource ValidationImageStyle}"/>
                             <Label  Content="Поле заполнено"
                                     Foreground="{DynamicResource Success}"/>
@@ -32,7 +32,7 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="pack://application:,,,/Resources/Icons/cross_mark.png"
+                            <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/cross_mark.png"
                                    Style="{StaticResource ValidationImageStyle}"/>
                             <Label  Content="{Binding ErrorContent}"
                                     Foreground="{DynamicResource Danger}"/>
@@ -53,7 +53,7 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="pack://application:,,,/Resources/Icons/success.png"
+                            <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/success.png"
                                    Style="{StaticResource ValidationImageStyle}"/>
                             <Label  Content="Корректный формат"
                                     Foreground="{DynamicResource Success}"/>
@@ -66,7 +66,7 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="pack://application:,,,/Resources/Icons/cross_mark.png"
+                            <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/cross_mark.png"
                                    Style="{StaticResource ValidationImageStyle}"/>
                             <Label  Content="{Binding ErrorContent}"
                                     Foreground="{DynamicResource Danger}"/>
@@ -87,7 +87,7 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="pack://application:,,,/Resources/Icons/success.png"
+                            <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/success.png"
                                    Style="{StaticResource ValidationImageStyle}"/>
                             <Label  Content="Пароль корректный"
                                     Foreground="{DynamicResource Success}"/>
@@ -100,7 +100,7 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="pack://application:,,,/Resources/Icons/cross_mark.png"
+                            <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/cross_mark.png"
                                    Style="{StaticResource ValidationImageStyle}"/>
                             <Label  Content="{Binding ErrorContent}"
                                     Foreground="{DynamicResource Danger}"/>
@@ -121,7 +121,7 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="pack://application:,,,/Resources/Icons/success.png"
+                            <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/success.png"
                                    Style="{StaticResource ValidationImageStyle}"/>
                             <Label  Content="Пароли совпадают"
                                     Foreground="{DynamicResource Success}"/>
@@ -134,7 +134,7 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="pack://application:,,,/Resources/Icons/cross_mark.png"
+                            <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/cross_mark.png"
                                    Style="{StaticResource ValidationImageStyle}"/>
                             <Label  Content="{Binding ErrorContent}"
                                     Foreground="{DynamicResource Danger}"/>
@@ -155,7 +155,7 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="pack://application:,,,/Resources/Icons/success.png"
+                            <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/success.png"
                                    Style="{StaticResource ValidationImageStyle}"/>
                             <Label  Content="Поле заполнено"
                                     Foreground="{DynamicResource Success}"/>
@@ -168,7 +168,7 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="pack://application:,,,/Resources/Icons/cross_mark.png"
+                            <Image Source="pack://application:,,,/WpfPerfBench;component/Resources/Icons/cross_mark.png"
                                    Style="{StaticResource ValidationImageStyle}"/>
                             <Label  Content="{Binding ErrorContent}"
                                     Foreground="{DynamicResource Danger}"/>

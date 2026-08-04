@@ -6,7 +6,7 @@ namespace WpfPerfBench.ViewModels.Controls;
 public partial class HeaderViewModel : ObservableObject
 {
     [ObservableProperty] 
-    private string _iconPath = "pack://application:,,,/Resources/Icons/wpb.ico";
+    private string _iconPath = "pack://application:,,,/WpfPerfBench;component/Resources/Icons/wpb.ico";
     
     [ObservableProperty]
     private string _title = string.Empty;

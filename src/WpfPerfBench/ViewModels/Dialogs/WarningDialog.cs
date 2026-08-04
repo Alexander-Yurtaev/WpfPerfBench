@@ -5,7 +5,7 @@ public partial class WarningDialog : BaseDialog
     #region Overrides of BaseDialog
 
     public WarningDialog(string description) : base(
-        "pack://application:,,,/Resources/Icons/warning.png",
+        "pack://application:,,,/WpfPerfBench;component/Resources/Icons/warning.png",
         "Внимание!", 
         description)
     {
