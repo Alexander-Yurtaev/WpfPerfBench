@@ -2,5 +2,6 @@
 
 public enum NavigationType
 {
+    Prev,
     Next
 }

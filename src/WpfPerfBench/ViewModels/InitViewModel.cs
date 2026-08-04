@@ -7,15 +7,13 @@ using WpfPerfBench.Core.Enums;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Enums;
 using WpfPerfBench.Data.Services;
-using WpfPerfBench.Interfaces;
 using WpfPerfBench.Interfaces.Managers;
 using WpfPerfBench.Interfaces.ViewModels;
-using WpfPerfBench.Managers.Args;
 using WpfPerfBench.Services;
 
 namespace WpfPerfBench.ViewModels;
 
-public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, INavigatable
+public partial class InitViewModel : ValidationViewModelBase, IInitViewModel
 {
     private readonly IUserSession _userSession;
     private readonly IDataService _dataService;
@@ -80,22 +78,22 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
 
             InitUserSession();
 
-            var db = _dataService.CreateContext();
+            await using var db = _dataService.CreateContext();
 
             var resultTest = await _dataService.TestConnection(db, ct);
 
             _isSuccessTested = resultTest.Success;
-            if (_isSuccessTested == true)
+            switch (_isSuccessTested)
             {
-                _messageService.ShowSuccessMessage("Проверка выполнена!", "Подключение к БД проверено. Вы можете продолжить работу.");
-            }
-            else if (_isSuccessTested == false)
-            {
-                _messageService.ShowErrorMessage(resultTest.Message);
-            }
-            else
-            {
-                _messageService.ShowWarningMessage("Проверка подключения к БД была прервана.");
+                case true:
+                    _messageService.ShowSuccessMessage("Проверка выполнена!", "Подключение к БД проверено. Вы можете продолжить работу.");
+                    break;
+                case false:
+                    _messageService.ShowErrorMessage(resultTest.Message);
+                    break;
+                default:
+                    _messageService.ShowWarningMessage("Проверка подключения к БД была прервана.");
+                    break;
             }
         }
         catch (Exception e)
@@ -106,11 +104,11 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
         }
         finally
         {
-            RefreshCommands();
             if (_isSuccessTested is not null)
             {
-                SendOnNavigatable(NavigationType.Next, _isSuccessTested.Value);
+                NavigationService.AllowNext(_isSuccessTested.Value);
             }
+            RefreshCommands();
             _busyManager.CloseIndicator();
         }
     }
@@ -345,15 +343,4 @@ public partial class InitViewModel : ValidationViewModelBase, IInitViewModel, IN
     }
 
     #endregion SecureString
-
-    #region Implementation of INavigatable
-
-    public event EventHandler<NavigatableEventArgs>? OnNavigatable;
-
-    private void SendOnNavigatable(NavigationType type, bool allowed)
-    {
-        OnNavigatable?.Invoke(this, new NavigatableEventArgs(type, allowed));
-    }
-
-    #endregion
 }

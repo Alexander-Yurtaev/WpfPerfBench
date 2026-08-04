@@ -2,6 +2,7 @@
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Data.Services;
+using WpfPerfBench.Interfaces.Managers;
 using WpfPerfBench.Services;
 
 namespace WpfPerfBench.SeedMethods;
@@ -11,8 +12,9 @@ public class ItemsAddRangeMethod : SeedMethodBase
     public ItemsAddRangeMethod(
         IDataService dataService, 
         IGeneratorService generatorService,
-        IMessageService messageService) 
-        : base(dataService, generatorService, messageService)
+        IMessageService messageService,
+        INavigationService navigationService) 
+        : base(dataService, generatorService, messageService, navigationService)
     {
         Title = "AddRange + SaveChangesAsync";
         Description = "Добавление всех записей с последующим сохранением всех изменений.";
@@ -20,13 +22,21 @@ public class ItemsAddRangeMethod : SeedMethodBase
 
     #region Overrides of SeedMethodBase
 
-    protected override async Task<ResultBase> Prepare(IWpfPerfBenchContext db, CancellationToken ct)
+    protected override async Task<ResultBase> Seed(ISeedMethodMetricsRefresher metrics, CancellationToken ct)
+    {
+        await using var db = DataService.CreateContext();
+        var result = await Prepare(db, ct);
+        if (result is FailResult failResult) return failResult;
+        return await OnSeed(db, metrics, ct);
+    }
+
+    private async Task<ResultBase> Prepare(IWpfPerfBenchContext db, CancellationToken ct)
     {
         var result = await DataService.CleanItems(db, ct);
         return result;
     }
 
-    protected override async Task<ResultBase> OnSeed(
+    private async Task<ResultBase> OnSeed(
         IWpfPerfBenchContext db, 
         ISeedMethodMetricsRefresher metrics,
         CancellationToken ct)

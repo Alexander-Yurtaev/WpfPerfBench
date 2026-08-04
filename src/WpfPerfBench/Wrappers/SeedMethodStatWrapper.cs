@@ -75,6 +75,14 @@ public partial class SeedMethodMetricsWrapper(SeedMethodMetrics model) : Observa
         ProcessedItemCount = count;
     }
 
+    public void AddProcessedItemCount(int count)
+    {
+        lock (_model)
+        {
+            ProcessedItemCount += count;
+        }
+    }
+
     public void UpdateTotalItemCount(int count)
     {
         TotalItemCount = count;

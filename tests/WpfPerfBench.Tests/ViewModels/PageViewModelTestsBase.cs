@@ -9,7 +9,7 @@ namespace WpfPerfBench.Tests.ViewModels;
 
 public abstract class PageViewModelTestsBase<T> where T : IViewModelBase
 {
-    protected T ViewModel;
+    protected T ViewModel = default!;
 
     protected Mock<INavigationService> NavigationServiceMock;
     protected Mock<IUserSession> UserSessionMock;

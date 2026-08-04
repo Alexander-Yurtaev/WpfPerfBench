@@ -18,7 +18,8 @@ public partial class SeedViewModelTests : PageViewModelTestsBase<ISeedViewModel>
         var testSeedMethod = new TestSeedMethod(
             DataServiceMock.Object,
             generatorServiceMock.Object,
-            MessageServiceMock.Object);
+            MessageServiceMock.Object,
+            NavigationServiceMock.Object);
 
 
         var seedMethodFactoryMock = new Mock<ISeedMethodFactory>();

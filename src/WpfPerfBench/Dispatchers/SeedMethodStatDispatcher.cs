@@ -20,6 +20,11 @@ public class SeedMethodStatDispatcher : ISeedMethodMetricsRefresher
         Application.Current.Dispatcher.Invoke(() => _wrapper.UpdateProcessedItemCount(count));
     }
 
+    public void AddProcessedItemCount(int count)
+    {
+        Application.Current.Dispatcher.Invoke(() => _wrapper.AddProcessedItemCount(count));
+    }
+
     public void UpdateTotalItemCount(int count)
     {
         Application.Current.Dispatcher.Invoke(() => _wrapper.UpdateTotalItemCount(count));

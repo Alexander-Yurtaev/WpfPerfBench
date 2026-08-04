@@ -34,10 +34,25 @@ public class DataService : IDataService
     {
         try
         {
-            var success = await Task.Run(() => db.Database.CanConnect(), ct);
-            return success
-                ? ResultBase.SuccessResult()
-                : ResultBase.FailResult("Ошибка при подключении к БД");
+            Exception? taskException;
+            var success = await Task.Run(async () => await db.Database.CanConnectAsync(ct), ct)
+                .ContinueWith(task =>
+                {
+                    taskException = task.Exception;
+                    if (taskException is null)
+                    {
+                        return task.Result;
+                    }
+
+                    return (bool?)null;
+                }, ct);
+
+            return success switch
+            {
+                true => ResultBase.SuccessResult(),
+                false => ResultBase.FailResult("Ошибка при подключении к БД"),
+                null => ResultBase.CancelResult()
+            };
         }
         catch (TaskCanceledException)
         {
@@ -115,7 +130,7 @@ public class DataService : IDataService
             await _itemRepository.CleanItems(db, ct);
             return ResultBase.SuccessResult();
         }
-        catch (TaskCanceledException e)
+        catch (SystemException e) when (e is TaskCanceledException or OperationCanceledException)
         {
             Console.WriteLine(e);
             return ResultBase.CancelResult("Очистка таблицы была отменена");
@@ -158,7 +173,7 @@ public class DataService : IDataService
     {
         try
         {
-            var db = CreateContext();
+            await using var db = CreateContext();
             var treeItems = await _categoryRepository.HierarchyCategories(db, ct);
             return ResultBase.EntityResult(treeItems);
         }
@@ -178,7 +193,7 @@ public class DataService : IDataService
     {
         try
         {
-            var db = CreateContext();
+            await using var db = CreateContext();
             var items = await _itemRepository.GetItemsByCategoryId(db, categoryId, ct);
             return ResultBase.EntityResult(items);
         }

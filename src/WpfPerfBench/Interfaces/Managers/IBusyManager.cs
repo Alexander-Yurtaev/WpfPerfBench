@@ -1,4 +1,6 @@
-﻿namespace WpfPerfBench.Interfaces.Managers;
+﻿using WpfPerfBench.Controls.ContentIndicators;
+
+namespace WpfPerfBench.Interfaces.Managers;
 
 public interface IBusyManager
 {
@@ -12,4 +14,5 @@ public interface IBusyManager
     Task CancelAsync();
 
     bool IsBusy { get; set; }
+    BaseContentIndicator ContentIndicator { get; set; }
 }

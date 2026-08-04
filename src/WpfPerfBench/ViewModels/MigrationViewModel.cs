@@ -40,9 +40,10 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
     private async Task ApplyMigrations()
     {
         var ct = _busyManager.ShowStandardIndicator("Миграции...");
+        NavigationService.Block();
         try
         {
-            var db = _dataService.CreateContext();
+            await using var db = _dataService.CreateContext();
             var migrations = Items
                 .Where(i => i.Status == MigrationStatus.Pending);
 
@@ -81,6 +82,7 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
         }
         finally
         {
+            NavigationService.UnBlock();
             _busyManager.CloseIndicator();
         }
     }
@@ -102,7 +104,7 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
         {
             await Task.Run(async () =>
                 {
-                    var db = _dataService.CreateContext();
+                    await using var db = _dataService.CreateContext();
                     var appliedMessage = await _dataService.GetAppliedMigrationsAsync(db, ctTotal.Token);
                     ProcessMigrationResult(appliedMessage, MigrationStatus.Applied);
                     var pendingMessage = await _dataService.GetPendingMigrationsAsync(db, ctTotal.Token);

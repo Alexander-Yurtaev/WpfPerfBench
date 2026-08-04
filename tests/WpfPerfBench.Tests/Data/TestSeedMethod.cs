@@ -1,7 +1,7 @@
 ﻿using WpfPerfBench.Data;
-using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Data.Services;
+using WpfPerfBench.Interfaces.Managers;
 using WpfPerfBench.SeedMethods;
 using WpfPerfBench.Services;
 
@@ -12,21 +12,26 @@ public class TestSeedMethod : SeedMethodBase
     public TestSeedMethod(
         IDataService dataService, 
         IGeneratorService generatorService, 
-        IMessageService messageService) : base(dataService, generatorService, messageService)
+        IMessageService messageService,
+        INavigationService navigationService) 
+        : base(dataService, generatorService, messageService, navigationService)
     {
     }
 
     #region Overrides of SeedMethodBase
 
-    protected override async Task<ResultBase> Prepare(IWpfPerfBenchContext db, CancellationToken ct)
+    protected override async Task<ResultBase> Seed(ISeedMethodMetricsRefresher metrics, CancellationToken ct)
+    {
+        await Prepare();
+        return await OnSeed();
+    }
+
+    private async Task<ResultBase> Prepare()
     {
         return await Task.FromResult(ResultBase.SuccessResult());
     }
 
-    protected override async Task<ResultBase> OnSeed(
-        IWpfPerfBenchContext db,
-        ISeedMethodMetricsRefresher metrics, 
-        CancellationToken ct)
+    private async Task<ResultBase> OnSeed()
     {
         return await Task.FromResult(ResultBase.SuccessResult());
     }

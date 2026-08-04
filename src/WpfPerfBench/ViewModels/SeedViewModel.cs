@@ -45,6 +45,7 @@ public class SeedViewModel : ViewModelBase, ISeedViewModel, ILoadable
         foreach (var seedMethod in seedMethods)
         {
             var method = _seedMethodFactory.Create(seedMethod);
+            if (SeedMethods.Any(m => m.Title == method.Title)) continue;
             SeedMethods.Add(method);
         }
     }

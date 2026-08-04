@@ -15,7 +15,7 @@
         Style="{StaticResource MainWindowStyle}"
         Height="985" Width="950"
         WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance Type=designViewModels:DesignMainWindow, IsDesignTimeCreatable=True}">
+        d:DataContext="{d:DesignInstance Type=designViewModels:DesignMainWindowViewModel, IsDesignTimeCreatable=True}">
 
     <b:Interaction.Behaviors>
         <behaviors:DragMoveBehavior/>
@@ -36,10 +36,10 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <controls:Header Grid.Row="0" 
-                             DataContext="{Binding Header}"
-                             Padding="25"/>
+                                 DataContext="{Binding Header}"
+                                 Padding="25"/>
                 <ContentControl Grid.Row="1" 
-                                Content="{Binding CurrentViewModel}"
+                                Content="{Binding NavigationService.CurrentViewModel}"
                                 Validation.ErrorTemplate="{x:Null}">
                     <ContentControl.Resources>
                         <DataTemplate DataType="{x:Type viewModels:InitViewModel}">
@@ -60,13 +60,13 @@
                     Style="{StaticResource FooterBorderStyle}">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Content="Назад"
-                                Command="{Binding PrevCommand}"
+                                Command="{Binding NavigationService.NavigatePrevCommand}"
                                 Style="{StaticResource SecondaryBtnStyle}"/>
                         <controls:Pager DataContext="{Binding NavigationService}"
                                         VerticalAlignment="Center"
                                         Margin="6 0"/>
                         <Button Content="Далее"
-                                Command="{Binding NextCommand}"
+                                Command="{Binding NavigationService.NavigateNextCommand}"
                                 IsDefault="False"
                                 Style="{StaticResource PrimaryBtnStyle}"/>
                     </StackPanel>

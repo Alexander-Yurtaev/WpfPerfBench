@@ -12,7 +12,7 @@
              xmlns:gmap="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="450"
+             d:DesignWidth="950" d:DesignHeight="791.38"
              d:DataContext="{d:DesignInstance Type=designViewModels:DesignStandViewModel, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>

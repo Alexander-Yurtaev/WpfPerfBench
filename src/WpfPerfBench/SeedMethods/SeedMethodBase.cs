@@ -2,9 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using WpfPerfBench.Core.Enums;
 using WpfPerfBench.Data;
-using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Data.Services;
+using WpfPerfBench.Interfaces.Managers;
 using WpfPerfBench.Services;
 using WpfPerfBench.Wrappers;
 
@@ -15,16 +15,19 @@ public abstract partial class SeedMethodBase : ObservableObject
     protected readonly IDataService DataService;
     protected readonly IGeneratorService GeneratorService;
     protected readonly IMessageService MessageService;
+    private readonly INavigationService _navigationService;
     protected CancellationTokenSource? TokenSource;
 
     protected SeedMethodBase(
         IDataService dataService,
         IGeneratorService generatorService,
-        IMessageService messageService)
+        IMessageService messageService,
+        INavigationService navigationService)
     {
         DataService = dataService;
         GeneratorService = generatorService;
         MessageService = messageService;
+        _navigationService = navigationService;
 
         var metrics = new SeedMethodMetrics();
         MethodMetrics = new SeedMethodMetricsWrapper(metrics);
@@ -44,48 +47,58 @@ public abstract partial class SeedMethodBase : ObservableObject
     [RelayCommand]
     private async Task Seed()
     {
-        if (TokenSource != null)
+        _navigationService.Block();
+
+        try
         {
-            await TokenSource.CancelAsync();
+            MethodMetrics.Clean();
+
+            if (TokenSource != null)
+            {
+                await TokenSource.CancelAsync();
+            }
+
+            TokenSource = new CancellationTokenSource();
+            CancelCommand.NotifyCanExecuteChanged();
+
+            this.Status = SeedStatus.Processing;
+
+            MethodMetrics.UpdateMemoryBefore(true);
+            MethodMetrics.Start();
+
+            var result = await Seed(MethodMetrics, TokenSource.Token);
+
+            MethodMetrics.Stop();
+            MethodMetrics.UpdateMemoryAfter(true);
+
+            switch (result)
+            {
+                case SuccessResult _:
+                    this.Status = SeedStatus.Finished;
+                    MessageService.ShowSuccessMessage(this.Title, "Данные загружены.");
+                    break;
+                case FailResult failResult:
+                    this.Status = SeedStatus.Failed;
+                    MessageService.ShowErrorMessage(failResult.Message);
+                    break;
+                case CancelResult cancelResult:
+                    this.Status = SeedStatus.Canceled;
+                    MessageService.ShowWarningMessage(cancelResult.Message);
+                    break;
+            }
         }
-
-        TokenSource = new CancellationTokenSource();
-        CancelCommand.NotifyCanExecuteChanged();
-        
-        this.Status = SeedStatus.Processing;
-
-        MethodMetrics.UpdateMemoryBefore(true);
-        MethodMetrics.Start();
-
-        var result = await Seed(MethodMetrics, TokenSource.Token);
-
-        MethodMetrics.Stop();
-        MethodMetrics.UpdateMemoryAfter(true);
-
-        switch (result)
+        catch (Exception e)
         {
-            case SuccessResult _:
-                this.Status = SeedStatus.Finished;
-                MessageService.ShowSuccessMessage(this.Title, "Данные загружены.");
-                break;
-            case FailResult failResult:
-                this.Status = SeedStatus.Failed;
-                MessageService.ShowErrorMessage(failResult.Message);
-                break;
-            case CancelResult cancelResult:
-                this.Status = SeedStatus.Canceled;
-                MessageService.ShowWarningMessage(cancelResult.Message);
-                break;
+            Console.WriteLine(e);
+            MessageService.ShowWarningMessage(e.GetBaseException().Message);
+        }
+        finally
+        {
+            _navigationService.UnBlock();
         }
     }
 
-    private async Task<ResultBase> Seed(ISeedMethodMetricsRefresher metrics, CancellationToken ct)
-    {
-        var db = DataService.CreateContext();
-        var result = await Prepare(db, ct);
-        if (result is FailResult failResult) return failResult;
-        return await OnSeed(db, metrics, ct);
-    }
+    protected abstract Task<ResultBase> Seed(ISeedMethodMetricsRefresher metrics, CancellationToken ct);
 
     [RelayCommand(CanExecute = nameof(CanCancel))]
     private async Task Cancel()
@@ -95,8 +108,4 @@ public abstract partial class SeedMethodBase : ObservableObject
     }
 
     private bool CanCancel => TokenSource is not null;
-
-    protected abstract Task<ResultBase> Prepare(IWpfPerfBenchContext db, CancellationToken ct);
-
-    protected abstract Task<ResultBase> OnSeed(IWpfPerfBenchContext db, ISeedMethodMetricsRefresher metrics, CancellationToken ct);
 }

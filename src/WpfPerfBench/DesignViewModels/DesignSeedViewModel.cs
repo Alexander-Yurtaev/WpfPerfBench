@@ -12,6 +12,7 @@ public class DesignSeedViewModel : SeedViewModel
 
     protected override void FillSeedMethods()
     {
-        SeedMethods.Add(new ItemsAddRangeMethod(null, null, null));
+        SeedMethods.Add(new ItemsAddRangeMethod(null, null, null, null));
+        SeedMethods.Add(new ParallelItemsAddRangeMethod(null, null, null, null));
     }
 }

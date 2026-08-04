@@ -1,6 +1,6 @@
-﻿using WpfPerfBench.Core.Enums;
+﻿using CommunityToolkit.Mvvm.Input;
+using WpfPerfBench.Core.Enums;
 using WpfPerfBench.Interfaces.ViewModels;
-using WpfPerfBench.Managers;
 
 namespace WpfPerfBench.Interfaces.Managers;
 
@@ -8,17 +8,20 @@ public interface INavigationService
 {
     Page CurrentPage { get; set; }
 
+    IViewModelBase? CurrentViewModel { get; set; }
+
     int TotalPages { get; }
-
-    event EventHandler<NavigateEventArgs>? OnNavigate;
-
-    void NavigatePrev();
-
-    void NavigateNext();
 
     void AddPage(Page page, Func<IViewModelBase> factory);
 
-    bool CanNext();
+    void AllowPrev(bool allow);
+    void AllowNext(bool allow);
 
-    bool CanPrev();
+    void Block();
+    
+    void UnBlock();
+
+    RelayCommand NavigatePrevCommand { get; }
+    RelayCommand NavigateNextCommand { get; }
+    void RefreshCommands();
 }

@@ -8,8 +8,14 @@
              xmlns:controls="clr-namespace:WpfPerfBench.Controls"
              xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="811.43" d:DesignWidth="504"
+             d:DesignWidth="950" d:DesignHeight="791.38"
              d:DataContext="{d:DesignInstance Type=designViewModels:DesignSeedViewModel, IsDesignTimeCreatable=True}">
+
+    <UserControl.Resources>
+        <Style TargetType="controls:SeedMethodItem">
+            <Setter Property="Margin" Value="0 0 0 12"/>
+        </Style>
+    </UserControl.Resources>
 
     <Border behaviors:LoadActivator.IsActive="True"
             Style="{DynamicResource CardBorderStyle}">

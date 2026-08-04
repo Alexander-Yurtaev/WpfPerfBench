@@ -7,7 +7,7 @@
              xmlns:behaviors="clr-namespace:WpfPerfBench.Behaviors"
              xmlns:designViewModels="clr-namespace:WpfPerfBench.DesignViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="811.43" d:DesignWidth="504"
+             d:DesignWidth="950" d:DesignHeight="791.38"
              d:DataContext="{d:DesignInstance Type=designViewModels:DesignInitViewModel, IsDesignTimeCreatable=True}">
 
     <Border Style="{DynamicResource CardBorderStyle}">

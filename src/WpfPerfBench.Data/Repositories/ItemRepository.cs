@@ -37,8 +37,8 @@ public class ItemRepository : IItemRepository
         {
             var entities = _mapper.Map<List<Entities.Item>>(items);
             db.Items.AddRange(entities);
-            metrics.UpdateProcessedItemCount(entities.Count);
             await db.SaveChangesAsync(ct);
+            metrics.AddProcessedItemCount(entities.Count);
         }, ct);
     }
 
