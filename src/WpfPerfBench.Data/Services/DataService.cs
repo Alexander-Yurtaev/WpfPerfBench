@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using WpfPerfBench.Data.DataContexts;
 using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Data.Models;
@@ -111,6 +112,16 @@ public class DataService : IDataService
         {
             await db.Database.MigrateAsync(migrationName, ct);
             return ResultBase.SuccessResult();
+        }
+        catch (SystemException e) when (e is TaskCanceledException or OperationCanceledException)
+        {
+            Console.WriteLine(e);
+            return ResultBase.CancelResult($"Операция применения миграции '{migrationName}' отменена");
+        }
+        catch (SqlException e) when(e.ErrorCode == -2146232060)
+        {
+            Console.WriteLine(e);
+            return ResultBase.CancelResult($"Операция применения миграции '{migrationName}' отменена");
         }
         catch (Exception e)
         {

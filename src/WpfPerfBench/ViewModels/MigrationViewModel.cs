@@ -45,7 +45,13 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
         {
             await using var db = _dataService.CreateContext();
             var migrations = Items
-                .Where(i => i.Status == MigrationStatus.Pending);
+                .Where(i => i.Status is MigrationStatus.Pending or MigrationStatus.Skipped)
+                .ToArray();
+
+            foreach (var migration in migrations)
+            {
+                migration.Status = MigrationStatus.Pending;
+            }
 
             var isFailed = false;
             foreach (var migration in migrations)
@@ -57,28 +63,38 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
                 }
 
                 var result = await _dataService.Migrate(db, migration.Name, ct);
-                switch (result.Success)
+                switch (result)
                 {
-                    case true:
-                        migration.Status = MigrationStatus.Applied;
+                    case CancelResult cancelResult:
+                        migration.Status = MigrationStatus.Skipped;
+                        isFailed = true;
+                        _messageService.ShowWarningMessage(cancelResult.Message);
                         break;
-                    case false:
+                    case FailResult failResult:
                         migration.Status = MigrationStatus.Failed;
                         isFailed = true;
-                        _messageService.ShowErrorMessage(result.Message);
+                        _messageService.ShowErrorMessage(failResult.Message);
+                        break;
+                    case SuccessResult _:
+                        migration.Status = MigrationStatus.Applied;
                         break;
                 }
             }
 
-            if (!isFailed)
+            if (migrations.All(m => m.Status == MigrationStatus.Applied))
             {
                 _messageService.ShowSuccessMessage("Миграции применены!", "Вы можете продолжить работу.");
             }
         }
+        catch (SystemException e) when (e is TaskCanceledException or OperationCanceledException)
+        {
+            Console.WriteLine(e);
+            _messageService.ShowWarningMessage("Применение миграций отменено");
+        }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw;
+            _messageService.ShowErrorMessage(e.Message);
         }
         finally
         {
@@ -87,7 +103,8 @@ public partial class MigrationViewModel : ViewModelBase, IMigrationViewModel, IL
         }
     }
 
-    private bool CanApplyMigrations() => Items.Any(i => i.Status == MigrationStatus.Pending);
+    private bool CanApplyMigrations() => Items.Any(i => i.Status is MigrationStatus.Pending or
+                                                        MigrationStatus.Skipped);
 
     #region Implementation of ILoadableAsync
 
