@@ -57,6 +57,8 @@ public class NavigationServiceTests : IClassFixture<NavigationServiceFixture>
             if (page == Page.None) continue;
             _service.NavigateNextCommand.Execute(null);
             _service.CurrentPage.Should().Be(page);
+            _service.CurrentViewModel.Should().NotBeNull();
+            _service.CurrentViewModel.GetType().Name.Should().Contain($"{page}ViewModel");
         }
     }
 
@@ -71,6 +73,8 @@ public class NavigationServiceTests : IClassFixture<NavigationServiceFixture>
 
         // Assert
         _service.CurrentPage.Should().Be(Page.Stand);
+        _service.CurrentViewModel.Should().NotBeNull();
+        _service.CurrentViewModel.GetType().Name.Should().Contain($"{Page.Stand}ViewModel");
     }
 
     [Fact]
@@ -84,6 +88,8 @@ public class NavigationServiceTests : IClassFixture<NavigationServiceFixture>
 
         // Assert
         _service.CurrentPage.Should().Be(Page.Init);
+        _service.CurrentViewModel.Should().NotBeNull();
+        _service.CurrentViewModel.GetType().Name.Should().Contain($"{Page.Init}ViewModel");
     }
 
     [Fact]
