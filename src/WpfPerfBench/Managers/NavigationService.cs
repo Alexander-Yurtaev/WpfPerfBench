@@ -104,7 +104,7 @@ public partial class NavigationService : ObservableObject, INavigationService
         var firstPage = Enum.GetValues<Page>()
             .Where(p => p != Page.None)
             .FirstOrDefault(Page.None);
-        return firstPage != Page.None && CurrentPage != firstPage;
+        return firstPage != Page.None && CurrentPage > firstPage;
     }
 
     private bool CanNext()
@@ -112,7 +112,7 @@ public partial class NavigationService : ObservableObject, INavigationService
         var lastPage = Enum.GetValues<Page>()
             .Where(p => p != Page.None)
             .LastOrDefault(Page.None);
-        return lastPage != Page.None && CurrentPage != lastPage;
+        return lastPage != Page.None && CurrentPage < lastPage;
     }
 
     private bool GetAllowPrev() => _allowed.GetValueOrDefault(NavigationType.Prev, true);

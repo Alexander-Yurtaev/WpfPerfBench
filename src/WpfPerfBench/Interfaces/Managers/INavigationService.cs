@@ -9,7 +9,7 @@ public interface INavigationService
     Page CurrentPage { get; set; }
 
     IViewModelBase? CurrentViewModel { get; set; }
-
+    int CurrentPageNumber { get; }
     int TotalPages { get; }
 
     void AddPage(Page page, Func<IViewModelBase> factory);
