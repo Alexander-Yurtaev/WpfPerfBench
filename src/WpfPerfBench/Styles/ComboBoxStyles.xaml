@@ -1,6 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <Style TargetType="ToggleButton">
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+    </Style>
+
     <Style x:Key="RoundedComboBoxStyle" TargetType="ComboBox">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Segoe UI, Tahoma, sans-serif"/>
