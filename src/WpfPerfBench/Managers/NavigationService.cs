@@ -121,8 +121,7 @@ public partial class NavigationService : ObservableObject, INavigationService
     partial void OnCurrentPageChanged(Page value)
     {
         OnPropertyChanged(nameof(CurrentPageNumber));
-        var factory = _factories.GetValueOrDefault(value, null);
-        if (factory is null) return;
+        if (!_factories.TryGetValue(value, out var factory)) return;
         CurrentViewModel = factory();
         RefreshCommands();
     }
