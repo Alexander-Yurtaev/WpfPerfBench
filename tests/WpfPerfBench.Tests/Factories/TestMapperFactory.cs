@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging.Abstractions;
+using WpfPerfBench.WPF;
 
 namespace WpfPerfBench.Tests.Factories;
 

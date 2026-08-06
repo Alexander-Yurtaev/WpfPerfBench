@@ -2,10 +2,10 @@
 using Moq;
 using WpfPerfBench.Core.Interfaces;
 using WpfPerfBench.Data.Services;
-using WpfPerfBench.Factories;
-using WpfPerfBench.Interfaces.ViewModels;
 using WpfPerfBench.Tests.Data;
-using WpfPerfBench.ViewModels;
+using WpfPerfBench.WPF.Factories;
+using WpfPerfBench.WPF.Interfaces.ViewModels;
+using WpfPerfBench.WPF.ViewModels;
 
 namespace WpfPerfBench.Tests.ViewModels;
 

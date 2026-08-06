@@ -1,0 +1,72 @@
+﻿using System.Windows;
+using CommunityToolkit.Mvvm.Input;
+using WpfPerfBench.Core.Enums;
+using WpfPerfBench.WPF.Commands;
+using WpfPerfBench.WPF.ViewModels.Dialogs;
+using WpfPerfBench.WPF.Views;
+
+namespace WpfPerfBench.WPF.Services;
+
+public class MessageService : IMessageService
+{
+    private readonly Func<ModalDialog> _dialogFactory;
+    private readonly Dictionary<MessageType, Func<object[], BaseDialog>> _dialogFactories = [];
+
+    public MessageService(Func<ModalDialog> dialogFactory)
+    {
+        _dialogFactory = dialogFactory;
+    }
+
+    #region Implementation of IMessageService
+
+    public void ShowErrorMessage(string message)
+    {
+        Application.Current.Dispatcher.Invoke(() => ShowDialog([message], MessageType.Error));
+    }
+
+    public void ShowInfoMessage(string header, string message)
+    {
+        Application.Current.Dispatcher.Invoke(() => ShowDialog([header, message], MessageType.Info));
+    }
+
+    public void ShowSuccessMessage(string header, string message)
+    {
+        Application.Current.Dispatcher.Invoke(() => ShowDialog([header, message], MessageType.Success));
+    }
+
+    public void ShowWarningMessage(string message)
+    {
+        Application.Current.Dispatcher.Invoke(() => ShowDialog([message], MessageType.Warning));
+    }
+
+    #endregion
+
+    public void AddDialogFactory(MessageType type, Func<object[], BaseDialog> factory)
+    {
+        _dialogFactories[type] = factory;
+    }
+
+    private void ShowDialog(object[] args, MessageType type)
+    {
+        if (_dialogFactories.TryGetValue(type, out var factory))
+        {
+            var dialog = _dialogFactory();
+            var dialogVm = factory(args);
+            var command = new RelayUICommand("Закрыть", CreateCloseCommand(dialog));
+            dialogVm.PrimaryCommand = command;
+            dialog.DataContext = dialogVm;
+            dialog.Owner = Application.Current.MainWindow;
+            dialog.ShowDialog();
+        }
+        else
+        {
+            throw new InvalidOperationException($"Необходимо зарегистрировать диалог: {MessageType.Error}Dialog");
+        }
+    }
+
+    public RelayCommand CreateCloseCommand(ModalDialog dialog)
+    {
+        var command = new RelayCommand(dialog.Close);
+        return command;
+    }
+}

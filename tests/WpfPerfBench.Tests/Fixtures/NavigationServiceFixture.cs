@@ -1,6 +1,6 @@
 ﻿using Moq;
 using WpfPerfBench.Core.Enums;
-using WpfPerfBench.Interfaces.ViewModels;
+using WpfPerfBench.WPF.Interfaces.ViewModels;
 
 namespace WpfPerfBench.Tests.Fixtures;
 

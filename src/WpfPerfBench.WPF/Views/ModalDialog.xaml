@@ -1,0 +1,85 @@
+﻿<Window x:Class="WpfPerfBench.WPF.Views.ModalDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors1="clr-namespace:WpfPerfBench.WPF.Behaviors"
+        xmlns:commands1="clr-namespace:WpfPerfBench.WPF.Commands"
+        xmlns:designViewModels1="clr-namespace:WpfPerfBench.WPF.DesignViewModels"
+        xmlns:converters1="clr-namespace:WpfPerfBench.WPF.Converters"
+        mc:Ignorable="d"
+        Title="{Binding}"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource ModalDialogStyle}"
+        d:DataContext="{d:DesignInstance Type=designViewModels1:DesignSuccessDialog, IsDesignTimeCreatable=True}">
+
+    <Window.Resources>
+        <converters1:NullableVisibleConverter x:Key="NullableVisibleConv"/>
+    </Window.Resources>
+
+    <b:Interaction.Behaviors>
+        <behaviors1:DragMoveBehavior/>
+    </b:Interaction.Behaviors>
+
+    <Border Style="{StaticResource ModalDialogBorderStyle}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="{Binding IconSource}"
+                   Width="80" Height="80"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Margin="0 0 0 12"/>
+            <TextBlock Grid.Row="1" Text="{Binding Header}"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="{DynamicResource TextPrimary}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       Margin="0 0 0 8"/>
+            <TextBlock Grid.Row="2"
+                       Text="{Binding Description}"
+                       FontSize="15"
+                       Foreground="{DynamicResource TextSecondary}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       Margin="0 0 0 20"
+                       LineHeight="22"
+                       TextWrapping="WrapWithOverflow"
+                       MaxWidth="400"/>
+            <StackPanel Grid.Row="3"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <ContentControl Content="{Binding SecondaryCommand}"
+                                Visibility="{Binding SecondaryCommand, Converter={StaticResource NullableVisibleConv}}">
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate DataType="{x:Type commands1:RelayUICommand}">
+                            <Button Content="{Binding Title}"
+                                    Command="{Binding Command}"
+                                    Style="{StaticResource SecondaryBtnStyle}"/>
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>                    
+                </ContentControl>
+                <Border Width="12" 
+                        Visibility="{Binding SecondaryCommand, Converter={StaticResource NullableVisibleConv}}"/>
+                <ContentControl Content="{Binding PrimaryCommand}"
+                                Visibility="{Binding PrimaryCommand, Converter={StaticResource NullableVisibleConv}}">
+                    <ContentControl.ContentTemplate>
+                        <DataTemplate DataType="{x:Type commands1:RelayUICommand}">
+                            <Button Content="{Binding Title}"
+                                    Command="{Binding Command}"
+                                    IsDefault="False"
+                                    Style="{StaticResource PrimaryBtnStyle}"/>
+                        </DataTemplate>
+                    </ContentControl.ContentTemplate>
+                </ContentControl>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

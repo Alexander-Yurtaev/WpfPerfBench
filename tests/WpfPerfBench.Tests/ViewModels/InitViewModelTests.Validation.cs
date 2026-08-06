@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
-using System.Security;
 using WpfPerfBench.Core.Helpers;
+using WpfPerfBench.WPF.ViewModels;
 
 namespace WpfPerfBench.Tests.ViewModels;
 
@@ -19,7 +19,7 @@ public partial class InitViewModelTests
         var count = 0;
         _propertyChangedViewModel.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(WpfPerfBench.ViewModels.InitViewModel.Fio))
+            if (args.PropertyName == nameof(InitViewModel.Fio))
             {
                 count++;
             }
@@ -43,7 +43,7 @@ public partial class InitViewModelTests
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Fio));
+        var errors = (List<string>)ViewModel.GetErrors(nameof(InitViewModel.Fio));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("ФИО обязательно для заполнения");
     }
@@ -58,7 +58,7 @@ public partial class InitViewModelTests
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Fio));
+        var errors = (List<string>)ViewModel.GetErrors(nameof(InitViewModel.Fio));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("ФИО должно содержать минимум 3 символа");
     }
@@ -73,7 +73,7 @@ public partial class InitViewModelTests
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Fio));
+        var errors = (List<string>)ViewModel.GetErrors(nameof(InitViewModel.Fio));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Введите ФИО полностью (Имя и Фамилию)");
     }
@@ -103,7 +103,7 @@ public partial class InitViewModelTests
         var count = 0;
         _propertyChangedViewModel.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(WpfPerfBench.ViewModels.InitViewModel.Email))
+            if (args.PropertyName == nameof(InitViewModel.Email))
             {
                 count++;
             }
@@ -127,7 +127,7 @@ public partial class InitViewModelTests
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Email));
+        var errors = (List<string>)ViewModel.GetErrors(nameof(InitViewModel.Email));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Email обязателен для заполнения");
     }
@@ -145,7 +145,7 @@ public partial class InitViewModelTests
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Email));
+        var errors = (List<string>)ViewModel.GetErrors(nameof(InitViewModel.Email));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Некорректный формат email");
     }
@@ -162,7 +162,7 @@ public partial class InitViewModelTests
         var count = 0;
         _propertyChangedViewModel.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(WpfPerfBench.ViewModels.InitViewModel.Password))
+            if (args.PropertyName == nameof(InitViewModel.Password))
             {
                 count++;
             }
@@ -187,7 +187,7 @@ public partial class InitViewModelTests
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
+        var errors = (List<string>)ViewModel.GetErrors(nameof(InitViewModel.Password));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Пароль обязателен для заполнения");
     }
@@ -209,7 +209,7 @@ public partial class InitViewModelTests
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
+        var errors = (List<string>)ViewModel.GetErrors(nameof(InitViewModel.Password));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Пароль должен содержать минимум 8 символов");
     }
@@ -225,7 +225,7 @@ public partial class InitViewModelTests
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
+        var errors = (List<string>)ViewModel.GetErrors(nameof(InitViewModel.Password));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Пароль должен содержать хотя бы одну цифру");
     }
@@ -241,7 +241,7 @@ public partial class InitViewModelTests
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.Password));
+        var errors = (List<string>)ViewModel.GetErrors(nameof(InitViewModel.Password));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Пароль должен содержать хотя бы одну заглавную букву");
     }
@@ -258,7 +258,7 @@ public partial class InitViewModelTests
         var count = 0;
         _propertyChangedViewModel.PropertyChanged += (_, args) =>
         {
-            if (args.PropertyName == nameof(WpfPerfBench.ViewModels.InitViewModel.ConfirmPassword))
+            if (args.PropertyName == nameof(InitViewModel.ConfirmPassword))
             {
                 count++;
             }
@@ -284,7 +284,7 @@ public partial class InitViewModelTests
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.ConfirmPassword));
+        var errors = (List<string>)ViewModel.GetErrors(nameof(InitViewModel.ConfirmPassword));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Подтверждение пароля обязательно");
     }
@@ -300,7 +300,7 @@ public partial class InitViewModelTests
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.ConfirmPassword));
+        var errors = (List<string>)ViewModel.GetErrors(nameof(InitViewModel.ConfirmPassword));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("Пароли не совпадают");
     }
@@ -319,7 +319,7 @@ public partial class InitViewModelTests
 
         // Assert
         ViewModel.HasErrors.Should().BeTrue();
-        var errors = (List<string>)ViewModel.GetErrors(nameof(WpfPerfBench.ViewModels.InitViewModel.ConnectionString));
+        var errors = (List<string>)ViewModel.GetErrors(nameof(InitViewModel.ConnectionString));
         errors.Count.Should().Be(1);
         errors[0].Should().Be("ConnectionString обязательно для заполнения");
     }

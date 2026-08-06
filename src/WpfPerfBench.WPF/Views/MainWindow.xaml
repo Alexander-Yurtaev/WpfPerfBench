@@ -1,0 +1,76 @@
+﻿<Window x:Class="WpfPerfBench.WPF.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:behaviors1="clr-namespace:WpfPerfBench.WPF.Behaviors"
+        xmlns:controls1="clr-namespace:WpfPerfBench.WPF.Controls"
+        xmlns:designViewModels1="clr-namespace:WpfPerfBench.WPF.DesignViewModels"
+        xmlns:viewModels1="clr-namespace:WpfPerfBench.WPF.ViewModels"
+        xmlns:views1="clr-namespace:WpfPerfBench.WPF.Views"
+        mc:Ignorable="d"
+        Title="WPF Performance Demo" 
+        Style="{StaticResource MainWindowStyle}"
+        Height="985" Width="950"
+        WindowStartupLocation="CenterScreen"
+        d:DataContext="{d:DesignInstance Type=designViewModels1:DesignMainWindowViewModel, IsDesignTimeCreatable=True}">
+
+    <b:Interaction.Behaviors>
+        <behaviors1:DragMoveBehavior/>
+    </b:Interaction.Behaviors>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close"
+                        Executed="CloseCommandHandler" />
+    </Window.CommandBindings>
+
+    <controls1:BusyIndicator IsBusy="{Binding BusyManager.IsBusy}"
+                            ContentIndicator="{Binding BusyManager.ContentIndicator}">
+        <Border Style="{DynamicResource WindowBorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <controls1:Header Grid.Row="0" 
+                                 DataContext="{Binding Header}"
+                                 Padding="25"/>
+                <ContentControl Grid.Row="1" 
+                                Content="{Binding NavigationService.CurrentViewModel}"
+                                Validation.ErrorTemplate="{x:Null}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type viewModels1:InitViewModel}">
+                            <views1:InitView />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels1:MigrationViewModel}">
+                            <views1:MigrationView />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels1:SeedViewModel}">
+                            <views1:SeedView />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels1:StandViewModel}">
+                            <views1:StandView />
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+                <Border Grid.Row="2"
+                    Style="{StaticResource FooterBorderStyle}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Назад"
+                                Command="{Binding NavigationService.NavigatePrevCommand}"
+                                Style="{StaticResource SecondaryBtnStyle}"/>
+                        <controls1:Pager DataContext="{Binding NavigationService}"
+                                        VerticalAlignment="Center"
+                                        Margin="6 0"/>
+                        <Button Content="Далее"
+                                Command="{Binding NavigationService.NavigateNextCommand}"
+                                IsDefault="False"
+                                Style="{StaticResource PrimaryBtnStyle}"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+    </controls1:BusyIndicator>
+</Window>

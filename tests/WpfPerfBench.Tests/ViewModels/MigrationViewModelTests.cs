@@ -4,8 +4,8 @@ using WpfPerfBench.Core.Enums;
 using WpfPerfBench.Core.Interfaces;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.DataContexts;
-using WpfPerfBench.Interfaces;
-using WpfPerfBench.Interfaces.ViewModels;
+using WpfPerfBench.WPF.Interfaces.ViewModels;
+using WpfPerfBench.WPF.ViewModels;
 
 namespace WpfPerfBench.Tests.ViewModels;
 
@@ -14,7 +14,7 @@ public class MigrationViewModelTests : PageViewModelTestsBase<IMigrationViewMode
 
     public MigrationViewModelTests()
     {
-        ViewModel = new WpfPerfBench.ViewModels.MigrationViewModel(
+        ViewModel = new MigrationViewModel(
             NavigationServiceMock.Object,
             UserSessionMock.Object,
             DataServiceMock.Object,

@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:busyIndicators1="clr-namespace:WpfPerfBench.WPF.Controls.BusyIndicators"
+                    xmlns:contentIndicators1="clr-namespace:WpfPerfBench.WPF.Controls.ContentIndicators"
+                    xmlns:controls1="clr-namespace:WpfPerfBench.WPF.Controls">
+
+    <Style TargetType="{x:Type controls1:BusyIndicator}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls1:BusyIndicator}">
+                    <Grid x:Name="PART_Root">
+                        <!-- Основной контент -->
+                        <ContentPresenter x:Name="PART_ContentPresenter" />
+
+                        <!-- Оверлей с индикатором -->
+                        <Grid x:Name="PART_Overlay" 
+                              Visibility="Collapsed" 
+                              Background="{DynamicResource BgBusyOverlay}"
+                              Opacity="1">
+
+                            <ContentControl Content="{TemplateBinding ContentIndicator}"/>
+
+                        </Grid>
+                    </Grid>
+
+                    <!-- Триггеры видимости оверлея -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsBusy" Value="True">
+                            <Setter TargetName="PART_Overlay" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsBusy" Value="False">
+                            <Setter TargetName="PART_Overlay" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="StandardBusyOverlay"
+           TargetType="Grid">
+    </Style>
+
+    <DataTemplate DataType="{x:Type contentIndicators1:StandardContentIndicator}">
+        <busyIndicators1:StandardBusyIndicator/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type contentIndicators1:ProgressContentIndicator}">
+        <busyIndicators1:ProgressBusyIndicator/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type contentIndicators1:LargeContentIndicator}">
+        <busyIndicators1:LargeBusyIndicator/>
+    </DataTemplate>
+
+</ResourceDictionary>

@@ -2,9 +2,9 @@
 using WpfPerfBench.Core.Interfaces;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Services;
-using WpfPerfBench.Interfaces.Managers;
-using WpfPerfBench.Interfaces.ViewModels;
-using WpfPerfBench.Services;
+using WpfPerfBench.WPF.Interfaces.Managers;
+using WpfPerfBench.WPF.Interfaces.ViewModels;
+using WpfPerfBench.WPF.Services;
 
 namespace WpfPerfBench.Tests.ViewModels;
 

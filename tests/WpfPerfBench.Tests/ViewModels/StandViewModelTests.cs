@@ -3,8 +3,8 @@ using Moq;
 using WpfPerfBench.Core.Interfaces;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Models;
-using WpfPerfBench.Interfaces.ViewModels;
-using WpfPerfBench.ViewModels;
+using WpfPerfBench.WPF.Interfaces.ViewModels;
+using WpfPerfBench.WPF.ViewModels;
 
 namespace WpfPerfBench.Tests.ViewModels;
 

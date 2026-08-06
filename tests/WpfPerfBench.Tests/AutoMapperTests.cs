@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
 using WpfPerfBench.Data.Services;
+using WpfPerfBench.WPF;
 
 namespace WpfPerfBench.Tests;
 

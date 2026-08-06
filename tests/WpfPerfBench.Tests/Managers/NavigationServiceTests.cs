@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using WpfPerfBench.Core.Enums;
-using WpfPerfBench.Interfaces.Managers;
-using WpfPerfBench.Managers;
 using WpfPerfBench.Tests.Fixtures;
+using WpfPerfBench.WPF.Interfaces.Managers;
+using WpfPerfBench.WPF.Managers;
 
 namespace WpfPerfBench.Tests.Managers;
 

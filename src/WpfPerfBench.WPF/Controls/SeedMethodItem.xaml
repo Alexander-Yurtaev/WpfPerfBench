@@ -1,0 +1,158 @@
+﻿<UserControl x:Class="WpfPerfBench.WPF.Controls.SeedMethodItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:enum="clr-namespace:WpfPerfBench.Core.Enums;assembly=WpfPerfBench.Core"
+             xmlns:controls="clr-namespace:WpfPerfBench.WPF.Controls"
+             xmlns:converters1="clr-namespace:WpfPerfBench.WPF.Converters"
+             xmlns:designViewModels1="clr-namespace:WpfPerfBench.WPF.DesignViewModels"
+             mc:Ignorable="d" 
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance Type=designViewModels1:DesignSeedMethodItem, IsDesignTimeCreatable=True}">
+
+    <UserControl.Resources>
+        <converters1:SeedStatusToVisibilityConverter x:Key="SeedStatusToVisibilityConv"/>
+        <converters1:BytesToFormatStringConverter x:Key="BytesToFormatStringConv"/>
+        
+        <Style x:Key="SeedMethodStyle"
+               TargetType="Border">
+            <Setter Property="Background" Value="{DynamicResource BgSecondary}"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="20 16"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+        </Style>
+
+        <Style x:Key="MethodHeaderStyle" TargetType="Grid">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 0 0 8"/>
+        </Style>
+
+        <Style x:Key="MethodNameStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+
+        <Style x:Key="MethodDescStyle"
+               TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0 0 0 12"/>
+        </Style>
+
+        <Style x:Key="MethodControlsStyle"
+               TargetType="Grid">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="MethodProgressStyle"
+               TargetType="StackPanel">
+            <Setter Property="MinWidth" Value="150"/>
+            <Setter Property="Margin" Value="0 0 20 0"/>
+        </Style>
+
+        <Style x:Key="ProgressLabelStyle"
+               TargetType="Label">
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0 4 0 0"/>
+        </Style>
+
+        <Style x:Key="ProgressTextBlockStyle"
+               TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Margin" Value="0 4 0 0"/>
+            <Setter Property="Padding" Value="4 0 0 0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <DataTemplate DataType="{x:Type enum:SeedStatus}">
+            <controls:SeedStatus/>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Border Style="{StaticResource SeedMethodStyle}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Style="{StaticResource MethodHeaderStyle}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" 
+                           Text="{Binding Title}"
+                           Style="{StaticResource MethodNameStyle}"/>
+                <ContentControl Grid.Column="1"
+                                Content="{Binding Status}"/>
+            </Grid>
+            <TextBlock Grid.Row="1" 
+                           Text="{Binding Description}"
+                           Style="{StaticResource MethodDescStyle}"/>
+            <Grid Grid.Row="2"
+                  Style="{StaticResource MethodControlsStyle}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical"
+                            Style="{StaticResource MethodProgressStyle}">
+                    <ProgressBar Minimum="0" Maximum="100"
+                                 IsIndeterminate="{Binding MethodMetrics.IsIndeterminate}"
+                                 Style="{StaticResource BusyProgressBarStyle}"/>
+                    <StackPanel DataContext="{Binding MethodMetrics}"
+                                Orientation="Horizontal">
+                        <Label Style="{StaticResource ProgressLabelStyle}">
+                            <Run Text="{Binding ProcessedItemCount, StringFormat={}{0:N0}, Mode=OneWay}"/>
+                        </Label>
+                        <Label Style="{StaticResource ProgressLabelStyle}"
+                               Content=" / "/>
+                        <Label Style="{StaticResource ProgressLabelStyle}">
+                            <Run Text="{Binding TotalItemCount, StringFormat={}{0:N0}, Mode=OneWay}"/>
+                        </Label>
+                        <Label Style="{StaticResource ProgressLabelStyle}"
+                               Content=" | "/>
+                        <Image Source="pack://application:,,,/WpfPerfBench.WPF;component/Resources/Icons/clock.png"
+                               Margin="0 5 0 0"
+                               Style="{StaticResource FormImageStyle}" />
+                        <Label Style="{StaticResource ProgressLabelStyle}"
+                               Content="{Binding DurationString, Mode=OneWay}"/>
+                        <Label Style="{StaticResource ProgressLabelStyle}"
+                               Content=" | "/>
+                        <Image Source="pack://application:,,,/WpfPerfBench.WPF;component/Resources/Icons/cabinet.png"
+                               Margin="0 5 0 0"
+                               Style="{StaticResource FormImageStyle}"/>
+                        <TextBlock Style="{StaticResource ProgressTextBlockStyle}">
+                            <Run Text="{Binding MemoryBefore, Mode=OneWay, Converter={StaticResource BytesToFormatStringConv}}"/>
+                            <Run Text=" / "/>
+                            <Run Text="{Binding MemoryAfter, Mode=OneWay, Converter={StaticResource BytesToFormatStringConv}}"/>
+                        </TextBlock>
+                               
+                    </StackPanel>
+                </StackPanel>
+                <Button Grid.Column="1"
+                        Content="Старт"
+                        IsDefault="False"
+                        Style="{StaticResource PrimaryBtnStyle}"
+                        Command="{Binding SeedCommand}"
+                        Visibility="{Binding Status, Converter={StaticResource SeedStatusToVisibilityConv}, ConverterParameter={x:Static enum:SeedStatus.CanStart}}"/>
+                
+                <Button Grid.Column="1"
+                        Content="Стоп"
+                        IsDefault="False"
+                        Style="{StaticResource PrimaryBtnStyle}"
+                        Command="{Binding CancelCommand}"
+                        Visibility="{Binding Status, Converter={StaticResource SeedStatusToVisibilityConv}, ConverterParameter={x:Static enum:SeedStatus.Processing}}"/>
+            </Grid>
+        </Grid>
+
+    </Border>
+</UserControl>

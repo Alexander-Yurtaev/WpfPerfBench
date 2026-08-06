@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WpfPerfBench\WpfPerfBench.csproj" />
+    <ProjectReference Include="..\..\src\WpfPerfBench.WPF\WpfPerfBench.WPF.csproj" />
   </ItemGroup>
 
   <ItemGroup>

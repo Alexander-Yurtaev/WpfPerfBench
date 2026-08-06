@@ -1,9 +1,9 @@
 ﻿using WpfPerfBench.Data;
 using WpfPerfBench.Data.Metrics;
 using WpfPerfBench.Data.Services;
-using WpfPerfBench.Interfaces.Managers;
-using WpfPerfBench.SeedMethods;
-using WpfPerfBench.Services;
+using WpfPerfBench.WPF.Interfaces.Managers;
+using WpfPerfBench.WPF.SeedMethods;
+using WpfPerfBench.WPF.Services;
 
 namespace WpfPerfBench.Tests.Data;
 
@@ -26,9 +26,9 @@ public class TestSeedMethod : SeedMethodBase
         return await OnSeed();
     }
 
-    private async Task<ResultBase> Prepare()
+    private async Task Prepare()
     {
-        return await Task.FromResult(ResultBase.SuccessResult());
+        await Task.FromResult(ResultBase.SuccessResult());
     }
 
     private async Task<ResultBase> OnSeed()

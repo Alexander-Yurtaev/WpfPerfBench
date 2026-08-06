@@ -1,22 +1,19 @@
-﻿using Moq;
-using WpfPerfBench.Data.Repositories;
-using WpfPerfBench.Interfaces.Managers;
-using WpfPerfBench.Interfaces.ViewModels;
-using WpfPerfBench.Managers;
-using WpfPerfBench.ViewModels;
+﻿ using Moq;
+ using WpfPerfBench.WPF.Interfaces.Managers;
+using WpfPerfBench.WPF.Interfaces.ViewModels;
+using WpfPerfBench.WPF.Managers;
+using WpfPerfBench.WPF.ViewModels;
 
 namespace WpfPerfBench.Tests.ViewModels;
 
 public class MainWindowViewModelTests
 {
     private readonly MainWindowViewModel _viewModel;
-    private readonly NavigationService _navigationService;
 
     public MainWindowViewModelTests()
     {
-        _navigationService = new NavigationService();
-        var categoryRepositoryMock = new Mock<ICategoryRepository>();
-
+        var navigationService = new NavigationService();
+        
         var initViewModelMock = new Mock<Func<IInitViewModel>>();
         initViewModelMock.Setup(m => m.Invoke())
             .Returns(new Mock<IInitViewModel>().Object);
@@ -41,7 +38,7 @@ public class MainWindowViewModelTests
             migrationViewModelMock.Object,
             seedViewModelMock.Object,
             standViewModelMock.Object,
-            _navigationService,
+            navigationService,
             themeManagerMock.Object,
             busyManagerMock.Object);
     }
