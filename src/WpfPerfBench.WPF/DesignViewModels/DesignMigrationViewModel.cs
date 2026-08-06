@@ -7,7 +7,12 @@ namespace WpfPerfBench.WPF.DesignViewModels;
 public class DesignMigrationViewModel : MigrationViewModel
 {
     public DesignMigrationViewModel() 
-        : base(null!, null!, null!, null!, null!)
+        : base(
+            null!, 
+            null!, 
+            null!, 
+            null!, 
+            null!)
     {
         var itemPending = new MigrationItem("20260709162035_InitialPostgres")
         {
