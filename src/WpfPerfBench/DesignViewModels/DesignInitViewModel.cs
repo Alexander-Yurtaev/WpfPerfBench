@@ -13,14 +13,14 @@ public class DesignInitViewModel : InitViewModel
     public DesignInitViewModel() : base(
         new NavigationService(), 
         new UserSession(), 
-        null, 
+        null!, 
         new BusyManager(), 
-        null)
+        null!)
     {
         Fio = "Иванов Иван";
         Email = "ivan.ivanov@mail";
-        Password = SecurityHelpers.CreateSecureString("A1111111"); ;
-        ConfirmPassword = new SecureString();//SecurityHelpers.CreateSecureString("A1111111"); ;
+        Password = SecurityHelpers.CreateSecureString("A1111111");
+        ConfirmPassword = new SecureString();//SecurityHelpers.CreateSecureString("A1111111");
         DbTypes = [DataProvider.Postgres, DataProvider.SqlServer];
         DbType = DbTypes[0];
         ConnectionString = "ConnectionString";

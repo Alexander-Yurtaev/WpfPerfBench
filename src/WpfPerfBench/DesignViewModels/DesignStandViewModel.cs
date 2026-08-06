@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using WpfPerfBench.Core.Data;
 using WpfPerfBench.Core.Helpers;
-using WpfPerfBench.Core.Interfaces;
 using WpfPerfBench.Core.Managers;
 using WpfPerfBench.Data;
 using WpfPerfBench.Data.Models;
@@ -12,11 +11,11 @@ namespace WpfPerfBench.DesignViewModels;
 public class DesignStandViewModel : StandViewModel
 {
     public DesignStandViewModel() : base(
-        null, 
-        null, 
-        null, 
+        null!, 
+        null!, 
+        null!, 
         new UserSession(), 
-        null,
+        null!,
         new ConsoleManager())
     {
         Icon = "👋";
