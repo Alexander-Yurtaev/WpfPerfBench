@@ -7,8 +7,8 @@
              xmlns:models="clr-namespace:WpfPerfBench.Data.Models;assembly=WpfPerfBench.Data"
              xmlns:gmap="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:behaviors1="clr-namespace:WpfPerfBench.WPF.Behaviors"
-             xmlns:controls1="clr-namespace:WpfPerfBench.WPF.Controls"
+             xmlns:behaviors="clr-namespace:WpfPerfBench.WPF.Behaviors"
+             xmlns:controls="clr-namespace:WpfPerfBench.WPF.Controls"
              xmlns:designViewModels1="clr-namespace:WpfPerfBench.WPF.DesignViewModels"
              mc:Ignorable="d" 
              d:DesignWidth="950" d:DesignHeight="791.38"
@@ -65,7 +65,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid behaviors1:LoadActivator.IsActive="True">
+    <Grid behaviors:LoadActivator.IsActive="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -111,11 +111,11 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TreeView Grid.Row="0"
-                      Grid.Column="0"
-                      behaviors1:TreeViewHelper.IsActive="True"
+            <TreeView ItemContainerStyle="{DynamicResource TreeViewItemContainerStyle}" Grid.Column="0"
+                      Grid.Row="0"
+                      behaviors:TreeViewHelper.IsActive="True"
                       ItemsSource="{Binding TreeItems}"
-                      Style="{StaticResource TreeViewStyle}">
+                      Style="{DynamicResource TreeViewStyle}">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                         <TextBlock>
@@ -132,7 +132,9 @@
                     Background="{DynamicResource BgSecondary}">
                 <ListView x:Name="ItemsListView"
                           ItemsSource="{Binding Items}"
-                          Style="{StaticResource ItemsListViewStyle}">
+                          Style="{StaticResource ItemsListViewStyle}"
+                          VirtualizingPanel.IsVirtualizing="True"
+                          VirtualizingPanel.VirtualizationMode="Recycling">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -140,7 +142,7 @@
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate DataType="{x:Type models:Item}">
-                            <controls1:ItemRow />
+                            <controls:ItemRow />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
@@ -343,7 +345,7 @@
                     <TabItem Header="Карта">
                         <gmap:GMapControl>
                             <b:Interaction.Behaviors>
-                                <behaviors1:GMapListViewBehavior SelectedItem="{Binding ElementName=ItemsListView,
+                                <behaviors:GMapListViewBehavior SelectedItem="{Binding ElementName=ItemsListView,
                                                 Path=SelectedItem}"/>
                             </b:Interaction.Behaviors>
                         </gmap:GMapControl>
